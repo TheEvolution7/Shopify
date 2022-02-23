@@ -1,0 +1,31 @@
+{% paginate collection.products by 300 %}
+  <header class="s-header-collection">
+    <div class="s-header-filter" data-effect="heading">
+      <h3 class="f-st">{{ section.settings.heading }}</h3>
+      <h2 class="f-hl">{{ collection.title }}</h2>
+    </div>
+    <div class="s-header-background" data-background="#ffffff"></div>
+  </header>
+  <section class="s-collection">
+    <div class="s-collection-overview" data-cat="0">
+      {% for product in collection.products %}
+      <div class="s-collection-product" href="{{ product.url }}" data-cursor="more">
+        {% include 'product-card-list', product: product %}
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+{% endpaginate %}
+{% schema %}
+  {
+    "name": "Collection Page",
+    "settings": [
+			{
+              "type": "text",
+              "id": "heading",
+              "label": "Heading",
+              "default": "Collection"
+    		}
+    	]
+  }
+{% endschema %}

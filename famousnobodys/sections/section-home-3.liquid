@@ -1,0 +1,73 @@
+			<section class="s-banner">
+                <div class="s-banner-container a-right">
+                    <div class="s-banner-text" data-effect="block">
+                         <h3>{{ section.settings.heading }}</h3>
+                     	<a href="{{ section.settings.link }}">
+                        <h2>{{ section.settings.title }}</h2>
+                    	</a>
+                      {{ section.settings.description }}<div class="f-bp" onclick="location.href='{{ section.settings.link }}'"> <svg class="f-bp-arrow"
+                                viewBox="0 0 6 10">
+                                <path
+                                    d="M0,9.9C1.4,8.3,2.9,5.6,3.4,5C2.9,4.4,1.4,1.7,0,0.1L0.1,0C1.5,1.6,5.8,4.8,6,5 c-0.2,0.2-4.5,3.4-5.9,5L0,9.9z" />
+                            </svg> <i class="f-bp-label">{{ section.settings.button }}</i> <svg class="f-bp-arrow" viewBox="0 0 6 10">
+                                <path
+                                    d="M0,9.9C1.4,8.3,2.9,5.6,3.4,5C2.9,4.4,1.4,1.7,0,0.1L0.1,0C1.5,1.6,5.8,4.8,6,5 c-0.2,0.2-4.5,3.4-5.9,5L0,9.9z" />
+                            </svg> </div>
+                    </div>
+                    <div class="s-banner-figure">
+                        <div class="s-banner-src"> <img
+                                src="{{ section.settings.image-1 | img_url: '500x' }}"
+                                alt="{{ section.settings.image-1.alt }}"> </div>
+                        <div class="s-banner-src"> <img
+                                src="{{ section.settings.image-2 | img_url: '600x' }}" alt="{{ section.settings.image-2.alt }}">
+                        </div>
+                    </div>
+                    <div class="s-banner-background" data-background="#f6f4f2"></div>
+                </div>
+            </section>
+{% schema %}
+{
+  "name": "Our Ethos",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Ethos"
+    },
+	{
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Title"
+    },
+	{
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Our Identity was the cause, the brand was the effect.</p>"
+    },
+	{
+      "type": "text",
+      "id": "button",
+      "label": "Title Button",
+      "default": "About us"
+    },
+	{
+      "type": "url",
+      "id": "link",
+      "label": "Link"  
+    },
+	{
+       "type": "image_picker",
+       "id": "image-1",
+       "label": "Image 1"
+    },
+	{
+       "type": "image_picker",
+       "id": "image-2",
+       "label": "Image 2"
+     }
+  ] 
+}
+{% endschema %}

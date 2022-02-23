@@ -1,0 +1,45 @@
+ <div id="app" data-router-wrapper>
+         <div class="a-page" data-router-view="renderer">
+             <header class="s-header-collection">
+                 <!-- <div class="s-header-filter" data-effect="heading">
+                    
+                </div> -->
+                 <div style="padding-bottom: 10vw;"></div>
+                 <div class="s-header-background" style="background-color: #ffffff" data-background="#ffffff"></div>
+             </header>
+
+             <section class="form-login">
+                 <div class="login-container">
+                     <h2 class="form-title">ACCOUNT</h2>
+                      {%- assign formId = 'RegisterForm' -%}
+                      {% form 'create_customer', id: formId, novalidate: 'novalidate' %}
+                   			<input type="text"  class="f-ft" name="customer[first_name]" id="{{ formId }}-FirstName" {% if form.first_name %}value="{{ form.first_name }}"{% endif %}  placeholder="{{ 'customer.register.first_name' | t }}">
+                   			<input type="text" 	class="f-ft" name="customer[last_name]" id="{{ formId }}-LastName" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} placeholder="{{ 'customer.register.last_name' | t }}">
+							<input type="email" class="f-ft" name="customer[email]" id="{{ formId }}-email" {% if form.email %} value="{{ form.email }}"{% endif %} placeholder="{{ 'customer.register.email' | t }}" required>
+                   			<input type="password" class="f-ft" name="customer[password]" id="{{ formId }}-password" placeholder="{{ 'customer.register.password' | t }}">
+                         <div class="btn-res">
+                             By creating an account you agree to our <div class="link-a" onclick="location.href='/pages/terms-conditions'">Terms & Privacy.</div>
+                         </div>
+                         <button class="f-bp" type="submit"> <svg class="f-bp-arrow" viewBox="0 0 6 10"
+                                 style="opacity: 0; transform: translate(-48px, 0px);">
+                                 <path
+                                     d="M0,9.9C1.4,8.3,2.9,5.6,3.4,5C2.9,4.4,1.4,1.7,0,0.1L0.1,0C1.5,1.6,5.8,4.8,6,5 c-0.2,0.2-4.5,3.4-5.9,5L0,9.9z">
+                                 </path>
+                             </svg> <i class="f-bp-label" style="transform: translate(-24.0076px, 0px);">Submit</i> <svg
+                                 class="f-bp-arrow" viewBox="0 0 6 10"
+                                 style="opacity: 1; transform: translate(0px, 0px);">
+                                 <path
+                                     d="M0,9.9C1.4,8.3,2.9,5.6,3.4,5C2.9,4.4,1.4,1.7,0,0.1L0.1,0C1.5,1.6,5.8,4.8,6,5 c-0.2,0.2-4.5,3.4-5.9,5L0,9.9z">
+                                 </path>
+                             </svg>
+                         </button>
+                         <div class="btn-res">
+                             Already have an account? <div class="link-a" onclick="location.href='/account/login'">Login</div>
+                         </div>
+                     {% endform %}
+                 </div>
+
+             </section>
+             {% section 'footer' %}
+         </div>
+     </div>

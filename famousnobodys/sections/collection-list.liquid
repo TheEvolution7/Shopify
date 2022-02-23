@@ -1,0 +1,31 @@
+<div id="filter"> <button class="p-close">Close</button>
+        <h3 class="f-st"></h3>
+        <ul>
+            <li><a href="/collections/all" class="">All</a></li>
+           {% for block in section.blocks %}
+           {%- assign collection = collections[block.settings.collection] -%}
+            	<li><a href="{{ collection.url }}" {% if collection.active %}class="is-active"{% endif %}>{{ collection.title }}</a></li>
+           {% endfor  %} 
+           
+        </ul>
+    </div>
+{% schema %}
+  {
+    "name": "Collection List",
+    "settings": [
+    	],
+	"blocks": [
+      {
+        "type": "categories",
+        "name": "Collection",
+        "settings": [
+          {
+            "label": "Collection",
+            "id": "collection",
+            "type": "collection"
+          }
+        ]
+      }
+	]
+  }
+{% endschema %}

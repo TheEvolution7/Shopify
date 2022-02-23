@@ -1,0 +1,259 @@
+     <div id="app" data-router-wrapper>
+         <div class="a-page" data-router-view="renderer">
+             <header class="s-header-collection">
+                 <!-- <div class="s-header-filter" data-effect="heading">
+                    
+                </div> -->
+                 <div style="padding-bottom: 10vw;"></div>
+                 <div class="s-header-background" style="background-color: #ffffff" data-background="#ffffff"></div>
+             </header>
+
+             <div class="container no-border">
+                 <div class="row">
+                     <div class="col-md-4">
+                         <div class="user-left">
+                             <h2>Hello {{ customer.first_name }} {{ customer.last_name }}</h2>
+                             <ul>
+                                 <li><a href="/account">Dashboard</a></li>
+                                 <li class="active"><a href="#">Shipping Address</a></li>
+                                 <li><div onclick="location.href='/account/logout'">Log out</div></li>
+                             </ul>
+                         </div>
+                     </div>
+                     <div class="col-md-8">
+                        <div class="user-right">
+                            <div class="title-user">
+                               <h3>Shipping Address</h3>
+                               <p>Manage profile information for account security</p>
+                               
+                               {% for address in customer.addresses %}
+                                  {% if address == customer.default_address %}
+                                    <h5><strong>{{ 'customer.addresses.default' | t }}</strong></h5>
+                                    {% else %}
+                                        <h5><strong>Billing Address</strong></h5>
+                                    {% endif %}
+                              		 {{ address | format_address }}
+                              
+                               	<ul>
+               						<li>	
+                                        <form
+                                            method="post"
+                                            action="/account/addresses/{{ address.id }}"
+                                            data-confirm-message="{{ 'customer.addresses.delete_confirm' | t }}">
+                                            <input type="hidden" name="_method" value="delete" />
+                                            <button type="submit">
+                                              {{ 'customer.addresses.delete' | t }}
+                                            </button>
+                                         </form>
+                                    </li>
+                                    <li>
+                                      <button data-toggle="modal" data-target="#address-2">Edit</button>
+                                     
+                                      {% endfor %}
+                              
+                            </div>
+                            <a id="add-address" href="javascript:;" data-toggle="modal" data-target="#address-1">Add address</a>
+                             
+                        </div>
+                    </div>
+
+                 </div>
+             </div>
+             {% section 'footer' %}
+         </div>
+     </div>
+       
+
+       <style>
+         .form-profile label {
+         	width: 100%
+         }
+         .row .f-ft {
+           width: 100%;
+             margin: 15px 0
+         }
+       </style>
+<!-- Modal -->
+<div class="modal fade" id="address-1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      {% form 'customer_address', customer.new_address %}
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add address</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="form-profile" id="address-box">
+          <div class="row">
+            <div class="col-50">
+              <label>{{ 'customer.addresses.first_name' | t }}</label>
+              <input type="text" id="AddressFirstNameNew" name="address[first_name]" value="{{ form.first_name }}" required="required" class="f-ft">
+            </div>
+            <div class="col-50">
+              <label>{{ 'customer.addresses.last_name' | t }}</label>
+              <input type="text" id="AddressLastNameNew" name="address[last_name]" value="{{ form.last_name }}" required="required" class="f-ft">
+            </div>
+            <div class="col-100">
+            	<label>{{ 'customer.addresses.company' | t }}</label>
+            	<input type="text" id="AddressCompanyNew" name="address[company]" value="{{ form.company }}" required="required" class="f-ft">
+            </div>
+              <div class="col-100">
+            	<label>{{ 'customer.addresses.address1' | t }}</label>
+            <input type="text" id="AddressAddress1New" name="address[address1]" value="{{ form.address1 }}" required="required" class="f-ft">
+            </div>
+              <div class="col-100">
+            	<label>{{ 'customer.addresses.address2' | t }}</label>
+            <input type="text" id="AddressAddress2New" name="address[address2]" value="{{ form.address2 }}" required="required" class="f-ft">
+            </div>
+            <div class="col-50">
+              <label>{{ 'customer.addresses.city' | t }}</label>
+              <input type="text" id="AddressCityNew" name="address[city]" value="{{ form.city }}" required="required" class="f-ft">
+            </div>
+            <div class="col-50"> 
+              <label>{{ 'customer.addresses.country' | t }}</label>
+              <select id="AddressCountryNew" name="address[country]" data-default="{{ form.country }}" class="f-ft">{{ all_country_option_tags }}</select>
+            </div>
+            <div class="col-100">
+            	<label>{{ 'customer.addresses.zip' | t }}</label>
+          <input type="text" id="AddressZipNew" name="address[zip]" value="{{ form.zip }}" autocapitalize="characters" class="f-ft" required="required">
+            </div>
+              <div class="col-100">
+            	<label>{{ 'customer.addresses.phone' | t }}</label>
+          <input type="tel" id="AddressPhoneNew" name="address[phone]" value="{{ form.phone }}" class="f-ft" required="required">
+            </div>
+            
+          
+            
+<div class="col-100 d-flex align-items-center"> 
+  {{ form.set_as_default_checkbox }}
+          <label style="margin-bottom: 0;margin-left: 15px" for="address_default_address_{{ form.id }}">{{ 'customer.addresses.set_default' | t }}</label>
+  </div>
+          </div>
+          
+          
+          
+        </div>                              
+        
+      </div>
+      <div class="modal-footer">
+        <button onchange="this.form.submit()" style="width: fit-content;margin-top: 0;" class="f-bp"> <svg class="f-bp-arrow" viewBox="0 0 6 10" style="opacity: 0; transform: translate(-45px, 0px);">
+            <path d="M0,9.9C1.4,8.3,2.9,5.6,3.4,5C2.9,4.4,1.4,1.7,0,0.1L0.1,0C1.5,1.6,5.8,4.8,6,5 c-0.2,0.2-4.5,3.4-5.9,5L0,9.9z">
+            </path>
+            </svg> <i class="f-bp-label" style="transform: translate(-22.5072px, 0px);">Save</i> <svg class="f-bp-arrow" viewBox="0 0 6 10" style="opacity: 1; transform: translate(0px, 0px);">
+            <path d="M0,9.9C1.4,8.3,2.9,5.6,3.4,5C2.9,4.4,1.4,1.7,0,0.1L0.1,0C1.5,1.6,5.8,4.8,6,5 c-0.2,0.2-4.5,3.4-5.9,5L0,9.9z">
+            </path>
+            </svg></button>
+      </div>
+      {% endform %}
+    </div>
+  </div>
+</div>
+       
+       
+       <!-- Modal -->
+        {% for address in customer.addresses %}
+<div class="modal fade" id="address-2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    {% form 'customer_address', address  %}
+    <div class="modal-content" id="{{ address.id }}">
+     
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add address</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-profile" id="edit_address_{{ address.id }}" {% unless form.errors %}{% endunless %}>
+          <div class="row">
+            <div class="col-50">
+              <label>{{ 'customer.addresses.first_name' | t }}</label>
+              <input type="text" id="AddressFirstNameNew" name="address[first_name]" value="{{ form.first_name }}" required="required" class="f-ft">
+            </div>
+            <div class="col-50">
+              <label>{{ 'customer.addresses.last_name' | t }}</label>
+              <input type="text" id="AddressLastNameNew" name="address[last_name]" value="{{ form.last_name }}" required="required" class="f-ft">
+            </div>
+            <div class="col-100">
+          <label>{{ 'customer.addresses.company' | t }}</label>
+          <input type="text" id="AddressCompanyNew" name="address[company]" value="{{ form.company }}" required="required" class="f-ft">
+          </div>
+          <div class="col-100">
+          <label>{{ 'customer.addresses.address1' | t }}</label>
+          <input type="text" id="AddressAddress1New" name="address[address1]" value="{{ form.address1 }}" required="required" class="f-ft">
+          </div>
+          <div class="col-100">
+          <label>{{ 'customer.addresses.address2' | t }}</label>
+          <input type="text" id="AddressAddress2New" name="address[address2]" value="{{ form.address2 }}" required="required" class="f-ft">
+          </div>
+          <div class="col-50">
+              <label>{{ 'customer.addresses.city' | t }}</label>
+              <input type="text" id="AddressCityNew" name="address[city]" value="{{ form.city }}" required="required" class="f-ft">
+            </div>
+            <div class="col-50"> 
+              <label>{{ 'customer.addresses.country' | t }}</label>
+              <select id="AddressCountryNew" name="address[country]" data-default="{{ form.country }}" class="f-ft">
+                <option selected>{{ form.country }}</option> 
+                {{ all_country_option_tags }}
+              </select>
+            </div>
+            <div class="col-100">
+            <label>{{ 'customer.addresses.zip' | t }}</label>
+          <input type="text" id="AddressZipNew" name="address[zip]" value="{{ form.zip }}" autocapitalize="characters" class="f-ft" required="required">
+          </div>
+          
+          <div class="col-100">
+            <label>{{ 'customer.addresses.phone' | t }}</label>
+            <input type="tel" id="AddressPhoneNew" name="address[phone]" value="{{ form.phone }}" class="f-ft" required="required">
+          </div>
+          
+          <div class="col-100 d-flex align-items-center"> 
+          	{{ form.set_as_default_checkbox }}
+          	<label style="margin-bottom: 0;margin-left: 15px" for="address_default_address_{{ form.id }}">{{ 'customer.addresses.set_default' | t }}</label>
+          </div>
+          
+          </div>
+          
+          
+          
+        </div>
+                                
+        
+      </div>
+      <div class="modal-footer">
+        <button onchange="this.form.submit()" style="width: fit-content;margin-top: 0;" class="f-bp"> <svg class="f-bp-arrow" viewBox="0 0 6 10" style="opacity: 0; transform: translate(-45px, 0px);">
+            <path d="M0,9.9C1.4,8.3,2.9,5.6,3.4,5C2.9,4.4,1.4,1.7,0,0.1L0.1,0C1.5,1.6,5.8,4.8,6,5 c-0.2,0.2-4.5,3.4-5.9,5L0,9.9z">
+            </path>
+            </svg> <i class="f-bp-label" style="transform: translate(-22.5072px, 0px);">Save</i> <svg class="f-bp-arrow" viewBox="0 0 6 10" style="opacity: 1; transform: translate(0px, 0px);">
+            <path d="M0,9.9C1.4,8.3,2.9,5.6,3.4,5C2.9,4.4,1.4,1.7,0,0.1L0.1,0C1.5,1.6,5.8,4.8,6,5 c-0.2,0.2-4.5,3.4-5.9,5L0,9.9z">
+            </path>
+            </svg></button>
+      </div>
+     
+    </div>
+    {% endform %} 
+  </div>
+</div>
+       {% endfor %}
+<!--   <script>
+        $('#address-box').hide();
+        $('#add-address').on('click',function() {
+            $('#address-box').show();
+        })
+        
+  </script> -->
+<script>
+  // Contents of customer_area.js (global asset)
+  Shopify.CustomerAddress = {
+    toggleForm: function(id) {
+      var editEl = document.getElementById('edit_address_'+id);
+      editEl.style.display = editEl.style.display == 'none' ? '' : 'none';
+      return false;
+    }
+    
+  }
+  
+</script>

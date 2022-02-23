@@ -1,0 +1,19 @@
+<div id="app" data-router-wrapper=""> 
+     <div class="a-page" data-router-view="renderer" data-transition-in="navigation" style="transform: translate3d(0px, 0px, 0px);">
+	    <header class="s-header-image">
+                 <div class="s-header-heading" data-effect="heading">
+                     <h3 class="f-st" style="opacity: 1;"></h3>
+                     <h2 class="f-hl" style="">{{ page.title }}</h2>
+                 </div>
+                 <div class="s-header-src"> </div>
+                 <div class="s-header-background" data-background="#FFFFFF"></div>
+             </header>
+			<section class="s-text">
+                 <div class="s-text-container">
+                     <div class="s-text-body">
+                       {{ page.content }}
+                     <div class="s-text-background" data-background="#FFFFFF"></div>
+                 </div>
+             </section> 
+   {% section 'footer' %}
+    </div></div>

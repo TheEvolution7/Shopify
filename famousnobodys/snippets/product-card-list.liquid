@@ -1,0 +1,15 @@
+<a href="{{ product.url }}">
+  <div class="box-img">
+  <div class="s-collection-thumbnail"
+       data-lazy="{{ product.featured_media | img_url: '500x', scale: 2 }}"
+       data-alt="{{ product.featured_media.alt | default : product.title }}">
+    
+  </div>
+    {% unless product.available %}<div class="status">Sold Out</div>{% endunless %}
+  </div>
+		
+<div class="s-collection-info">
+  <h3 class="f-hp">{{ product.title }}</h3>
+  <h5><del>{{ product.compare_at_price | money }}</del> <strong>{{ product.price | money }}</strong></h5>
+</div>
+  </a>

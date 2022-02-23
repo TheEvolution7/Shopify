@@ -1,0 +1,135 @@
+
+             <header class="s-header-collection">
+                 <div style="padding-bottom: 10vw;"></div>
+                 <div class="s-header-background" style="background-color: #ffffff" data-background="#ffffff"></div>
+             </header>
+				
+             <section class="form-login" >
+               <form action="{{ routes.cart_url }}" method="post" class="my-cart">
+                 <div class="cart-container" data-ajax-cart-section>
+                    <h2 class="form-title">{{ section.settings.title }}</h2>
+                   {% if cart.item_count > 0 %}
+                     <div class="shopping-cart" data-ajax-cart-section-scroll>
+                        <!-- Product #1 -->
+                     {%- for item in cart.items -%}
+                        
+                        <div class="item">
+                          <div class="buttons">
+                            <span class="delete-btn"></span>
+                            <span class="like-btn"></span>
+                          </div>
+                  
+                          <div class="image">
+                            <img src="{{ item | img_url: '300x' }}" alt="{{ item.product.title }}" />
+                          </div>
+                  
+                          <div class="description">
+                            <div class="link-a" onclick="location.href='{{ item.url }}'" >
+                            <span>{{ item.product.title }}</span>
+                           </div>
+                            <span>{{ item.variant.title }}</span>
+                          </div>
+                  		  
+                          <div class="quantity">
+                            <button data-ajax-cart-request-button class="dec qty-btn minus-btn" type="button"  onclick="window.location.href='{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity={{ item.quantity | minus: 1 }}'">
+                              <img src="{{ 'minus.svg' | asset_url }}" alt="" />
+                            </button>
+                             <input data-ajax-cart-quantity-input="{{ forloop.index }}" name="updates[]"  value="{{ item.quantity }}"  type="text"  value="1" />
+                            <button data-ajax-cart-request-button class="inc qty-btn plus-btn" type="button"  onclick="window.location.href='{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity={{ item.quantity | plus: 1 }}'">
+                              <img src="{{ 'plus.svg' | asset_url }}" alt="" />
+                            </button>
+                          </div>
+                  
+                          <div class="total-price">{{ item.price | money }}</div>
+                        </div>
+                      
+                  	 {%- endfor -%}	
+                        <div data-ajax-cart-static-element class="my-cart__app-container"></div>
+                       {% else %}
+                         <div class="shopping-cart">
+                           <p>{{ 'cart.general.empty' | t }}</p>
+                         </div>
+                       {% endif %}
+                        <div class="total-shopping">
+                          <ul class="table-total" style="width: 100%">
+                              <li>
+                                  <ul>
+                                      <li>Total:</li>
+                                  </ul>
+                              </li>
+                              <li>
+                                  <ul>
+                                    <li>{{ cart.total_price | money_with_currency }}</li>
+                                  </ul>
+                                 
+                              </li>
+                          </ul>
+                      </div>
+                       <div class="btn-cart">
+
+                          <div class="f-bp link-a" onclick="location.href='/collections/all'"> <svg class="f-bp-arrow" viewBox="0 0 6 10" style="opacity: 0; transform: translate(-53.3437px, 0px);">
+                            <path d="M0,9.9C1.4,8.3,2.9,5.6,3.4,5C2.9,4.4,1.4,1.7,0,0.1L0.1,0C1.5,1.6,5.8,4.8,6,5 c-0.2,0.2-4.5,3.4-5.9,5L0,9.9z">
+                            </path>
+                        </svg> <i class="f-bp-label" style="transform: translate(-26.6804px, 0px);">Continue Shopping</i> <svg class="f-bp-arrow" viewBox="0 0 6 10" style="opacity: 1; transform: translate(0px, 0px);">
+                            <path d="M0,9.9C1.4,8.3,2.9,5.6,3.4,5C2.9,4.4,1.4,1.7,0,0.1L0.1,0C1.5,1.6,5.8,4.8,6,5 c-0.2,0.2-4.5,3.4-5.9,5L0,9.9z">
+                            </path>
+                            </svg></div>
+<!--                         <button type="submit" name="update" class="f-bp"> <svg class="f-bp-arrow" viewBox="0 0 6 10" style="opacity: 0; transform: translate(-53.3437px, 0px);">
+                            <path d="M0,9.9C1.4,8.3,2.9,5.6,3.4,5C2.9,4.4,1.4,1.7,0,0.1L0.1,0C1.5,1.6,5.8,4.8,6,5 c-0.2,0.2-4.5,3.4-5.9,5L0,9.9z">
+                            </path>
+                        </svg> <i class="f-bp-label" style="transform: translate(-26.6804px, 0px);">Update cart</i> <svg class="f-bp-arrow" viewBox="0 0 6 10" style="opacity: 1; transform: translate(0px, 0px);">
+                            <path d="M0,9.9C1.4,8.3,2.9,5.6,3.4,5C2.9,4.4,1.4,1.7,0,0.1L0.1,0C1.5,1.6,5.8,4.8,6,5 c-0.2,0.2-4.5,3.4-5.9,5L0,9.9z">
+                            </path>
+                        </svg></button> -->
+                        <button type="submit" name="checkout" class="f-bp"> <svg class="f-bp-arrow" viewBox="0 0 6 10" style="opacity: 0; transform: translate(-53.3437px, 0px);">
+                            <path d="M0,9.9C1.4,8.3,2.9,5.6,3.4,5C2.9,4.4,1.4,1.7,0,0.1L0.1,0C1.5,1.6,5.8,4.8,6,5 c-0.2,0.2-4.5,3.4-5.9,5L0,9.9z">
+                            </path>
+                        </svg> <i class="f-bp-label" style="transform: translate(-26.6804px, 0px);">{{ 'cart.general.checkout' | t }}</i> <svg class="f-bp-arrow" viewBox="0 0 6 10" style="opacity: 1; transform: translate(0px, 0px);">
+                            <path d="M0,9.9C1.4,8.3,2.9,5.6,3.4,5C2.9,4.4,1.4,1.7,0,0.1L0.1,0C1.5,1.6,5.8,4.8,6,5 c-0.2,0.2-4.5,3.4-5.9,5L0,9.9z">
+                            </path>
+                        </svg></button>
+                      </div>
+                      </div>
+                   
+                      
+                 </div>
+                 
+				</form>
+             </section>
+
+{% schema %}
+{
+  "name": {
+    "cs": "Stránka košíku",
+    "da": "Side med indkøbskurv",
+    "de": "Warenkorb-Seite",
+    "en": "Cart page",
+    "es": "Página del carrito",
+    "fi": "Ostoskorisivu",
+    "fr": "Page du panier",
+    "it": "Pagina del carrello",
+    "ja": "カートページ",
+    "ko": "카트 페이지",
+    "nb": "Handlekurvside",
+    "nl": "Winkelwagenpagina",
+    "pl": "Strona koszyka",
+    "pt-BR": "Página do carrinho",
+    "pt-PT": "Página do carrinho",
+    "sv": "Varukorgssida",
+    "th": "หน้าตะกร้าสินค้า",
+    "tr": "Sepet sayfası",
+    "vi": "Trang giỏ hàng",
+    "zh-CN": "购物车页面",
+    "zh-TW": "購物車頁面"
+  },
+  "settings": [
+	 {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Shopping Cart"
+    }
+   
+  ]
+}
+{% endschema %}

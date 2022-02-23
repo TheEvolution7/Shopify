@@ -1,0 +1,83 @@
+ <div id="app" data-router-wrapper>
+         <div class="a-page" data-router-view="renderer">
+             <header class="s-header-collection">
+                 <!-- <div class="s-header-filter" data-effect="heading">
+                    
+                </div> -->
+                 <div style="padding-bottom: 10vw;"></div>
+                 <div class="s-header-background" style="background-color: #ffffff" data-background="#ffffff"></div>
+             </header>
+
+                <div class="container no-border">
+                    <div class="row">
+                       <div class="col-md-4">
+   <div class="user-left">
+          <h2>Hello {{ customer.first_name }} {{ customer.last_name }}</h2>
+               <ul>
+                   <li class="active"><a href="#">Dashboard</a></li>
+                   <li class=""><div onclick="location.href='/account/addresses'" >Shipping Address</div></li>
+                   <li><div  onclick="location.href='/account/logout'">Log out</div></li>
+               </ul>
+   </div>
+</div>         
+                      <div class="col-md-8">
+                            <div class="user-right">
+                                <div class="title-user">
+                                   <h3>My profile</h3>
+                                   <p>Manage profile information for account security</p>
+                                </div>
+                                {% form 'customer', customer %}
+                                <div class="form-profile">
+                                   <label for="fname"><i class="fa fa-user"></i>First Name</label>
+                                  	<input type="text" id="CustomerFirstName_{{ customer.id }}" name="customer[first_name]" value="{{ customer.first_name }}" required="required" class="f-ft">
+                                    <label for="fname"><i class="fa fa-user"></i>Last Name</label>  
+                                    <input type="text" id="CustomerLastName_{{ customer.id }}" name="customer[last_name]" value="{{ customer.last_name }}" required="required" class="f-ft">
+                                   <label for="email">Email</label>
+                                   <input type="email" id="CustomerEmail_{{ customer.id }}" name="customer[email]" value="{{ customer.email }}" required="required" class="f-ft">
+                                  	<label for="phone">Password</label>
+                                   <input type="password" name="customer[password]" id="CustomerPassword_{{ customer.id }}" value="{{ customer.password }}" class="f-ft">                                
+                                </div>
+                                <button type="submit" style="width: fit-content;margin-top: 0;" class="f-bp"> <svg class="f-bp-arrow" viewBox="0 0 6 10" style="opacity: 0; transform: translate(-48px, 0px);">
+                                   <path d="M0,9.9C1.4,8.3,2.9,5.6,3.4,5C2.9,4.4,1.4,1.7,0,0.1L0.1,0C1.5,1.6,5.8,4.8,6,5 c-0.2,0.2-4.5,3.4-5.9,5L0,9.9z">
+                                   </path>
+                               </svg> <i class="f-bp-label" style="transform: translate(-24.0076px, 0px);">Save</i> <svg class="f-bp-arrow" viewBox="0 0 6 10" style="opacity: 1; transform: translate(0px, 0px);">
+                                   <path d="M0,9.9C1.4,8.3,2.9,5.6,3.4,5C2.9,4.4,1.4,1.7,0,0.1L0.1,0C1.5,1.6,5.8,4.8,6,5 c-0.2,0.2-4.5,3.4-5.9,5L0,9.9z">
+                                   </path>
+                               </svg></button>
+                           {% endform %}
+                            </div>
+                       			<div class="title-user">
+                                   <h3>My Order</h3>
+                                </div>
+                      		 <table class="table">
+                                            <thead>
+                                                <tr>
+                                                   	<th>{{ 'customer.orders.order_number' | t }}</th>
+                                                  	<th>{{ 'customer.orders.date' | t }}</th>
+                                                    <th>{{ 'customer.order.total' | t }}</th>
+                                                  	<th>{{ 'customer.orders.payment_status' | t }}</th> 	 
+                                                   	<th>{{ 'customer.orders.fulfillment_status' | t }}</th>
+                                                  	<th>Actions</th>	
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                              {% for order in customer.orders %}
+                                                <tr>
+                                                  
+                                                  	<td>{{ order.name }}</td>
+                                                    <td>{{ order.created_at | time_tag: format: 'date' }}</td>
+                                                  	<td>{{ order.total_price | money }}</td>
+                                                  	<td>{{ order.financial_status_label }}</td>
+                                                   	<td>{{ order.fulfillment_status_label }}</td>
+                                                   	<td><a href="{{ order.customer_url }}">view</a></td>
+                                                </tr>
+                                               {% endfor  %}
+                                            </tbody>
+                                        </table>
+                        </div>
+                      
+                    </div>
+                </div>
+            {% section 'footer' %}
+         </div>
+</div>

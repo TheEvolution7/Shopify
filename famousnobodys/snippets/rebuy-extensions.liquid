@@ -1,0 +1,21 @@
+<!-- <style>
+/* #CartDrawer is element that contains the entire cart drawer */
+.smart-cart--enabled .shopping-cart, #PageContainer::after {
+    display: none !important;
+}
+/* making sure that scrolling is still enabled after closing the smart cart */
+.smart-cart--enabled .js-drawer-open {
+  	overflow: scroll !important;
+}
+</style>
+
+<script>
+// once smart cart is loaded and ready
+document.addEventListener('rebuy:smartcart.ready', function(event){
+    // If your shop already uses jquery, no need to use 'Rebuy.libaries.$', feel free to replace this with '$'
+    Rebuy.libraries.$('#cart').click(function(){
+        // show Smart Cart once the icon is clicked
+        Rebuy.SmartCart.show();
+    });
+});
+</script> -->

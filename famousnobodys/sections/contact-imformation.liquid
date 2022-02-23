@@ -1,0 +1,55 @@
+				<div class="s-header-content">
+					<div class="s-header-column">
+                         <p class="f-pr">{{ section.settings.title }}</p>
+                     </div>
+                     <div class="s-header-column"> <img class="s-header-logo"
+                             src="{{ 'get-in-touch-and-br-we-d-be-happy-to-help.svg' | asset_url }}"
+                             alt="{{ section.settings.title }}">
+                         <ul class="f-pr">
+                             {{ section.settings.content }}
+                         </ul>
+                         <ul class="f-pr">
+                             <li><strong>{{ section.settings.text }}</strong></li>
+                             <li><a href="tel:{{ section.settings.phone }}">{{ section.settings.phone }}</a></li>
+                             <li><a style="line-break: anywhere;" href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a></li>
+                         </ul>
+                     </div>
+                </div>
+{% schema %}	
+  {
+    "name": "Section Contact",
+    "settings": [
+	
+	{
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "We would love to stay connected"
+    },
+	{
+      "type": "richtext",
+      "id": "content",
+      "label": "Address",
+       "default": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.</p>"
+    },
+	{
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default": "Contact info"
+    },
+	{
+      "type": "text",
+      "id": "phone",
+      "label": "Phone",
+      "default": "+13477705868"
+    },
+	{
+      "type": "text",
+      "id": "email",
+      "label": "Email",
+      "default": "info@famousnobodys.com"
+    }
+]
+  }
+{% endschema %}

@@ -1,0 +1,20 @@
+<figure class="s-video" style="pointer-events: none!important;">
+  <div class="s-video-badge" data-video="8" style="pointer-events: none!important;">
+    <div class="c-video"></div>
+  </div>
+   <video class="s-video-preview" autoplay muted loop playsinline>
+                    <source src="{{ section.settings.link }}" type="video/mp4"> </video>
+</figure>
+{% schema %}
+  {
+    "name": "Link Video Home",
+    "settings": [
+		{
+      "type": "text",
+      "id": "link",
+      "label": "Link Video",
+      "default": "wm9zohIHTJ0"
+    }
+	]
+  }
+{% endschema %}

@@ -1,0 +1,39 @@
+	<section class="s-values">
+ 	 	{%- for block in section.blocks -%}
+            <div class="s-values-block"> <span class="f-st">Nº</span>
+                <figure class="f-nr">0{{ forloop.index }}</figure>
+                <h2>{{ block.settings.heading }}</h2>
+               	{{ block.settings.description }}
+            </div>
+      	{%- endfor -%}                               
+        </section>
+
+
+{% schema %}
+{
+  "name": "Section About 2",
+  "settings": [
+  ],
+  "blocks": [
+    {
+      "type": "content",
+      "name": "About block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Title",
+		  "default": "Title"
+    	},
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+        }
+      ]
+    }
+	
+  ]
+}
+{% endschema %}

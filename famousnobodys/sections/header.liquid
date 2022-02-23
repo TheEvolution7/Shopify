@@ -1,0 +1,245 @@
+<nav id="nav">
+        <div class="n-head">
+            <div class="n-logo" style="background-image: url({{ section.settings.logo | img_url: '1000x' }});height:4.25vw">
+                <h1>Home</h1> <a role="button" href="{{ routes.root_url }}"></a>
+            </div>
+         	
+        </div>
+        <div class="n-figure">
+            <div class="n-gallery">
+                <div class="n-image">
+                  	<video muted loop playsinline preload="none"> <source src="{{ 'placeholder-3.mp4' | asset_url }}" type="video/mp4"></video>
+                   {%- for block in section.blocks -%}
+                    	<img src="{{ block.settings.image | img_url: '1000x'}}" alt="{{ block.settings.image.alt}}">
+                   {%- endfor -%}
+                </div>
+            </div>
+        </div>
+  	
+        <div class="n-menu">
+          
+            <div class="n-menu-column">
+             
+                <div class="n-menu-align">
+                    <ul class="n-menu-main">
+                        {%- for link in linklists.main-menu.links -%}
+                      <li><div class="link-a"  onclick="location.href='{{ link.url }}'" {% if link.active %}aria-current="page"{% endif %}>{{ link.title }}</div></li>
+                         {%- endfor -%}
+                       	{%- if customer -%}
+                          <li><div class="link-a" onclick="location.href='/account'">{{ customer.email }}</div></li>
+                      <li><a href="javascript:;"  onclick="location.href='/account/logout'">Log out</a></li>
+                          {%- else -%}
+                          <li class="link-user">
+                            <div class="link-a" onclick="location.href='/account/login'">Login</div> 
+                      </li>
+                          <li>
+                      	    <div class="link-a"  onclick="location.href='/account/register'">Create Account</div>
+
+                      </li>
+                          {%- endif -%}
+                      <li>
+                        <form action="{{ routes.search_url }}" method="get" role="search">
+                          <div class="search-box">
+                            <input type="text" name="q" value="{{ search.terms | escape }}" placeholder="Search for Products" />
+                            <input type="hidden" name="options[prefix]" value="last" aria-hidden="true" />
+                          </div>
+                        </form>
+                      </li>
+                    </ul>
+                    <ul class="n-menu-sub">
+                        <li><div class="link-a" onclick="location.href='{{ section.settings.link }}'">{{ section.settings.title }}</div></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="n-menu-column">
+                <div class="n-menu-align">
+                 
+                    <ul class="n-menu-links">
+                        <li><strong>Social</strong></li>
+                    {%- assign socials = "Facebook Twitter Pinterest Instagram Tumblr Snapchat YouTube Vimeo" | split: ' ' -%}
+                    {%- for social in socials -%}
+                      {%- assign social_link = social | prepend: 'social_' | append: '_link' | downcase -%}
+                      {%- if settings[social_link] != blank -%}
+                        <li><a target="_blank" href="{{ settings[social_link] | escape }}"
+                                rel="noopener">{{ social }}</a></li>
+                      {%- endif -%}
+            		{%- endfor -%}
+                    </ul>
+                    <ul class="n-menu-links">
+                        <li><div class="is-sub" onclick="location.href='{{ section.settings.link-1 }}'" data-transition="navigation">{{ section.settings.title-1 }}</div></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="n-background"></div>
+    </nav>
+
+    <button id="burger"> <span></span> <span></span> <span></span>Open Menu</button>
+    <div id="menu">
+        <div class="m-menu m-cart-mb">
+            <ul>
+                <li class="cart-icon cart-mb">
+                    <a href="javascript:;" id="cart-mb">
+                        <img src="{{ 'shopping-cart.svg' | asset_url }}"><span class="badge" data-ajax-cart-bind-state="cart.item_count">{{ cart.item_count }}</span>
+                    </a>
+                 	{%- if settings.enable_ajax -%}
+      					{% include 'cart-popup-mobile' %}
+      				{%- endif -%}
+                </li> 
+            </ul>
+        </div>
+        <div class="m-logo" style="background-image: url({{ section.settings.logo | img_url: '1000x' }});height:4.25vw">
+            <h1>Home</h1> <a role="button" href="{{ routes.root_url }}"></a>
+        </div>
+        <div class="m-menu">
+            <ul>
+              {%- for link in linklists.main-menu.links -%}
+                <li class={%- if link.links != blank -%} "has-sub-menu" {% endif %} ><div class="link-a"  onclick="location.href='{{ link.url }}'"  {% if link.active %}aria-current="page"{% endif %}>{{ link.title }}</div>
+                    <ul class="sub-menu">
+                       {%- for child_link in link.links -%}
+                        <li><div class="link-a"  onclick="location.href='{{ child_link.url }}'">{{ child_link.title }}</div></li>
+                       {%- endfor -%}
+                    </ul>
+              </li>
+              {%- endfor -%}
+                		{%- if customer -%}
+                          <li><div class="link-a" onclick="location.href='/account'">{{ customer.email }}</div></li>
+                          <li><div class="link-a" onclick="location.href='/account/logout'">Log out</div></li>
+                          {%- else -%}
+                          <li><div class="link-a" onclick="location.href='/account/login'">Login</div></li>
+                          {%- endif -%}
+                <li class="cart-icon">
+                    <a href="#" id="cart">
+                        <img src="{{ 'shopping-cart.svg' | asset_url }}"><span class="badge" data-ajax-cart-bind-state="cart.item_count">{{ cart.item_count }}</span>
+                    </a>
+      					{% include 'cart-popup' %}
+                </li>
+            </ul>
+        </div>
+
+        </li>
+        </ul>
+    </div>
+{% schema %}
+{
+  "name": {
+    "cs": "Záhlaví",
+    "da": "Overskrift",
+    "de": "Titel",
+    "en": "Header",
+    "es": "Encabezado",
+    "fi": "Ylätunniste",
+    "fr": "En-tête",
+    "it": "Header",
+    "ja": "ヘッダー",
+    "ko": "헤더",
+    "nb": "Header",
+    "nl": "Koptekst",
+    "pl": "Nagłówek",
+    "pt-BR": "Cabeçalho",
+    "pt-PT": "Cabeçalho",
+    "sv": "Rubrik",
+    "th": "ส่วนหัว",
+    "tr": "Üstbilgi",
+    "vi": "Đầu trang",
+    "zh-CN": "标头",
+    "zh-TW": "標頭"
+  },
+  "settings": [
+    
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": {
+        "cs": "Obrázek loga",
+        "da": "Logobillede",
+        "de": "Logo-Foto",
+        "en": "Logo image",
+        "es": "Logo",
+        "fi": "Logokuva",
+        "fr": "Image du logo",
+        "it": "Immagine del logo",
+        "ja": "ロゴ画像",
+        "ko": "로고 이미지",
+        "nb": "Logobilde",
+        "nl": "Afbeelding van logo",
+        "pl": "Obraz logo",
+        "pt-BR": "Imagem do logotipo",
+        "pt-PT": "Imagem do logótipo",
+        "sv": "Logobild",
+        "th": "รูปภาพโลโก้",
+        "tr": "Logo görseli",
+        "vi": "Hình ảnh logo",
+        "zh-CN": "logo 图片",
+        "zh-TW": "標誌圖片"
+      }
+    },
+    {
+      "type": "link_list",
+      "id": "main_linklist",
+      "label": {
+        "cs": "Nabídka",
+        "da": "Menu",
+        "de": "Menü",
+        "en": "Menu",
+        "es": "Menú",
+        "fi": "Valikko",
+        "fr": "Menu",
+        "it": "Menu",
+        "ja": "メニュー",
+        "ko": "메뉴",
+        "nb": "Meny",
+        "nl": "Menu",
+        "pl": "Menu",
+        "pt-BR": "Menu",
+        "pt-PT": "Menu",
+        "sv": "Meny",
+        "th": "เมนู",
+        "tr": "Menü",
+        "vi": "Menu",
+        "zh-CN": "菜单",
+        "zh-TW": "選單"
+      },
+      "default": "main-menu"
+    }, 
+	{
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Customer Service"
+    },
+	{
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+      
+    },
+	{
+      "type": "text",
+      "id": "title-1",
+      "label": "Title",
+      "default": "Terms &amp; Conditions"
+    },
+	{
+      "type": "url",
+      "id": "link-1",
+      "label": "Link"
+      
+    }
+  ],
+"blocks": [
+    {
+      "type": "logo_image",
+      "name": "Images",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+        
+      ]
+    }
+  ]
+}
+{% endschema %}

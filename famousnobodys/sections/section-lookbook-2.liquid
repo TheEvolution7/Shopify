@@ -1,0 +1,55 @@
+ <section class="s-image">
+            <div class="s-image-container a-center t-text">
+                <div class="s-image-text" data-effect="heading">
+                    <h3 class="f-st">{{ section.settings.heading }}</h3>
+                    <h2>{{ section.settings.title }}</h2>
+                </div>
+                <div class="s-image-figure">
+                    <h3 class="f-hidden">Nidra longlined colbert coat</h3>
+                    <img src="{{ section.settings.image-1 | img_url: '500x' }}" alt="{{ section.settings.image-1.alt }}"
+                        data-zoom="{{ section.settings.image-1 | img_url: '500x' }}" data-cursor="zoom">
+                </div>
+                <div class="s-image-background" data-background="#e9e3dc"></div>
+            </div>
+        </section>
+        <section class="s-image">
+            <div class="s-image-container a-left t-contained">
+                <div class="s-image-figure">
+                    <h3 class="f-hidden">Nidra longlined colbert coat</h3>
+                    <div class="s-image-badge" style="top: 50%; left: 100%;">
+                        <div class="s-image-svg"></div>
+                    </div> <img src="{{ section.settings.image-2 | img_url: '500x' }}" alt="{{ section.settings.image-2.alt }}"
+                        data-zoom="{{ section.settings.image-2 | img_url: '500x' }}" data-cursor="zoom">
+                </div>
+                <div class="s-image-background" data-background="#e9e3dc"></div>
+            </div>
+        </section>
+{% schema %}
+{
+  "name": "Section Lookbook 2",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Spring / Summer — 2020"
+    },
+ 	{
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Lookbook<br />Famous Nobodys"
+    },
+	{		
+       "type": "image_picker",
+       "id": "image-1",
+       "label": "Image 1"
+    },
+	{
+       "type": "image_picker",
+       "id": "image-2",
+       "label": "Image 2"
+     }
+  ] 
+}
+{% endschema %}

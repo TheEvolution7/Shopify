@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% render 'header-scripts.zipifypages', renderctx: 'tpl' %}{{ content_for_header }}
+  </head>
+  <body>
+    {% include 'article-content.zipifypages', renderctx: 'tpl' %}
+    {% render 'page-footer.zipifypages', renderctx: 'tpl' %}
+  </body>
+</html>{% layout none %}

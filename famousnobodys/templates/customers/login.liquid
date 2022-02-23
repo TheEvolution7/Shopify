@@ -1,0 +1,67 @@
+ <div id="app" data-router-wrapper>
+         <div class="a-page" data-router-view="renderer">
+             <header class="s-header-collection">
+                 <!-- <div class="s-header-filter" data-effect="heading">
+                    
+                </div> -->
+                 <div style="padding-bottom: 10vw;"></div>
+                 <div class="s-header-background" style="background-color: #ffffff" data-background="#ffffff"></div>
+             </header>
+
+             <section class="form-login">
+                 <div class="login-container" id="page-login">
+                     <h2 class="form-title">{{ 'customer.login.title' | t }}</h2>
+                    {% form 'customer_login', novalidate: 'novalidate' %}
+                    	<input type="email" name="customer[email]" class="f-ft" id="id-user" autocorrect="off" autocapitalize="off" autocomplete="email" placeholder="{{ 'customer.login.email' | t }}">
+                    	<input type="password" class="f-ft" name="customer[password]" id="password"  placeholder="{{ 'customer.login.password' | t }}">
+                         <div class="d-flex-check">
+                            {% if form.password_needed %}
+                             <a href="javascript:;" id="move-to-lost">{{ 'customer.login.forgot_password' | t }}</a>
+                           {% endif %}
+                         </div>
+                         <button type="submit" class="f-bp"> <svg class="f-bp-arrow" viewBox="0 0 6 10"
+                                 style="opacity: 0; transform: translate(-48px, 0px);">
+                                 <path
+                                     d="M0,9.9C1.4,8.3,2.9,5.6,3.4,5C2.9,4.4,1.4,1.7,0,0.1L0.1,0C1.5,1.6,5.8,4.8,6,5 c-0.2,0.2-4.5,3.4-5.9,5L0,9.9z">
+                                 </path>
+                             </svg> <i class="f-bp-label" style="transform: translate(-24.0076px, 0px);">{{ 'customer.login.sign_in' | t }}</i> <svg
+                                 class="f-bp-arrow" viewBox="0 0 6 10"
+                                 style="opacity: 1; transform: translate(0px, 0px);">
+                                 <path
+                                     d="M0,9.9C1.4,8.3,2.9,5.6,3.4,5C2.9,4.4,1.4,1.7,0,0.1L0.1,0C1.5,1.6,5.8,4.8,6,5 c-0.2,0.2-4.5,3.4-5.9,5L0,9.9z">
+                                 </path>
+                             </svg>
+                         </button>
+                         <div class="btn-res">
+                             Don't have account? {{ 'Create Account' | customer_register_link }}
+                         </div>
+                     {% endform %}
+                 </div>
+
+                 <div class="login-container" id="page-lost-password">
+                    <h2 class="form-title">Forgot password?</h2>
+                   {% form 'recover_customer_password' %}
+                    	<input type="email" value="" name="email" id="RecoverEmail" placeholder="{{ 'customer.recover_password.email' | t }}"  class="f-ft" id="id-user" autocorrect="off" autocapitalize="off">
+                        <button type="submit" class="f-bp"> <svg class="f-bp-arrow" viewBox="0 0 6 10"
+                                style="opacity: 0; transform: translate(-48px, 0px);">
+                                <path
+                                    d="M0,9.9C1.4,8.3,2.9,5.6,3.4,5C2.9,4.4,1.4,1.7,0,0.1L0.1,0C1.5,1.6,5.8,4.8,6,5 c-0.2,0.2-4.5,3.4-5.9,5L0,9.9z">
+                                </path>
+                            </svg> <i class="f-bp-label" style="transform: translate(-24.0076px, 0px);">Submit</i> <svg
+                                class="f-bp-arrow" viewBox="0 0 6 10"
+                                style="opacity: 1; transform: translate(0px, 0px);">
+                                <path
+                                    d="M0,9.9C1.4,8.3,2.9,5.6,3.4,5C2.9,4.4,1.4,1.7,0,0.1L0.1,0C1.5,1.6,5.8,4.8,6,5 c-0.2,0.2-4.5,3.4-5.9,5L0,9.9z">
+                                </path>
+                            </svg>
+                        </button>
+                        <a href="javascript:;" id="back-login">Back to login?</a>
+                    {% endform %}
+                </div>
+
+             </section>           
+            {% section 'footer' %}
+         </div>
+     </div>
+
+   

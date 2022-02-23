@@ -1,0 +1,42 @@
+			
+					<div class="container-menu-mobile" data-ajax-cart-section>
+                      {%- if cart.item_count > 0 -%}
+                      <form action="{{ routes.cart_url }}" method="post" class="cart-popup-mobile">
+                        <div class="shopping-cart cart-menu cart-menu-mb" data-ajax-cart-section-scroll>
+                            <ul class="shopping-cart-items">
+                               {% for item in cart.items %}
+                                  <li class="clearfix">
+                                      <a href="{{ item.url }}">
+                                        <img src="{{ item | img_url: '100x' }}" alt="{{ item.title | escape }}">
+                                          <div class="content-cart">
+                                              <span class="item-name">{{ item.product.title }} <br> {{ item.variant.title }}</span>
+                                              <span class="item-price">{{ item.price | money }}</span>
+                                              <span class="item-quantity">Quantity:{{ item.quantity }}</span>
+                                          </div>
+                                      </a>
+										<a data-ajax-cart-request-button href="{{ routes.cart_change_url }}?id={{ item.key }}&quantity=0" class="del-btn"><i class="fa-solid fa-trash-can"></i></a>
+                                  </li>
+                               {% endfor %}
+                                <div class="shopping-cart-total">
+                                    <span class="lighter-text">{{ 'cart.label.total' | t }}:</span>
+                                    <span class="main-color-text">{{ cart.total_price | money }}</span>
+                                </div>
+                            </ul>
+                                <button type="submit" name="checkout" class="button">{{ 'cart.general.checkout' | t }}</button>
+                            	<button type="button" onclick="location.href='{{ routes.cart_url }}'" class="button">{{ 'products.product.view_cart' | t }}</button>
+                        </div>
+                      </form>	
+                        <!--end shopping-cart -->
+                    </div>
+			{%- else -%}
+					<div class="container-menu-mobile">
+                        <div class="shopping-cart cart-menu cart-menu-mb">
+                           	<ul class="shopping-cart-items">
+                    			<span>{{ 'cart.general.empty' | t }}</span>
+                			</ul>
+                             <button type="button"  onclick="location.href='/collections/all'"  class="button">Continue shopping</button>
+                        </div>
+                        <!--end shopping-cart -->
+                  	</div>
+
+			{%- endif -%}

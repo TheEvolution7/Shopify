@@ -1,0 +1,45 @@
+		<header class="s-header-video" style="pointer-events: none;">
+            <div class="s-header-heading" data-effect="heading">
+                <h3 class="f-st">{{ section.settings.heading }}</h3>
+                <h2>{{ section.settings.title }}</h2></small>
+            </div>
+            <div class="s-header-src"><video class="s-header-preview" autoplay muted loop playsinline>
+                    <source src="{{ section.settings.link }}" type="video/mp4"> </video> </div>
+            <div class="s-header-badge" data-video="12">
+                <div class="c-video"></div>
+            </div>
+            <button class="s-header-scroll">Scroll<svg viewBox="0 0 6 10">
+                    <path
+                        d="M0,9.9C1.4,8.3,2.9,5.6,3.4,5C2.9,4.4,1.4,1.7,0,0.1L0.1,0C1.5,1.6,5.8,4.8,6,5 c-0.2,0.2-4.5,3.4-5.9,5L0,9.9z" />
+                </svg> <svg viewBox="0 0 6 10">
+                    <path
+                        d="M0,9.9C1.4,8.3,2.9,5.6,3.4,5C2.9,4.4,1.4,1.7,0,0.1L0.1,0C1.5,1.6,5.8,4.8,6,5 c-0.2,0.2-4.5,3.4-5.9,5L0,9.9z" />
+                </svg> </button>
+            <div class="s-header-background" data-background="#e9e3dc"></div>
+        </header>
+{% schema %}
+{
+  "name": "Section Lookbook 1",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Lookbook"
+    },
+ 	{
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Title"
+    },
+	{
+      "type": "text",
+      "id": "link",
+      "label": "Link Video",
+      "default": "nRRVrmrL740"
+    }
+	
+  ] 
+}
+{% endschema %}

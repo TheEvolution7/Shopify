@@ -1,0 +1,50 @@
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="box-modal">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h3>{{ section.settings.title }}</h3>
+                        	{{ section.settings.description }}
+                         {% form 'customer', id: formId, novalidate: 'novalidate' %}
+                            <input type="hidden" name="contact[tags]" value="newsletter">
+							<input type="email" name="contact[email]" id="Email" class="form-control"  value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.email_placeholder' | t }}" autocorrect="off" autocapitalize="off">
+                            <button type="submit" class="f-bp"> <svg class="f-bp-arrow" viewBox="0 0 6 10"
+                                    style="opacity: 0; transform: translate(-48px, 0px);">
+                                    <path
+                                        d="M0,9.9C1.4,8.3,2.9,5.6,3.4,5C2.9,4.4,1.4,1.7,0,0.1L0.1,0C1.5,1.6,5.8,4.8,6,5 c-0.2,0.2-4.5,3.4-5.9,5L0,9.9z">
+                                    </path>
+                                </svg> <i class="f-bp-label" style="transform: translate(-24.0076px, 0px);">{{ 'general.newsletter_form.submit' | t }}</i> <svg class="f-bp-arrow" viewBox="0 0 6 10"
+                                    style="opacity: 1; transform: translate(0px, 0px);">
+                                    <path
+                                        d="M0,9.9C1.4,8.3,2.9,5.6,3.4,5C2.9,4.4,1.4,1.7,0,0.1L0.1,0C1.5,1.6,5.8,4.8,6,5 c-0.2,0.2-4.5,3.4-5.9,5L0,9.9z">
+                                    </path>
+                                </svg></button>
+                       	{%- endform -%}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% schema %}
+  {
+    "name": "Section Popup",
+    "settings": [
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "Title",
+          "default": "<p>Wanna be a NOBODY??</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Enter your email for 10% off your first order and exclusive access to our latest drops.</p>"
+        }
+	]
+  }
+{% endschema %}
+

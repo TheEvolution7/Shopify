@@ -1,0 +1,46 @@
+{% paginate search.results by 200 %}
+  <div id="app" data-router-wrapper>
+      <div class="a-page" data-router-view="renderer">
+          <header class="s-header-collection">
+              <div class="s-header-filter" data-effect="heading">
+                  {% if search.performed and search.results_count == 0 %}
+                    <h3 class="f-st">{{ 'general.search.title' | t }}</h3>
+                    <h2 class="f-hl">Sorry, no results found</h2>
+                  {% else %}
+                    <h3 class="f-st">{{ 'general.search.title' | t }}</h3>
+                    <h2 class="f-hl">{{ 'general.search.results_with_count' | t: terms: search.terms, count: search.results_count }}</h2>
+                  {% endif %}
+              </div>
+              <div class="s-header-background" data-background="#ffffff"></div>
+          </header>
+          <section class="s-collection">
+            <h3 class="f-st">Products</h3>
+              <div class="s-collection-overview" data-cat="0">
+                {% for item in search.results %}
+                  {% if item.object_type == 'product' %}
+                    <div class="s-collection-product" href="{{ item.url }}" data-cursor="more">
+                        {% include 'product-card-list', product: item %}
+                    </div>
+                  {% endif  %}
+                {% endfor %}
+              </div>
+          </section>
+         <section class="s-collection">
+              <h3 class="f-st">Other</h3>
+              <div class="s-collection-overview" data-cat="0">
+                {% for item in search.results %}
+                  {% if item.object_type != 'product' %}
+                      <div class="s-collection-info">
+                        <a href="{{ item.url }}">
+                        <h3 class="f-hp">{{ item.title }}</h3>
+                        <p>{{ item.content | strip_html | truncate: 50 }}</p>
+                        </a>
+                      </div>
+                  {% endif  %}
+                {% endfor %}
+              </div>
+          </section>
+          {% section 'footer' %}
+     </div>
+  </div>
+{% endpaginate %}

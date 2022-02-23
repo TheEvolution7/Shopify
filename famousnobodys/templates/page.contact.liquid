@@ -1,0 +1,51 @@
+<div id="app" data-router-wrapper>
+         <div class="a-page" data-router-view="renderer">
+
+             <header class="s-header-contact">
+                 <div class="s-header-content">
+                     {% section 'contact-imformation' %}
+                 </div>
+                 <div class="s-header-figure">
+                     <div class="s-header-graphic"></div>
+                 </div>
+                 <div class="s-header-background" style="background-color: #F5EBE3" data-background="#ffffff"></div>
+             </header>
+           <section class="s-help __1" style="background-color: #f2f2f2">
+                 <div class="s-help-container">
+                     <div class="s-help-column">
+                         <h2 class="f-hm">Get<br><em>In Touch</em></h2>
+                     </div>
+                   <div class="row">
+                     <div class="col-12">
+                     	<div class="form-contact">
+                     {%- assign formId = 'ContactForm' -%}
+                      {% form 'contact', id: formId %}
+                         <input class="f-ft" type="text" id="{{ formId }}-name" name="contact[{{ 'contact.form.name' | t }}]" placeholder="Full Name" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}">
+                         <input class="f-ft" placeholder="Email address" type="email" placeholder="Email Address" id="{{ formId }}-email"  name="contact[email]" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
+                          
+                       <textarea rows="5" placeholder="Message" class="f-ft"  id="{{ formId }}-message" name="contact[{{ 'contact.form.message' | t }}]">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+                         
+                         <button class="f-bp" type="submit"> <svg class="f-bp-arrow" viewBox="0 0 6 10"
+                                 style="opacity: 0; transform: translate(-48px, 0px);">
+                                 <path
+                                     d="M0,9.9C1.4,8.3,2.9,5.6,3.4,5C2.9,4.4,1.4,1.7,0,0.1L0.1,0C1.5,1.6,5.8,4.8,6,5 c-0.2,0.2-4.5,3.4-5.9,5L0,9.9z">
+                                 </path>
+                             </svg> <i class="f-bp-label" style="transform: translate(-24.0076px, 0px);">Send</i> <svg
+                                 class="f-bp-arrow" viewBox="0 0 6 10"
+                                 style="opacity: 1; transform: translate(0px, 0px);">
+                                 <path
+                                     d="M0,9.9C1.4,8.3,2.9,5.6,3.4,5C2.9,4.4,1.4,1.7,0,0.1L0.1,0C1.5,1.6,5.8,4.8,6,5 c-0.2,0.2-4.5,3.4-5.9,5L0,9.9z">
+                                 </path>
+                             </svg>
+                         </button>
+                    {% endform %}
+
+             </div>
+                     </div>
+                   
+                   </div>
+                 </div>
+             </section>
+           {% section 'footer' %}
+         </div>
+     </div>

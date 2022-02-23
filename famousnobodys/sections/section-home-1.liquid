@@ -1,0 +1,152 @@
+		 <header class="s-hero">
+                <div class="s-hero-head">
+                    <svg class="i-logo" viewBox="0 0 365.6 427.1" xml:space="preserve"
+                        style="opacity: 0;position:absolute;z-index:-1">
+                        <path class="l-right-circle"
+                            d="M206.4,37.3c89,11.6,157.7,87.7,157.7,179.8c0,57.8-27.1,109.4-69.3,142.6" />
+                        <path class="l-left-circle"
+                            d="M158.7,37.4C69.9,49.2,1.5,125.1,1.5,217.1c0,59.2,28.4,111.8,72.3,144.9" />
+                        <ellipse class="l-bottom" cx="183.8" cy="412.5" rx="90.2" ry="13.1" />
+                        <ellipse class="l-waist" cx="183.8" cy="229.5" rx="23.8" ry="4.1" />
+                        <path class="l-top-right-part"
+                            d="M183.6,1.5c9.2,0,12.7,12.5,8,23.8c-4.7,11.3-4.9,16.6,4.3,21.6c0,0-1.9,11.2,29.5,29 s43.3,20.5,48.7,54.9c-31.8,8.7-50.3-2.4-67.5-14.8s-33.3-57.6-35.3-69.1" />
+                        <path class="l-top-left-part"
+                            d="M183.6,1.5c-9.2,0-12.7,12.5-8,23.8c4.7,11.3,4.9,16.6-4.3,21.6c0,0,1.9,11.2-29.5,29 s-43.3,20.5-48.7,54.9c31.8,8.7,50.3-2.4,67.5-14.8s33.3-57.6,35.3-69.1" />
+                        <path class="l-outer-left"
+                            d="M93.1,130.8c0,0,51.5,9.5,62.2,60.2c10.7,50.7,5.8,43.2-23.7,62.2s-66.2,67.3-38,159.3" />
+                        <path class="l-middle-left"
+                            d="M98.8,109.4c0,0-7.7,10.2,14.4,18.7c22.7,8.7,43.9,35.5,49.7,54.9 c5.7,19.4,5.3,31.2,5.5,38.7c0,16,1.8,16.5-29,44s-44.3,77.6-24.2,138.3" />
+                        <path class="l-center-left"
+                            d="M121.6,87.1c0,0-24.8,12.2-8.1,26.7c8.1,7.1,26.2,14,38.6,28.9s25.2,36.1,27.4,86.8 c2.9,44.8-35.8,62.3-34.5,120.3c0,41.5,12.4,75.3,12.4,75.3" />
+                        <path class="l-center-right"
+                            d="M245.4,87.1c0,0,24.8,12.2,8.1,26.7c-8.1,7.1-26.2,14-38.6,28.9s-25.2,36.1-27.4,86.8 c-2.9,44.8,35.8,62.3,34.5,120.3c0,41.5-12.4,75.3-12.4,75.3" />
+                        <path class="l-middle-right"
+                            d="M268.2,109.4c0,0,7.7,10.2-14.4,18.7c-22.7,8.7-43.9,35.5-49.7,54.9s-5.3,31.2-5.5,38.7 c0,16-1.8,16.5,29,44s44.3,77.6,24.2,138.3" />
+                        <path class="l-outer-right"
+                            d="M274,130.8c0,0-51.5,9.5-62.2,60.2c-10.7,50.7-5.8,43.2,23.7,62.2s66.2,67.3,38,159.3" />
+                    </svg>
+
+
+                    <h3>{{ section.settings.heading }}</h3>
+                    <h2>{{ section.settings.text }}</h2>
+                </div>
+            
+                <div class="s-hero-images">
+                    <div class="s-hero-wrapper">
+                      {%- for block in section.blocks -%}
+                      	{%- case block.type -%}
+              			{%- when 'logo_image' -%}
+                        <div class="s-hero-image"> <img
+                                src="{{ block.settings.image | img_url: '500x'}}"
+                                alt="{{ block.settings.image.alt}}" /> </div>
+                      	{%- endcase -%}
+                      {%- endfor -%}
+                    </div>
+                </div>
+            
+                <div class="s-hero-background" data-background="#f6f4f2"></div>
+            </header>
+            <section class="s-categories">
+                <div class="s-categories-text">
+                    <h3 class="f-st">{{ section.settings.title }}</h3>
+                    <ul class="s-categories-list">
+                       {%- for block in section.blocks -%}
+                      	{%- case block.type -%}
+              			{%- when 'categories' -%}
+                          <li class="s-categories-item">
+                              <div class="s-categories-link"
+                               class="link-a" onclick="location.href='{{ collections[block.settings.collection].url }}'">{{ collections[block.settings.collection].title }}</div>
+                              <div class="s-categories-src">
+                                  <div data-src="{{ block.settings.image-1 | img_url: '500x' }}">
+                                  </div>
+                                <div data-src="{{ block.settings.image-2 | img_url: '500x' }}">
+                                  </div>
+                                <div data-src="{{ block.settings.image-3 | img_url: '500x' }}">
+                                  </div>  
+                              </div>
+                          </li>
+                       {%- endcase -%}
+                      {%- endfor -%}
+                    </ul> <div  class="f-bs"  onclick="location.href='/collections/all'"><svg
+                            class="f-bs-arrow" viewBox="0 0 6 10">
+                            <path
+                                d="M0,9.9C1.4,8.3,2.9,5.6,3.4,5C2.9,4.4,1.4,1.7,0,0.1L0.1,0C1.5,1.6,5.8,4.8,6,5 c-0.2,0.2-4.5,3.4-5.9,5L0,9.9z" />
+                        </svg> <svg class="f-bs-arrow" viewBox="0 0 6 10">
+                            <path
+                                d="M0,9.9C1.4,8.3,2.9,5.6,3.4,5C2.9,4.4,1.4,1.7,0,0.1L0.1,0C1.5,1.6,5.8,4.8,6,5 c-0.2,0.2-4.5,3.4-5.9,5L0,9.9z" />
+                        </svg> <span class="f-bs-line"></span> <i class="f-bs-label">View All</i></div>
+                </div>
+                <div class="s-categories-images">
+                    <div class="s-categories-image"> <img src="{{ 'lazy.jpg' | asset_url }}"
+                            alt="Rino & Pelle"> </div>
+                    <div class="s-categories-image"> <img src="{{ 'lazy.jpg' | asset_url }}"
+                            alt="Rino & Pelle"> </div>
+                    <div class="s-categories-image"> <img src="{{ 'lazy.jpg' | asset_url }}"
+                            alt="Rino & Pelle"> </div>
+                </div>
+            </section>
+{% schema %}
+{
+  "name": "Browse Collection",
+  "max_blocks": 20,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Anti - The Revolution"
+    },
+	{
+      "type": "richtext",
+      "id": "text",
+      "label": "Title",
+      "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+    },
+	{
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Browse Collection"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo_image",
+      "name": "Images",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    },
+	{
+        "type": "categories",
+        "name": "Collection",
+        "settings": [
+          {
+            "label": "Collection",
+            "id": "collection",
+            "type": "collection"
+          },
+		{
+          "type": "image_picker",
+          "id": "image-1",
+          "label": "Image 1"
+        },
+		{
+          "type": "image_picker",
+          "id": "image-2",
+          "label": "Image 2"
+        },
+		{
+          "type": "image_picker",
+          "id": "image-3",
+          "label": "Image 3"
+        }
+        ]
+      }
+  ]
+}
+{% endschema %}
