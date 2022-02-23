@@ -1,0 +1,101 @@
+{% if section.settings.show_section %}
+  <section class="py-10 py-lg-15 bg-img-cover-center bg-custom-top" style="background-image: url('{{ section.settings.image | img_url : '1920x' }}');">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-5">
+          <h2 class="fs-24 fs-md-38 mb-7 text-center">
+            {{ section.settings.title }}
+          </h2>
+          <div class="countdown d-flex justify-content-center mb-8" data-countdown="true"
+               data-countdown-end="Jan 27, 2022 18:24:25">
+            <div class="countdown-item d-flex flex-column text-center px-2 px-sm-4">
+              <span class="fs-30 fs-sm-40 fs-lg-60 lh-1 text-primary day">{{ section.settings.day }}</span>
+              <span class="fs-12 letter-spacing-05 text-uppercase text-primary font-weight-500">days</span>
+            </div>
+            <div class="separate fs-30">:</div>
+            <div class="countdown-item d-flex flex-column text-center px-2 px-sm-4">
+              <span class="fs-30 fs-sm-40 fs-lg-60 lh-1 text-primary hour">{{ section.settings.hours }}</span>
+              <span class="fs-12 letter-spacing-05 text-uppercase text-primary font-weight-500">hours</span>
+            </div>
+            <div class="separate fs-30">:</div>
+            <div class="countdown-item d-flex flex-column text-center px-2 px-sm-4">
+              <span class="fs-30 fs-sm-40 fs-lg-60 lh-1 text-primary minute">{{ section.settings.minutes }}</span>
+              <span class="fs-12 letter-spacing-05 text-uppercase text-primary font-weight-500">minutes</span>
+            </div>
+            <div class="separate fs-30">:</div>
+            <div class="countdown-item d-flex flex-column text-center px-2 px-sm-4">
+              <span class="fs-30 fs-sm-40 fs-lg-60 lh-1 text-primary second">{{ section.settings.seconds }}</span>
+              <span class="fs-12 letter-spacing-05 text-uppercase text-primary font-weight-500">seconds</span>
+            </div>
+          </div>
+          <div class="text-center mb-3">
+            <a href="{{ section.settings.url }}" class="btn btn-outline-primary text-uppercase letter-spacing-05 px-5">{{ section.settings.button }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Coupon",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "header",
+          "content": "Content"
+    	},
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Get a US $10 coupon"
+        },
+		{
+          "type": "text",
+          "id": "day",
+          "label": "Day",
+		  "default" : "02"
+        },
+		{
+          "type": "text",
+          "id": "hours",
+          "label": "Hours",
+		  "default" : "24"
+        },
+		{
+          "type": "text",
+          "id": "minutes",
+          "label": "minutes",
+		  "default" : "15"
+        },
+		{
+          "type": "text",
+          "id": "seconds",
+          "label": "seconds",
+		  "default" : "41"
+        },
+		{
+          "type": "text",
+          "id": "button",
+          "label": "Button text",
+		  "default" : "get now"
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Button Link"
+        }	
+	]
+  }
+{% endschema %}

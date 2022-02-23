@@ -1,0 +1,52 @@
+<div class="sidenav canvas-sidebar bg-white">
+  <div class="canvas-overlay">
+  </div>
+  <div class="pt-5 pb-7 card border-0 h-100">
+    <div class="d-flex align-items-center card-header border-0 py-0 pl-8 pr-7 mb-9 bg-transparent">
+      <a href="{{ routes.root_url }}" class="d-block w-124px">
+        <img src="{{ image | img_url: 'large' }}" alt="{{ image.alt | default: shop.name }}">
+      </a>
+      <span class="canvas-close d-inline-block text-right fs-24 ml-auto lh-1 text-primary"><i class="fal fa-times"></i></span>
+    </div>
+    <div class="overflow-y-auto pb-6 pl-8 pr-7 card-body pt-0">
+      <ul class="navbar-nav main-menu px-0 ">
+        {% for link in linklists[linklist].links %}
+        	<li aria-haspopup="true" aria-expanded="false" class="nav-item py-1 px-0{%- if link.links != blank -%}nav-item dropdown py-1 px-0{%- endif -%} ">
+          <a class="nav-link p-0{%- if link.links != blank -%}nav-link dropdown-toggle p-0{%- endif -%}" href="{{ link.url }}" {%- if link.links != blank -%} data-toggle="dropdown" {%- endif -%}>
+            {{ link.title | escape }}
+            {%- if link.links != blank -%}
+            	<span class="caret"></span>
+            {%- endif -%}
+          </a>    
+              {%- if link.links != blank -%}
+                <ul class="dropdown-menu pt-3 pb-0 pb-xl-3 x-animated x-fadeInUp">
+                 {%- for childlink in link.links -%} 
+                  <li class="dropdown-item">
+                    <a class="dropdown-link" href="{{ childlink.url }}">
+                      {{ childlink.title | escape }}
+                    </a>
+                  </li>
+				{%- endfor -%}
+                </ul>
+              {%- endif -%}
+        </li>
+        {% endfor  %}  
+      </ul>
+    </div>
+    <div class="card-footer bg-transparent border-0 mt-auto pl-8 pr-7 pb-0 pt-4">
+      <ul class="list-inline d-flex align-items-center mb-3">
+        {%- assign socials = "Facebook Twitter Pinterest Instagram Tumblr Snapchat YouTube Vimeo" | split: ' ' -%}
+          {%- for social in socials -%}
+            {%- assign social_link = social | prepend: 'social_' | append: '_link' | downcase -%}
+            {%- assign icon_link = social | prepend: 'icon-' | downcase -%}
+            {%- if settings[social_link] != blank -%}
+              <li class="list-inline-item mr-4"><a class="fs-20 lh-1" href="{{ settings[social_link] | escape }}">{%- include icon_link -%}</a></li>
+            {%- endif -%}
+          {%- endfor -%}   
+      </ul>
+      <p class="mb-0 text-gray">
+        {{ copyright }}
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,245 @@
+<header class="{%if request.path == '/' %}main-header navbar-dark header-sticky header-sticky-smart position-absolute fixed-top{% else %}main-header header-sticky header-sticky-smart navbar-light header {% endif %}" data-section-id="{{ section.id }}">
+
+  <div class="topbar {%if request.path == '/' %}topbar-border{% else %}border-bottom{% endif %} d-none d-xl-block">
+    <div class="container container-xxl">
+      <div class="row">
+        <div class="col-6 offset-3">
+          <p class="mb-0 py-3 {%if request.path == '/' %}text-white{% else %}text-black{% endif %} font-weight-300 text-center">{{ section.settings.topbar }}</p>
+        </div>
+        <div class="col-3">
+          <ul class="py-3 navbar-nav flex-row justify-content-xl-end d-flex flex-wrap text-body py-0 navbar-right">
+            {%- assign socials = "Facebook Twitter Pinterest Instagram Tumblr Snapchat YouTube Vimeo" | split: ' ' -%}
+            {%- for social in socials -%}
+              {%- assign social_link = social | prepend: 'social_' | append: '_link' | downcase -%}
+              {%- assign icon_link = social | prepend: 'icon-' | downcase -%}
+              {%- if settings[social_link] != blank -%}
+                <li class="nav-item">
+                  <a class="nav-link px-3 py-0 hover-red" href="{{ settings[social_link] | escape }}">
+                    {%- include icon_link -%}
+                  </a>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}   
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sticky-area">
+    <div class="container container-xxl">
+      <div class="d-none d-xl-block">
+        <nav class="navbar navbar-expand-xl px-0 py-2 py-xl-0 row no-gutters">
+          <div class="col-xl-3"><a class="navbar-brand mr-0" href="{{ routes.root_url }}">
+            {%if request.path == '/' %}
+              <img src="{{ section.settings.logo_white | img_url: 'large' }}" alt="{{ section.settings.logo_white.alt | default: shop.name }}" class="normal-logo">
+              <img src="{{ section.settings.logo | img_url: 'large' }}" alt="{{ section.settings.logo.alt | default: shop.name }}" class="sticky-logo">
+            {% else %}
+              <img src="{{ section.settings.logo | img_url: 'large' }}" alt="{{ section.settings.logo_white.alt | default: shop.name }}" class="normal-logo">
+              <img src="{{ section.settings.logo | img_url: 'large' }}" alt="{{ section.settings.logo.alt | default: shop.name }}" class="sticky-logo">
+            {% endif %}
+            </a></div>
+          <div class="mx-auto col-xl-6 d-flex justify-content-center position-static">
+            <ul class="navbar-nav hover-menu main-menu px-0 mx-xl-n4">
+              {% for link in linklists[section.settings.main_linklist].links %}  
+              <li aria-haspopup="true" aria-expanded="false"
+                  class="nav-item py-2 py-xl-5 px-0 px-xl-4{%- if link.links != blank -%}nav-item dropdown-item-pages dropdown py-2 py-xl-5 px-0 px-xl-4{%- endif -%}">
+                <a class="nav-link  p-0 {%- if link.links != blank -%}nav-link dropdown-toggle p-0{%- endif -%}" href="{%- if link.links != blank -%}#{%- else -%}{{ link.url }}{%- endif -%}" {%- if link.links != blank -%} data-toggle="dropdown" {%- endif -%}>
+                  {{ link.title | escape }}
+                  {%- if link.links != blank -%}
+                  	<span class="caret"></span>
+                  {%- endif -%}
+                </a>
+                 {%- if link.links != blank -%}
+                  <ul class="dropdown-menu pt-3 pb-0 pb-xl-3 x-animated x-fadeInUp">
+                    {%- for child_link in link.links -%}
+                      <li class="dropdown-item">
+                        <a class="dropdown-link" href="{{ child_link.url }}">
+                          {{ child_link.title | escape }}
+                        </a>
+                      </li>
+                    {%- endfor -%} 
+                  </ul>
+                {%- endif -%}
+              </li>
+              {% endfor %}  
+            </ul>
+          </div>
+          <div class="col-xl-3 position-relative">
+            <div class="d-flex align-items-center justify-content-end">
+              <a href="#search-popup" data-gtf-mfp="true"
+                 data-mfp-options='{"type":"inline","focus": "#keyword","mainClass": "mfp-search-form mfp-move-from-top mfp-align-top"}'
+                 class="nav-search d-block py-0 pr-2" title="Search">{% include 'icon-search' %}</a>
+              <ul class="navbar-nav flex-row justify-content-xl-end d-flex flex-wrap text-body py-0 navbar-right">
+			{%- if customer -%}
+                <li class="nav-item">
+                  <a class="nav-link pr-3 py-0" href="{{ routes.account_url }}">
+                    {% include 'icon-login' %}
+                  </a>
+                </li>
+            {%- else -%}
+                <li class="nav-item">
+                  <a class="nav-link pr-3 py-0" href="{{ routes.account_login_url }}">
+                    {% include 'icon-login' %}
+                  </a>
+                </li>
+            {%- endif  -%}
+                <li class="nav-item">
+                  <a class="nav-link position-relative px-3 menu-cart py-0" href="#" data-canvas="true" data-canvas-options='{"container":".cart-canvas"}'>
+                    {% include 'icon-cart' %}
+                    <span class="position-absolute number">{{ cart.item_count }}</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="d-block d-xl-none">
+        <nav class="navbar navbar-expand-xl px-0 py-2 py-xl-0 w-100 align-items-center">
+          <button class="navbar-toggler border-0 px-0 canvas-toggle" type="button" data-canvas="true"
+                  data-canvas-options='{"width":"250px","container":".sidenav"}'>
+            <span class="fs-24 toggle-icon"></span>
+          </button>
+          <a class="navbar-brand d-inline-block mx-auto" href="{{ routes.root_url }}">
+            <img src="{{ section.settings.logo_white | img_url: 'compact' }}" alt="{{ section.settings.logo_white.alt | default: shop.name }}" class="normal-logo">
+            <img src="{{ section.settings.logo | img_url: 'compact' }}" alt="{{ section.settings.logo.alt | default: shop.name }}" class="sticky-logo">
+          </a>
+          <a href="#search-popup" data-gtf-mfp="true"
+             data-mfp-options='{"type":"inline","focus": "#keyword","mainClass": "mfp-search-form mfp-move-from-top mfp-align-top"}'
+             class="nav-search d-block py-0" title="Search">{% include 'icon-search' %}</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+{% include 'site-nav', linklist: section.settings.main_linklist,image : section.settings.logo,copyright : section.settings.copyright  %}
+{% include 'cart-popup' %}
+{% include 'search-drawer' %}
+{% schema %}
+{
+  "name": {
+    "cs": "Záhlaví",
+    "da": "Overskrift",
+    "de": "Titel",
+    "en": "Header",
+    "es": "Encabezado",
+    "fi": "Ylätunniste",
+    "fr": "En-tête",
+    "it": "Header",
+    "ja": "ヘッダー",
+    "ko": "헤더",
+    "nb": "Header",
+    "nl": "Koptekst",
+    "pl": "Nagłówek",
+    "pt-BR": "Cabeçalho",
+    "pt-PT": "Cabeçalho",
+    "sv": "Rubrik",
+    "th": "ส่วนหัว",
+    "tr": "Üstbilgi",
+    "vi": "Đầu trang",
+    "zh-CN": "标头",
+    "zh-TW": "標頭"
+  },
+  "settings": [
+	{
+      "type": "text",
+      "id": "topbar",
+      "label": "Topbar",
+      "default": "Free Express Shipping on all US order over $100"
+    },
+	{
+      "type": "image_picker",
+      "id": "logo_white",
+      "label": {
+        "cs": "Obrázek loga",
+        "da": "Logobillede",
+        "de": "Logo-Foto",
+        "en": "Logo image",
+        "es": "Logo",
+        "fi": "Logokuva",
+        "fr": "Image du logo",
+        "it": "Immagine del logo",
+        "ja": "ロゴ画像",
+        "ko": "로고 이미지",
+        "nb": "Logobilde",
+        "nl": "Afbeelding van logo",
+        "pl": "Obraz logo",
+        "pt-BR": "Imagem do logotipo",
+        "pt-PT": "Imagem do logótipo",
+        "sv": "Logobild",
+        "th": "รูปภาพโลโก้",
+        "tr": "Logo görseli",
+        "vi": "Hình ảnh logo",
+        "zh-CN": "logo 图片",
+        "zh-TW": "標誌圖片"
+      }
+    },
+	{
+      "type": "image_picker",
+      "id": "logo",
+      "label": {
+        "cs": "Obrázek loga",
+        "da": "Logobillede",
+        "de": "Logo-Foto",
+        "en": "Logo image",
+        "es": "Logo",
+        "fi": "Logokuva",
+        "fr": "Image du logo",
+        "it": "Immagine del logo",
+        "ja": "ロゴ画像",
+        "ko": "로고 이미지",
+        "nb": "Logobilde",
+        "nl": "Afbeelding van logo",
+        "pl": "Obraz logo",
+        "pt-BR": "Imagem do logotipo",
+        "pt-PT": "Imagem do logótipo",
+        "sv": "Logobild",
+        "th": "รูปภาพโลโก้",
+        "tr": "Logo görseli",
+        "vi": "Hình ảnh logo",
+        "zh-CN": "logo 图片",
+        "zh-TW": "標誌圖片"
+      }
+    },
+    {
+      "type": "link_list",
+      "id": "main_linklist",
+      "label": {
+        "cs": "Nabídka",
+        "da": "Menu",
+        "de": "Menü",
+        "en": "Menu",
+        "es": "Menú",
+        "fi": "Valikko",
+        "fr": "Menu",
+        "it": "Menu",
+        "ja": "メニュー",
+        "ko": "메뉴",
+        "nb": "Meny",
+        "nl": "Menu",
+        "pl": "Menu",
+        "pt-BR": "Menu",
+        "pt-PT": "Menu",
+        "sv": "Meny",
+        "th": "เมนู",
+        "tr": "Menü",
+        "vi": "Menu",
+        "zh-CN": "菜单",
+        "zh-TW": "選單"
+      },
+      "default": "main-menu"
+    },
+	{
+      "type": "header",
+      "content": "Copyright"
+    },
+	{
+		"type" : "text",
+		"id" : "copyright",
+		"label" : "copyright",
+		"default" : "© 2021 All Saints Eye Wear.<br> All rights reserved."
+	}
+  ]
+}
+{% endschema %}

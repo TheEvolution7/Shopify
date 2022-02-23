@@ -1,0 +1,37 @@
+{% capture colorSwatches %}
+
+{% assign found_option = false %}
+{% assign is_color = false %}
+{% assign is_size = false %}
+{% assign option_index = 0 %}
+
+{% for option in product.options %}
+    {% if option == swatch %}
+      {% assign found_option = true %}
+      {% assign option_index = forloop.index0 %}
+      {% assign downcased_option = swatch | downcase %}
+      {% if downcased_option contains 'color' or downcased_option contains 'colour' or downcased_option contains 'couleur' or downcased_option contains 'farbe' %}
+        {% assign is_color = true %}
+      {% endif %}
+	{% if downcased_option contains 'size' or downcased_option contains 'taille' or downcased_option contains 'tamaño' or downcased_option contains 'größe' %}
+        {% assign is_size = true %}
+      {% endif %}
+    {% endif %}
+{% endfor %}
+		
+                    {% assign values = '' %}
+                    {% for variant in product.variants %}
+                      {% assign value = variant.options[option_index] %}
+                      {% unless values contains value %}
+                        {% assign values = values | join: ',' %}
+                        {% assign values = values | append: ',' | append: value %} 
+                        {% assign values = values | split: ',' %}
+                        {% assign colorname = value | handleize %}  
+                        <li class="list-inline-item mr-1 selected">
+                          <a   href="#color-1"  class="d-block swatches-item" data-var="{{ value }}" style="background-color: {{ value | handle }};"> </a>
+                        </li>
+                   	{% endunless %}
+    				{% endfor %}
+           
+{% endcapture %}
+{{colorSwatches | strip_newlines | remove: "  " | remove: "	" }}

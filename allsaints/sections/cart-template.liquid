@@ -1,0 +1,108 @@
+<section class="pb-11 pb-lg-15 pt-10" data-section-id="{{ section.id }}">
+    <h2 class="fs-sm-40 mb-11 text-center">{{ page_title }}</h2>
+    <div class="container">
+      {% if cart.item_count > 0 %}
+       <form action="{{ routes.cart_url }}" method="post">
+        <div class="row">
+          <div class="col-lg-9 mb-9 mb-lg-0 pr-lg-13">
+            <div class="table-responsive">
+              <table class="table table-borderless">
+                <tbody>  
+                  {%- for item in cart.items -%}
+                  	<tr>
+                    <td class="pl-0 py-6 align-middle"><a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="d-block mr-4"><i  class="fal fa-times"></i></a></td>
+                    <td class="py-6 pl-0">
+                      <div class="media">
+                        <div class="w-90px mr-4">
+                          <img src="{{ item | img_url: 'medium' }}" alt="{{ item.product.title }}">
+                        </div>
+                        <div class="media-body">
+                          {% assign collections = item.product.collections %}
+                          {% for collection in collections %}
+                          	<p class="text-muted fs-12 mb-0 text-uppercase letter-spacing-05 lh-1 mb-1 font-weight-500">{{ collection.title | reverse | join: " " }}</p>
+                          {% endfor %}
+                          <a href="{{ item.url }}" class="font-weight-bold mb-1 d-block">{{ item.product.title }}</a>
+                          <p class="text-muted fs-12 mb-0 text-uppercase letter-spacing-05 lh-1 mb-1 font-weight-500">{{ item.variant.title }}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="pl-0 py-6">
+                      <div class="input-group position-relative w-100px">
+                        <a href="#" class="down position-absolute pos-fixed-left-center pl-2 z-index-2"><i class="far fa-minus"></i></a>
+                        <input type="number" id="{{ item.key }}" name="updates[]" value="{{ item.quantity }}"  class="form-control form-control-sm w-100 px-6 fs-16 text-center input-quality bg-transparent h-35px"  value="1" required>
+                        <a href="#" class="up position-absolute pos-fixed-right-center pr-2 z-index-2"><i  class="far fa-plus"></i>
+                        </a>
+                      </div>
+                    </td>
+                    <td class="pl-0 py-6">
+                      <p class="mb-0 ml-12 text-primary">{{ item.original_price | money }}</p>
+                    </td>
+                    <td class="pl-0 py-6">
+                      <p class="mb-0 ml-12 text-primary">{{ item.original_line_price | money }}</p>
+                    </td>
+                  </tr>
+                  {%- endfor -%}
+                </tbody>
+              </table>
+            </div>  
+          </div>
+          <div class="col-lg-3">
+            <div class="card border-0">
+              <div class="card-header border-0 bg-transparent p-0">
+                <h4 class="card-title fs-24 mb-0">Summary</h4>
+              </div>
+              <div class="card-body pt-6 px-0 pb-4">
+                <div class="d-flex align-items-center mb-1">
+                  <span class="text-primary">{{ 'cart.general.subtotal' | t }}</span>
+                  <span class="d-block ml-auto text-primary">{{ cart.total_price | money_with_currency }}</span>
+                </div>
+              </div>
+              <div class="card-footer pt-4 px-0 bg-transparent">
+                <div class="d-flex align-items-center font-weight-bold mb-7">
+                  <span class="text-primary">{{ 'cart.label.total' | t }}</span>
+                  <span class="d-block ml-auto text-primary">{{ cart.total_price | money_with_currency }}</span>
+                </div>
+                <input type="submit" name="update" class="btn btn-primary btn-block" value="Update">
+                <input type="submit" name="checkout" class="btn btn-primary btn-block" value="Check Out">
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      {% else %}
+      	<p style="text-align:center;">{{ 'cart.general.empty' | t }}</p>
+      {% endif %}
+    </div>
+  </section>
+
+{% schema %}
+{
+  "name": {
+    "cs": "Stránka košíku",
+    "da": "Side med indkøbskurv",
+    "de": "Warenkorb-Seite",
+    "en": "Cart page",
+    "es": "Página del carrito",
+    "fi": "Ostoskorisivu",
+    "fr": "Page du panier",
+    "it": "Pagina del carrello",
+    "ja": "カートページ",
+    "ko": "카트 페이지",
+    "nb": "Handlekurvside",
+    "nl": "Winkelwagenpagina",
+    "pl": "Strona koszyka",
+    "pt-BR": "Página do carrinho",
+    "pt-PT": "Página do carrinho",
+    "sv": "Varukorgssida",
+    "th": "หน้าตะกร้าสินค้า",
+    "tr": "Sepet sayfası",
+    "vi": "Trang giỏ hàng",
+    "zh-CN": "购物车页面",
+    "zh-TW": "購物車頁面"
+  },
+  "settings": [
+    
+    
+  ]
+}
+{% endschema %}

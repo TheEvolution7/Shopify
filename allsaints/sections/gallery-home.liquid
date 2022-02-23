@@ -1,0 +1,76 @@
+{% if section.settings.show_section %}
+  <section class="pb-0 pb-lg-0" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-8 mb-6 mb-md-0">
+          <div class="slick-slider" data-slick-options='{"slidesToShow": 3,"infinite":true,"autoplay":false,"dots":false,"arrows":false,"responsive":[{"breakpoint": 992,"settings": {"slidesToShow": 2}},{"breakpoint": 400,"settings": {"slidesToShow": 1}}]}'>
+            {% for block in section.blocks %}
+              <div class="box">
+                <a href="{{ block.settings.link }}" class="hover-shine d-block thumb-ins">
+                  <img src="{{ block.settings.image | img_url : 'large' }}" alt="{{ block.settings.image.alt }}">
+                </a>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="col-md-4 text-center">
+          <span class="d-block fs-30 text-primary lh-1"><i class="fab fa-instagram"></i></span>
+          <p class="text-primary font-weight-bold fs-24 fs-sm-30 lh-13 mb-0">{{ section.settings.text_1 }}</p>
+          <a href="{{ section.settings.link }}" class="lh-12">{{ section.settings.text_2 }}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Instagram",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "header",
+          "content": "Content"
+    	},
+		{
+          "type": "text",
+          "id": "text_1",
+          "label": "Text",
+		  "default": "All Saints Eye Wear"
+        },
+		{
+          "type": "text",
+          "id": "text_2",
+          "label": "Text",
+		  "default": "Follow us on Instagram"
+        },
+		{
+          "type": "text",
+          "id": "link",
+          "label": "Link Instagram" 
+        }
+	],
+	"blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "link",
+          "label": "Link Instagram"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

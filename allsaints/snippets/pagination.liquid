@@ -1,0 +1,40 @@
+{% comment %}
+    Renders a pagination bar
+
+    Accepts:
+    - paginate: {Object} Paginate Liquid object (required)
+
+    Usage:
+    {% include 'pagination', paginate: paginate %}
+{% endcomment %}
+  <ul class="pagination justify-content-center align-items-center mb-0">
+     {%- if paginate.previous-%}
+        <li class="page-item fs-12 d-none d-sm-block">
+          <a class="page-link" href="{{ paginate.previous.url }}" tabindex="-1">{% include 'icon-arrow-left' %}</a>
+        </li>
+     {%- else -%}
+        <li class="page-item fs-12 d-none d-sm-block">
+          <a class="page-link" href="#" tabindex="-1" disabled="disabled">{% include 'icon-arrow-left' %}</a>
+        </li>
+     {%- endif -%}
+    {%- for part in paginate.parts -%}
+      {%- if part.is_link -%}
+          <li class="page-item"><a class="page-link" href="{{ part.url }}">{{ part.title }}</a></li>
+      {%- else -%}
+          {%- if part.title == paginate.current_page -%}
+              <li class="page-item active" aria-current="page"><a class="page-link">{{ part.title }}</a></li>
+          {%- else -%}
+              <li class="page-item"><a class="page-link">{{ part.title }}</a></li>
+          {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if paginate.next -%}
+      <li class="page-item fs-12 d-none d-sm-block">
+        <a class="page-link" href="{{ paginate.next.url }}">{% include 'icon-arrow-right' %}</a>
+      </li>
+    {%- else -%}
+      <li class="page-item fs-12 d-none d-sm-block">
+        <a class="page-link" href="#" disabled="disabled">{% include 'icon-arrow-right' %}</a>
+      </li>
+    {%- endif  -%}
+  </ul>

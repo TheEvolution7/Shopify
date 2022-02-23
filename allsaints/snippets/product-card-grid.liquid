@@ -1,0 +1,26 @@
+<div class="grid-item">
+  <a href="{{ product.url }}" class="card border-0 hover-change-content product product-hover-slide" data-animate="fadeInUp">
+    <div style="background-image: url('{{ product.featured_media | img_url: 'large' }}')" class="card-img ratio bg-item-contain ratio-1-1 slide-pro-img">
+      {%- for media in product.media limit : 3 -%}
+        <div class="item">
+          <img src="{{ media | img_url: 'large' }}" alt="{{ media.alt | default : product.title }}">
+        </div>
+      {%- endfor -%}
+    </div>
+    <div class="card-img-overlay card-product d-flex py-4 py-sm-5 pl-sm-6 pl-4 pr-4">
+      <div class="d-flex flex-column">
+        <div class="font-weight-bold mb-1 d-block lh-12">{{ product.title }}</div>
+        <div class="text-uppercase text-muted letter-spacing-05 fs-10 fs-sm-13 font-weight-500">{{ collection.title }}</div>
+        <p class="mt-auto text-primary mb-0 font-weight-500"><span class="text-line-through text-secondary fs-14 d-inline-block mr-2 font-weight-normal">{{ product.compare_at_price | money }}</span>{{ product.price | money }}</p>
+      </div>
+      <div class="ml-auto d-flex flex-column">
+        {% if product.compare_at_price %}
+        <div class="badge badge-pink badge-circle ml-auto w-45px h-45px fs-12 d-flex align-items-center justify-content-center mb-2">
+          Sale
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </a>
+</div>
+

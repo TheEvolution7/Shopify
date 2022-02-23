@@ -1,0 +1,100 @@
+{% if section.settings.show_section %}
+  <section class="pt-10 pb-10" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row no-gutters">
+        <div class="col-md-8 mb-8 mb-md-0">
+          <h2 class="fs-24 mb-2">{{ section.settings.title }}</h2>
+          <p class="mb-7">{{ section.settings.subheading }}</p>
+          {%- assign  formId = 'contact-form' -%}
+          {% form 'contact', id: formId %} 
+            {%- if form.posted_successfully? -%}
+            	<p>{{ 'contact.form.post_success' | t }}</p>
+            {%- endif -%}
+            <div class="row mb-6">
+              <div class="col-sm-6">
+                <input type="text" class="form-control" id="{{ formId }}-name" name="contact[{{ 'contact.form.name' | t }}]" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}" placeholder="{{ 'contact.form.name' | t }} *" required>
+              </div>
+              <div class="col-sm-6">
+                <input type="email" class="form-control"  id="{{ formId }}-email" name="contact[email]" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'contact.form.email' | t }} *" required>
+              </div>
+            </div>
+            <div class="form-group mb-4">
+              <textarea class="form-control" id="{{ formId }}-message" rows="6" placeholder="{{ 'contact.form.message' | t }} ..." name="contact[{{ 'contact.form.message' | t }}]"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary text-uppercase letter-spacing-05">{{ 'contact.form.submit' | t }}</button>
+          {% endform %}
+        </div>
+        <div class="col-md-4 pl-xl-13 pl-md-6">
+          <p class="font-weight-bold text-primary mb-3">{{ section.settings.text_1 }}</p>
+          <address class="mb-6">
+           {{ section.settings.address }}
+          </address>
+          <p class="font-weight-bold text-primary mb-2">{{ section.settings.text_2 }}</p>
+          <p class="mb-0">{{ section.settings.phone }}</p>
+          <p class="mb-7">{{ section.settings.email }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Contact",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "header",
+          "content": "Content"
+    	},
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "We would love to hear from you."
+        },
+		{
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+		  "default" : "If you’ve got great products your making or looking to work with us then drop us a line."
+        },
+		{
+          "type": "text",
+          "id": "text_1",
+          "label": "Text",
+		  "default" : "Address"
+        },	
+		{
+          "type": "html",
+          "id": "address",
+          "label": "Address",
+		  "default" : "7895 Piermont Dr NE Albuquerque,<br> NM 198866, See Our Stores"
+        },
+		{
+          "type": "text",
+          "id": "text_2",
+          "label": "Text",
+		  "default" : "Infomation"
+        },	
+		{
+          "type": "text",
+          "id": "phone",
+          "label": "phone",
+		  "default" : "+391 (0)35 2568 4593"
+        },
+		{
+          "type": "text",
+          "id": "email",
+          "label": "email",
+		  "default" : "hello@domain.com"
+        }	
+		
+	]
+  }
+{% endschema %}
+

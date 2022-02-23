@@ -1,0 +1,25 @@
+{% include 'breadcrumb' %}
+{% paginate search.results by 9 %}
+<section class="pt-10 pb-11 pb-lg-14">
+  <div class="container">
+    <h2 class="fs-sm-40 mb-11 text-center">Search Product</h2>
+    <div class="col-md-12">
+      <div data-sectionId="{% if section.id %}{{section.id}}{% endif %}" data-settings='{% if section.settings %}{{section.settings | json}}{% endif %}' id="gf-products" class="d-grid g-2 g-lg-3 grid-gap grid-gap-mobile overflow-hidden mb-10">
+        {% if search.results_count == 0 %}
+        <p style="text-align:center;">{{ 'general.search.empty_search_message' | t }}</p>
+        {%- endif -%}
+        {% for item in search.results %} 
+          {% if item.object_type == 'product'  %}
+              {% include 'product-card-grid', product: item %}
+          {% endif %}
+        {% endfor %}
+        <nav class="pt-4 overflow-hidden">
+          {%- if paginate.pages > 1 -%}
+          		{% include 'pagination', paginate: paginate %}
+          {%- endif -%}
+        </nav>
+      </div>
+    </div>
+  </div>
+</section>
+{% endpaginate %}

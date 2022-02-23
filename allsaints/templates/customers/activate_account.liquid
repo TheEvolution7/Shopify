@@ -1,0 +1,26 @@
+{% include 'breadcrumb' %}
+<section class="pb-11 pb-lg-15 pt-10">
+  <div class="container">
+    <div class="row no-gutters">
+      <div class="col-lg-7 mx-auto">
+        <div class="card border-0">
+          <div class="card-body p-0">
+            <h2 class="card-title fs-40 mb-2">{{ 'customer.activate_account.title' | t }}</h2>
+            {% form 'activate_customer_password' %}
+              <div class="form-group mb-6">
+                <label for="CustomerPassword" class="text-heading">{{ 'customer.activate_account.password' | t }}</label>
+                <input type="password" class="form-control" value=""  name="customer[password]" placeholder="{{ 'customer.activate_account.password' | t }}" id="CustomerPassword">
+              </div>
+              <div class="form-group mb-6">
+                <label for="CustomerPasswordConfirmation" class="text-heading">{{ 'customer.activate_account.password_confirm' | t }}</label>
+                <input type="password" class="form-control" value=""  name="customer[password_confirmation]" placeholder="{{ 'customer.activate_account.password_confirm' | t }}" id="CustomerPasswordConfirmation">
+              </div>
+              <button type="submit" class="btn btn-primary mb-6">{{ 'customer.activate_account.submit' | t }}</button>
+            {% endform %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

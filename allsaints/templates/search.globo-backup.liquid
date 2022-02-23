@@ -1,0 +1,28 @@
+{% include 'breadcrumb' %}
+{% paginate search.results by 9 %}
+  <section class="pt-10 pb-11 pb-lg-14">
+    <div class="container">
+      <h2 class="fs-sm-40 mb-11 text-center">Search Product</h2>
+      <div class="row overflow-hidden">
+        <div class="col-md-12">
+          {% if search.results_count == 0 %}
+         	 <p style="text-align:center;">{{ 'general.search.empty_search_message' | t }}</p>
+          {%- endif -%}
+          
+            {% for item in search.results %} 
+              {% if item.object_type == 'product'  %}
+                {% include 'product-card-grid', product: item %}
+              {% endif %}
+            {% endfor %}
+          
+          <nav class="pt-4 overflow-hidden">
+            {%- if paginate.pages > 1 -%}
+            	{% include 'pagination', paginate: paginate %}
+            {%- endif -%}
+            	
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endpaginate %}

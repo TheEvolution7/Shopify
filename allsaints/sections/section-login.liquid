@@ -1,0 +1,76 @@
+<section class="pb-11 pb-lg-15 pt-10" data-section-id="{{ section.id }}">
+  <div class="container">
+    <h2 class="fs-sm-40 mb-10 text-center">{{ 'customer.login.title' | t }}</h2>
+    <div class="row no-gutters">
+      <div class="col-lg-10 mx-auto">
+        <div class="row no-gutters">
+          <div class="col-lg-6 mb-8 mb-lg-0 pr-xl-2">
+            <h3 class="fs-24 mb-6">{{ 'customer.login.title' | t }}</h3>
+            {% form 'customer_login' %}
+              {%- if form.errors -%}
+              	<p>{{ form.errors | default_errors }}</p>
+              {%- endif -%}
+              <div class="form-group mb-4">
+                <label for="exampleInputEmail1" class="sr-only">{{ 'customer.login.email' | t }}</label>
+                <input class="form-control" type="email" name="customer[email]"  placeholder="{{ 'customer.login.email' | t }}" required>
+              </div>
+              <div class="form-group mb-3">
+                <label for="exampleInputPassword1" class="sr-only">{{ 'customer.login.password' | t }}</label>
+                <input class="form-control" type="password" name="customer[password]"  placeholder="{{ 'customer.login.password' | t }}" required>
+              </div>
+            {% if form.password_needed %}
+              <a href="/pages/password-recovery" class="d-inline-block fs-15 border-bottom border-2x lh-12 mb-5 border-secondary border-hover-primary">Forgot your password?</a>
+            {% endif %}
+              <button type="submit" class="btn btn-primary btn-block mb-3">{{ 'customer.login.sign_in' | t }}</button>
+<!--               <div class="custom-control custom-checkbox mb-7">
+                <input type="checkbox" class="custom-control-input" id="customCheck1"
+                       name="remember">
+                <label class="custom-control-label fs-15" for="customCheck1">Keep me signed
+                  in.</label>
+              </div>
+              <div class="row no-gutters mx-n2">
+                <div class="col-sm-6 mb-4 mb-sm-0 px-2">
+                  <a href="#"
+                     class="btn btn-outline-primary btn-block text-capitalize px-2 font-weight-500">
+                    <span class="d-inline-block mr-2"><i
+                                                         class="fab fa-facebook-f"></i></span>Continue with Facebook</a>
+                </div>
+                <div class="col-sm-6 mb-4 mb-sm-0 px-2">
+                  <a href="#"
+                     class="btn btn-outline-primary btn-block text-capitalize px-2 font-weight-500">
+                    <span class="d-inline-block mr-2">
+                      <i class="fab fa-google"></i>
+                    </span>Continue with Google</a>
+                </div>
+              </div> -->
+            {% endform %}
+          </div>
+          <div class="col-lg-6 pl-lg-6 pl-xl-12">
+            <h3 class="fs-24 mb-3">{{ section.settings.title }}</h3>
+            <p class="mb-6">{{ section.settings.text }}</p>
+            <a href="{{ routes.account_register_url }}" class="btn btn-primary">Register</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+  {
+    "name": "Section login",
+    "settings": [
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "New Customer"
+        },
+		{
+          "type": "html",
+          "id": "text",
+          "label": "text",
+		  "default" : "By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more."
+        }
+	]
+  }
+{% endschema %}

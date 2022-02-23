@@ -1,0 +1,151 @@
+{% if section.settings.show_section %}
+  <section class="py-6 list-collection-home" data-section-id="{{ section.id }}">
+    <div class="container-fluid px-6">
+      <div class="slick-slider"data-slick-options='{"slidesToShow": 4, "autoplay":true,"dots":true,"arrows":false,"responsive":[{"breakpoint": 1200,"settings": {"slidesToShow":4}},{"breakpoint": 992,"settings": {"slidesToShow":3}},{"breakpoint": 768,"settings": {"slidesToShow": 2}},{"breakpoint": 576,"settings": {"slidesToShow": 1}}]}'>
+         {% if section.settings.display_type == 'all' %}
+            {% for collection in collections %}
+              <div class="box" data-animate="fadeInUp">
+                <div class="card border-0">
+                  <img src="{{ collection.image | img_url: 'large' }}" alt="{{ collection.image.alt | default: collection.title }}" class="card-img">
+                  <div class="card-img-overlay d-inline-flex flex-column px-6 py-4">
+                    <h3 class="card-title fs-28">{{ collection.title }}</h3>
+                    <div class="mt-auto">
+                      <a href="{{ collection.url }}" class="text-white text-uppercase fs-14 letter-spacing-05 border-bottom border-light border-hover-light font-weight-bold">Shop Now</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+         {% else %}
+            {% for block in section.blocks %}
+              {%- assign collection = collections[block.settings.collection] -%}
+               <div class="box" data-animate="fadeInUp">
+                  <div class="card border-0">
+                    <img src="{{ collection.image | img_url: 'large' }}" alt="{{ collection.image.alt | default: collection.title }}" class="card-img">
+                    <div class="card-img-overlay d-inline-flex flex-column px-6 py-4">
+                      <h3 class="card-title fs-28">{{ collection.title }}</h3>
+                      <div class="mt-auto">
+                        <a href="{{ collection.url }}" class="text-white text-uppercase fs-14 letter-spacing-05 border-bottom border-light border-hover-light font-weight-bold">Shop Now</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            {% endfor %}
+         {% endif %}
+      </div>
+    </div>
+  </section>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section List Collections",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "header",
+          "content": "Select collections"
+    	},
+		{
+          "type": "radio",
+          "id": "display_type",
+          "label": {
+            "cs": "Vyberte kolekce, které chcete zobrazit",
+            "da": "Vælg de kollektioner, der skal vises",
+            "de": "Kategorien auswählen, die angezeigt werden sollen",
+            "en": "Select collections to show",
+            "es": "Selecciona colecciones para mostrar",
+            "fi": "Valitse näytettävät kokoelmat",
+            "fr": "Sélectionner les collections à afficher",
+            "it": "Seleziona le collezioni da mostrare",
+            "ja": "表示するコレクションを選択する",
+            "ko": "표시할 컬렉션 선택",
+            "nb": "Velg samlinger som skal vises",
+            "nl": "Collecties selecteren om weer te geven",
+            "pl": "Wybierz kolekcje do pokazania",
+            "pt-BR": "Selecione coleções para exibir",
+            "pt-PT": "Selecionar coleções para mostrar",
+            "sv": "Välj kollektioner som ska visas",
+            "th": "เลือกคอลเลกชันที่จะแสดง",
+            "tr": "Gösterilecek koleksiyonları seçin",
+            "vi": "Chọn bộ sưu tập muốn hiển thị",
+            "zh-CN": "选择要显示的产品系列",
+            "zh-TW": "選取欲顯示的商品系列"
+          },
+          "default": "all",
+          "options": [
+            {
+              "value": "all",
+              "label": {
+                "cs": "Všechny",
+                "da": "Alle",
+                "de": "Alle",
+                "en": "All",
+                "es": "Todos",
+                "fi": "Kaikki",
+                "fr": "Toutes",
+                "it": "Tutte",
+                "ja": "すべて",
+                "ko": "모두",
+                "nb": "Alle",
+                "nl": "Alle",
+                "pl": "Wszystkie",
+                "pt-BR": "Tudo",
+                "pt-PT": "Tudo",
+                "sv": "Alla",
+                "th": "ทั้งหมด",
+                "tr": "Tümü",
+                "vi": "Tất cả",
+                "zh-CN": "所有",
+                "zh-TW": "全部"
+              }
+            },
+            {
+              "value": "selected",
+              "label": {
+                "cs": "Vybrané",
+                "da": "Valgt",
+                "de": "Ausgewählt",
+                "en": "Selected",
+                "es": "Seleccionadas",
+                "fi": "Valittu",
+                "fr": "Sélection",
+                "it": "Selezionato",
+                "ja": "選択済み",
+                "ko": "선택됨",
+                "nb": "Valgt",
+                "nl": "Geselecteerd",
+                "pl": "Wybrane",
+                "pt-BR": "Selecionado",
+                "pt-PT": "Selecionado",
+                "sv": "Valt",
+                "th": "เลือกแล้ว",
+                "tr": "Seçildi",
+                "vi": "Đã chọn",
+                "zh-CN": "已选",
+                "zh-TW": "已選取"
+              }
+            }
+        ]
+    	}
+	],
+	"blocks": [
+    {
+      "type": "collection",
+      "name": "collection",
+      "settings": [
+		{
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection" 
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}
+

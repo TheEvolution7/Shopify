@@ -1,0 +1,44 @@
+{% raw %}
+{% if paginate.last_page > 1 %}
+   <ul class="pagination justify-content-center align-items-center mb-0">
+    {% if paginate.current_page > 1 %}
+     <li class="page-item fs-12 d-none d-sm-block prev">
+       <a class="page-link" {% if paginate.current_page != 1 %} onclick="setPage({{paginate.current_page | minus: 1}})"{% endif %} href="javascript:;" rel="prev" tabindex="-1">{% include 'icon-arrow-left' %}</a>
+     </li>
+    {% endif %}
+    {% if paginate.current_page > 1 %}
+     <li class="page-item page"><a class="page-link" onclick="setPage(1)" href="javascript:">1</a></li>
+    {% endif %}
+    {% if paginate.current_page > 4 %}
+     <li class="page-item page">...</li>
+    {% endif %}
+    {% if paginate.current_page > 3 %}
+      <li class="page-item page"><a class="page-link" onclick="setPage({{paginate.current_page | minus: 2}})" href="javascript:;">{{paginate.current_page | minus: 2}}</a></li>
+    {% endif %}
+    {% if paginate.current_page > 2 %}
+     <li class="page-item page"><a class="page-link" onclick="setPage({{paginate.current_page | minus: 1}})" href="javascript:;">{{paginate.current_page | minus: 1}}</a></li>
+    {% endif %}
+    {% assign prevPage = paginate.last_page | minus: 1 %}
+    {% if prevPage > paginate.current_page %}
+     <li class="page-item page active"><a class="page-link" onclick="setPage({{paginate.current_page | plus: 1}})" href="javascript:;">{{paginate.current_page | plus: 1}}</a></li>
+    {% endif %}
+    {% assign _prevPage = paginate.last_page | minus: 2 %}
+    {% if _prevPage > paginate.current_page %}
+    	<li class="page-item page"><a class="page-link" onclick="setPage({{paginate.current_page | plus: 2}})" href="javascript:;">{{paginate.current_page | plus: 2}}</a></li>
+    {% endif %}
+    {% assign __prevPage = paginate.last_page | minus: 3 %}
+    {% if __prevPage > paginate.current_page %}
+      <li class="page-item page">...</li>
+    {% endif %}
+    {% if paginate.last_page > paginate.current_page %}
+    <span class="page"><a onclick="setPage({{paginate.last_page}})" href="javascript:;">{{paginate.last_page}}</a></span>
+     <li class="page-item page"><a class="page-link" onclick="setPage({{paginate.last_page}})" href="javascript:;">{{paginate.last_page}}</a></li>
+    {% endif %}
+    {% if paginate.current_page < paginate.last_page %}
+     <li class="page-item fs-12 d-none d-sm-block next">
+        <a class="page-link" {% if paginate.current_page != paginate.last_page %} onclick="setPage({{paginate.current_page | plus: 1}})"{% endif %} href="javascript:;" rel="next">{% include 'icon-arrow-right' %}</a>
+      </li>
+    {% endif %}
+	</ul>
+{% endif %}
+{% endraw %}

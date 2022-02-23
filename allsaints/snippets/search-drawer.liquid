@@ -1,0 +1,12 @@
+<div class="mfp-hide search-popup mfp-with-anim" id="search-popup">
+  <form action="{{ routes.search_url }}" method="get" role="search">
+    <div class="input-group position-relative"> 
+      <input type="text" id="keyword" name="q" class="form-control border-0 border-bottom border-2x bg-transparent text-white border-white fs-24 form-control-lg" placeholder="{{ 'general.search.placeholder' | t }}" value="{{ search.terms | escape }}">
+      <input type="hidden" name="type" value="product" aria-hidden="true" />
+      <input type="hidden" name="options[prefix]" value="last" aria-hidden="true" />
+      <div class="input-group-append position-absolute pos-fixed-right-center">
+        <button class="input-group-text bg-transparent border-0 text-white fs-30 px-0 btn-lg" type="submit">{% include 'icon-search' %}</button>
+      </div>
+    </div>
+  </form>
+</div>

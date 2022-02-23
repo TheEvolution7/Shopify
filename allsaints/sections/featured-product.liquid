@@ -1,0 +1,105 @@
+{%- capture relatedProducts -%}
+  {% if section.settings.show_related_products == true %}
+  <section class="pb-11 pb-lg-15" data-section-id="{{ section.id }}">
+    <div class="container container-xxl">
+      <h2 class="fs-md-40 fs-30 mb-9 text-center">{{ section.settings.title }}</h2>
+      {% assign number_of_related_products_per_row = section.settings.related_grid_num %}
+        {% assign number_of_rows = section.settings.related_total_product_to_show | plus:1 %}
+
+        {% assign same_vendor = false %}
+        {% assign same_type = false %}
+
+        {% assign exclusions = 'frontpage,all' | split: ',' %}
+
+        {% if product.metafields.c_f['Related Products'] %}
+        {% assign collection = collections[product.metafields.c_f['Related Products']] %}
+        {% endif %}
+
+        {% assign found_a_collection = false %}
+        {% if collection and collection.all_products_count > 1 %}
+        {% unless exclusions contains collection.handle %}
+        {% assign found_a_collection = true %}
+        {% endunless %}
+        {% endif %}
+        {% unless found_a_collection %}
+        {% for c in product.collections limit: number_of_rows %}
+        {% unless exclusions contains c.handle or c.all_products_count < 2 %}
+        {% assign found_a_collection = true %}
+        {% assign collection = c %}
+        {% break %}
+        {% endunless %}
+        {% endfor %}
+        {% endunless %}
+       {% if found_a_collection %}
+        {% assign current_product = product %}
+        {%- capture related_items -%}
+      <div class="slick-slider" data-slick-options='{"slidesToShow": 4, "autoplay":false,"dots":false,"arrows":false,"responsive":[{"breakpoint": 992,"settings": {"slidesToShow":3}},{"breakpoint": 768,"settings": {"slidesToShow": 2}},{"breakpoint": 576,"settings": {"slidesToShow": 1}}]}'> 
+        {% for product in collection.products limit : 4 %}
+          {% unless product.handle == current_product.handle %}
+          {% unless same_vendor and current_product.vendor != product.vendor %}
+          {% unless same_type and current_product.type != product.type %}
+            <div class="box">
+              <a href="{{ product.url }}" class="card border-0 hover-change-content product product-hover-slide"
+                 data-animate="fadeInUp">
+                <div style="background-image: url('{{ product.featured_media | img_url: 'large' }}')" class="card-img ratio bg-item-contain ratio-1-1 slide-pro-img">
+                    {%- for media in product.media limit : 3 -%}
+                      <div class="item">
+                        <img src="{{ media | img_url: 'large' }}" alt="{{ media.alt | default : product.title }}">
+                      </div>
+                    {%- endfor -%}
+                </div>
+                <div class="card-img-overlay card-product d-flex py-4 py-sm-5 pl-6 pr-4">
+
+                  <div class="d-flex flex-column">
+                    <div class="font-weight-bold mb-1 d-block lh-12">{{ product.title }}</div>
+                    {% assign collections = product.collections %}
+                    {% for collection in collections %}
+                    	<div class="text-uppercase text-muted letter-spacing-05 fs-13 font-weight-500">{{ collection.title }}</div>
+                    {% endfor %}
+                    <p class="mt-auto text-primary mb-0 font-weight-500"><span class="text-line-through text-secondary fs-14 d-inline-block mr-2 font-weight-normal">{{ product.compare_at_price | money }}</span>{{ product.price | money }}</p>
+                  </div>
+                  <div class="ml-auto d-flex flex-column">
+                  {% if product.compare_at_price %}
+                     <div class="badge badge-pink badge-circle ml-auto w-45px h-45px fs-12 d-flex align-items-center justify-content-center mb-2">
+                      Sale
+                    </div>
+                  {% endif %}
+                </div>
+                </div>
+              </a>
+            </div>
+          {% endunless %}
+          {% endunless %}
+          {% endunless %}
+        {% endfor %}
+      </div>
+      {%- endcapture -%}
+      {% assign related_items = related_items | trim %}
+      {% unless related_items == blank %}
+      	<div id="products-{{ section.id }}">{{ related_items }}</div>
+      {% endunless %}  
+      {% endif %} 
+    </div>
+  </section>
+  {% endif %}
+{%- endcapture -%}
+{{ relatedProducts | strip_newlines | remove: "  " | remove: "	" }}
+{% schema %}
+  {
+    "name": "May You Like This",
+    "settings": [
+	{
+        "type": "checkbox",
+        "id": "show_related_products",
+        "label": "Show related products",
+        "default": true
+     },
+ 	 {
+        "id": "title",
+        "type": "text",
+        "label": "Title",
+        "default": "May You Like This"
+      }
+	]
+  }
+{% endschema %}

@@ -1,0 +1,119 @@
+{% paginate blog.articles by 9 %}
+  <section class="pt-10 pb-11 pb-lg-15" data-section-id="{{ section.id }}">
+    <div class="container">
+      <h2 class="fs-sm-40 mb-11 text-center">{{ section.settings.title }}</h2>
+      <div class="row">
+       {%- for article in blog.articles -%} 
+        <div class="col-sm-6 col-lg-4 mb-8" data-animate="fadeInUp">
+          <div class="card border-0">
+            <a href="{{ article.url }}" class="hover-shine card-img-top">
+              <div class="card-thumb">
+                {{ article | img_url: 'large', scale: 2 | img_tag: article.title }}
+              </div>
+            </a>
+            <div class="card-body px-0 pt-6 pb-0">
+                {%- if section.settings.blog_show_date -%}
+                  <p class="card-text fs-12 mb-2 text-muted lh-12 text-uppercase letter-spacing-05 font-weight-500">
+                    {{ article.published_at | time_tag: format: 'date' }}
+                  </p>
+                {%- endif -%}
+              <h3 class="card-title mb-2 fs-20">
+                <a href="{{ article.url }}">{{ article.title }}</a>
+              </h3>
+              <p class="card-text mb-4 font-weight-500">
+                {%- if article.excerpt.size > 0 -%}
+                	{{ article.excerpt }}
+                {%- else -%}
+                	{{ article.content | truncatewords: 20 }}
+                {%- endif -%}
+              </p>
+              <a href="{{ article.url }}" class="fs-14 font-weight-bold border-bottom border-light-dark text-uppercase letter-spacing-05 d-inline-block border-hover-primary">{{ section.settings.title_button }}</a>
+            </div>
+          </div>
+        </div>
+       {%- endfor -%}
+      </div>
+      <nav class="pt-2">
+        {%- if paginate.pages > 1 -%}
+          {% include 'pagination', paginate: paginate %}
+        {%- endif -%}
+      </nav>
+    </div>
+  </section>
+{% endpaginate %}
+
+
+
+{% schema %}
+{
+  "name": {
+    "cs": "Stránky blogu",
+    "da": "Blogsider",
+    "de": "Blogseiten",
+    "en": "Blog pages",
+    "es": "Páginas del blog",
+    "fi": "Blogisivut",
+    "fr": "Pages du blog",
+    "it": "Pagine del blog",
+    "ja": "ブログページ",
+    "ko": "블로그 페이지",
+    "nb": "Bloggsider",
+    "nl": "Blogpagina's",
+    "pl": "Strony blogu",
+    "pt-BR": "Páginas do blog",
+    "pt-PT": "Páginas do blogue",
+    "sv": "Bloggsidor",
+    "th": "หน้าบล็อก",
+    "tr": "Blog sayfaları",
+    "vi": "Trang blog",
+    "zh-CN": "博客页面",
+    "zh-TW": "部落格頁面"
+  },
+  "settings": [
+	{
+      "type": "checkbox",
+      "id": "blog_show_date",
+      "label": {
+        "cs": "Zobrazit datum",
+        "da": "Vis dato",
+        "de": "Datum anzeigen",
+        "en": "Show date",
+        "es": "Mostrar fecha",
+        "fi": "Näytä päivämäärä",
+        "fr": "Afficher la date",
+        "it": "Mostra data",
+        "ja": "日付を表示する",
+        "ko": "날짜 표시",
+        "nb": "Vis dato",
+        "nl": "Datum weergeven",
+        "pl": "Pokaż datę",
+        "pt-BR": "Exibir data",
+        "pt-PT": "Mostrar data",
+        "sv": "Visa datum",
+        "th": "แสดงวันที่",
+        "tr": "Tarihi göster",
+        "vi": "Hiển thị ngày",
+        "zh-CN": "显示日期",
+        "zh-TW": "顯示日期"
+      },
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+	{
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default" : "Our Journal"
+    },
+	{
+      "type": "text",
+      "id": "title_button",
+      "label": "Title Button",
+      "default" : "Read more"
+    }
+  ]
+}
+{% endschema %}

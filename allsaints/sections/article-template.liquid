@@ -1,0 +1,246 @@
+<section class="pt-10 pb-11 pb-lg-15" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-9">
+        <section class="border-bottom pb-8">
+          <div class="card-thumb mb-4">
+            <img src="{{ article.image | img_url : '800x' }}" alt="{{ article.image.alt | default : article.title }}">
+          </div>
+          <h2 class="mb-4 fs-40">{{ article.title }}</h2>
+           {{ article.content }}
+          <div class="row no-gutters">
+            <div class="col-sm-12 d-flex justify-content-sm-end">
+              <label class="text-primary font-weight-bold mr-3 mb-0">Share:</label>
+              {% if section.settings.show_share_buttons %}
+                <ul class="list-inline d-flex align-items-center mb-0">
+                  {% include 'social-sharing', share_title: article.title, share_permalink: article.url, share_image: article.image %}
+                </ul>
+              {% endif %}
+            </div>
+          </div>
+        </section>
+        <section class="pt-7 pb-10 pb-md-14">
+          <div class="row mb-11 mb-lg-15">
+            {% if blog.previous_article %}
+            	<div class="col-sm-6 mb-6 mb-sm-0 border-right-0 border-sm-right align-items-center">
+              <div class="media align-items-center py-1">
+                <a href="{{ blog.previous_article.url }}" class="fs-14 mr-4"><i class="fas fa-arrow-left"></i></a>
+                <a href="{{ blog.previous_article.url }}" class="w-70px d-block mr-2">
+                  <div class="card-thumb">
+                    <img src="{{ blog.previous_article.image | img_url : 'compact' }}" alt="{{ blog.previous_article.image.alt | default: blog.previous_article.title  }}">
+                  </div>
+                </a>
+                <div class="media-body">
+                  <p class="fs-12 mb-1 text-muted lh-12 text-uppercase letter-spacing-05 font-weight-500">previous</p>
+                  <a href="{{ blog.previous_article.url }}" class="font-weight-bold">
+                    {{ blog.previous_article.title }}
+                  </a>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+            {% if blog.next_article %}
+            <div class="col-sm-6 align-items-center">
+              <div class="media align-items-center justify-content-end py-1">
+                <div class="media-body text-right">
+                  <p  class="fs-12 mb-1 text-muted lh-12 text-uppercase letter-spacing-05 font-weight-500">Next</p>
+                  <a href="{{ blog.next_article.url }}" class="font-weight-bold">
+                    {{ blog.next_article.title }}
+                  </a>
+                </div>
+                <a href="{{ blog.next_article.url }}" class="w-70px d-block ml-2">
+                  <div class="card-thumb">
+                    <img src="{{ blog.next_article.image | img_url : 'compact' }}" alt="{{ blog.next_article.image.alt | default: blog.next_article.title  }}">
+                  </div>
+                </a>
+                <a href="{{ blog.next_article.url }}" class="fs-14 ml-4"><i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+          <h2 class="mb-10 fs-32 text-center">
+            {{ section.settings.title_1 }}
+          </h2>
+          <div class="slick-slider"  data-slick-options='{"slidesToShow": 2,"infinite":true,"autoplay":false,"dots":false,"arrows":false,"responsive":[{"breakpoint": 576,"settings": {"slidesToShow": 1}}]}'>
+            {%- assign blog_related = blogs[section.settings.blog_related] -%}
+            {%- for post in blog_related.articles limit: section.settings.post_article_limit -%}
+              {%- if post.id != article.id -%}
+                <div class="box">
+                  <div class="card border-0">
+                    <a href="{{ post.url }}" class="hover-shine card-img-top">
+                      <div class="card-thumb">
+                        {{ post | img_url: 'larget', scale: 2 | img_tag: post.title }}
+                      </div>
+
+                      <div class="card-body px-0 pt-6 pb-0">
+                        <p  class="card-text fs-12 mb-2 text-muted lh-12 text-uppercase letter-spacing-05 font-weight-500">
+                          {{ post.published_at | time_tag: format: 'date' }}
+                        </p>
+                        <h3 class="card-title mb-0 fs-20">{{ post.title }}</h3>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}   
+          </div>
+        </section>
+      </div>
+      <div class="col-lg-3 mt-11 mt-lg-0 primary-sidebar sidebar-sticky" id="sidebar">
+        <div class="primary-sidebar-inner">
+          {%- if article.tags.size > 0 -%}
+          	<div class="card border-0 mb-9">
+            <div class="card-header bg-transparent border-0 p-0">
+              <h3 class="card-title fs-20 mb-0">
+                Tags
+              </h3>
+            </div>
+            <div class="card-body px-0 pt-4 pb-0">
+              <ul class="list-unstyled mb-0">
+                {%- for tag in article.tags -%}
+                  <li class="mb-1">
+                    <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="text-secondary hover-primary border-bottom border-white border-hover-primary d-inline-block lh-12">{{ tag }}</a>
+                  </li>
+                {%- endfor -%} 
+              </ul>
+            </div>
+          </div>
+          {%- endif -%}
+          <div class="card border-0 mb-9">
+            <div class="card-header bg-transparent border-0 p-0">
+              <h3 class="card-title fs-20 mb-0">
+                {{ section.settings.title_2 }}
+              </h3>
+            </div>
+            <div class="card-body px-0 pt-6 pb-0">
+              <ul class="list-unstyled mb-0">
+               {%- assign blog = blogs[section.settings.blog] -%}
+               {%- for post in blog.articles limit: section.settings.post_limit -%} 
+                 {%- if post.id != article.id -%}
+                  <li class="mb-6">
+                    <div class="media">
+                      <a href="{{ post.url }}" class="d-block w-70px mr-2">
+                        {{ post | img_url: 'compact', scale: 2 | img_tag: post.title }}
+                      </a>
+                      <div class="media-body">
+                        <p class="text-muted fs-12 mb-0 text-uppercase letter-spacing-05 lh-1 mb-1">{{ post.published_at | time_tag: format: 'date' }}</p>
+                        <a href="{{ post.url }}" class="font-weight-bold">{{ post.title }}
+                        </a>
+                      </div>
+                    </div>
+                  </li>
+                {%- endif -%}  
+              {%- endfor -%}  
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": {
+    "cs": "Příspěvky",
+    "da": "Opslag",
+    "de": "Posts",
+    "en": "Posts",
+    "es": "Publicaciones",
+    "fi": "Julkaisut",
+    "fr": "Articles",
+    "it": "Articoli",
+    "ja": "投稿",
+    "ko": "게시물",
+    "nb": "Innlegg",
+    "nl": "Berichten",
+    "pl": "Posty",
+    "pt-BR": "Posts",
+    "pt-PT": "Publicações",
+    "sv": "Inlägg",
+    "th": "โพสต์",
+    "tr": "Gönderiler",
+    "vi": "Bài viết",
+    "zh-CN": "文章",
+    "zh-TW": "貼文"
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_share_buttons",
+      "label": {
+        "cs": "Zobrazit tlačítka pro sdílení na sociálních sítích",
+        "da": "Vis knapper til deling på sociale medier",
+        "de": "Buttons für Social Media anzeigen",
+        "en": "Show social sharing buttons",
+        "es": "Mostrar botones para compartir en redes sociales",
+        "fi": "Näytä sosiaalisen median jakamispainikkeet",
+        "fr": "Afficher les boutons de partage sur les médias sociaux",
+        "it": "Mostra i pulsanti per la condivisione sui social",
+        "ja": "ソーシャルメディアでの共有ボタンを表示する",
+        "ko": "소셜 공유 버튼 표시",
+        "nb": "Vis knapper for deling på sosiale medier",
+        "nl": "Knoppen voor sociaal delen weergeven",
+        "pl": "Pokaż przyciski udostępniania w mediach społecznościowych",
+        "pt-BR": "Exibir botões de compartilhamento em redes sociais",
+        "pt-PT": "Mostrar botões de partilha nas redes sociais",
+        "sv": "Visa knappar för delning i sociala medier",
+        "th": "แสดงปุ่มสำหรับแชร์ลงโซเชียล",
+        "tr": "Sosyal medya paylaşım düğmelerini göster",
+        "vi": "Hiển thị nút chia sẻ qua mạng xã hội",
+        "zh-CN": "显示社交分享按钮",
+        "zh-TW": "顯示社群分享按鈕"
+      },
+      "default": true
+    },
+	{
+      "type": "header",
+      "content": "Related Articles"
+    },
+	{
+      "type": "text",
+      "id": "title_1",
+      "label": "Title",
+      "default": "Related Articles"
+    },
+	{
+      "id": "blog_related",
+      "type": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "range",
+      "id": "post_article_limit",
+      "label": "Posts",
+      "min": 3,
+      "max": 12,
+      "step": 3,
+      "default": 3
+    },
+	{
+      "type": "header",
+      "content": "Recent Posts"
+    },
+	{
+      "type": "text",
+      "id": "title_2",
+      "label": "Heading",
+      "default": "Recent Posts"
+    },
+    {
+      "id": "blog",
+      "type": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "range",
+      "id": "post_limit",
+      "label": "Posts",
+      "min": 3,
+      "max": 12,
+      "step": 3,
+      "default": 3
+    }	
+  ]
+}
+{% endschema %}

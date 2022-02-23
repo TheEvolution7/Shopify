@@ -1,0 +1,61 @@
+<div class="canvas-sidebar cart-canvas">
+  <div class="canvas-overlay">
+  </div>
+  <form action="{{ routes.cart_url }}" method="post" class="h-100">
+    <div class="card border-0 pt-5 pb-7 h-100">
+      <div class="px-6 text-right">
+        <span class="canvas-close d-inline-block fs-24 mb-1 ml-auto lh-1 text-primary"><i class="fal fa-times"></i></span>
+      </div>
+       {% if cart.item_count > 0 %}
+        <div class="card-header bg-transparent py-0 px-6">
+          <h3 class="fs-24 mb-5">
+            {{ 'cart.general.title' | t }}
+          </h3>
+        </div>
+        <div class="card-body px-6 pt-7 overflow-y-auto">
+          {% for item in cart.items %} 
+            <div class="mb-6 d-flex">
+              <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="d-block mr-4"><i class="fal fa-times"></i></a>
+              <div class="media">
+                <div class="w-70px mr-4">
+                  <img src="{{ item | img_url: 'medium' }}" alt="{{ item.product.title }}">
+                </div>
+                <div class="media-body">
+                  {% assign collections = item.product.collections %}
+                  {% for collection in collections %}
+                   	<p class="text-muted fs-12 mb-0 text-uppercase letter-spacing-05 lh-1 mb-1">{{ collection.title | reverse | join: " " }}</p>
+                  {% endfor %}
+                  <a href="{{ item.url }}" class="font-weight-bold mb-1 d-block">{{ item.product.title }}</a>
+                  <div class="d-flex align-items-center">
+                    <div class="input-group position-relative">
+                      quantity: {{ item.quantity }}
+                    </div>
+                    <p class="mb-0 ml-12 text-primary">{{ item.price | money }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %} 
+        </div>
+        <div class="card-footer mt-auto border-0 bg-transparent px-6 pb-0 pt-5">
+          <div class="d-flex align-items-center mb-4">
+            <span class="font-weight-bold text-primary">Subtotal</span>
+            <span class="d-block ml-auto text-primary">{{ cart.total_price | money_with_currency }}</span>
+          </div>
+          <input type="submit" class="btn btn-primary btn-block mb-2" name="checkout" value="{{ 'cart.general.checkout' | t }}">
+          <a href="{{ routes.cart_url }}" class="d-block fs-14 text-uppercase letter-spacing-05 text-center font-weight-bold">View Cart</a>
+        </div>
+       {% else %}
+        <div class="card-header bg-transparent py-0 px-6">
+          <h3 class="fs-24 mb-5">
+            {{ 'cart.general.title' | t }}
+          </h3>
+          <p class="fs-15 text-primary"><span class="d-inline-block mr-2 fs-14"></span>{{ 'cart.general.empty' | t }}</p>
+        </div>
+      	<div class="card-body px-6 pt-7 overflow-y-auto">
+          <a href="{{ routes.all_products_collection_url }}" class="btn btn-primary btn-block mb-2">{{ 'cart.general.continue_shopping' | t }}</a>
+        </div>
+       {% endif %}
+    </div>
+  </form>
+</div>

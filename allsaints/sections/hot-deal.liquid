@@ -1,0 +1,99 @@
+{% if section.settings.show_section %}
+    <section class="py-10 overflow-hidden" data-section-id="{{ section.id }}">
+      <div class="container container-xxl">
+        <h2 class="fs-sm-34 mb-10 text-center">{{ section.settings.heading }}</h2>
+        <div class="row align-items-center no-gutters">
+          <div class="col-lg-3 mb-6 mb-lg-0 pr-xxl-8" data-animate="fadeInLeft">
+            <h2 class="fs-30 fs-md-40 mb-5">{{ section.settings.title }}</h2>
+          	<p class="mb-0 font-weight-500">{{ section.settings.subheading }}</p>
+            <div class="pt-8 pt-lg-11 d-flex custom-arrow">
+              <a href="#" class="arrow slick-prev"><i class="far fa-arrow-left"></i></a>
+              <a href="#" class="arrow slick-next"><i class="far fa-arrow-right"></i></a>
+            </div>
+          </div>
+          <div class="category-slider pl-xxl-9 pr-lg-6" data-animate="fadeInRight">
+            <div class="slick-slider custom-nav custom-slider-01" data-slick-options='{"slidesToShow": 2,"infinite":true,"autoplay":false,"dots":false,"arrows":false,"responsive":[{"breakpoint": 1200,"settings": {"slidesToShow":2}},{"breakpoint": 576,"settings": {"slidesToShow": 1}}]}'>
+              {% for block in section.blocks %}
+                <div class="box">
+                  <div class="card card-thumb border-0">
+                    <img src="{{ block.settings.image | img_url: 'large' }}" alt="{{  block.settings.image.alt | default :  block.settings.title }}" class="card-img">
+                    <div class="card-img-overlay d-inline-flex flex-column px-7 pt-6 pb-7">
+                      <h3 class="text-white card-title fs-20 fs-md-30">{{  block.settings.title }}</h3>
+                      <div class="mt-auto">
+                        <a href="{{  block.settings.url }}" class="text-white text-uppercase fs-14 letter-spacing-05 border-bottom border-light border-hover-light font-weight-bold">{{  block.settings.button }}</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %} 
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Hot Deal",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "header",
+          "content": "Content"
+    	},
+		{
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+		  "default" : "Hot Deals"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Best Saler<br>2021"
+        },
+		{
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+		  "default" : "Shop our largest sale yet—55 glasses and sunglasses!"
+        }
+		
+	],
+	"blocks": [
+    {
+      "type": "collection",
+      "name": "content",
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+		{
+          "type": "text",
+          "id": "button",
+          "label": "Button",
+		  "default" : "Shop Now"
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

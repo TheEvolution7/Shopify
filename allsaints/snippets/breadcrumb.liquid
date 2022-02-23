@@ -1,0 +1,16 @@
+<section class="py-3 bg-color-3 mt-lg-5 mt-3">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb py-0">
+        <li class="breadcrumb-item"><a href="{{ routes.root_url }}">Home</a></li>
+        {%- if request.page_type == 'article' -%}
+         <li class="breadcrumb-item"><a href="/blogs/news">Blog</a></li>
+        {%- endif -%}
+        {%- if request.page_type == 'product' -%}
+        	<li class="breadcrumb-item"><a href="{{ routes.all_products_collection_url }}">List Products</a></li>
+        {%- endif -%}
+        <li class="breadcrumb-item active" aria-current="page">{{ page_title }}</li>
+      </ol>
+    </nav>
+  </div>
+</section>

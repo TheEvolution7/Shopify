@@ -1,0 +1,167 @@
+<footer class="pt-9 pb-9 footer bg-color-2" data-section-id="{{ section.id }}">
+  <div class="container container-xxl">
+    <div class="row">
+      <div class="col-lg mb-6 mb-lg-0">
+        <a href="{{ routes.root_url }}" class="footer-logo d-block"><img src="{{ section.settings.logo | img_url: 'large' }}" alt="{{ section.settings.logo.alt | default: shop.name }}"></a>
+      </div>
+      {%- for block in section.blocks -%}
+        <div class="col-sm-6 col-lg mb-6 mb-lg-0">
+          <ul class="list-unstyled mb-0">
+            {%- for link in linklists[block.settings.menu].links -%} 
+            	<li class="py-0"><a href="{{ link.url }}" class="lh-225 font-weight-500">{{ link.title | escape  }}</a> </li>
+            {%- endfor -%} 
+          </ul>
+        </div>
+      {%- endfor -%}
+      <div class="col-sm-6 col-lg">
+        {%- if section.settings.show_social_icons -%}
+          <ul class="list-inline text-lg-right mb-2">
+            {%- assign socials = "Facebook Twitter Pinterest Instagram Tumblr Snapchat YouTube Vimeo" | split: ' ' -%}
+            {%- for social in socials -%}
+              {%- assign social_link = social | prepend: 'social_' | append: '_link' | downcase -%}
+              {%- assign icon_link = social | prepend: 'icon-' | downcase -%}
+              {%- if settings[social_link] != blank -%}
+                <li class="list-inline-item mr-4"><a class="fs-20" href="{{ settings[social_link] | escape }}">{%- include icon_link -%}</a></li>
+              {%- endif -%}
+            {%- endfor -%}    
+          </ul>
+        {%- endif -%}
+        <p class="mb-0 text-gray text-lg-right font-weight-500">
+         {{ section.settings.copyright }}
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": {
+    "cs": "Zápatí",
+    "da": "Sidefod",
+    "de": "Fußzeile",
+    "en": "Footer",
+    "es": "Pie de página",
+    "fi": "Alatunniste",
+    "fr": "Pied de page",
+    "it": "Footer",
+    "ja": "フッター",
+    "ko": "바닥글",
+    "nb": "Footer",
+    "nl": "Voettekst",
+    "pl": "Stopka",
+    "pt-BR": "Rodapé",
+    "pt-PT": "Rodapé",
+    "sv": "Sidfot",
+    "th": "ส่วนท้าย",
+    "tr": "Altbilgi",
+    "vi": "Chân trang",
+    "zh-CN": "页脚",
+    "zh-TW": "頁尾"
+  },
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_social_icons",
+      "label": "Show social icons",
+      "default": true
+    },
+	{
+      "type": "image_picker",
+      "id": "logo",
+      "label": {
+        "cs": "Obrázek loga",
+        "da": "Logobillede",
+        "de": "Logo-Foto",
+        "en": "Logo image",
+        "es": "Logo",
+        "fi": "Logokuva",
+        "fr": "Image du logo",
+        "it": "Immagine del logo",
+        "ja": "ロゴ画像",
+        "ko": "로고 이미지",
+        "nb": "Logobilde",
+        "nl": "Afbeelding van logo",
+        "pl": "Obraz logo",
+        "pt-BR": "Imagem do logotipo",
+        "pt-PT": "Imagem do logótipo",
+        "sv": "Logobild",
+        "th": "รูปภาพโลโก้",
+        "tr": "Logo görseli",
+        "vi": "Hình ảnh logo",
+        "zh-CN": "logo 图片",
+        "zh-TW": "標誌圖片"
+      }
+    },
+	{
+      "type": "header",
+      "content": "Copyright"
+    },
+	{
+		"type" : "text",
+		"id" : "copyright",
+		"label" : "copyright",
+		"default" : "© 2021 All Saints Eye Wear.<br> All rights reserved."
+	}
+  ],
+  "blocks": [
+    {
+      "type": "link_list",
+      "name": {
+        "cs": "Nabídka",
+        "da": "Menu",
+        "de": "Menü",
+        "en": "Menu",
+        "es": "Menú",
+        "fi": "Valikko",
+        "fr": "Menu",
+        "it": "Menu",
+        "ja": "メニュー",
+        "ko": "메뉴",
+        "nb": "Meny",
+        "nl": "Menu",
+        "pl": "Menu",
+        "pt-BR": "Menu",
+        "pt-PT": "Menu",
+        "sv": "Meny",
+        "th": "เมนู",
+        "tr": "Menü",
+        "vi": "Menu",
+        "zh-CN": "菜单",
+        "zh-TW": "選單"
+      },
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": {
+            "cs": "Nabídka",
+            "da": "Menu",
+            "de": "Menü",
+            "en": "Menu",
+            "es": "Menú",
+            "fi": "Valikko",
+            "fr": "Menu",
+            "it": "Menu",
+            "ja": "メニュー",
+            "ko": "메뉴",
+            "nb": "Meny",
+            "nl": "Menu",
+            "pl": "Menu",
+            "pt-BR": "Menu",
+            "pt-PT": "Menu",
+            "sv": "Meny",
+            "th": "เมนู",
+            "tr": "Menü",
+            "vi": "Menu",
+            "zh-CN": "菜单",
+            "zh-TW": "選單"
+          },
+          "default": "footer"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

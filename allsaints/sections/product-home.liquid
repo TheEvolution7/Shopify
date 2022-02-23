@@ -1,0 +1,236 @@
+{% if section.settings.show_section %}
+  <section class="py-8 py-lg-10" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="mxw-110px mx-auto mb-8 animate-logo" data-animate="fadeInUp">
+        <img src="{{ section.settings.image | img_url : 'medium' }}" alt="{{ section.settings.image.alt | default : section.settings.title }}">
+        <img class="rotate-img" src="{{ section.settings.image_2 | img_url : 'medium' }}" alt="{{ section.settings.image_2.alt | default : section.settings.title }}">
+      </div>
+      <div class="mxw-924 mx-auto" data-animate="fadeInUp">
+        <h2 class="fs-24 fs-md-30 lh-14 mb-5 text-center">{{ section.settings.title }}</h2>
+        <p class="mb-6 fs-14 letter-spacing-05 text-uppercase text-primary text-center font-weight-bold">{{ section.settings.subheading }}</p>
+        <div class="text-center">
+          <a href="#product-home"
+             class="go-down d-inline-flex align-items-center justify-content-center w-50px h-50px rounded-circle border"><i class="far fa-arrow-down"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pb-lg-14 pb-11" id="product-home">
+    <div class="container container-xxl">
+      <div class="d-grid g-1 g-sm-2 g-lg-4 grid-gap overflow-hidden">
+       {% for block in section.blocks %}
+        {% if forloop.first %}
+          {%- for product in collections[block.settings.collection].products limit: 3 -%}
+        	
+          	<div class="grid-item">
+            <a href="{{ product.url }}"  class="card border-0 hover-change-content product product-hover-slide" data-animate="fadeInUp">
+              <div style="background-image: url('{{ product.featured_media | img_url: 'large' }}')"
+                   class="card-img ratio bg-item-contain ratio-1-1 slide-pro-img">
+               {%- for media in product.media limit : 3 -%}
+                <div class="item">
+                  <img src="{{ media | img_url: 'large' }}" alt="{{ media.alt | default : product.title }}">
+                </div>
+              {%- endfor -%}
+               
+              </div>
+              <div class="card-img-overlay card-product d-flex py-4 py-sm-5 pl-6 pr-4">
+                <div class="d-flex flex-column">
+                  <div class="font-weight-bold mb-1 d-block lh-12">{{ product.title }}</div>
+                  {% assign collection_title = product.collections %}
+                  {% for collection in collection_title %}
+                  	<div class="text-uppercase text-muted letter-spacing-05 fs-13 font-weight-500">{{ collection.title }}</div>
+                  {% endfor %}
+                  <p class="mt-auto text-primary mb-0 font-weight-500"><span class="text-line-through text-secondary fs-14 d-inline-block mr-2 font-weight-normal">{{ product.compare_at_price | money }}</span>{{ product.price | money }}</p>
+                </div>
+                <div class="ml-auto d-flex flex-column">
+                  {% if product.compare_at_price %}
+                     <div class="badge badge-pink badge-circle ml-auto w-45px h-45px fs-12 d-flex align-items-center justify-content-center mb-2">
+                      Sale
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </a>
+          </div>
+          {% endfor %}
+        <div class="grid-item gc-sm-2  gr-start-7 gr-start-sm-4 gr-start-lg-2">
+          <div class="card border-0" data-animate="fadeInUp">
+            <div style="background-image: url('{{ block.settings.image | img_url : 'grande' }}')"
+                 class="card-img ratio bg-img-cover-center ratio-1-1 ratio-sm-1-2">
+            </div>
+            <div class="card-img-overlay d-inline-flex flex-column p-xl-8">
+              <div class="mxw-320px">
+                <h3 class="text-white card-title fs-34 fs-lg-40 fs-xxl-50 pt-xxl-1">{{ collections[block.settings.collection].title }}</h3>
+              </div>
+              <div class="mt-auto">
+                <a href="{{ collections[block.settings.collection].url }}" class="btn-outline-light btn btn-outline-primary text-uppercase letter-spacing-05">{{ block.settings.text }}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+          {%- for product in collections[block.settings.collection].products limit: 3 offset: continue -%}
+           	<div class="grid-item">
+            <a href="{{ product.url }}"   class="card border-0 hover-change-content product product-hover-slide" data-animate="fadeInUp">
+              <div style="background-image: url('{{ product.featured_media | img_url: 'large' }}')"
+                   class="card-img ratio bg-item-contain ratio-1-1 slide-pro-img">
+                {%- for media in product.media limit : 3 -%}
+                  <div class="item">
+                    <img src="{{ media | img_url: 'large' }}" alt="{{ media.alt | default : product.title }}">
+                  </div>
+                {%- endfor -%}
+              </div>
+              <div class="card-img-overlay card-product d-flex py-4 py-sm-5 pl-6 pr-4">
+
+                <div class="d-flex flex-column">
+                  <div class="font-weight-bold mb-1 d-block lh-12">{{ product.title }}</div>
+                  {% assign collection_title = product.collections %}
+                  {% for collection in collection_title %}
+                  	<div class="text-uppercase text-muted letter-spacing-05 fs-13 font-weight-500">{{ collection.title }}</div>
+                  {% endfor %}
+                  <p class="mt-auto text-primary mb-0 font-weight-500">
+                    <span class="text-line-through text-secondary fs-14 d-inline-block mr-2 font-weight-normal">{{ product.compare_at_price | money }}</span>{{ product.price | money }}</p>
+                </div>
+                <div class="ml-auto d-flex flex-column">
+                   {% if product.compare_at_price %}
+                     <div class="badge badge-pink badge-circle ml-auto w-45px h-45px fs-12 d-flex align-items-center justify-content-center mb-2">
+                      Sale
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </a>
+          </div>
+          {% endfor %}
+        {% else %}
+          {%- for product in collections[block.settings.collection].products limit: 6 -%}
+          	<div class="grid-item">
+            <a href="{{ product.url }}"  class="card border-0 hover-change-content product product-hover-slide" data-animate="fadeInUp">
+              <div style="background-image: url('{{ product.featured_media | img_url: 'large' }}')"
+                   class="card-img ratio bg-item-contain ratio-1-1 slide-pro-img">
+                {%- for media in product.media limit : 3 -%}
+                  <div class="item">
+                    <img src="{{ media | img_url: 'large' }}" alt="{{ media.alt | default : product.title }}">
+                  </div>
+                {%- endfor -%}
+              </div>
+              <div class="card-img-overlay card-product d-flex py-4 py-sm-5 pl-6 pr-4">
+
+                <div class="d-flex flex-column">
+                  <div class="font-weight-bold mb-1 d-block lh-12">{{ product.title }}</div>
+                  {% assign collection_title = product.collections %}
+                  {% for collection in collection_title %}
+                  	<div class="text-uppercase text-muted letter-spacing-05 fs-13 font-weight-500">{{ collection.title }}</div>
+                  {% endfor %}
+                   <p class="mt-auto text-primary mb-0 font-weight-500">
+                    <span class="text-line-through text-secondary fs-14 d-inline-block mr-2 font-weight-normal">{{ product.compare_at_price | money }}</span>{{ product.price | money }}</p>
+                </div>
+                <div class="ml-auto d-flex flex-column">
+                  {% if product.compare_at_price %}
+                     <div class="badge badge-pink badge-circle ml-auto w-45px h-45px fs-12 d-flex align-items-center justify-content-center mb-2">
+                      Sale
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </a>
+          </div>
+          {% endfor %}
+          <div class="grid-item gc-sm-2  gc-start-lg-3 gc-end-lg-5 gr-start-14 gr-start-sm-8 gr-start-lg-4">
+            <div class="card border-0" data-animate="fadeInUp">
+              <div style="background-image: url('{{ block.settings.image | img_url : 'grande' }}')"
+                   class="card-img ratio bg-img-cover-center ratio-1-1 ratio-sm-1-2">
+              </div>
+              <div class="card-img-overlay d-inline-flex flex-column p-xl-8">
+                <div class="mxw-320px">
+                  <h3 class="text-white card-title fs-34 fs-lg-40 fs-xxl-50 pt-xxl-6">{{ collections[block.settings.collection].title }}</h3>
+                  <p class="text-white text-primary">{{ block.settings.description }}</p>
+                </div>
+                <div class="position-absolute d-none d-lg-block category-price">
+                  <p class="text-primary d-flex flex-column align-items-center justify-content-center w-88px h-88 rounded-circle bg-white text-center">{{ block.settings.text }}</p>
+                </div>
+                <div class="mt-auto">
+                  <a href="{{ collections[block.settings.collection].url }}" class="btn-outline-light btn btn-outline-primary text-uppercase letter-spacing-05">Shop Now</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+       {% endfor %}
+        
+      </div>
+      <div class="text-center mt-11">
+        <a href="{{ routes.all_products_collection_url }}" class="btn btn-outline-primary text-uppercase letter-spacing-05" data-animate="fadeInUp">Shop Now</a>
+      </div>
+    </div>
+  </section>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Products",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "header",
+          "content": "Content"
+    	},
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Exclusive, highly coveted and rare. Our limited release program is inspired by the challenges that move us. Once they’re gone, they’re gone for good!"
+        },
+		{
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+		  "default" : "our products"
+        }
+		
+	],
+	"blocks": [
+    {
+      "type": "collection",
+      "name": "collection",
+	  "limit" : 2,
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+		{
+          "type": "text",
+          "id": "description",
+          "label": "Description"
+        },	
+		{
+          "type": "html",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

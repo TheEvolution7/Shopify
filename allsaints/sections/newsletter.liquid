@@ -1,0 +1,174 @@
+<section class="pt-12 pt-lg-15 pb-12 pb-lg-15" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-lg-6 mx-auto">
+        <div class="col-lg-auto ml-lg-auto text-center">
+          <div class="d-flex flex-column align-items-center">
+            <div class="w-124px mb-9">
+              <img src="{{ section.settings.image | img_url : 'medium' }}" alt="{{ section.settings.title }}">
+            </div>
+            <h2 class="fs-40 mb-4 text-center text-red">{{ section.settings.title }}</h2>
+            <p class="mb-7">{{ section.settings.subheading }}</p>
+            {%- assign formId = 'Newsletter' -%}
+            {% form 'customer', id: formId, class : 'w-100'%}
+              {%- if form.posted_successfully? -%}
+              	<p>{{ 'contact.form.post_success' | t }}</p>
+              {%- endif -%}
+              <div class="input-group position-relative">
+                <input type="hidden" name="contact[tags]" value="newsletter">
+                <input type="email" class="form-control border-top-0 border-left-0 border-right-0 px-0 border-2x bg-transparent" id="{{ formId }}-email" name="contact[email]" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"  placeholder="{{ 'general.newsletter_form.email_placeholder' | t }}" aria-label="{{ 'general.newsletter_form.email_placeholder' | t }}" required>
+                <div class="input-group-append fs-14 position-absolute pos-fixed-right-center z-index-2">
+                  <button class="bg-transparent border-0 outline-none" type="submit" name="subscribe">
+                    <i class="far fa-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+            {% endform %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": {
+    "cs": "Novinky",
+    "da": "Nyhedsbrev",
+    "de": "Newsletter",
+    "en": "Newsletter",
+    "es": "Boletín",
+    "fi": "Uutiskirje",
+    "fr": "Newsletter",
+    "it": "Newsletter",
+    "ja": "ニュースレター",
+    "ko": "뉴스레터",
+    "nb": "Nyhetsbrev",
+    "nl": "Nieuwsbrief",
+    "pl": "Newsletter",
+    "pt-BR": "Newsletter",
+    "pt-PT": "Newsletter",
+    "sv": "Nyhetsbrev",
+    "th": "จดหมายข่าว",
+    "tr": "Bülten",
+    "vi": "Bản tin",
+    "zh-CN": "新闻通讯",
+    "zh-TW": "電子報"
+  },
+  "class": "index-section index-section--flush",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": {
+        "cs": "Nadpis",
+        "da": "Overskrift",
+        "de": "Titel",
+        "en": "Heading",
+        "es": "Título",
+        "fi": "Otsake",
+        "fr": "En-tête",
+        "it": "Heading",
+        "ja": "見出し",
+        "ko": "제목",
+        "nb": "Overskrift",
+        "nl": "Kop",
+        "pl": "Nagłówek",
+        "pt-BR": "Título",
+        "pt-PT": "Título",
+        "sv": "Rubrik",
+        "th": "ส่วนหัว",
+        "tr": "Başlık",
+        "vi": "Tiêu đề",
+        "zh-CN": "标题",
+        "zh-TW": "標題"
+      },
+      "default": "Sign Up for Newsletter"
+    },
+    {
+      "type": "html",
+      "id": "subheading",
+      "label": {
+        "cs": "Podnadpis",
+        "da": "Underoverskrift",
+        "de": "Unter-Überschrift",
+        "en": "Subheading",
+        "es": "Subtítulo",
+        "fi": "Alaotsikko",
+        "fr": "Sous-titre",
+        "it": "Sottotitolo",
+        "ja": "小見出し",
+        "ko": "소제목",
+        "nb": "Underoverskrift",
+        "nl": "Subkop",
+        "pl": "Nagłówek podrzędny",
+        "pt-BR": "Subtítulo",
+        "pt-PT": "Subtítulo",
+        "sv": "Underrubrik",
+        "th": "หัวเรื่องย่อย",
+        "tr": "Alt başlık",
+        "vi": "Tiêu đề phụ",
+        "zh-CN": "副标题",
+        "zh-TW": "子標題"
+      },
+      "default": "Enter your email below to be the first to know."
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "cs": "Novinky",
+        "da": "Nyhedsbrev",
+        "de": "Newsletter",
+        "en": "Newsletter",
+        "es": "Boletín",
+        "fi": "Uutiskirje",
+        "fr": "Newsletter",
+        "it": "Newsletter",
+        "ja": "ニュースレター",
+        "ko": "뉴스레터",
+        "nb": "Nyhetsbrev",
+        "nl": "Nieuwsbrief",
+        "pl": "Newsletter",
+        "pt-BR": "Newsletter",
+        "pt-PT": "Newsletter",
+        "sv": "Nyhetsbrev",
+        "th": "จดหมายข่าว",
+        "tr": "Bülten",
+        "vi": "Bản tin",
+        "zh-CN": "新闻通讯",
+        "zh-TW": "電子報"
+      },
+      "category": {
+        "cs": "Propagace",
+        "da": "Kampagne",
+        "de": "Promotional",
+        "en": "Promotional",
+        "es": "Promocional",
+        "fi": "Mainonnallinen",
+        "fr": "Promotionnel",
+        "it": "Promozionale",
+        "ja": "プロモーション用",
+        "ko": "프로모션",
+        "nb": "Kampanjer",
+        "nl": "Promotioneel",
+        "pl": "Promocyjne",
+        "pt-BR": "Promocional",
+        "pt-PT": "Promocional",
+        "sv": "Kampanjer",
+        "th": "ส่งเสริมการขาย",
+        "tr": "Promosyon",
+        "vi": "Khuyến mãi",
+        "zh-CN": "促销",
+        "zh-TW": "宣傳活動"
+      }
+    }
+  ]
+}
+{% endschema %}

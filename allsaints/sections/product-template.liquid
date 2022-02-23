@@ -1,0 +1,257 @@
+{% assign collections = product.collections %}
+<section class="pt-10 pb-lg-15 pb-11" data-section-id="{{ section.id }}">
+  <div class="container">
+    
+    	<div class="row no-gutters">
+      <div class="col-md-7 mb-6 mb-md-0 pr-md-6 pr-lg-9">
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="color-1" role="tabpanel" aria-labelledby="color-1-tab">
+            <div class="galleries position-relative">
+              <div class="slick-slider slider-nav slider-for-1" data-slick-options='{"slidesToShow": 1, "autoplay":false,"dots":false,"arrows":false,"asNavFor": ".slider-nav-1"}'>
+                {%- for media in product.media -%}
+                  <div class="box">
+                    <div class="card p-0 hover-change-image rounded-0 border-0">
+                      <a href="{{ media | img_url: 'grande' }}" class="card-img ratio ratio-1-3 bg-img-contain-center" data-gtf-mfp="true" data-gallery-id="02" style="background-image:url('{{ media | img_url: 'grande' }}')">
+                      </a>
+                    </div>
+                  </div>
+                {%- endfor -%}
+              </div>
+              <div class="slick-slider slider-nav slider-nav-1 mt-1 mx-n1" data-slick-options='{"slidesToShow": 4, "autoplay":false,"dots":false,"arrows":false,"asNavFor": ".slider-for-1","focusOnSelect": true,"responsive":[{"breakpoint": 768,"settings": {"slidesToShow": 3,"arrows":false}},{"breakpoint": 576,"settings": {"slidesToShow": 2,"arrows":false}}]}'>
+               {%- for media in product.media -%} 
+                <div class="box px-0">
+                  <div class="bg-white p-1 h-100 rounded-0 thumbnail-pro">
+                     <img src="{{ media | img_url: 'large' }}" alt="{{ media.alt | default : product.title }}"  class="h-100 w-100">
+                  </div>
+                </div>
+               {%- endfor -%}
+              </div>
+            </div>
+          </div>  
+        </div>
+      </div>
+      <div class="col-md-5">
+        	<p class="text-muted fs-12 font-weight-500 letter-spacing-05 text-uppercase mb-3">{{ product.collections[0].title }}</p>
+        <h2 class="fs-30 fs-lg-40 mb-2">{{ product.title }}</h2>
+        <p class="mb-6 d-flex align-items-center">
+          <span class="text-line-through text-secondary">{{ product.compare_at_price | money }}</span>
+          <span class="fs-20 text-primary d-inline-block ml-1">{{ product.price | money }}</span>
+        </p>
+        <div class="d-flex align-items-center flex-wrap">
+          <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+        </div>
+        <p class="mt-2 mb-6"> {{ product.metafields.my_fields.content }}</p>
+         {% form 'product', product %}
+        	
+          <div class="form-group shop-swatch mb-4">
+<!--           	  {% if product.has_only_default_variant %}
+            	<label class="mb-3"><span class="text-primary fs-16 font-weight-bold">Frame Color:</span>
+                <span class="var text-capitalize text-primary __0">Default</span></label>
+            	{% else %}
+              <label class="mb-3"><span class="text-primary fs-16 font-weight-bold">Frame Color:</span>
+                <span class="var text-capitalize text-primary __0">{{ product.selected_or_first_available_variant.title }}</span></label>
+              <ul class="list-inline d-flex justify-content-start mb-0 nav" id="myTab" role="tablist">
+                {% include 'color-swatches' %}
+              </ul>
+              <select name="frame-swatches" class="form-select swatches-select d-none" aria-label="Default select example">
+                <option selected value="black">Black</option>
+                <option value="white">White</option>
+                <option value="red">Red</option>
+              </select>
+             {% endif %} -->
+          </div>
+          <div class="row align-items-end no-gutters mx-n2">
+            <div class="col-sm-4 form-group px-2 mb-6">
+              <label class="text-primary fs-16 font-weight-bold mb-3" for="number">Quantity:</label>
+              <div class="input-group position-relative w-100">
+                <a href="#" class="down position-absolute pos-fixed-left-center pl-2 z-index-2"><i class="far fa-minus"></i></a>
+                <input name="quantity" type="number" id="number" class="form-control w-100 px-6 text-center input-quality bg-transparent text-primary"  value="1" required>
+                <a href="#"  class="up position-absolute pos-fixed-right-center pr-2 z-index-2"><i class="far fa-plus"></i> </a>
+              </div>
+            </div>
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id  }}">
+            <div class="col-sm-8 mb-6 w-100 px-2">
+              <button type="submit" class="btn btn-primary btn-block" type="submit" name="add" {% unless product.available  %} disabled="disabled"{% endunless %}> 
+                {%- if product.available -%}
+                	Add to cart
+                {%- else -%}
+                	Sold Out
+                {%- endif -%}
+              </button>
+            </div>
+          </div>
+                   {% endform %}
+
+        <p class="d-flex text-primary justify-content-center border-bottom pb-4">
+          <span class="d-inline-block mr-2 fs-14"><i class="far fa-lock"></i></span>
+          <span class="fs-15">{{ section.settings.text }}</span>
+        </p>
+        <ul class="list-unstyled mt-6">
+          <li class="row mb-2">
+            <span class="d-block col-3 text-primary font-weight-500 fs-15">SKU:</span>
+            <span class="d-block col-9 fs-15">{{ product.selected_or_first_available_variant.sku }}</span>
+          </li>
+          <li class="row mb-2">
+            <span class="d-block col-3 text-primary font-weight-500 fs-15">Categories:</span> 
+            {% for collection in collections %}
+            	<span class="d-block col-9 fs-15">{{ collection.title | reverse | join: " " }}</span>
+            {% endfor %}
+          </li>
+          <li class="row mb-2">
+            <span class="d-block col-3 text-primary font-weight-500 fs-15">Share:</span>
+            <ul class="list-inline d-flex align-items-center mb-0 col-9">
+              {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product.image %}
+            </ul>
+          </li>
+        </ul>
+      </div>
+        
+    </div>
+   
+  </div>
+</section>
+
+<section class="pb-11 pb-lg-13">
+  <div class="container">
+    <div class="collapse-tabs">
+      <ul class="nav nav-pills mb-3 justify-content-center d-md-flex d-none" id="pills-tab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active show fs-lg-28 fs-18 font-weight-600 p-0 mr-md-10 mr-4"
+             id="pills-description-tab" data-toggle="pill" href="#pills-description" role="tab"
+             aria-controls="pills-description" aria-selected="false">Description</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-lg-28 fs-18 font-weight-600 p-0 mr-md-10 mr-4" id="pills-warranty-tab" data-toggle="pill" href="#pills-warranty" role="tab" aria-controls="pills-warranty" aria-selected="false">Review</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-lg-28 fs-18 font-weight-600 p-0 mr-md-10 mr-4" id="pills-return-tab"
+             data-toggle="pill" href="#pills-return" role="tab" aria-controls="pills-return"
+             aria-selected="false">Return</a>
+        </li>
+      </ul>
+      <div class="tab-content bg-white-md shadow-none py-md-5 p-0">
+        <div id="collapse-tabs-accordion-01">
+          <div class="tab-pane tab-pane-parent fade show active" id="pills-description"  role="tabpanel">
+            <div class="card border-0 bg-transparent">
+              <div class="card-header border-0 d-block d-md-none bg-transparent px-0 py-1"
+                   id="headingDetails-01">
+                <h5 class="mb-0">
+                  <button  class="btn lh-2 fs-18 py-1 px-6 shadow-none w-100 collapse-parent border text-primary" data-toggle="false" data-target="#description-collapse-01" aria-expanded="true" aria-controls="description-collapse-01">
+                    Description
+                  </button>
+                </h5>
+              </div>
+              <div id="description-collapse-01" class="collapsible collapse show"  aria-labelledby="headingDetails-01" data-parent="#collapse-tabs-accordion-01">
+                <div id="accordion-style-01" class="accordion accordion-01 border-md-0 border p-md-0 p-6">
+                 	{{ product.description }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane tab-pane-parent fade" id="pills-warranty" role="tabpanel">
+            <div class="card border-0 bg-transparent">
+              <div class="card-header border-0 d-block d-md-none bg-transparent px-0 py-1"
+                   id="headingwarranty-01">
+                <h5 class="mb-0">
+                  <button class="btn lh-2 fs-18 py-1 px-6 shadow-none w-100 collapse-parent border collapsed text-primary"  data-toggle="collapse" data-target="#warranty-collapse-01" aria-expanded="false" aria-controls="warranty-collapse-01">
+                    warranty
+                  </button>
+                </h5>
+              </div>
+              <div id="warranty-collapse-01" class="collapsible collapse" aria-labelledby="headingwarranty-01" data-parent="#collapse-tabs-accordion-01">
+                <div id="accordion-style-01-2" class="accordion accordion-01 border-md-0 border p-md-0 p-6 ">
+                  <div class="text-content mxw-830 mx-auto pt-md-4">
+                    <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane tab-pane-parent fade" id="pills-return" role="tabpanel">
+            <div class="card border-0 bg-transparent">
+              <div class="card-header border-0 d-block d-md-none bg-transparent px-0 py-1" id="headingreturn-01">
+                <h5 class="mb-0">
+                  <button class="btn lh-2 fs-18 py-1 px-6 shadow-none w-100 collapse-parent border collapsed text-primary" data-toggle="collapse" data-target="#return-collapse-01" aria-expanded="false" aria-controls="return-collapse-01">
+                    return
+                  </button>
+                </h5>
+              </div>
+              <div id="return-collapse-01" class="collapsible collapse"
+                   aria-labelledby="headingreturn-01" data-parent="#collapse-tabs-accordion-01">
+                <div id="accordion-style-01-2" class="accordion accordion-01 border-md-0 border p-md-0 p-6 ">
+                  <div class="text-content mxw-830 mx-auto pt-md-4">
+                     {{ section.settings.description }}
+                    <div class="text-center mt-6 mt-md-9">
+                      <a href="{{ section.settings.url }}" class="btn btn-outline-primary write-review">{{ section.settings.title }}</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% schema %}
+{
+  "name": {
+  "cs": "Stránky produktů",
+  "da": "Produktsider",
+  "de": "Produktseiten",
+  "en": "Product pages",
+  "es": "Páginas de productos",
+  "fi": "Tuotesivut",
+  "fr": "Pages de produits",
+  "it": "Pagine di prodotto",
+  "ja": "商品ページ",
+  "ko": "제품 페이지",
+  "nb": "Produktsider",
+  "nl": "Productpagina's",
+  "pl": "Strony produktu",
+  "pt-BR": "Páginas de produtos",
+  "pt-PT": "Páginas de produtos",
+  "sv": "Produktsidor",
+  "th": "หน้าสินค้า",
+  "tr": "Ürün sayfaları",
+  "vi": "Trang sản phẩm",
+  "zh-CN": "产品页面",
+  "zh-TW": "產品頁面"
+  },
+"settings": [
+  {
+    "type": "header",
+    "content": "Content"
+  },
+  {
+    "type": "text",
+    "id": "text",
+    "label": "Text",
+    "default": "Guarantee Safe and Secure Checkout"
+  },
+  {
+    "type": "header",
+    "content": "Return"
+  },
+  {
+    "type": "richtext",
+    "id": "description",
+    "label": "Description" 
+  },
+  {
+    "type": "text",
+    "id": "title",
+    "label": "Title Button",
+	"default" : "Start a Return"
+  },
+  {
+    "type": "url",
+    "id": "url",
+    "label": "Url" 
+  }	
+]
+}
+{% endschema %}

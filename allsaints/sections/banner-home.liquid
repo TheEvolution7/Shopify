@@ -1,0 +1,87 @@
+{% if section.settings.show_section %}
+  <section class="overflow-hidden" data-section-id="{{ section.id }}">
+    <div class="slick-slider custom-slider-02 dots-white mx-0 slider-01" data-slick-options='{"slidesToShow": 1,"infinite":true,"autoplay":true,"dots":true,"arrows":false,"autoplaySpeed": 6000,"speed":1800,"fade":true}'>
+      {% for block in section.blocks  %}
+        <div class="box px-0">
+          <div class="d-flex flex-column justify-content-center bg-img-cover-center vh-100 custom-height-sm"
+               style="background-image: url('{{ block.settings.image | img_url : '1920x' }}');">
+            <div class="d-flex flex-column h-100 justify-content-center">
+              <div class="container container-xxl">
+                <p class="text-white text-primary font-weight-bold fs-24 mb-3 mb-md-6"  data-animate="fadeInUp">{{ block.settings.subheading }}</p>
+                <h1 class="text-white mb-4 mb-md-8 fs-34 fs-sm-45 fs-md-56 fs-xxl-60 heading-home-01 lh-113">
+                  <strong class="d-block" data-animate="fadeInUp">{{ block.settings.title_1 }}</strong>
+                  <strong class="d-block" data-animate="fadeInUp">{{ block.settings.title_2 }}</strong>
+                </h1>
+                <a href="{{ block.settings.url }}" class="btn-outline-light btn btn-outline-primary text-uppercase letter-spacing-05" data-animate="fadeInUp">{{ block.settings.button }}</a>
+              </div>
+            </div>
+            <div class="mt-auto">
+              <div class="container container-xxl">
+                <p class="text-white text-primary mb-8">{{ block.settings.text }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor  %}
+    </div>
+  </section>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Banner",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        }	
+	],
+	"blocks": [
+    {
+      "type": "banner",
+      "name": "banner",
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+		  "default" : "New - In"
+        },
+		{
+          "type": "text",
+          "id": "title_1",
+          "label": "Title 1"
+        },
+		{
+          "type": "text",
+          "id": "title_2",
+          "label": "Title 2"
+        },
+		
+		{
+          "type": "text",
+          "id": "button",
+          "label": "Text Button",
+		  "default": "Shop Now"
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url button"
+        },
+		{
+          "type": "html",
+          "id": "text",
+          "label": "text" 
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

@@ -1,0 +1,205 @@
+{% paginate collection.products by 12 %}
+  <section class="pt-10 pb-11 pb-lg-14" data-section-id="{{ section.id }}">
+    <div class="container">
+     <h2 class="fs-sm-40 mb-11 text-center">{{ page_title }}</h2>
+      <div class="row overflow-hidden">
+        <div class="col-md-3 mb-10 mb-md-0 sidebar-sticky-2">
+          <div class="primary-sidebar-inner">
+            {% for block in section.blocks %}
+            {% if block.type == 'categories' %}
+            <div class="card border-0 mb-7">
+              <div class="card-header bg-transparent border-0 p-0">
+                <h3 class="card-title fs-20 mb-0">{{ block.settings.title }}</h3>
+              </div>
+              <div class="card-body px-0 pt-4 pb-0">
+                <ul class="list-unstyled mb-0">
+                  {% for link in linklists[block.settings.side_categories].links %}
+                  <li class="mb-1">
+                    <a href="{{ link.url }}" class="text-secondary hover-primary border-bottom border-white border-hover-primary d-inline-block lh-12">{{ link.title }}</a>
+                  </li>
+                  {% endfor  %}
+                </ul>
+              </div>
+            </div>
+            {% endif %} 
+            {% if block.type == 'filter_by' %}
+            <div class="card border-0 widget-color mb-7">
+              <div class="card-header bg-transparent border-0 p-0">
+                <h3 class="card-title fs-20 mb-0">{{ block.settings.title }}</h3>
+              </div>
+              <div class="card-body px-0 pt-4 pb-0">
+                <ul class="list-inline mb-0">  
+                  {% assign tags = block.settings.filter_tags | split: ',' %}
+                  {% for filter_t in tags %}
+                  {% assign tag = filter_t | strip %}
+                  {% assign tag_value = tag | handleize %}
+                  {% assign filtertag = forloop.index | minus:1 %}
+                  {% assign filtertagid = 2 | times : filtertag %}
+                  {% if collection.tags contains tag %}
+                  <li class="list-inline-item">
+                    <label for="{{block.id}}-{{ filtertagid }}" class="check-group">{{tag}}<input type="checkbox" value="{{ tag_value }}"  id="{{block.id}}-{{ filtertagid }}" {% if current_tags contains tag %}checked{% endif %}><span class="checkmark"></span></label>
+                  </li>
+                  {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+            {% endif %} 
+            {% endfor %}
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="mb-6 filter-top">
+            <div class="d-flex align-items-center text-primary">
+              Showing {{ paginate.current_offset | plus: 1 }}-{% if paginate.next %}{{ paginate.current_offset | plus: paginate.page_size }}{% else %}{{ paginate.items }}{% endif %} of {{ paginate.items }} results
+            </div>
+            <div class="ml-auto"> 
+              <select name="SortBy" id="SortBy" class="dropdown w-100 sort-by" style="height: auto">
+                <option value="" selected>Default Sorting</option>
+                {%- for option in collection.sort_options -%}
+                <option value="{{ option.value }}" {% if option.value == collection.sort_by %}selected{% endif %}>{{ option.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="mb-6 filter-top-mobile">
+            <div class="d-flex align-items-center text-primary font-weight-500" data-canvas="true"  data-canvas-options='{"container":".filter-canvas"}'>
+              <button type="button" class="border-0 pl-0 pr-2 fs-12 bg-transparent"><i class="far fa-align-left"></i></button>
+              Filter
+            </div>
+            <div class="ml-auto">
+              <select name="SortBy" id="SortBy" class="dropdown w-100 sort-by" style="height: auto">
+                <option value="" selected>Default Sorting</option>
+                {%- for option in collection.sort_options -%}
+                <option value="{{ option.value }}" {% if option.value == collection.sort_by %}selected{% endif %}>{{ option.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="d-grid g-2 g-lg-3 grid-gap grid-gap-mobile overflow-hidden mb-10">
+            {% for product in collection.products %}
+            	{% include 'product-card-grid', product: product %}
+            {% endfor %}
+          </div>
+          <nav class="pt-4 overflow-hidden">
+            {%- if paginate.pages > 1 -%}
+            	{% include 'pagination', paginate: paginate %}
+            {%- endif -%}
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="canvas-sidebar filter-canvas">
+    <div class="canvas-overlay">
+    </div>
+    <form class="h-100">
+      <div class="card border-0 pt-5 pb-5 h-100">
+        <div class="px-6 pl-sm-8 text-right">
+          <span class="canvas-close d-inline-block text-right fs-24 mb-1 ml-auto lh-1 text-primary"><i class="fal fa-times"></i></span>
+        </div>
+        <div class="card-header bg-transparent py-0 px-6 px-sm-8 border-bottom">
+          <h3 class="fs-30 mb-5">
+            Filter by
+          </h3>
+        </div>
+        <div class="card-body px-6 px-sm-8 pt-7 overflow-y-auto">
+          {% for block in section.blocks %}
+          {% if block.type == 'categories' %}
+          <div class="card border-0 mb-7">
+            <div class="card-header bg-transparent border-0 p-0">
+              <h3 class="card-title fs-20 mb-0">{{ block.settings.title }}</h3>
+            </div>
+            <div class="card-body px-0 pt-4 pb-0">
+              <ul class="list-unstyled mb-0">
+                {% for link in linklists[block.settings.side_categories].links %}
+                <li class="mb-1">
+                  <a href="{{ link.url }}" class="text-secondary hover-primary border-bottom border-white border-hover-primary d-inline-block lh-12">{{ link.title }}</a>
+                </li>
+                {% endfor  %}
+              </ul>
+            </div>
+          </div>
+          {% endif %}
+          {% if block.type == 'filter_by' %}
+          <div class="card border-0 mb-7 widget-color">
+            <div class="card-header bg-transparent border-0 p-0">
+              <h3 class="card-title fs-20 mb-0">
+                {{ block.settings.title }}
+              </h3>
+            </div>
+            <div class="card-body px-0 pt-4 pb-0">
+              <ul class="list-inline mb-0">
+                {% assign tags = block.settings.filter_tags | split: ',' %}
+                {% for filter_t in tags %}
+                {% assign tag = filter_t | strip %}
+                {% assign tag_value = tag | handleize %}
+                {% assign filtertag = forloop.index | minus:1 %}
+                {% assign filtertagid = 2 | times : filtertag %}
+                {% if collection.tags contains tag %}
+                <li class="list-inline-item">
+                  <label for="{{block.id}}-{{ filtertagid }}" class="check-group">{{tag}}<input type="checkbox" value="{{ tag_value }}"  id="{{block.id}}-{{ filtertagid }}" {% if current_tags contains tag %}checked{% endif %}><span class="checkmark"></span></label>
+                </li>
+                {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+          {% endif %}  
+          {% endfor  %}
+
+        </div>
+      </div>
+    </form>
+  </div>
+{% endpaginate %}
+
+
+{% schema %}
+  {
+    "name": "Collection pages",
+    "settings": [
+      
+    	],
+	"blocks": [
+      {
+        "type": "categories",
+        "name": "Categories",
+        "limit": 1,
+        "settings": [
+         	{ 
+              "type":"text",
+              "id":"title",
+              "label":"Title",
+              "default":"Collection"
+          	},
+            {
+              "type": "link_list",
+              "id": "side_categories",
+              "label": "Select Categories",
+              "default": "main-menu"
+            }
+        ]
+      },
+	  {
+        "type": "filter_by",
+        "name": "Filter By",
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Filter By Title",
+				"default": "Filter By Title",
+                "info": "i.e 'Filter by Size, Filter by Brands'"
+            },
+            {
+                "type": "textarea",
+                "id": "filter_tags",
+                "label": "Add Filter tags",
+                "info": "Separate by a comma, i.e \"Tag1, Tag2, Tag3\"."
+            } 
+      	]
+     }
+	]
+  }
+{% endschema %}
