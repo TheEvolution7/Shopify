@@ -1,0 +1,115 @@
+{%- capture relatedProducts -%}
+{% if section.settings.show_related_products == true %}
+<section class="product-area related-products-area" data-section-id="{{ section.id }}">
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 m-auto">
+          <div class="section-title text-center">
+            <h2 class="title">{{ section.settings.title }}</h2>
+          </div>
+        </div>
+      </div>
+      {% assign number_of_related_products_per_row = section.settings.related_grid_num %}
+        {% assign number_of_rows = section.settings.related_total_product_to_show | plus:1 %}
+
+        {% assign same_vendor = false %}
+        {% assign same_type = false %}
+
+        {% assign exclusions = 'frontpage,all' | split: ',' %}
+
+        {% if product.metafields.c_f['Related Products'] %}
+        {% assign collection = collections[product.metafields.c_f['Related Products']] %}
+        {% endif %}
+
+        {% assign found_a_collection = false %}
+        {% if collection and collection.all_products_count > 1 %}
+        {% unless exclusions contains collection.handle %}
+        {% assign found_a_collection = true %}
+        {% endunless %}
+        {% endif %}
+        {% unless found_a_collection %}
+        {% for c in product.collections limit: number_of_rows %}
+        {% unless exclusions contains c.handle or c.all_products_count < 2 %}
+        {% assign found_a_collection = true %}
+        {% assign collection = c %}
+        {% break %}
+        {% endunless %}
+        {% endfor %}
+        {% endunless %}
+       {% if found_a_collection %}
+        {% assign current_product = product %}
+        {%- capture related_items -%}
+      <div class="row">
+        <div class="col-12">
+          <div class="swiper-container product4-slider-container">
+            <div class="swiper-wrapper">
+               {% for product in collection.products limit : 4 %}
+                {% unless product.handle == current_product.handle %}
+                {% unless same_vendor and current_product.vendor != product.vendor %}
+                {% unless same_type and current_product.type != product.type %}
+                    <div class="swiper-slide">
+                      <!-- Start Product Item -->
+                      <div class="product-item hover-effect effect-style1">
+                        <div class="product-thumb">
+                          <a href="{{ product.url }}">
+                            <img src="{{ product.featured_image | img_url: 'master' }}" alt="{{ product.title }}">
+                             <span class="bg-thumb" data-bg-img="{{ product.media[1] | img_url : 'grande' }}"></span>
+                            <span class="thumb-overlay"></span>
+                          </a>
+                        </div>
+                        <div class="product-info _2">
+                          <div class="content-inner">
+                            <h4 class="title"><a href="{{ product.url }}">{{ product.title }}</a></h4>
+                            <div class="prices">
+                              <span class="price">{{ product.price | money }}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- End Product Item -->
+                    </div>
+                 {% endunless %}
+                {% endunless %}
+                {% endunless %}
+              {% endfor %}
+              
+          
+        {%- endcapture -%}
+      {% assign related_items = related_items | trim %}
+      {% unless related_items == blank %}
+      	<div id="products-{{ section.id }}">{{ related_items }}</div>
+      {% endunless %}  
+      {% endif %} 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endif %}
+{%- endcapture -%}
+{{ relatedProducts | strip_newlines | remove: "  " | remove: "	" }}
+{% schema %}
+  {
+    "name": "Section Related Product",
+    "settings": [
+	{
+        "type": "checkbox",
+        "id": "show_related_products",
+        "label": "Show related products",
+        "default": true
+     },
+ 	 {
+        "id": "title",
+        "type": "text",
+        "label": "Title",
+        "default": "Related Products"
+      }
+	]
+  }
+{% endschema %}
+
+
+<!-- GPO installed -->

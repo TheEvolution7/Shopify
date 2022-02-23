@@ -1,0 +1,144 @@
+<footer class="footer-area footer-style1" data-section-id="{{ section.id }}">
+  <div class="footer-main">
+    <div class="container">
+      <div class="row row-gutter-0">
+        <div class="col-sm-6 col-md-4">
+          <div class="widget-item">
+            <nav class="widget-menu-wrap">
+              <ul class="nav-menu nav">
+                <li><a href="{{ routes.root_url }}"><img class="logo-main " src="{{ section.settings.logo | img_url: 'medium' }}" alt="{{ section.settings.logo.alt | default: shop.name }}" /></a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div class="widget-item mt-xs-20">
+            <nav class="widget-menu-wrap">
+              {{ section.settings.text }}
+              <a class="btn-footer" href="{{ section.settings.url }}"> {{ section.settings.button }} <span><i class="fa fa-instagram" aria-hidden="true"></i></span></a>
+            </nav>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="widget-item widget-social-item mt-sm-30 mt-xs-20">
+            <nav class="widget-menu-wrap">
+              <ul class="nav-menu nav">
+                {%- for link in linklists[section.settings.menu].links -%}
+                	<li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {%- endfor -%}
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+{% schema %}
+{
+  "name": {
+    "cs": "Zápatí",
+    "da": "Sidefod",
+    "de": "Fußzeile",
+    "en": "Footer",
+    "es": "Pie de página",
+    "fi": "Alatunniste",
+    "fr": "Pied de page",
+    "it": "Footer",
+    "ja": "フッター",
+    "ko": "바닥글",
+    "nb": "Footer",
+    "nl": "Voettekst",
+    "pl": "Stopka",
+    "pt-BR": "Rodapé",
+    "pt-PT": "Rodapé",
+    "sv": "Sidfot",
+    "th": "ส่วนท้าย",
+    "tr": "Altbilgi",
+    "vi": "Chân trang",
+    "zh-CN": "页脚",
+    "zh-TW": "頁尾"
+  },
+  "settings": [
+	{
+      "type": "image_picker",
+      "id": "logo",
+      "label": {
+        "cs": "Obrázek loga",
+        "da": "Logobillede",
+        "de": "Logo-Foto",
+        "en": "Logo image",
+        "es": "Logo",
+        "fi": "Logokuva",
+        "fr": "Image du logo",
+        "it": "Immagine del logo",
+        "ja": "ロゴ画像",
+        "ko": "로고 이미지",
+        "nb": "Logobilde",
+        "nl": "Afbeelding van logo",
+        "pl": "Obraz logo",
+        "pt-BR": "Imagem do logotipo",
+        "pt-PT": "Imagem do logótipo",
+        "sv": "Logobild",
+        "th": "รูปภาพโลโก้",
+        "tr": "Logo görseli",
+        "vi": "Hình ảnh logo",
+        "zh-CN": "logo 图片",
+        "zh-TW": "標誌圖片"
+      }
+    },
+	{
+		"type" : "richtext",
+		"id" : "text",
+		"label" : "Text",
+		"default" : "<p>CoastBcn is a Spanish brand that arose in the head of two brothers who had the need to undertake in the world of fashion innovating the market, offering quality and exceptional models at an affordable price.</p>"
+	},
+	{
+		"type" : "text",
+		"id" : "button",
+		"label" : "Button",
+		"default" : "Follow us"
+	},
+	{
+		"type" : "url",
+		"id" : "url",
+		"label" : "Url"
+	},
+	{
+          "type": "link_list",
+          "id": "menu",
+          "label": {
+            "cs": "Nabídka",
+            "da": "Menu",
+            "de": "Menü",
+            "en": "Menu",
+            "es": "Menú",
+            "fi": "Valikko",
+            "fr": "Menu",
+            "it": "Menu",
+            "ja": "メニュー",
+            "ko": "메뉴",
+            "nb": "Meny",
+            "nl": "Menu",
+            "pl": "Menu",
+            "pt-BR": "Menu",
+            "pt-PT": "Menu",
+            "sv": "Meny",
+            "th": "เมนู",
+            "tr": "Menü",
+            "vi": "Menu",
+            "zh-CN": "菜单",
+            "zh-TW": "選單"
+          },
+          "default": "footer"
+        }
+  ]
+}
+{% endschema %}
+

@@ -1,0 +1,57 @@
+{% if section.settings.show_section %}
+  <div class="section-bottom" data-section-id="{{ section.id }}">
+    <div class="container xs-pr-15 xs-pl-15 p-0">
+      <div class="row">
+        <div class="col-md-8 mb-3">
+          <h3 class="text-main" data-aos="fade-up" data-aos-duration="1000">{{ section.settings.title }}</h3>
+          <h2 class="title" data-aos="fade-up" data-aos-duration="1000">{{ section.settings.subtitle }}</h2>
+          <a href="{{ section.settings.url }}" data-aos="fade-up" data-aos-duration="1000" class="btn-theme"><span>{{ section.settings.button }}</span></a>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-duration="1000">
+          <div class="block-right">
+            <img src="{{ 'butter.png' | asset_url }}" alt="" class="butter-bottom">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Affirm",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Affirm your fashion"
+		  
+        },
+		{
+          "type": "text",
+          "id": "subtitle",
+          "label": "SubTitle",
+		  "default" : "with our clothes"
+		  
+        },
+		{
+          "type": "text",
+          "id": "button",
+          "label": "Button",
+		  "default" : "buy now"
+		  
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        }
+	]
+  }
+{% endschema %}

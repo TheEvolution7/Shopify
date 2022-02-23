@@ -1,0 +1,20 @@
+<div class="search-box-wrapper">
+  <div class="search-box-content-inner">
+    <div class="search-box-form-wrap">
+      <div class="search-note">
+        <p>Start typing and press Enter to search</p>
+      </div>
+      <form action="{{ routes.search_url }}" method="get" role="search" class="search-form">
+        <div class="search-form position-relative">
+          <label for="search-input" class="sr-only">Search</label>
+          <input type="search" class="form-control" id="keyword" name="q" placeholder="{{ 'general.search.placeholder' | t }}" value="{{ search.terms | escape }}" id="search-input">
+          <input type="hidden" name="type" value="product" aria-hidden="true" />
+          <input type="hidden" name="options[prefix]" value="last" aria-hidden="true" />
+          <button type="submit" class="search-button"><i class="lastudioicon-zoom-1"></i></button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!--== End Aside Search Menu ==-->
+  <a href="javascript:;" class="search-close"><i class="lastudioicon-e-remove"></i></a>
+</div>

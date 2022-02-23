@@ -1,0 +1,30 @@
+ <section class="page-title-area bg-img bg-overlay-black2-5 bg-parallax" data-speed="1.1" style="background-image: url({{ section.settings.bg | img_url : '1920x' }});" data-section-id="{{ section.id }}">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="page-title-content content-style2">
+              <h2 class="title" data-aos="fade-up" data-aos-duration="1000">{{ section.settings.title }}</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+{% schema %}
+  {
+    "name": "Section Banner",
+    "settings": [
+		{
+          "type": "image_picker",
+          "id": "bg",
+          "label": "Background"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Our success and company history"
+		  
+        }
+	]
+  }
+{% endschema %}

@@ -1,0 +1,55 @@
+<aside class="sidebar-cart-modal">
+  <div class="sidebar-cart-inner">
+    <div class="sidebar-cart-content">
+      <a class="cart-close" href="javascript:void(0);"><i class="lastudioicon-e-remove"></i></a>
+      <div class="sidebar-cart" data-ajax-cart-section>
+        <h4 class="sidebar-cart-title">Shopping Cart</h4>
+         {% if cart.item_count > 0 %} 
+          <form action="{{ routes.cart_url }}" method="post" id="checkout-cart" class="cart-popup">
+            <div class="product-cart">
+              {% for item in cart.items %} 
+                <div class="product-cart-item">
+                  <div class="product-img">
+                    <a href="{{ item.url }}"><img src="{{ item | img_url: 'medium' }}" alt="{{ item.product.title }}"></a>
+                  </div>
+                  <div class="product-info">
+                    <h4 class="title"><a href="{{ item.url }}">{{ item.product.title }}</a></h4>
+                    <span class="info">{{ item.quantity }} × {{ item.price | money }}</span>
+                  </div>
+                  <div class="product-delete"><a data-ajax-cart-request-button href="{{ routes.cart_change_url }}?id={{ item.key }}&quantity=0">×</a></div>
+                </div>
+              {% endfor %}  
+            </div>
+            <div class="cart-total">
+              <h4 >Subtotal: <span class="money" data-ajax-cart-bind-state="cart.total_price | money_with_currency">{{ item.price | money }}</span></h4>
+            </div>
+            <div class="cart-checkout-btn content">
+              <a class="btn-sidebar" href="{{ routes.cart_url }}" >{{ 'products.product.view_cart' | t }}</a>
+              <input type="hidden" name="checkout">
+              <a class="btn-sidebar" href="javascript:;" onclick="document.getElementById('checkout-cart').submit();">Checkout</a>
+            </div>
+          </form>
+         {% else %} 
+          <div class="product-cart">
+            <p>{{ 'cart.general.empty' | t }}</p><br>
+          </div>
+          <div class="cart-checkout-btn content">
+            <a class="btn-sidebar" href="{{ routes.all_products_collection_url }}">{{ 'cart.general.continue_shopping' | t }}</a>
+          </div>
+         {% endif %} 
+      </div>
+    </div>
+  </div>
+</aside>
+{% schema %}
+  {
+    "name": "Section name",
+    "settings": []
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

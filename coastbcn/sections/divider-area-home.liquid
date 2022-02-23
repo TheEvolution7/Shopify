@@ -1,0 +1,85 @@
+{% if section.settings.show_section %}
+  <div class="divider-area divider-about-area mb-5 position-relative" data-section-id="{{ section.id }}">
+    <img src="{{ 'butter.png' | asset_url }}" alt="" class="butter-sc2">
+    <div class="container xs-pr-15 xs-pl-15 p-0">
+      <div class="row">
+        <div class="col-md-6 col-12 mb-3 d-flex align-items-center">
+          <div class="divider-content">
+            <h3 class="text-main text-sc2 position-relative" data-aos="fade-up" data-aos-duration="1000">{{ section.settings.heading }}
+              <img src="{{ 'start2.png' | asset_url }}" alt="" class="start-sc2">
+            </h3>
+            <h2 class="text-uppercase" data-aos="fade-up" data-aos-duration="1000">{{ section.settings.title }}</h2>
+            <p data-aos="fade-up" data-aos-duration="1000">{{ section.settings.subtitle }}</p>
+            <p data-aos="fade-up" data-aos-duration="1000">{{ section.settings.text }}</p>
+            <a href="{{ section.settings.url }}" class="btn-theme" data-aos="fade-up" data-aos-duration="1000"><span>{{ section.settings.button }}</span></a>
+          </div>
+
+        </div>
+        <div class="col-md-6 col-12">
+          <div class="video-content" data-aos="fade-up" data-aos-duration="1000">
+            <div class="thumb">
+              <img src="{{ section.settings.image | img_url : 'master' }}" alt="{{ section.settings.image.alt | default : section.settings.title }}">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Spread",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+		  "default" : "Spread your swings"
+		  
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "With us"
+		  
+        },
+		{
+          "type": "text",
+          "id": "subtitle",
+          "label": "SubTitle",
+		  "default" : "A brand created for the youth. CoastBcn is enjoying the moment,being yourselft,going on adventure...For the curious,free and nonconformist ones,this is your place."
+		  
+        },
+		{
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+		  "default" : "Become part of family now"
+		  
+        },
+		{
+          "type": "text",
+          "id": "button",
+          "label": "Button",
+		  "default" : "Explore"
+		},
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        }
+	]	
+  }
+{% endschema %}

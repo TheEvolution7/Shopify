@@ -1,0 +1,170 @@
+<section class="contact-area" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row">
+        <div class=" col-lg-7">
+          <div class="contact-form">
+            {%- assign  formId = 'ContactForm' -%}
+            {% form 'contact', id: formId, class : 'contact-form-wrapper form-style' %} 
+              {%- if form.posted_successfully? -%}
+                  <p>{{ 'contact.form.post_success' | t }}</p>
+              {%- endif -%}
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="section-title">
+                    <h2 class="title">{{ section.settings.title_1 }}</h2>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="{{ formId }}-name" name="contact[{{ 'contact.form.name' | t }}]"  placeholder="{{ 'contact.form.name' | t }}*" required>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <input  type="email" class="form-control" id="{{ formId }}-email" name="contact[email]" placeholder="{{ 'contact.form.email' | t }}*"  value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" required>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="{{ formId }}-phone" name="contact[{{ 'contact.form.phone' | t }}]" placeholder="{{ 'contact.form.phone' | t }}" value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group mb-0">
+                    <textarea  class="form-control textarea" rows="10" id="{{ formId }}-message" name="contact[{{ 'contact.form.message' | t }}]" placeholder="How can we help?">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group mb-0">
+                    <button class="btn btn-theme btn-black" type="submit">{{ 'contact.form.submit' | t }}</button>
+                  </div>
+                </div>
+              </div>
+            {% endform %}
+            <!-- Message Notification -->
+            <div class="form-message"></div>
+          </div>
+        </div>
+        <div class=" col-lg-5">
+          <div class="contact-info-wrapper">
+            <div class="section-title">
+              <h2 class="title">{{ section.settings.title_2 }}</h2>
+            </div>
+            <div class="contact-info-content">
+              <div class="align-top">
+               {%- for block in section.blocks -%}		
+                <div class="contact-info-item">
+                  <div class="icon">
+                    <i class="lastudioicon lastudioicon-pin-3-2"></i>
+                  </div>
+                  <div class="content">
+                    <h4>{{ block.settings.title }}</h4>
+                    {{ block.settings.subtitle }}
+                  </div>
+                </div>
+               {%- endfor -%}		 
+              </div>
+              <div class="align-bottom">
+                <div class="contact-info-item info-item2">
+                  <div class="icon">
+                    <span><i class="lastudioicon lastudioicon-mail"></i></span>                      
+                  </div>
+                  <div class="content">
+                    <p>{{ section.settings.email }}</p>
+                  </div>
+                </div>
+                <div class="contact-info-item">
+                  <div class="icon">
+                    <span><i class="lastudioicon lastudioicon-phone-call-2"></i></span>                      
+                  </div>
+                  <div class="content">
+                    <p>{{ section.settings.phone }}</p>
+                  </div>
+                </div>
+                <div class="contact-info-item social-icons-item mb-0 pb-0">
+                  <div class="content">
+                    <div class="social-widget">
+                      {%- assign socials = "Facebook Twitter Pinterest Instagram Tumblr Snapchat YouTube Vimeo" | split: ' ' -%}
+                      {%- for social in socials -%}
+                        {%- assign social_link = social | prepend: 'social_' | append: '_link' | downcase -%}
+                        {%- assign icon_link = social | prepend: 'icon-' | downcase -%}
+                        {%- if settings[social_link] != blank -%}
+                          <a href="{{ settings[social_link] | escape }}">{%- include icon_link -%}</a>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--== End Contact Area ==-->
+
+  <!--== Start Map Area ==-->
+  <div class="contact-map-area">
+   	{{ section.settings.iframe }}
+  </div>
+  <!--== End Map Area ==-->
+{% schema %}
+  {
+    "name": "Section Contact",
+    "settings": [
+		{
+          "type" : "text",
+          "id" : "phone",
+          "label" : "Phone",
+          "default" : "+354-354-4861"
+        }, 
+        {
+          "type" : "text",
+          "id" : "email",
+          "label" : "Email",
+          "default" : "info@moren.com"
+        },
+		{
+          "type" : "html",
+          "id" : "iframe",
+          "label" : "Iframe"
+        },
+		{
+          "type" : "text",
+          "id" : "title_1",
+          "label" : "Title",
+		  "default" : "Contact us for any questions"
+        },
+		{
+          "type" : "text",
+          "id" : "title_2",
+          "label" : "Title",
+		  "default" : "Get info"
+        }
+	],
+	"blocks": [
+    {
+      "type": "content",
+      "name": "content",
+      "settings": [
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Moren Store"
+        },
+		{
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "SubTitle",
+		  "default" : "<p>PO Box 16122 Collins Street West Victoria 8007 Australia</p>"
+        }
+		
+      ]
+    }
+  ]
+  }
+{% endschema %}
+
+

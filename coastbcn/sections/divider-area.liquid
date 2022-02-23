@@ -1,0 +1,59 @@
+{% if section.settings.show_section %}
+  <section class="divider-area divider-about-area-style2" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-lg-7" data-aos="fade-up" data-aos-duration="1000">
+          <div class="divider-about-thumb">
+            <div class="video-content">
+              <div class="thumb">
+                <img src="{{ section.settings.image | img_url : 'master' }}" alt="{{ section.settings.image.alt | default : section.settings.title }}">
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-5" data-aos="fade-up" data-aos-duration="1000">
+          <div class="divider-about-content">
+            <div class="divider-content">
+              <h2 class="title">{{ section.settings.title }}</h2>
+             {{ section.settings.subtitle }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Divider",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Welcome to <br>Moren Online Store"
+		  
+        },
+		{
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "SubTitle",
+		  "default" : " <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas pellentesque posuere mauris tincidunt orci, aliquet nam aliquet purus. Nulla in nullam eget at placerat egestas dignissim platea. Enim, euismod sed a integer tristique. Fringilla ultrices nunc, viverra interdum maecenas.</p>"
+		  
+        }
+
+	]
+  }
+{% endschema %}

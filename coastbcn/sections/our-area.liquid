@@ -1,0 +1,80 @@
+{% if section.settings.show_section %}
+  <section class="our-area position-relative" data-section-id="{{ section.id }}">
+    <div class="bg-1">
+      <div class="parallax-container js-text-parallax">
+        <div class="fx-wrap" data-x="400">
+          <h3 class="fx-target">COAST COAST COAST COAST COAST COAST COAST COAST COAST COAST COAST COAST COAST COAST COAST COAST COAST
+            COAST COAST COAST COAST COAST COAST COAST COAST COAST
+          </h3>
+        </div>
+      </div>
+
+    </div>
+    <div class="bg-2">
+      <div class="parallax-container js-text-parallax">
+        <div class="fx-wrap" data-x="-400">
+          <h3 class="fx-target">COAST COAST COAST COAST COAST COAST COAST COAST COAST COAST COAST COAST COAST COAST COAST COAST COAST
+            COAST COAST COAST COAST COAST COAST COAST COAST COAST
+          </h3>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row justify-content-center">
+        {% for block in section.blocks  %}
+        <div class="col-6 col-sm-4 our-item {% if forloop.index != 1 %} position-relative{% endif %}">
+          <div class="category-items-style12 item-two {% if forloop.index == 2 %} our-item-2{% elsif forloop.index == 3  %} our-item-3{% endif %} js-img-parallax">
+            <div class="category-item hover-effect effect-style1 img-wrap" data-y="{% if forloop.index == 1 %}90{% elsif forloop.index == 2  %}-70{% elsif forloop.index == 3  %}200{% endif %}">
+              <div class="thumb">
+                <img src="{{ block.settings.image | img_url : 'master' }}" alt="{{ block.settings.image.alt }}">
+                <div class="effect-content"></div>
+              </div>
+              <div class="content">
+                <a class="btn-theme" href="{{ block.settings.url }}">{{ block.settings.button }}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor  %}
+      </div>
+    </div>
+  </section>
+{% endif  %}
+{% schema %}
+  {
+    "name": "Section COAST",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        }
+	],
+	"blocks": [
+    {
+      "type": "image",
+      "name": "image",
+	  "limit": 3,
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "button",
+          "label": "Button",
+		  "default" : "discover"
+		},
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

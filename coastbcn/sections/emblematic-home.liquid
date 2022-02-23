@@ -1,0 +1,108 @@
+<div class="divider-area divider-packing-area" data-section-id="{{ section.id }}">
+    <div class="container xs-pr-15 xs-pl-15 p-0">
+      <div class="row">
+        <div class="col-md-6 order-1 order-md-0">
+          <div class="video-content" data-aos="fade-up" data-aos-duration="1000">
+            <div class="thumb">
+              <img src="{{ section.settings.image | img_url : 'master' }}" alt="{{ section.settings.image.alt | default : section.settings.title }}">
+              <div class="text-shadow">
+                <h3 class="title-shadow">Fashion</h3>
+                <h3 class="title-shadow">Fashion</h3>
+                <h3 class="title-shadow">Fashion</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 order-0 order-md-1 position-relative d-flex align-items-center">
+          <div class="block-gray">
+
+          </div>
+          <div class="divider-content">
+            <h3 class="text-main2" data-aos="fade-up" data-aos-duration="1000">{{ section.settings.heading }}</h3>
+            <h2 class="text-uppercase" data-aos="fade-up" data-aos-duration="1000">{{ section.settings.title }}</h2>
+            <p data-aos="fade-up" data-aos-duration="1000">{{ section.settings.subtitle }}</p>
+            <p data-aos="fade-up" data-aos-duration="1000">{{ section.settings.text }}</p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <div class="el-animation">
+      <svg class="t__1 rotate-img-left" viewBox="0 0 100 100" width="500" height="500">
+        <defs>
+          <path id="circle" d="
+                               M 50, 50
+                               m -37, 0
+                               a 37,37 0 1,1 74,0
+                               a 37,37 0 1,1 -74,0" />
+        </defs>
+        <text>
+          <textPath xlink:href="#circle">
+            coastcoastcoastcoastcoast
+          </textPath>
+        </text>
+      </svg>
+      <svg class="t__2 rotate-img-right" viewBox="0 0 100 100" width="500" height="500">
+        <defs>
+          <path id="circle" d="
+                               M 50, 50
+                               m -37, 0
+                               a 37,37 0 1,1 74,0
+                               a 37,37 0 1,1 -74,0" />
+        </defs>
+        <text>
+          <textPath xlink:href="#circle">
+            coastcoastcoastcoastcoast
+          </textPath>
+        </text>
+      </svg>
+      <img src="{{ 'bb.png' | asset_url }}" alt="">
+    </div>
+  </div>
+{% schema %}
+  {
+    "name": "Section Emblematic",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+		  "default" : "Emblematic"
+		  
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Packaging"
+		  
+        },
+		{
+          "type": "text",
+          "id": "subtitle",
+          "label": "SubTitle",
+		  "default" : "We make every purchase special and offer a different monthly gift in every package."
+		  
+        },
+		{
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+		  "default" : "Spread your swings with us !"
+		  
+        }
+	]	
+  }
+{% endschema %}

@@ -1,0 +1,29 @@
+{% layout none %}
+{% capture tags %}
+{% for collection in collections %}
+{% if forloop.index == 1 %}{% endif %}
+{% if collection.all_tags.size > 0 %}
+{% for tag in collection.all_tags %}
+
+{% if tags contains tag %}
+{% else %}
+@@{{tag}}
+{% endif %}
+
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% endcapture %}
+
+{% capture collections %}
+{% for collection in collections %}
+{% if forloop.index == 1 %}{% endif %}
+{% if collections contains collection %}
+{% else %}
+@@{{collection.title}}
+{% endif %}
+{% endfor %}
+{% endcapture %}
+
+{{ tags | strip_newlines | prepend: '@tags' | append: '@endTags' }}
+{{ collections | strip_newlines | prepend: '@collections' | append: '@endCollections' }}

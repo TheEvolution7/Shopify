@@ -1,0 +1,53 @@
+ {% paginate collection.products by 12 %}
+<main class="main-content">
+  {% include 'breadcrumb' %}
+  <!--== End Page Title Area ==-->
+  <!--== Start Products Area Wrapper ==-->
+  <div class="product-area shop-fullwidth-area style-two">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="shop-toolbar-wrap">
+            <div class="shop-toolbar-left">
+<!--               <div class="product-showing-status">
+                <p class="count-result">Showing {{ paginate.current_offset | plus: 1 }}-{% if paginate.next %}{{ paginate.current_offset | plus: paginate.page_size }}{% else %}{{ paginate.items }}{% endif %} of {{ paginate.items }} results</p>
+              </div> -->
+            </div>
+            <div class="shop-toolbar-right">
+<!--               <div class="product-sorting-menu product-view-count">
+                <span class="current">Categories <i class="lastudioicon-down-arrow"></i></span>
+                <ul>
+                  <li><a href="{{ routes.all_products_collection_url }}">All</a></li>
+                  {% for collection in collections %}
+                  	<li><a href="{{ collection.url }}" >{{ collection.title }}</a></li>
+                  {% endfor %}
+                </ul>
+              </div> -->
+              <div class="product-sorting-menu product-sorting">
+<!--                 <select name="SortBy" id="SortBy" class="sort-by">
+                  {%- for option in collection.sort_options -%}
+                  	<option value="{{ option.value }}" {% if option.value == collection.sort_by %}selected{% endif %}>{{ option.name }}</option>
+                  {%- endfor -%} 
+                </select> -->
+              </div>
+            </div>
+          </div>
+          <div class="row product-items-style4">
+            {% for product in collection.products %}
+            	{% include 'product-card-list', product: product %}
+            {% endfor %}      
+          </div>
+          <div class="pagination-area">
+            <nav>                
+              {%- if paginate.pages > 1 -%}
+              {% include 'pagination', paginate: paginate %}
+              {%- endif -%}
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--== End Products Area Wrapper ==-->
+</main>
+{% endpaginate %}

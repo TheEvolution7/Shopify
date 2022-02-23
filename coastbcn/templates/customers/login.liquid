@@ -1,0 +1,134 @@
+ <main class="main-content">
+    <!--== Start Page Title Area ==-->
+    {% include 'breadcrumb' %}
+    <!--== End Page Title Area ==-->
+
+    <!--== Start Contact Area ==-->
+    <div class="account-login-area">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-7 m-auto">
+            <div class="login-top">
+              <nav class="login-form-nav">
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i class="lastudioicon-user-1"></i>Login</button>
+                  <button class="nav-link nav-register" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="lastudioicon-user-2"></i>Register</button>
+                </div>
+              </nav>
+            </div>
+            <div class="login-bottom">
+              <div class="login-form-content tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                  <div class="login-form">
+                    {% form 'customer_login', class : 'login-form-wrapper',id: 'login-form' %}
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label for="UserName" class="form-label">{{ 'customer.login.email' | t }} *</label>
+                                <input type="email" name="customer[email]"  class="form-control" id="UserName" required>
+                              </div>
+                            </div>
+                            <div class="col-md-12">
+                              <div class="form-group mb-0">
+                                <label for="password" class="form-label mt-15">{{ 'customer.login.password' | t }} *</label>
+                                <input type="password" value="" name="customer[password]" class="form-control" id="password" required>
+                              </div>
+                            </div>
+                            <div class="col-md-12">
+                              <div class="form-group mt-15 d-flex justify-content-between align-items-center">
+                                <a id="move-to-lost" class="btn-forgot" href="javascript:;">Lost your password?</a>
+                              </div>
+                            </div>
+                            <div class="col-md-12">
+                              <div class="form-group mb-0 form-group-info">
+                                
+                                <button class="btn-theme" type="submit"><span>{{ 'customer.login.sign_in' | t }}</span></button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    {% endform %}
+                    
+                     {% form 'recover_customer_password',class : 'login-form-wrapper',id : 'reset-form' %}
+                      <div class="row">
+                        <div class="col-12">
+                          <h5>Reset Password</h5>
+                        </div>
+                        <div class="col-lg-12">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label for="UserName" class="form-label">{{ 'customer.recover_password.email' | t }} *</label>
+                                 <input type="email" value="" name="email" class="form-control" id="RecoverEmail" required>
+                              </div>
+                            </div>
+                            <div class="col-md-12">
+                              <div class="form-group mt-15 d-flex justify-content-between align-items-center">
+                                <button class="btn-theme" type="submit"><span>{{ 'customer.recover_password.submit' | t }}</span></button>
+                                
+                                <a id="back-to-login" class="btn-forgot" href="javascript:;">Back to login</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    {% endform %}
+                  </div>
+                  <!-- Message Notification -->
+                  <div class="form-message"></div>
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                  <div class="login-form">
+                    {%- assign formId = 'RegisterForm' -%}
+                  {% form 'create_customer', id: formId, class : 'login-form-wrapper' %}
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label for="RegUserName" class="form-label">{{ 'customer.register.first_name' | t }} *</label>
+                              <input type="text" class="form-control" name="customer[first_name]" id="{{ formId }}-FirstName" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} required>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label for="RegUserName" class="form-label">{{ 'customer.register.last_name' | t }} *</label>
+                              <input type="text" class="form-control" name="customer[last_name]" id="{{ formId }}-LastName" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} required>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label for="regemail" class="form-label mt-15">{{ 'customer.register.email' | t }} *</label>
+                              <input type="email" class="form-control" name="customer[email]" id="{{ formId }}-email" required>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group mb-0">
+                              <label for="regpassword" class="form-label mt-15">{{ 'customer.register.password' | t }} *</label>
+                              <input type="password" class="form-control" name="customer[password]" id="{{ formId }}-password" required>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="col-md-12">
+                              <div class="form-group mb-0 form-group-info">
+                                 <button class="btn-theme" type="submit"><span>{{ 'customer.register.submit' | t }}</span></button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {% endform %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--== End Contact Area ==-->
+  </main>

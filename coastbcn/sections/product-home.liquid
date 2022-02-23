@@ -1,0 +1,118 @@
+<section class="product-area best-sellers-product-area" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-lg-6 m-auto">
+          <div class="section-title text-center" data-aos="fade-up" data-aos-duration="1000">
+            <h2 class="title ">{{ section.settings.title }}
+              </div>
+          </div>
+        </div>
+        <div class="row row-gutter-60 mb-4">
+          <div class="col-md-4 col-12 m-auto">
+            <div class="section-title">
+              <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                  {% for block in section.blocks  %}
+                  {%- assign collection = collections[block.settings.collection] -%}
+                  	<a href="#tab-{{ forloop.index }}" data-aos="fade-up" data-aos-duration="1000" class="{% if forloop.index == 1 %}active{% endif %}" id="collection-tab-{{ forloop.index }}" data-bs-toggle="tab" data-bs-target="#tab-{{ forloop.index }}" role="tab" aria-controls="collection-tab" aria-selected="{% if forloop.index == 1 %}true{% else %}false{% endif %}">{{ collection.title }}</a>
+                  {% endfor  %}
+<!--                   <a href="#tab-2" data-aos="fade-up" data-aos-duration="1000" id="collection-tab-2" data-bs-toggle="tab" data-bs-target="#tab-2" role="tab" aria-controls="collection-tab" aria-selected="false">Zippers</a>
+                  <a href="#tab-3" data-aos="fade-up" data-aos-duration="1000" id="collection-tab-3" data-bs-toggle="tab" data-bs-target="#tab-3" role="tab" aria-controls="collection-tab" aria-selected="false">Sweatpants</a>
+                  <a href="#tab-4" data-aos="fade-up" data-aos-duration="1000" id="collection-tab-4" data-bs-toggle="tab" data-bs-target="#tab-4" role="tab" aria-controls="collection-tab" aria-selected="false">T-Shirts</a> -->
+                </div>
+
+              </nav>
+
+              <a href="{{ section.settings.url }}" data-aos="fade-up" data-aos-duration="1000"
+                 class="btn-theme btn-black btn-size-lg btn-padding mt-20"><span>{{ section.settings.button }}</span></a>
+
+            </div>
+          </div>
+          <div class="col-md-8 col-12">
+            <div class="tab-content" id="nav-tabContent" data-aos="fade-up" data-aos-duration="1000">
+              {% for block in section.blocks  %}
+              {%- assign collection = collections[block.settings.collection] -%}
+              	<div class="tab-pane fade {% if forloop.index == 1 %} show active{% endif %}" id="tab-{{ forloop.index }}" role="tabpanel" aria-labelledby="tab-{{ forloop.index }}">
+                <div class="category-slider-content" data-aos="fade-up" data-aos-duration="1000">
+                  <div class="swiper-container category-shop-slider-container">
+                    <div class="swiper-wrapper">
+                      {% for product in collection.products %}
+                        <div class="swiper-slide">
+                          <div class="product-item">
+                            <div class="product-thumb">
+                              {%- if product.available -%}
+                              {%- if product.compare_at_price > product.price -%}
+                              <div class="st-box __new">{{ 'products.product.on_sale' | t }}</div>
+                              {%- endif -%}
+                              {%- else -%}
+                              <div class="st-box __soldout">{{ 'products.product.sold_out' | t }}</div>
+                              {%- endif -%}
+                              <a href="{{ product.url }}">
+                                <img src="{{ product.featured_image | img_url : 'grande' }}" alt="{{ product.featured_image.alt | default : product.title }}">
+                                <span class="bg-thumb" data-bg-img="{{ product.media[1] | img_url : 'grande' }}"></span>
+                                <span class="thumb-overlay"></span>
+                              </a>
+                            </div>
+                            <div class="product-info">
+                              <div class="content-inner">
+                                <h4 class="title"><a href="{{ product.url }}">{{ product.title }}</a></h4>
+                                <div class="prices">
+                                  {% if product.compare_at_price %}<span class="price"><del>{{ product.compare_at_price | money }}</del></span> {% endif %} 
+                                  <span class="price">{{ product.price | money }}</span>
+                                </div>
+                              </div>
+                              <div class="product-info-action">
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                      {% endfor  %}
+                    </div>
+                    <!-- Add Arrows -->
+                    <div class="swiper-button-next"></div>
+                  </div>
+                </div>
+              </div>
+              {% endfor  %}
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+{% schema %}
+  {
+    "name": "Section Products",
+    "settings": [
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "<span>Our</span> Collection"
+        },
+  		{
+          "type": "text",
+          "id": "button",
+          "label": "Button",
+		  "default" : "View All"
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        }
+	],
+	"blocks": [
+    {
+      "type": "collection",
+      "name": "collection",
+      "settings": [
+		{
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

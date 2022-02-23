@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+  <link rel="preconnect" href="https://monorail-edge.shopifysvc.com">
+  
+  {%- if canonical_url != blank  -%}
+    <link rel="canonical" href="{{ canonical_url }}">
+  {%- endif -%}
+
+  {%- if settings.favicon != blank -%}
+    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+  {%- endif -%}
+
+  {%- capture seo_title -%}
+    {%- if request.page_type == 'search' and search.performed == true -%}
+      {{ 'general.search.heading' | t: count: search.results_count }}: {{ 'general.search.results_with_count' | t: terms: search.terms, count: search.results_count }}
+    {%- else -%}
+      {{ page_title }}
+    {%- endif -%}
+    {%- if current_tags -%}
+      {%- assign meta_tags = current_tags | join: ', ' -%} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+    {%- endif -%}
+    {%- if current_page != 1 -%}
+      &ndash; {{ 'general.meta.page' | t: page: current_page }}
+    {%- endif -%}
+    {%- assign escaped_page_title = page_title | escape -%}
+    {%- unless escaped_page_title contains shop.name -%}
+      &ndash; {{ shop.name }}
+    {%- endunless -%}
+  {%- endcapture -%}
+  <title>{{ seo_title | strip }}</title>
+
+  {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+
+ {% include 'social-meta-tags' %}
+  <!--== Google Fonts ==-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Raleway:wght@200;300;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ 'stylesheet.css' | asset_url }}">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+  <!--== Bootstrap CSS ==-->
+  <link href="{{ 'bootstrap.min.css' | asset_url }}" rel="stylesheet" />
+  <!--== Font-awesome Icons CSS ==--> 
+  <!--== Icofont Min Icons CSS ==-->
+  <link href="{{ 'icofont.min.css' | asset_url }}" rel="stylesheet" />
+  <!--== lastudioIcons CSS ==-->
+  <link href="{{ 'lastudioIcons.css' | asset_url }}" rel="stylesheet" />
+  <!--== Animate CSS ==-->
+  <link href="{{ 'animate.css' | asset_url }}" rel="stylesheet" />
+  <!--== Aos CSS ==-->
+  <link href="{{ 'aos.css' | asset_url }}" rel="stylesheet" />
+  <!--== FancyBox CSS ==-->
+  <link href="{{ 'jquery.fancybox.min.css' | asset_url }}" rel="stylesheet" />
+  <!--== Slicknav CSS ==-->
+  <link href="{{ 'slicknav.css' | asset_url }}" rel="stylesheet" />
+  <!--== Swiper CSS ==-->
+  <link href="{{ 'swiper.min.css' | asset_url }}" rel="stylesheet" />
+  <!--== Slick CSS ==-->
+  <link href="{{ 'slick.css' | asset_url }}" rel="stylesheet" />
+  <!--== Main Style CSS ==-->
+  <link href="{{ 'style2.css' | asset_url }}" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ 'custom.min.css' | asset_url }}">
+  {{ content_for_header }}
+  <style>
+    .zoomImg {
+    	    background-image: url({{ 'bg.jpg' | asset_url }});
+    		background-size: 100% 100%;
+    }
+    .top-header {
+    	position: relative;
+      	width: 100%;
+      	padding: 10px 0;
+      	font-size: 14px;
+      background: #306cde;
+      color: #fff;
+      
+      height: 45px
+    }
+    .top-header span {
+      display: block;
+		position: absolute;
+      right: 0px;
+      animation: move 20s linear infinite
+    }
+    @keyframes move {
+      from { transform: translateX(100%);}
+      to { transform: translateX(-100vw); }
+    }
+  </style>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  {% include "trackify_x" %}
+</head>
+
+<body>
+  {%- if request.page_type == 'index'  -%}
+    	{% render 'loading' %}
+    {%- endif  -%}
+  {% section 'top-header' %}
+  <div class="wrapper home-default-wrapper">
+    
+  <!--wrapper start-->
+  {% section 'header' %}
+ {% if request.path == '/challenge' %}
+        {% include 'challenge' %}
+	 {% elsif request.path == '/policies/privacy-policy' %}
+          <main class="main-content">
+            <!--== Start Page Title Area ==-->
+            {% include 'breadcrumb' %}
+            <!--== End Page Title Area ==-->
+
+            <!--== Start Contact Area ==-->
+            <section class="blog-details-area">
+              <div class="container">
+                <div class="row justify-content-center">
+                  <div class="col-xl-10">
+                    <div class="content">
+                      {{ shop.privacy_policy }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <!--== End Contact Area ==-->
+          </main>
+     {% elsif request.path == '/policies/terms-of-service' %}
+          <main class="main-content">
+            <!--== Start Page Title Area ==-->
+            {% include 'breadcrumb' %}
+            <!--== End Page Title Area ==-->
+
+            <!--== Start Contact Area ==-->
+            <section class="blog-details-area">
+              <div class="container">
+                <div class="row justify-content-center">
+                  <div class="col-xl-10">
+                    <div class="content">
+                      {{ shop.terms_of_service }} 
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <!--== End Contact Area ==-->
+          </main>
+    {% elsif request.path == '/policies/shipping-policy' %}
+          <main class="main-content">
+            <!--== Start Page Title Area ==-->
+            {% include 'breadcrumb' %}
+            <!--== End Page Title Area ==-->
+
+            <!--== Start Contact Area ==-->
+            <section class="blog-details-area">
+              <div class="container">
+                <div class="row justify-content-center">
+                  <div class="col-xl-10">
+                    <div class="content">
+                      {{ shop.shipping_policy }}   
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <!--== End Contact Area ==-->
+          </main>
+    {% elsif request.path == '/policies/refund-policy' %}
+        <main class="main-content">
+          <!--== Start Page Title Area ==-->
+          {% include 'breadcrumb' %}
+          <!--== End Page Title Area ==-->
+
+          <!--== Start Contact Area ==-->
+          <section class="blog-details-area">
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-xl-10">
+                  <div class="content">
+                    {{ shop.refund_policy }}   
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!--== End Contact Area ==-->
+        </main>
+    {% else %}
+        {{ content_for_layout }}
+    {% endif %}
+  {% section 'footer' %}
+<!--   <div class="scroll-to-top"><span class="icofont-arrow-up"></span></div> -->
+  <!--== Start Product Quick View ==-->
+	<aside class="product-quick-view-modal">
+  <div class="product-quick-view-inner">
+    <div class="product-quick-view-content">
+      <button type="button" class="btn-close">
+        <span class="close-icon"><i class="lastudioicon-e-remove"></i></span>
+      </button>
+      <div class="row row-gutter-0">
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="thumb">
+            <img src="{{ 'p-1.png' | asset_url }}" alt="">
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="single-product-info">
+            <h4 class="title">Product Simple</h4>
+            <div class="product-rating">
+              <div class="review">
+                <p><span></span>99 in stock</p>
+              </div>
+            </div>
+            <div class="prices">
+              <span class="price">£49.90</span>
+            </div>
+            <p class="product-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fringilla quis ipsum
+              enim viverra. Enim in morbi tincidunt ante luctus tincidunt integer. Sed adipiscing vehicula.</p>
+            <div class="quick-product-action">
+              <div class="action-top">
+                <div class="pro-qty-area">
+                  <div class="pro-qty">
+                    <input type="text" id="quantity" title="Quantity" value="1">
+                  </div>
+                </div>
+                <a class="btn-theme" href="#"><span>Add to cart</span></a>
+              </div>
+              <div class="action-bottom">
+                <a class="btn-wishlist" href="#"><i class="labtn-icon labtn-icon-wishlist"></i>Add to wishlist</a>
+                <a class="btn-compare" href="#"><i class="labtn-icon labtn-icon-compare"></i>Add to compare</a>
+              </div>
+            </div>
+            <div class="product-ratting">
+              <div class="product-sku">
+                SKU: <span>REF. LA-276</span>
+              </div>
+            </div>
+            <div class="product-categorys">
+              <div class="product-category">
+                Category: <span>Uncategorized</span>
+              </div>
+            </div>
+            <div class="widget">
+              <h3 class="title">Tags:</h3>
+              <div class="widget-tags">
+                <ul>
+                  <li><a href="#">Blazer,</a></li>
+                  <li><a href="#">Fashion,</a></li>
+                  <li><a href="#">wordpress,</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="product-social-info">
+              <a href="#"><span class="lastudioicon-b-facebook"></span></a>
+              <a href="#"><span class="lastudioicon-b-twitter"></span></a>
+              <a href="#"><span class="lastudioicon-b-linkedin"></span></a>
+              <a href="#"><span class="lastudioicon-b-pinterest"></span></a>
+            </div>
+            <div class="product-nextprev">
+              <a href="#">
+                <i class="lastudioicon-arrow-left"></i>
+              </a>
+              <a href="#">
+                <i class="lastudioicon-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="canvas-overlay"></div>
+    </aside>
+    <!--== End Product Quick View ==-->
+	{% include 'search-drawer' %}
+    <!--== Start Sidebar Cart Menu ==-->
+	{% section 'cart-popup' %}
+    <div class="sidebar-cart-overlay"></div>
+    <!--== End Sidebar Cart Menu ==-->
+
+    <!--== Start Side Menu ==-->
+    <aside class="off-canvas-wrapper">
+      <div class="off-canvas-inner">
+        <div class="off-canvas-overlay d-none"></div>
+        <!-- Start Off Canvas Content Wrapper -->
+        <div class="off-canvas-content">
+          <!-- Off Canvas Header -->
+          <div class="off-canvas-header">
+            <div class="close-action">
+              <button class="btn-close"><i class="icofont-close-line"></i></button>
+            </div>
+          </div>
+
+          <div class="off-canvas-item">
+            <!-- Start Mobile Menu Wrapper -->
+            <div class="res-mobile-menu">
+              <!-- Note Content Auto Generate By Jquery From Main Menu -->
+            </div>
+            <!-- End Mobile Menu Wrapper -->
+          </div>
+          <!-- Off Canvas Footer -->
+          <div class="off-canvas-footer"></div>
+        </div>
+        <!-- End Off Canvas Content Wrapper -->
+      </div>
+    </aside>
+  </div>
+  <!--=== Modernizr Min Js ===-->
+  <script src="{{ 'modernizr.js' | asset_url }}"></script>
+  <!--=== jQuery Min Js ===-->
+  <script src="{{ 'jquery-main.js' | asset_url }}"></script>
+  <!--=== jQuery Migration Min Js ===-->
+  <script src="{{ 'jquery-migrate.js' | asset_url }}"></script>
+  <!--=== Popper Min Js ===-->
+  <script src="{{ 'popper.min.js' | asset_url }}"></script>
+  <!--=== Bootstrap Min Js ===-->
+  <script src="{{ 'bootstrap.min.js' | asset_url }}"></script>
+  <!--=== jquery Appear Js ===-->
+  <script src="{{ 'jquery.appear.js' | asset_url }}"></script>
+  <!--=== jquery Swiper Min Js ===-->
+  <script src="{{ 'swiper.min.js' | asset_url }}"></script>
+  <!--=== jquery Fancybox Min Js ===-->
+  <script src="{{ 'fancybox.min.js' | asset_url }}"></script>
+  <!--=== jquery Aos Min Js ===-->
+  <script src="{{ 'aos.min.js' | asset_url }}"></script>
+  <!--=== jquery Slicknav Js ===-->
+  <script src="{{ 'jquery.slicknav.js' | asset_url }}"></script>
+  <!--=== jquery Countdown Js ===-->
+  <script src="{{ 'jquery.countdown.min.js' | asset_url }}"></script>
+  <!--=== jquery Tippy Js ===-->
+  <script src="{{ 'tippy.all.min.js' | asset_url }}"></script>
+  <!--=== Isotope Min Js ===-->
+  <script src="{{ 'isotope.pkgd.min.js' | asset_url }}"></script>
+  <!--=== jquery Vivus Js ===-->
+  <script src="{{ 'vivus.js' | asset_url }}"></script>
+  <!--=== Parallax Min Js ===-->
+  <script src="{{ 'parallax.min.js' | asset_url }}"></script>
+  <!--=== Slick  Min Js ===-->
+  <script src="{{ 'slick.min.js' | asset_url }}"></script>
+  <!--=== jquery Wow Min Js ===-->
+  <script src="{{ 'wow.min.js' | asset_url }}"></script>
+  <!--=== jquery Zoom Min Js ===-->
+  <script src="{{ 'jquery-zoom.min.js' | asset_url }}"></script>
+  <script src="{{ 'anime.min.js' | asset_url }}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/animation.gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/debug.addIndicators.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/jquery.ScrollMagic.min.js"></script>
+  <!--=== Custom Js ===-->
+  <script src="{{ 'custom.js' | asset_url }}"></script>
+  <script>
+    $(window).scroll(function () {
+      var theta = $(window).scrollTop();
+      $('.rotate-img-left').css({
+        transform: 'rotate(' + theta * 0.1 + 'deg)'
+      });
+      $('.rotate-img-right').css({
+        transform: 'rotate(' + theta * -0.1 + 'deg)'
+      });
+    });
+  </script>
+  <script>
+    // Save existing sort parameters
+    Shopify.queryParams = {};
+    if(location.search.length) {
+      for(var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+        aKeyValue = aCouples[i].split('=');
+        if (aKeyValue.length > 1) {
+          Shopify.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
+        }
+      }
+    }
+    // Add existing sort parameters to current URL
+    $('.sort-by').on('change', function(e) {
+      var value = e.currentTarget.value;
+      Shopify.queryParams.sort_by = value;
+      location.search = new URLSearchParams(Shopify.queryParams).toString();
+    });
+ </script>
+
+{% render 'spurit_sct_theme_snippet' %}
+  <script type="application/json" data-ajax-cart-initial-state >
+  {{ cart | json }}
+</script>
+ 
+<script type="module">
+  import { subscribeToCartAjaxRequests } from '{{ "liquid-ajax-cart-v1.9.0.js" | asset_url }}';
+
+ subscribeToCartAjaxRequests(( requestState, subscribeToResult ) => {
+
+  // If the request is 'Add to cart'
+  if ( requestState.requestType === 'add' ) {
+    
+    // Define a callback that will be called after the request is finished
+    subscribeToResult( requestState => {
+
+      // If the request is successful 
+      if ( requestState.responseData?.ok ) {
+
+        // Find out the name of the product if only one product was added to the cart
+        let productName = requestState.responseData.body.title;
+        if ( requestState.responseData.body.items?.length === 1 ) {
+          productName = requestState.responseData.body.items[0].title;
+        }
+
+        // Show a pop-up
+         var sidebarCartModal = $(".sidebar-cart-modal");
+         sidebarCartModal.addClass('sidebar-cart-active');
+         $(".sidebar-cart-overlay").addClass('show');
+        
+      }
+    });
+  }
+});
+</script>
+  
+</body>
+
+</html>

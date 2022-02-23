@@ -1,0 +1,30 @@
+<div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-duration="1000">
+  <!-- Start Product Item -->
+  <div class="product-item">
+    <div class="product-thumb">
+      {%- if product.available -%}
+      {%- if product.compare_at_price > product.price -%}
+      <div class="st-box __new">{{ 'products.product.on_sale' | t }}</div>
+      {%- endif -%}
+      {%- else -%}
+      <div class="st-box __soldout">{{ 'products.product.sold_out' | t }}</div>
+      {%- endif -%}
+      <a href="{{ product.url }}">
+        <img src="{{ product.featured_image | img_url : 'grande' }}" alt="{{ product.featured_image.alt | default : product.title }}">
+        <span class="bg-thumb" data-bg-img="{{ product.media[1] | img_url : 'grande' }}"></span>
+        <span class="thumb-overlay"></span>
+      </a>
+    </div>
+    <div class="product-info">
+      <div class="content-inner">
+        <h4 class="title"><a href="{{ product.url }}">{{ product.title }}</a></h4>
+        <div class="prices">
+            {% if product.compare_at_price %}<span class="price"><del>{{ product.compare_at_price | money }}</del></span> {% endif %} 
+          <span class="price">{{ product.price | money }}</span>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <!-- End Product Item -->
+</div>

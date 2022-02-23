@@ -1,0 +1,32 @@
+{% paginate search.results by 12 %}
+<main class="main-content">
+  {% include 'breadcrumb' %}
+  <!--== End Page Title Area ==-->
+  <!--== Start Products Area Wrapper ==-->
+  <div class="product-area shop-fullwidth-area style-two">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row product-items-style4">
+
+            {% for item in search.results %}
+            {% if item.object_type == 'product' %}
+          		{% include 'product-card-list', product: item %}
+            {% endif %}  
+            {% endfor %}      
+          </div>
+          <div class="pagination-area">
+            <nav>                
+              {%- if paginate.pages > 1 -%}
+              {% include 'pagination', paginate: paginate %}
+              {%- endif -%}
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--== End Products Area Wrapper ==-->
+</main>
+
+{% endpaginate %}

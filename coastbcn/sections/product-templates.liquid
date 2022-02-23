@@ -1,0 +1,222 @@
+ <!--== Start Shop Area ==-->
+    <section class="product-area shop-single-product" data-section-id="{{ section.id }}">
+      <div class="container" >
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="single-product-slider">
+              <div class="product-dec-slider-right">
+                <div class="single-product-thumb">
+                  <div class="single-product-thumb-slider">
+                    {%- for media in product.media -%}
+                     {%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
+                       <div class="video-product">
+                        <div class="thumb-item">
+                        	 {{ media | video_tag: controls: true }}
+                        </div>	
+                      </div>
+                    {%- else -%}
+                      <div class="zoom zoom-hover">
+                        <div class="thumb-item">
+                          <a class="lightbox-image" data-fancybox="gallery" href="{{ media | img_url: 'master' }}">
+                            <img src="{{ media | img_url: 'master' }}" alt="{{ media.alt | default : product.title }}">
+                          </a>
+                        </div>
+                      </div>
+                    {%- endif -%}
+                    {%- endfor -%}  
+                     
+                  </div>
+                  
+                </div>
+              </div>
+              <div class="product-dec-slider-left">
+                <div class="single-product-nav">
+                  <div class="single-product-nav-slider">
+                    {%- for media in product.media -%}
+                      {%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
+                          <div class="nav-item">
+                          <div class="thumb-nav-img">
+                            <img src="{{ media | img_url: 'master' }}" alt="{{ media.alt | default : product.title }}">
+                            <div class="btn-video">
+                              <i class="fas fa-play-circle"></i>
+                            </div>
+                          </div>
+                        </div>
+                       {%- else -%}
+                        <div class="nav-item">
+                          <div class="thumb-nav-img">
+                            <img src="{{ media | img_url: 'grande' }}" alt="{{ media.alt | default : product.title }}">
+                          </div>
+                        </div>
+                       {%- endif -%}
+                    {%- endfor -%} 
+                     
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            {% form 'product', product %}
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id  }}">
+            <div class="single-product-info">
+              <h4 class="title">{{ product.title }}</h4>
+<!--               <div class="product-rating">
+                <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+              </div> -->
+              <div class="prices">
+                <span class="price">{{ product.price | money }}</span>
+                {% if product.compare_at_price %}
+                <span class="price-old"><del>{{ product.compare_at_price | money }}</del></span>
+                {% endif %}
+              </div>
+               <p class="product-desc">
+                 {%- if cart.taxes_included or shop.shipping_policy.body != blank -%}
+
+                 {%- if cart.taxes_included -%}
+                 {{ 'products.product.include_taxes' | t }}
+                 {%- endif -%}
+                 {%- if shop.shipping_policy.body != blank -%}
+                 {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                 {%- endif -%}
+
+                 {%- endif -%}
+              </p>
+               {% unless product.has_only_default_variant %}
+                <div class="product-action-size">
+                  <span class="title">Size </span>
+                  <ul>
+                    {% for variant in product.variants %}
+                      <li>
+                        <input type="radio" name="id" id="size-{{ forloop.index }}" value="{{ variant.id }}" {% if variant.available and forloop.index == 2 %}checked{% endif %}>
+                        <label for="size-{{ forloop.index }}" class="ht-tooltip" data-tippy-content="{{ variant.title }}">{{ variant.title }}</label>
+                      </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+              {% endunless %}
+              <div class="quick-product-action">
+                <div class="action-top">
+                    <span class="title">{{ 'products.product.quantity' | t }}</span>
+                  <div class="pro-qty-area">
+                    <div class="pro-qty">
+                     <input type="text" step="1" min="1" name="quantity"  value="1">
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="action-btn">
+                    <button class="btn-theme btn-black" type="submit" {% unless product.available %} disabled="disabled"{% endunless %}><span>{%- if product.available -%}{{ 'products.product.add_to_cart' | t }}{%- else -%} {{ 'products.product.sold_out' | t }}{%- endif -%}</span></button>
+                  
+                  {% if section.settings.show_buy %}
+                  		{{ form | payment_button }}
+                  {% endif %}
+                </div>
+               
+              </div>
+              
+<!--                 <div class="product-ratting">
+                  <div class="product-sku">
+                   SKU: <span>{{ product.selected_or_first_available_variant.sku }}</span>
+                  </div>
+                </div> -->
+              
+<!--               <div class="product-categorys">
+                <div class="product-category">
+                  Category: <span>{{ product.collections[0].title }}</span>
+                </div>
+              </div> -->
+              <div class="product-social-info">
+                 {%- assign socials = "Facebook Twitter Pinterest Instagram Tumblr Snapchat YouTube Vimeo" | split: ' ' -%}
+                      {%- for social in socials -%}
+                        {%- assign social_link = social | prepend: 'social_' | append: '_link' | downcase -%}
+                        {%- assign icon_link = social | prepend: 'icon-' | downcase -%}
+                        {%- if settings[social_link] != blank -%}
+                          <a href="{{ settings[social_link] | escape }}">{%- include icon_link -%}</a>
+                        {%- endif -%}
+                      {%- endfor -%}
+              </div>
+            </div>
+             {% endform %}
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--== End Shop Area ==-->
+
+    <!--== Start Shop Tab Area ==-->
+    <section class="product-area product-description-review-area">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="product-description-review">
+              <ul class="nav nav-tabs product-description-tab-menu" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="product-desc-tab" data-bs-toggle="tab" data-bs-target="#productDesc" type="button" role="tab" aria-controls="productDesc" aria-selected="true">Description</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="product-info-tab" data-bs-toggle="tab" data-bs-target="#productInfo" type="button" role="tab" aria-controls="productInfo" aria-selected="false">Shipping</button>
+                </li> 
+                 <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="product-review-tab" data-bs-toggle="tab" data-bs-target="#productReview" type="button" role="tab" aria-controls="productReview" aria-selected="false">Garment Care</button>
+                </li>
+              </ul>
+              <div class="tab-content product-description-tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="productDesc" role="tabpanel" aria-labelledby="product-desc-tab">
+                  <div class="product-desc product-size-chart table-responsive">
+                    <style>
+                      table {
+                      	min-width: 100%
+                      }
+                    </style>
+                    <div class="table">
+                    	{{ product.content }}
+                    </div>
+                   
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="productInfo" role="tabpanel" aria-labelledby="product-info-tab">
+                  <div class="product-size-chart table-responsive">
+                   	{{ pages[section.settings.tab_page_1_handle].content }}
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="productReview" role="tabpanel" aria-labelledby="product-review-tab">
+                  <div class="product-review">
+                   		{{ pages[section.settings.tab_page_2_handle].content }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--== End Shop Tab Area ==-->
+{% schema %}
+  {
+    "name": "Product page",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_buy",
+          "label": "Show buy now",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Tabs"
+        },
+        {
+          "type": "page",
+          "id": "tab_page_1_handle",
+          "label": "First page"
+        },
+        {
+          "type": "page",
+          "id": "tab_page_2_handle",
+          "label": "Second page"
+        }
+	]
+  }
+{% endschema %}
+

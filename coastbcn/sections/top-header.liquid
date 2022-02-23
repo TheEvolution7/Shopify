@@ -1,0 +1,25 @@
+{% if section.settings.show_section %}
+  <div class="top-header">
+    <span>{{ section.settings.title }}	</span>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Top Header",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "LAST STOCK AVAILABLE ON SALE | NO RESTOCK."
+		  
+        }
+	]
+  }
+{% endschema %}

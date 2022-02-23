@@ -1,0 +1,206 @@
+
+<header class="header-area header-default header-style2 header-transparent sticky-header" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="row row-gutter-0 align-items-center">
+      <div class="col-12">
+        <div class="header-align">
+          <div class="header-align-left">
+            <div class="header-logo-area">
+              <a href="{{ routes.root_url }}">
+                <img class="logo-main " src="{{ section.settings.logo | img_url: 'medium' }}" alt="{{ section.settings.logo.alt | default: shop.name }}" />
+              </a>
+            </div>
+            <div class="header-navigation-area d-none d-xl-block">
+              <ul class="main-menu nav justify-content-center position-relative">
+                {% assign linklist = section.settings.main_linklist %}
+                {% for link in linklists[linklist].links %}
+                	{% if link.levels == 0 %}
+                    	<li {% if link.active %} class="active" {% endif %}><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+                	{% else %}
+                		<li class="has-submenu {% if link.active %} active {% endif %}"><a href="{{ link.url }}">{{ link.title | escape }}</a>
+                          <ul class="submenu-nav mega-menu-full">
+                          {% for childlink in link.links %}
+                              <li>
+                                <a href="{{ childlink.url }}">
+                                  {% assign handle = childlink.title | handle | downcase %}
+                                  <div class="thumb-img-menu">
+                                    <img src="{{ collections[handle].image | img_url : 'master' }}" alt="">
+                                  </div>
+                                  {{ childlink.title | escape }}
+                                </a>
+                            </li>
+                          {% endfor %}
+                          </ul>
+                		</li>
+                		
+                    {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+          <div class="header-align-right">
+            <div class="header-action-area">
+              <div class="header-action-search">
+                <button class="btn-search btn-search-menu">
+
+                  <i class="lastudioicon-zoom-2"></i>
+                </button>
+              </div>
+              <div class="header-action-cart">
+                <button class="btn-cart cart-icon">
+                  <span class="cart-count" data-ajax-cart-bind-state="cart.item_count">{{ cart.item_count }}</span>
+                  <i class="lastudioicon-shopping-cart-2"></i>
+                </button>
+              </div>
+              
+              <div class="header-action-account d-none d-xxl-block">
+                {% if customer %}
+                  <button class="btn-login" onclick="window.location.href='{{ routes.account_url }}'">
+                    <span>{{ 'layout.customer.account' | t }}</span>
+                  </button>
+                  <button class="btn-login" onclick="window.location.href='/account/logout'">
+                    <span>Logout</span>
+                  </button>
+                {% else %}
+                  <button class="btn-login" onclick="window.location.href='{{ routes.account_login_url }}'">
+                    <span>{{ 'layout.customer.log_in' | t }}</span>
+                  </button>
+                {% endif %}
+              </div>
+              <button class="btn-menu d-xl-none">
+                <i class="lastudioicon-menu-3-1"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mobi-menu">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <ul>
+                {% assign linklist = section.settings.main_linklist_mobile %}
+                {% for link in linklists[linklist].links %}
+                 <li><a href="{{ link.url }}">{{ link.title | escape }} {% if link.active %}<span class="dot"></span>{% endif %}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+</header>
+
+{% schema %}
+{
+  "name": {
+    "cs": "Záhlaví",
+    "da": "Overskrift",
+    "de": "Titel",
+    "en": "Header",
+    "es": "Encabezado",
+    "fi": "Ylätunniste",
+    "fr": "En-tête",
+    "it": "Header",
+    "ja": "ヘッダー",
+    "ko": "헤더",
+    "nb": "Header",
+    "nl": "Koptekst",
+    "pl": "Nagłówek",
+    "pt-BR": "Cabeçalho",
+    "pt-PT": "Cabeçalho",
+    "sv": "Rubrik",
+    "th": "ส่วนหัว",
+    "tr": "Üstbilgi",
+    "vi": "Đầu trang",
+    "zh-CN": "标头",
+    "zh-TW": "標頭"
+  },
+  "settings": [
+	{
+      "type": "image_picker",
+      "id": "logo",
+      "label": {
+        "cs": "Obrázek loga",
+        "da": "Logobillede",
+        "de": "Logo-Foto",
+        "en": "Logo image",
+        "es": "Logo",
+        "fi": "Logokuva",
+        "fr": "Image du logo",
+        "it": "Immagine del logo",
+        "ja": "ロゴ画像",
+        "ko": "로고 이미지",
+        "nb": "Logobilde",
+        "nl": "Afbeelding van logo",
+        "pl": "Obraz logo",
+        "pt-BR": "Imagem do logotipo",
+        "pt-PT": "Imagem do logótipo",
+        "sv": "Logobild",
+        "th": "รูปภาพโลโก้",
+        "tr": "Logo görseli",
+        "vi": "Hình ảnh logo",
+        "zh-CN": "logo 图片",
+        "zh-TW": "標誌圖片"
+      }
+    },
+    {
+      "type": "link_list",
+      "id": "main_linklist",
+      "label": {
+        "cs": "Nabídka",
+        "da": "Menu",
+        "de": "Menü",
+        "en": "Menu",
+        "es": "Menú",
+        "fi": "Valikko",
+        "fr": "Menu",
+        "it": "Menu",
+        "ja": "メニュー",
+        "ko": "메뉴",
+        "nb": "Meny",
+        "nl": "Menu",
+        "pl": "Menu",
+        "pt-BR": "Menu",
+        "pt-PT": "Menu",
+        "sv": "Meny",
+        "th": "เมนู",
+        "tr": "Menü",
+        "vi": "Menu",
+        "zh-CN": "菜单",
+        "zh-TW": "選單"
+      },
+      "default": "main-menu"
+    },
+	{
+      "type": "link_list",
+      "id": "main_linklist_mobile",
+      "label": {
+        "cs": "Nabídka",
+        "da": "Menu",
+        "de": "Menü",
+        "en": "Menu Mobile",
+        "es": "Menú",
+        "fi": "Valikko",
+        "fr": "Menu",
+        "it": "Menu",
+        "ja": "メニュー",
+        "ko": "메뉴",
+        "nb": "Meny",
+        "nl": "Menu",
+        "pl": "Menu",
+        "pt-BR": "Menu",
+        "pt-PT": "Menu",
+        "sv": "Meny",
+        "th": "เมนู",
+        "tr": "Menü",
+        "vi": "Menu",
+        "zh-CN": "菜单",
+        "zh-TW": "選單"
+      }
+    }
+  ]
+}
+{% endschema %}

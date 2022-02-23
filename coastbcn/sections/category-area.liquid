@@ -1,0 +1,123 @@
+{% if section.settings.show_section %}
+<section class="category-area category-style8-area" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <div class="section-title">
+          <h2 class="title">{{ section.settings.title }}
+            <img src="{{ 'Ellipse1.png' | asset_url }}" alt="" class="layer">
+            <img src="{{ 'butter.png' | asset_url }}" alt="" class="layer1">
+          </h2>
+
+        </div>
+      </div>
+      <div class="col-2"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 col-lg-4 p-0">
+        <div class="category-items-style12 item-one">
+          <div class="category-item hover-effect effect-style1">
+            <div class="thumb">
+              <img src="{{ section.settings.image_1 | img_url : 'master' }}" alt="{{ section.settings.image_1.alt | default : section.settings.title }}">
+              <div class="effect-content"></div>
+            </div>
+            <div class="content">
+              <a class="btn-theme" href="{{ section.settings.url_1 }}">{{ section.settings.button_1 }}</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 text-banner mt-3">
+       {{ section.settings.subtitle }}
+        <a class="btn-theme" href="{{ section.settings.url_3 }}"><span>{{ section.settings.button_3 }}</span></a>
+      </div>
+      <div class="col-lg-4 col-md-3 position-relative">
+        <div class="category-items-style12 item-two">
+          <div class="category-item hover-effect effect-style1">
+            <div class="thumb">
+              <img src="{{ section.settings.image_2 | img_url : 'master' }}" alt="{{ section.settings.image_2.alt | default : section.settings.title }}">
+              <div class="effect-content"></div>
+            </div>
+            <div class="content">
+              <a class="btn-theme" href="{{ section.settings.url_2 }}">{{ section.settings.button_2 }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Banner",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },	
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Spread your wings with us"
+		  
+        },
+		{
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "SubTitle",
+		  "default" : " <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas pellentesque posuere mauris tincidunt orci, aliquet nam aliquet purus. Nulla in nullam eget at placerat egestas dignissim platea. Enim, euismod sed a integer tristique. Fringilla ultrices nunc, viverra interdum maecenas.</p>"
+		  
+        },
+		{
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Image 1"
+        },
+		{
+          "type": "text",
+          "id": "button_1",
+          "label": "Button 1",
+		  "default" : "discover"
+		  
+        },
+		{
+          "type": "url",
+          "id": "url_1",
+          "label": "url 1"  
+        },
+		{
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Image 2"
+        },
+		{
+          "type": "text",
+          "id": "button_2",
+          "label": "Button 2",
+		  "default" : "discover"
+        },
+		{
+          "type": "url",
+          "id": "url_2",
+          "label": "url 2"  
+        },
+		{
+          "type": "text",
+          "id": "button_3",
+          "label": "Button 3",
+		  "default" : "view collection"
+        },
+		{
+          "type": "url",
+          "id": "url_3",
+          "label": "url"  
+        }
+	]
+  }
+{% endschema %}

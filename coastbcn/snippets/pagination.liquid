@@ -1,0 +1,32 @@
+<ul class="page-numbers">
+  {%- for part in paginate.parts -%}
+    {%- if part.is_link -%}
+    <li>
+      <a class="page-number" href="{{ part.url }}">{{ part.title }}</a>
+    </li>
+    {%- else -%}
+      {%- if part.title == paginate.current_page -%}
+        <li>
+          <a class="page-number active" href="#" disabled="disabled">{{ part.title }}</a>
+        </li>
+      {%- else -%}
+        <li>
+          <a class="page-number" href="#" disabled="disabled">{{ part.title }}</a>
+        </li>
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+   {%- if paginate.next -%}
+    <li>
+      <a class="page-number next" href="{{ paginate.next.url }}">
+        {% include 'icon-arrow-right' %}
+      </a>
+    </li>
+  {%- else -%}
+    <li>
+      <a class="page-number next" href="#" disabled="disabled">
+        {% include 'icon-arrow-right' %}
+      </a>
+    </li>
+   {%- endif  -%}     
+</ul>
