@@ -1,0 +1,52 @@
+{% comment %}
+    Renders a pagination bar
+
+    Accepts:
+    - paginate: {Object} Paginate Liquid object (required)
+
+    Usage:
+    {% include 'pagination', paginate: paginate %}
+{% endcomment %}
+      <div class="pagination wow fadeIn">
+        {% if paginate.previous %}
+          <li class="page-item">
+            <a class="page-link" href="{{ paginate.previous.url }}">
+               <span aria-hidden="true">&laquo;</span>
+               <span class="sr-only">Previous</span>
+            </a>
+          </li>
+        {%- else -%}
+          <li class="page-item">
+            <a class="page-link" href="#" disabled="disabled">
+               <span aria-hidden="true">&laquo;</span>
+               <span class="sr-only">Previous</span>
+            </a>
+          </li>
+        {%- endif  -%}
+        {%- for part in paginate.parts -%}
+          {%- if part.is_link -%}
+              <li class="page-item"><a class="page-link" href="{{ part.url }}">{{ part.title }}</a></li>
+          {%- else -%}
+            {%- if part.title == paginate.current_page -%}
+                <li class="page-item active"><a class="page-link" href="#" disabled="disabled">{{ part.title }}</a></li>
+            {%- else -%}
+                <li class="page-item"><a class="page-link" href="#" disabled="disabled">{{ part.title }}</a></li>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if paginate.next -%}
+          <li class="page-item">
+            <a class="page-link" href="{{ paginate.next.url }}">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+        {%- else -%}
+          <li class="page-item">
+            <a class="page-link" href="#" disabled="disabled">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+        {%- endif  -%}      
+     </div>

@@ -1,0 +1,82 @@
+{% if section.settings.show_section %}
+  <section class="feat-sec section-padding bg-bys" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="sec-head text-center wow fadeIn">
+        <!-- <h6>Features</h6> -->
+        <h3>{{ section.settings.title }}</h3>
+        <span class="icon">
+          <img class="rotate-img" src="{{ 'icon-1-w.svg' | asset_url }}" alt="">
+        </span>
+      </div>
+      <div class="row">
+       {%- for block in section.blocks -%}
+        <div class="col-lg-4">
+          <div class="square-flip wow fadeIn">
+            <div class='square bg-img' data-background="{{ block.settings.image | img_url : 'grande' }}">
+              <div class="square-container d-flex align-items-end">
+                <div class="box-title">
+                  <h4>{{ block.settings.title }}</h4>
+                </div>
+              </div>
+              <div class="flip-overlay"></div>
+
+            </div>
+            <div class='square2'>
+              <div class="square-container2">
+                {{ block.settings.text }}
+              </div>
+            </div>
+          </div>
+        </div>
+       {%- endfor -%} 
+      </div>
+    </div>
+  </section>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Bys",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "header",
+          "content": "Content"
+    	},
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+	      "default" : "When should I take bys?"
+        }
+	],
+	"blocks": [
+    {
+      "type": "content",
+      "name": "content",
+      "settings": [
+		{
+		  "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title" 
+        },
+		{
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"	 
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}
+

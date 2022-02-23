@@ -1,0 +1,42 @@
+
+  <div class="col-md-4">
+    {% form 'product', product, id: 'form-id' %}
+    <div class="item wow fadeIn">
+      {% if product.compare_at_price %}
+        <div class="tag-d">
+          {{ product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0'}}%
+        </div>
+      {% endif %}
+      <a href="{{ product.url }}" class="img">
+        <img src="{{ product.featured_image | img_url : 'grande' }}" alt="{{ product.featured_image.alt | default : product.title }}">
+      </a>
+      <div class="cont">
+        <a href="{{ product.url }}">
+          <h6>{{ product.title }}</h6>
+		
+        </a>
+<!--         <div class="info">
+          <p>{{ product.metafields.my_fields.description }}</p>
+        </div> -->
+        <div class="botm">
+          <h5 class="price">
+            {{ product.price | money }}
+          </h5>
+          <del>{{ product.compare_at_price | money }}</del>
+          <div class="button-cart">
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+            <a onclick={%- if product.available -%}"document.getElementById('form-id').submit();" {%- else -%} disabled {%- endif -%} class="addcart"> 
+              {%- if product.available -%}
+                  Add to cart
+              {%- else -%}
+                  Sold Out
+              {%- endif -%}
+              
+              <span class="pe-7s-cart"></span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endform %}
+  </div>
+

@@ -1,0 +1,73 @@
+<header class="slider clasc-slid" data-section-id="{{ section.id }}">
+  <div class="item-img bg-img valign" data-background="{{ section.settings.bg | img_url : '1920x' }}" data-overlay-dark="4">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <div class="caption bold wow fadeIn">
+            <h4 class="custom-font">{{ section.settings.heading }}</h4>
+            <h1>{{ section.settings.title }}</h1>
+            <div class="thumb-banner thumb-banner-mobile mt-30">
+              <img src="{{ section.settings.image | img_url : 'grande' }}" alt="{{ section.settings.image.alt | default : section.settings.title }}">
+              <div class="shape-circle"></div>
+            </div>
+            <a href="{{ section.settings.url }}" class="btn-skew btn-bord mt-30">
+              <span>{{ section.settings.button }}</span>
+              <i></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="thumb-banner">
+            <img src="{{ section.settings.image | img_url : 'grande' }}" alt="{{ section.settings.image.alt | default : section.settings.title }}">
+            <div class="shape-circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+</div>
+{% schema %}
+  {
+    "name": "Section Banner",
+    "settings": [
+		{
+          "type": "image_picker",
+          "id": "bg",
+          "label": "Background"
+        },
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "header",
+          "content": "Content"
+    	},
+		{
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+		  "default" : "BYS Wellness"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Recovery <br> Before You Start"
+        },
+		{
+          "type": "text",
+          "id": "button",
+          "label": "Button",
+		  "default" : "Shop now"
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        }
+	]
+  }
+{% endschema %}

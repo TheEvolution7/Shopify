@@ -1,0 +1,215 @@
+<header class="slider pages bg-img valign parallaxie" data-background="{{ section.settings.bg | img_url : '1920x' }}" data-overlay-dark="8" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-9 col-md-11">
+        <div class="caption text-center bold">
+          <h1>{{ page_title }}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="main-content">
+  <section class="contact-us section-padding">
+    <div class="container">
+      <div class="row no-gutters">
+        <div class="col-lg-8 d-flex">
+          <div class="map-info">
+            <div class="map-box">
+              {{ section.settings.map }}
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="opening bg-img bg-repeat">
+            <div class="toup">
+              <div class="con-info text-left">
+                <div class="item mb-30">
+                  <h4>{{ section.settings.heading_1 }}</h4>
+                  <ul>
+                    <li>
+                      <span class="icon pe-7s-map-marker"></span>
+                      <small>
+                        {{ section.settings.address_1 }}
+                      </small>
+                    </li>
+                    <li>
+                      <span class="icon pe-7s-map-marker"></span>
+                      <small>
+                       {{ section.settings.address_2 }}
+                      </small>
+                    </li>
+                  </ul>
+                </div>
+                <div class="item">
+                  <h4>{{ section.settings.heading_2 }}</h4>
+                  <ul>
+                    {% if section.settings.phone != empty %} 
+                    <li>
+                      <span class="icon pe-7s-call"></span>
+                      {{ section.settings.phone }}
+                    </li>
+                    {% endif %} 
+                    <li>
+                      <span class="icon pe-7s-mail"></span>
+                      {{ section.settings.email }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center mt-100">
+        <div class="col-lg-9 col-md-11">
+          <div class="contact-form">
+            <div class="sec-head text-center">
+              <h6>{{ section.settings.title }}</h6>
+              <h3>{{ section.settings.subtitle }}</h3>
+              <span class="icon">
+                <img class="rotate-img" src="{{ 'icon-1.svg' | asset_url }}" alt=""/>
+              </span>
+            </div>
+            {% form 'contact' %} 
+              {%- if form.posted_successfully? -%}
+              	<p>{{ 'contact.form.post_success' | t }}</p>
+              {%- endif -%}
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" id="name" name="contact[{{ 'contact.form.name' | t }}]" placeholder="{{ 'contact.form.name' | t }} *" required>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="email"  id="email" name="contact[email]"  placeholder="{{ 'contact.form.email' | t }} *" required>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" id="phone" name="contact[phone]"  placeholder="{{ 'contact.form.phone' | t }}" required>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="form-group">
+                    <select class="wide" name="contact[subject]">
+                      <option value="">Subject</option>
+                     {% for block in section.blocks %}
+                      <option value="{{ block.settings.title }}">{{ block.settings.title }}</option>
+                     {% endfor %}
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <textarea id="message" placeholder="{{ 'contact.form.message' | t }} ..." name="contact[{{ 'contact.form.message' | t }}]"></textarea>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="text-center">
+                    <div class="form-group mb-0">
+                      <button class="btn-skew btn-color btn-bg" type="submit">
+                        <span>{{ 'contact.form.submit' | t }}</span>
+                        <i></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endform %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% schema %}
+  {
+    "name": "Section Contact",
+    "settings": [
+		{
+          "type": "image_picker",
+          "id": "bg",
+          "label": "Background"
+        },
+		{
+          "type": "html",
+          "id": "map",
+          "label": "Iframe Map"
+        },
+		{
+          "type": "header",
+          "content": "Location"
+    	},
+		{
+          "type": "text",
+          "id": "heading_1",
+          "label": "Heading",
+		  "default" : "Our Location"
+        },
+  		{
+          "type": "richtext",
+          "id": "address_1",
+          "label": "Address 1"
+        },
+  		{
+          "type": "richtext",
+          "id": "address_2",
+          "label": "Address 2"
+        },
+  		{
+          "type": "header",
+          "content": "Contact"
+    	},
+		{
+          "type": "text",
+          "id": "heading_2",
+          "label": "Heading",
+		  "default" : "Contact Us"
+        },
+  		{
+          "type": "text",
+          "id": "phone",
+          "label": "Phone",
+  		  "default" : "<p>800-603-6035 , 914-309-7030</p>"
+        },
+  		{
+          "type": "richtext",
+          "id": "email",
+          "label": "Email",
+		  "default" : "<p>info@buybys.com</p>"
+        },
+  		{
+          "type": "header",
+          "content": "Form"
+    	},
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Get In Touch"
+        },
+  		{
+          "type": "text",
+          "id": "subtitle",
+          "label": "SubTitle",
+		  "default" : "Contact Us"
+        }
+  ],
+  	"blocks": [
+      {
+        "type": "Subject",
+        "name": "Subject",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          }  
+        ]
+      }
+	]
+  }
+{% endschema %}

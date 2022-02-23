@@ -1,0 +1,25 @@
+
+
+
+<div class="banner-home">
+  <a href="{{ section.settings.url2 }}">
+  	<img src="{{ section.settings.bg2 | img_url : '2048x' }}" />
+  </a>
+</div>
+{% schema %}
+  {
+    "name": "Section Banner",
+    "settings": [
+		{
+          "type": "image_picker",
+          "id": "bg2",
+          "label": "Background"
+        },
+		{
+          "type": "url",
+          "id": "url2",
+          "label": "Url"
+        }
+	]
+  }
+{% endschema %}

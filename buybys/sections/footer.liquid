@@ -1,0 +1,273 @@
+<footer class="main-footer" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="ftop">
+          <div class="flogo wow fadeIn">
+             <img src="{{ section.settings.logo | img_url: '500x' }}" alt="{{ section.settings.logo.alt | default: shop.name }}">
+            
+       
+          </div>
+           {%- if section.settings.show_social_icons -%}
+              <div class="social wow fadeIn">
+                {%- assign socials = "Facebook Twitter Pinterest Instagram Tumblr Snapchat YouTube Vimeo" | split: ' ' -%}
+                {%- for social in socials -%}
+                  {%- assign social_link = social | prepend: 'social_' | append: '_link' | downcase -%}
+                  {%- assign icon_link = social | prepend: 'icon-' | downcase -%}
+                  {%- if settings[social_link] != blank -%}
+                      <a href="{{ settings[social_link] | escape }}">{%- include icon_link -%}</a>
+                  {%- endif -%}
+                {%- endfor -%}   
+<!--                 <a href="{{ section.settings.url }}"><i class="fab fa-vk"></i></a> -->
+              </div>
+           {%- endif -%}
+          
+          <p class="text-footer">{{ section.settings.content }}</p>
+          </div>
+        </div>
+      </div>
+     <div class="row">
+       
+      <div class="col-lg-4">
+        <div class="item address md-mb50 wow fadeIn">
+          <div class="ftitle">
+            <h6>{{ section.settings.heading_1 }}</h6>
+          </div>
+          <ul>
+            {%- if section.settings.phone != empty -%} 
+            <li>
+              <div class="tit">Phone :</div>
+              <div class="dots"></div> <span> <a href="tel:{{ section.settings.phone }}">{{ section.settings.phone }}</a></span>
+            </li>
+            {%- endif -%} 
+            <li>
+              <div class="tit">Email :</div>
+              <div class="dots"></div> <span><a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a></span>
+            </li>
+            <li>
+              <div class="tit">Web address :</div>
+              <div class="dots"></div> <span><a href="http://{{ section.settings.address }}/">{{ section.settings.address }}</a></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="item opening md-mb50 wow fadeIn">
+          <div class="ftitle">
+            <h6>BYS Wellness</h6>
+          </div>
+          <ul>
+            <li>
+              <div class="tit __address">{{ section.settings.title_1 }}</div>
+              <div class="dots"></div> <span>{{ section.settings.text_1 }}</span>
+            </li>
+            <li>
+              <div class="tit __address">{{ section.settings.title_2 }}</div>
+              <div class="dots"></div> <span>{{ section.settings.text_2 }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="item subscribe wow fadeIn">
+          <div class="ftitle">
+            <h6>{{ section.settings.title_subscribe }}</h6>
+          </div>
+          {{ section.settings.text_3 }}
+          {%- assign formId = 'Newsletter' -%}
+          {% form 'customer', id: formId %}
+            {%- if form.posted_successfully? -%}
+            	<p>{{ 'contact.form.post_success' | t }}</p>
+            {%- endif -%}
+              <div class="fleft">
+                <input type="hidden" name="contact[tags]" value="newsletter">
+                <input type="email" id="{{ formId }}-email" name="contact[email]" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"  placeholder="{{ 'general.newsletter_form.email_placeholder' | t }}" aria-label="{{ 'general.newsletter_form.email_placeholder' | t }}" required>
+              </div>
+              <div class="fright">
+                <button class="btn-skew btn-color btn-bg" type="submit">
+                  <span>Send</span>
+                  <i></i>
+                </button>
+              </div>
+          {% endform %}
+        </div>
+      </div>
+    </div>
+    </div>
+   
+
+  <div class="ftail">
+    <div class="container">
+      <div class="copyrights text-center mt-0">
+       {{ section.settings.copyright }}
+  </div>
+  </div>
+</div>
+
+</footer>
+
+ </div>
+
+
+{% schema %}
+{
+  "name": {
+    "cs": "Zápatí",
+    "da": "Sidefod",
+    "de": "Fußzeile",
+    "en": "Footer",
+    "es": "Pie de página",
+    "fi": "Alatunniste",
+    "fr": "Pied de page",
+    "it": "Footer",
+    "ja": "フッター",
+    "ko": "바닥글",
+    "nb": "Footer",
+    "nl": "Voettekst",
+    "pl": "Stopka",
+    "pt-BR": "Rodapé",
+    "pt-PT": "Rodapé",
+    "sv": "Sidfot",
+    "th": "ส่วนท้าย",
+    "tr": "Altbilgi",
+    "vi": "Chân trang",
+    "zh-CN": "页脚",
+    "zh-TW": "頁尾"
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_social_icons",
+      "label": "Show social icons",
+      "default": true
+    },
+	{
+      "type": "image_picker",
+      "id": "logo",
+      "label": {
+        "cs": "Obrázek loga",
+        "da": "Logobillede",
+        "de": "Logo-Foto",
+        "en": "Logo image",
+        "es": "Logo",
+        "fi": "Logokuva",
+        "fr": "Image du logo",
+        "it": "Immagine del logo",
+        "ja": "ロゴ画像",
+        "ko": "로고 이미지",
+        "nb": "Logobilde",
+        "nl": "Afbeelding van logo",
+        "pl": "Obraz logo",
+        "pt-BR": "Imagem do logotipo",
+        "pt-PT": "Imagem do logótipo",
+        "sv": "Logobild",
+        "th": "รูปภาพโลโก้",
+        "tr": "Logo görseli",
+        "vi": "Hình ảnh logo",
+        "zh-CN": "logo 图片",
+        "zh-TW": "標誌圖片"
+      }
+    },
+	{
+		"type" : "text",
+		"id" : "content",
+		"label" : "Content",
+		"default" : "*The statements on this website have not been evaluated by the Food and Drug Administration (FDA). These products are not intended to diagnose, treat, cure or prevent any disease"
+	},
+	{
+      "type": "header",
+      "content": "Contact Infomation"
+    },
+	{
+		"type" : "text",
+		"id" : "heading_1",
+		"label" : "Heading 1",
+		"default" : "Contact Us"
+	},
+	{
+		"type" : "text",
+		"id" : "phone",
+		"label" : "Phone",
+		"default" : "570-856-0191"
+	},
+	{
+		"type" : "text",
+		"id" : "email",
+		"label" : "email",
+		"default" : "info@buybys.com"
+	},
+	{
+		"type" : "text",
+		"id" : "address",
+		"label" : "Adress",
+		"default" : "www.buybys.com"
+	},
+	{
+      "type": "header",
+      "content": "BYS Wellness"
+    },
+	{
+		"type" : "text",
+		"id" : "heading_2",
+		"label" : "Heading 2",
+		"default" : "BYS Wellness"
+	},
+	{
+		"type" : "text",
+		"id" : "title_1",
+		"label" : "Title 1",
+		"default" : "Headquarters"
+	},
+	{
+		"type" : "html",
+		"id" : "text_1",
+		"label" : "Text 1",
+		"default" : "201 Lackawanna Ave<br> Suite# 213 <br>Scranton PA 18503"
+	},
+	{
+		"type" : "text",
+		"id" : "title_2",
+		"label" : "Title 2",
+		"default" : "Manhattan Office"
+	},
+	{
+		"type" : "html",
+		"id" : "text_2",
+		"label" : "Text 2",
+		"default" : "100 Riverside Blvd<br> New York NY 10069"
+	},
+	{
+      "type": "header",
+      "content": "Copyright"
+    },
+	{
+		"type" : "richtext",
+		"id" : "copyright",
+		"label" : "copyright",
+		"default" : "<p>© 2021, BYS Wellness.</p>"
+	},
+	{
+      "type": "header",
+      "content": "Subscribe"
+    },
+	{
+		"type" : "text",
+		"id" : "title_subscribe",
+		"label" : "Title",
+		"default" : "Subscribe"
+	},
+	{
+		"type" : "richtext",
+		"id" : "text_3",
+		"label" : "Text",
+		"default" : " <p>Want to be notified when we launch a new template or an udpate. Just sign up and we'll send you a notification by email.</p>"
+	},
+	{
+		"type" : "text",
+		"id" : "url",
+		"label" : "Link VK"
+	}
+	
+  ]
+}
+{% endschema %}

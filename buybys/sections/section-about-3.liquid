@@ -1,0 +1,62 @@
+{% if section.settings.show_section %}
+  <section class="intro-cls section-padding position-re" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row justify-content-between">
+        <div class="col-lg-5 wow fadeIn">
+          <div class="imgfull">
+            <div class="img founder-img ">
+              <img src="{{ section.settings.image | img_url : 'grande' }}" alt="{{ section.settings.text }}">
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 valign">
+          <div class="cont wow fadeIn">
+            <h2>{{ section.settings.title }}</h2>
+            {{ section.settings.subtitle }}
+            <h4 class="name">{{ section.settings.text }}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Health & fitness",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "header",
+          "content": "Content"
+    	},
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Health & fitness"
+        },
+		{
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "SubTitle"
+        },
+		{
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+		  "default" : "Sam James - COO"
+        }
+	]
+  }
+{% endschema %}
+

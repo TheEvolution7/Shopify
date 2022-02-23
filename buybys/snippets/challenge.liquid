@@ -1,0 +1,42 @@
+
+<!-- ==================== Start Slider ==================== -->
+    <header class="slider pages bg-img valign parallaxie" data-background="{{ 'bg.jpg' | asset_url }}" data-overlay-dark="8">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-9 col-md-11">
+                    <div class="caption text-center bold">
+                        <h1>Google Captcha</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ==================== End Slider ==================== -->
+    <div class="main-content">
+        <!-- ==================== Start contact-us ==================== -->
+        <section class="contact-us section-padding">
+            <div class="container">
+                <div class="row no-gutters">
+                    <div class="col-lg-12">
+                      <!-- Start Single Accordion -->
+                      {{ content_for_layout }}  {% comment %} <--- conent_for_layout IS the captcha form in this context {% endcomment %}
+                                                                   <style>
+                      /* NOTE: these classes are subject to change at any time... since they are injected by shopify / google captcha */
+                      .shopify-challenge__container {
+                      }
+
+                      .shopify-challenge__message {
+                      }
+
+                      #g-recapthca {
+                      }
+                      </style>
+                  <script>
+                    $('shopify-challenge__message').text('Custom message or {{ settings.challenge_message }}')
+                  </script>
+                  <!-- End Single Accordion -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    <!-- ==================== End contact-us ==================== -->

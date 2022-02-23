@@ -1,0 +1,63 @@
+{% if section.settings.show_section %}
+  <section class="intro-cls section-padding position-re" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row justify-content-between">
+        <div class="col-lg-6 valign">
+          <div class="cont wow fadeIn">
+            <!-- <h5 class="clorful">Founder CEO </h5> -->
+            <h2>{{ section.settings.title }}</h2>
+            {{ section.settings.subtitle }}
+            <h4 class="name">{{ section.settings.text }}</h4>
+          </div>
+        </div>
+        <div class="col-lg-5 wow fadeIn">
+          <div class="imgfull">
+            <div class="img founder-img ">
+              <img src="{{ section.settings.image | img_url : 'grande' }}" alt="{{ section.settings.text }}">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Welcome",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "header",
+          "content": "Content"
+    	},
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Welcome To Bys Wellness"
+        },
+		{
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "SubTitle",
+		  "default" : "<p>Led by a Korean chemist and engineer with an extensive background in Eastern herbology, bys wellness is a brand which offers specialized formulas that utilize ancient Korean remedies to solve modern dilemmas. Our goal is to supply today’s consumers with herbal solutions which lend to the potencies of traditional antidotes, age-old cures and timeworn treatments. We aim to provide the finest products available for the convenience of occasional boozers and casual bar patrons who crave a good time without the next day fallout.</p>"
+        },
+		{
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+		  "default" : "Tak Yoo  - CEO Founder"
+        }
+	]
+  }
+{% endschema %}

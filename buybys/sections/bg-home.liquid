@@ -1,0 +1,64 @@
+{% if section.settings.show_section %}
+  <section class="block-parallax bg-img parallaxie wow fadeIn" data-background="{{ section.settings.bg | img_url : '1920x' }}" data-overlay-dark="5" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-10 col-md-11">
+          <div class="text-center wow fadeIn">
+            <h2 class="scfont">{{ section.settings.title }}</h2>
+            {{ section.settings.text }}
+            <a href="{{ section.settings.url }}" class="btn-skew btn-color btn-bg mt-30">
+              <span>{{ section.settings.button }}</span>
+              <i></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Contact",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "image_picker",
+          "id": "bg",
+          "label": "Background"
+        },
+		{
+          "type": "header",
+          "content": "Content"
+    	},
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+	      "default" : "extremely high quality"
+        },
+		{
+          "type": "richtext",
+          "id": "text",
+          "label": "SubTitle",
+	      "default" : "<p>Doloribus rerum neque cumque quidem! Ratione, explicabo suscipit. Id eveniet odio amet nam dignissimos ullam at consectetur.</p>"
+        },
+		{
+          "type": "text",
+          "id": "button",
+          "label": "Button",
+		  "default": "Shop now"
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        }
+	]
+  }
+{% endschema %}
+

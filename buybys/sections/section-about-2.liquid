@@ -1,0 +1,41 @@
+{% if section.settings.show_section %}
+  <section class="block-parallax bg-img parallaxie" data-background="{{ section.settings.bg | img_url : '1920x' }}" data-overlay-dark="7" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-11 col-md-11">
+          <div class="text-center wow fadeIn">
+           	{{ section.settings.content }}
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Background",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "image_picker",
+          "id": "bg",
+          "label": "Background"
+        },
+		{
+          "type": "header",
+          "content": "Content"
+    	},
+		{
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        }
+	]
+  }
+{% endschema %}

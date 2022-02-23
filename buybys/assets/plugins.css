@@ -1,0 +1,54 @@
+/*-----------------------------------------------------------------------------------
+
+	Theme Name: avo
+	Theme URI: http://
+	Description: The Multi-Purpose Template
+	Author: ui-themez
+	Author URI: http://themeforest.net/user/ui-themez
+	Version: 1.0
+
+-----------------------------------------------------------------------------------*/
+
+/* ----------------------------------------------------------------
+			[ All Css Plugins & Helper Classes File ]
+-----------------------------------------------------------------*/
+
+/* == bootstrap == */
+@import url("bootstrap.min.css");
+
+/* == animate css == */
+@import url("animate.css");
+
+/* == aos css == */
+/* @import url("aos.min.css"); */
+
+/* == flaticon icon font == */
+@import url("flaticon.css");
+
+/* == ionicons icon font == */
+@import url("ionicons.min.css");
+
+/* == pe-icon-7-stroke == */
+@import url("pe-icon-7-stroke.css");
+
+/* == fontawesome icon font == */
+@import url("fontawesome-all.min.css");
+
+/* == justifiedGallery.min == */
+@import url("justifiedGallery.min.css");
+
+/* == YouTubePopUp == */
+@import url("YouTubePopUp.css");
+
+/* == slick carousel == */
+@import url("slick.css");
+@import url("slick-theme.css");
+
+/* == swiper.min font == */
+@import url("swiper.min.css");
+
+/* == nice-select == */
+@import url("nice-select.css");
+
+/* == jquery-ui.min == */
+@import url("jquery-ui.min.css");

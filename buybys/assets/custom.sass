@@ -1,0 +1,290 @@
+body 
+    background-image: url(bg-111111.png)
+    background-repeat: repeat
+.main-footer
+    background-image: url(bg-111111.png)
+    background-repeat: repeat
+    background-blend-mode: overlay
+    .ftail
+        background-color: transparent
+        border-top: 1px solid rgba(#fff, 0.1)
+.bg-bys
+    background: url(bg-d.png)
+    background-size: cover
+    position: relative
+    background-position: top right
+    background-blend-mode: hard-light
+    background-color: #fff
+.icon-drag-ani
+    position: relative
+    margin-bottom: 0px
+    margin-top: -80px
+.slider 
+    .item-img 
+        .thumb-banner 
+            .shape-circle
+                animation: rotate-circle 3s infinite linear
+@keyframes rotate-circle
+    0%
+       
+        box-shadow: 0 0 0px 1px #4ed1b3, 0 0 0px 1px #4ed1b3 inset
+        
+        
+    50%
+        box-shadow: 0 0 30px 20px #4ed1b3, 0 0 30px 20px #4ed1b3 inset
+    100%
+       
+        box-shadow: 0 0 0px 1px #4ed1b3, 0 0 0px 1px #4ed1b3 inset
+    
+.bg-section
+    background: transparent
+    // @media screen and ( min-width: 992px )
+    //     background: url(bg-d.png)
+    //     background-size: cover
+    //     background-size: 50% 100%
+    //     background-position: right
+    //     background-repeat: no-repeat
+    @media screen and ( max-width: 991.82px )
+        padding-top: 0
+    p 
+        color: #f2f2f2
+    &::before
+        background-color: transparent
+        background: url(bg-d.png)
+        background-size: cover
+    .cont 
+        position: relative
+        @media screen and ( min-width: 992px )
+            
+            padding: 30px 60px
+            padding-right: 0
+        @media screen and ( max-width: 991.82px )
+            padding: 60px 0px
+            * 
+                z-index: 1
+                position: relative
+            &::before
+                position: absolute
+                z-index: 0
+                content: ''
+                width: 1000px
+                height: 100%
+                background: url(bg-d.png)
+                background-size: cover
+                top: 0
+                left: 50%
+                transform: translateX(-50%)
+        @media screen and ( max-width: 575.82px )
+            padding: 30px 0
+    &.__2 
+        .cont 
+            @media screen and ( min-width: 768px )
+                padding: 30px 60px
+                padding-left: 0
+.feat-prod 
+    // background: url(bg-3.jpeg)
+    background-size: cover
+    background-color: transparent
+    .item 
+        border-color: #4ed1b3
+        .img
+            position: relative
+            // &::before
+            //     position: absolute
+            //     width: 100%
+            //     height: 100%
+            //     top: 0
+            //     left: 0
+            //     content: ''
+            //     background: #000
+            //     opacity: 0.05
+        .cont
+            background: #f2f2f2
+        &:hover 
+            box-shadow: 2px 2px 10px rgba(78, 209, 179,0.6)
+.parallax-container
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    overflow: hidden
+    .fx-wrap 
+        position: absolute
+        h3
+            opacity: 0.05
+            font-size: 160px
+            font-weight: 900
+            font-family: var(--font-family-Hurme-B)
+            color: #000
+            
+            @media screen and ( max-width: 991.82px )
+                font-size: 120px
+            @media screen and ( max-width: 767.82px )
+                font-size: 60px
+                
+.intro-cls
+    position: relative
+    .fx-wrap
+        top: 0
+        left: -10%
+.feat-prod
+    position: relative
+    .fx-wrap
+        top: 0
+        right: -10%
+.clasc-slid [data-overlay-dark]
+    // background-blend-mode: soft-light
+    // &::after
+    //     opacity: 1
+    //     content: ''
+    //     position: absolute
+    //     width: 100%
+    //     background: linear-gradient(to bottom, transparent, rgba(255, 255, 255,1) 90%)
+    //     top: 60%
+    //     bottom: 0
+    //     left: 0
+    //     z-index: 1
+.cont
+    
+    &.__ani 
+        position: relative 
+        .svg-ani
+            position: absolute
+            width: 100%
+            left: 50%
+            transform: translate(-50%, -50%)
+            top: 60%
+            z-index: -1
+            opacity: 0.05
+            img
+                animation-direction: center
+                object-fit: contain
+                object-position: bottom
+.intro-cls 
+    .imgsth 
+        .img1,.img2,.img3
+            img 
+                filter: grayscale(100%)
+                transition: all .3s ease
+            &:hover 
+                img 
+                    filter: grayscale(0%)
+                    transform: scale(1.02)
+.main-footer 
+    .item 
+        ul 
+            li 
+                .tit
+                    &.__address
+                            font-family: var(--font-family-Hurme-B)
+                            font-size: 16px
+b, strong
+    font-family: var(--font-family-Hurme-R)
+.pattern-img
+    position: absolute
+    right: -15%
+    top: 5%
+    opacity: 0.07
+    z-index: -1
+    width: 100%
+.name
+    position: relative
+    color: #4ed1b3
+    font-size: 24px
+    margin-top: 20px
+    font-family: var(--font-family-Hurme-R)
+    padding-top: 20px
+    @media screen and ( max-width: 767.82px )
+        font-size: 20px
+        
+    &::before
+        width: 100px
+        background-color: #4ed1b3
+        height: 1px
+        position: absolute
+        top: 0
+        left: 0
+        content: '' 
+            
+@keyframes width100
+    0%
+        width: 0
+    100%
+        width: 100px
+.founder-img
+    overflow: unset
+    margin-right: 30px
+    padding-bottom: 130%
+    margin-bottom: 30px
+    position: relative
+    @media screen and ( max-width: 767.82px )
+        margin-left: 15px
+        margin-right: 15px
+        margin-bottom: 50px
+    img 
+        position: absolute
+        width: 100%
+        height: 100%
+        object-fit: cover
+        top: 0
+        left: 0
+    &::before,
+    &::after
+        content: ""
+        width: 100%
+        height: 100%
+        position: absolute
+        z-index: -1
+        border: 2px solid #4ed1b3
+        transition: all .25s ease-out
+
+    &::before
+        background-color: #4ed1b3
+        top: -15px
+        left: -15px
+
+    &::after
+        bottom: -15px
+        right: -15px
+
+    &:hover
+        &::before
+            top: 15px
+            left: 15px
+        &::after
+            bottom: 15px
+            right: 15px
+.main-shop .products-shop .item .cont h6
+    font-family: var(--font-family-Hurme-B)
+    font-size: 20px
+.contact-us 
+    .opening
+        .con-info
+            ul
+                li
+                    display: flex
+                    text-align: left
+                    align-items: flex-start
+                    color: #e7e7e7
+                    margin-bottom: 10px
+                    .icon 
+                        color: #4ed1b3
+                        margin-right: 10px
+                        margin-top: 10px
+                    p
+                        color: #e7e7e7
+                        strong , b 
+                            color: #4ed1b3
+    .map-info
+        display: flex
+        width: 100%
+        .map-box
+            display: flex
+            width: 100%
+            min-height: 500px
+            iframe
+                position: absolute
+                width: 100%
+                height: 100%
+                object-fit: cover

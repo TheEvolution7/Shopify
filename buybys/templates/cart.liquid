@@ -1,0 +1,89 @@
+<header class="slider pages bg-img valign parallaxie" data-background="{{ 'bg.jpg' | asset_url }}" data-overlay-dark="8">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-9 col-md-11">
+        <div class="caption text-center bold">
+          <h1>{{ page_title }}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="main-content">
+  <section class="main-cart section-padding">
+    <div class="container">
+      <form action="{{ routes.cart_url }}" method="post">
+        <div class="row">
+          <div class="col-12">
+            {% if cart.item_count > 0 %}
+
+            <table class="table table-mobile anim-fade-to-top wow fadeIn">
+              <thead>
+                <tr>
+                  <th class="product-thumbnail">Image</th>
+                  <th class="cart-product-name">{{ 'cart.label.product' | t }}</th>
+                  <th class="product-price">{{ 'cart.label.price' | t }}</th>
+                  <th class="product-quantity">{{ 'cart.label.quantity' | t }}</th>
+                  <th class="product-subtotal">{{ 'cart.label.total' | t }}</th>
+                  <th class="product-remove">{{ 'cart.general.remove' | t }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {%- for item in cart.items -%}
+                <tr>
+                  <td data-label="Image" class="product-thumbnail"><a href="{{ item.url }}"><img src="{{ item | img_url: 'large' }}" alt="{{ item.product.title }}"></a></td>
+                  <td data-label="Product" class="product-name">
+                    <a href="{{ item.url }}">{{ item.title }}</a>
+                  </td>
+                  <td data-label="Price" class="product-price"><span class="amount">{{ item.original_price | money }}</span></td>
+                  <td data-label="Quantity" class="product-subtotal">
+                    <div class="cont">
+                      <input type="number" id="{{ item.key }}" name="updates[]" value="{{ item.quantity }}" value="1" max="50" min="1">
+                    </div>
+                  </td>
+                  <td data-label="Total" class="product-status">{{ item.original_line_price | money }}</td>
+                  <td data-label="Remove" class="product-od-view"><a href="/cart/change?line={{ forloop.index }}&amp;quantity=0"><i class="fa fa-times"></i></a></td>
+                </tr>
+                {%- endfor -%}
+              </tbody>
+            </table>
+
+            <div class="box-btn wow fadeIn">
+              <button class="btn-dark" type="button" onclick="window.location.href='{{ routes.all_products_collection_url }}'">Back to shop</button>
+              <button class="btn-dark" type="submit" name="update">Update Cart</button>
+            </div>
+            {% else %}
+            <p style="text-align:center;">{{ 'cart.general.empty' | t }}</p>
+            {% endif %}
+          </div>
+          <div class="col-md-6">
+          </div>
+          <div class="col-md-6 d-flex justify-content-end">
+            <div class="cart-page-total wow fadeIn">
+              <h5>Cart totals</h5>
+              <ul class="mb-20">
+                
+                <li>{{ 'cart.general.subtotal' | t }} <span>{{ cart.total_price | money_with_currency }}</span></li>
+                <li>{%- capture taxes_shipping_checkout -%}
+                  {%- if shop.taxes_included and shop.shipping_policy.body != blank -%}
+                  {{ 'cart.general.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                  {%- elsif shop.taxes_included -%}
+                  {{ 'cart.general.taxes_included_but_shipping_at_checkout' | t }}
+                  {%- elsif shop.shipping_policy.body != blank -%}
+                  {{ 'cart.general.taxes_and_shipping_policy_at_checkout_html' | t: link: shop.shipping_policy.url }}
+                  {%- else -%}
+                  {{ 'cart.general.taxes_and_shipping_at_checkout' | t }}
+                  {%- endif -%}
+                  {%- endcapture -%}
+                  {{ taxes_shipping_checkout }}</li>
+                <li>{{ 'cart.label.total' | t }} <span>{{ cart.total_price | money_with_currency }}</span></li>
+              </ul>
+              <button class="btn-dark" type="submit" name="checkout">Proceed to checkout</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+

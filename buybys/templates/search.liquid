@@ -1,0 +1,47 @@
+{% paginate search.results by 9 %}
+  <header class="slider pages bg-img valign parallaxie" data-background="{{ 'bg.jpg' | asset_url }}" data-overlay-dark="8">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-9 col-md-11">
+          <div class="caption text-center bold">
+            <h1>{{ page_title }}</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <section class="main-shop section-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="products-shop">
+            <div class="topline">
+              <div class="pagesviews valign wow fadeIn">
+                
+              </div>
+              <div class="sortby wow fadeIn">
+                
+              </div>
+            </div>
+            <div class="row">
+              {% for item in search.results %} 
+                {% if item.object_type == 'product'  %}
+                  {% include 'product-card-list', product: item %}
+                {% endif %}
+              {% endfor %}
+             	{% if search.results_count == 0 %}
+              	 <div class="col-12">
+                  <h5 style="text-align:center;">{{ 'general.search.empty_search_message' | t }}</h5>
+              	 </div>
+              	{%- endif -%}
+            </div>
+            {%- if paginate.pages > 1 -%}
+            	{% include 'pagination', paginate: paginate %}
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endpaginate %}

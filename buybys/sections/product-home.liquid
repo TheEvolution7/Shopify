@@ -1,0 +1,105 @@
+{% if section.settings.show_section %}
+  <section class="feat-prod section-padding" data-section-id="{{ section.id }}">
+    <div class="parallax-container js-text-parallax">
+      <div class="fx-wrap" data-x="-200">
+        <h3 class="fx-target">{{ section.settings.heading }}</h3>
+      </div>
+    </div>
+    <div class="container">
+
+      <div class="sec-head text-center wow fadeIn">
+        <h6>{{ section.settings.heading }}</h6>
+        <h3>{{ section.settings.title }}</h3>
+
+        <span class="icon">
+          <img class="rotate-img" src="{{ 'icon-1.svg' | asset_url }}" alt="">
+        </span>
+      </div>
+
+      <div class="row">
+        <div class="col-12 position-re">
+          <div class="prod-slick wow fadeIn">
+           {% for block in section.blocks %} 
+            {% assign product = block.settings.product %}
+              <a href="{{ product.url }}" class="item">
+                <div class="img bg-img" data-background="{{ product.featured_image | img_url: 'large' }}"></div>
+                <div class="cont">
+                  <h6>{{ product.title }}</h6>
+                  <h5 class="price">
+                    <b>Price:</b> {{ product.price | money }}
+                  </h5>
+                  <del>{{ product.compare_at_price | money }}</del>
+                </div>
+              </a>
+           {% endfor %} 
+          </div>
+          <div class="control">
+            <span class="prev"><i class="pe-7s-angle-left"></i></span>
+            <span class="next"><i class="pe-7s-angle-right"></i></span>
+          </div>
+        </div>
+        <div class="text-center col-12">
+          <a href="{{ section.settings.url }}" class="btn-skew btn-color btn-bg mt-30">
+            <span>{{ section.settings.button }}</span>
+            <i></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Products",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "header",
+          "content": "Content"
+    	},
+		{
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+		  "default" : "Products"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Featured products"
+        },
+		{
+          "type": "text",
+          "id": "button",
+          "label": "Button",
+		  "default": "Shop now"
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        }
+	],
+	"blocks": [
+    {
+      "type": "product",
+      "name": "product",
+	  "limit" : 3,
+      "settings": [
+		{
+          "type": "product",
+          "id": "product",
+          "label": "Product" 
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}
+

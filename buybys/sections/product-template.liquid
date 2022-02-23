@@ -1,0 +1,147 @@
+<header class="slider pages bg-img valign parallaxie" data-background="{{ section.settings.bg | img_url : '1920x' }}" data-overlay-dark="8">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-9 col-md-11">
+        <div class="caption text-center bold">
+          <h1>Product Details</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="main-content">
+  <!-- ==================== Start main-shop ==================== -->
+
+  <section class="main-shop section-padding">
+    <div class="container">
+      <div class="single-product">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="prod-img">
+              <div class="img-slider slider-for wow fadeIn">
+               {%- for media in product.media -%}
+                <div class="item">
+                  <div class="thumb-pro">
+                    <img src="{{ media | img_url: 'grande' }}" alt="{{ media.alt | default : product.title }}">
+                  </div>
+                </div>
+               {%- endfor -%} 
+              </div>
+              <div class="thum slider-nav wow fadeIn">
+               {%- for media in product.media -%}
+                <div class="item">
+                  <div class="thumb-pro-small">
+                    <img src="{{ media | img_url: 'large' }}" alt="{{ media.alt | default : product.title }}">
+                  </div>
+                </div>
+               {%- endfor -%} 
+              </div>
+            </div>
+          </div>
+         
+          <div class="col-lg-5 offset-lg-1">
+             {% form 'product', product %}
+            	<div class="content">
+              <div class="prod-title wow fadeIn">
+                <h3>{{ product.title }}</h3>
+                <div class="price wow fadeIn">
+                  <h5 class="text-left">
+                    <strong style="margin-left: 0;">
+                      Price:   {{ product.price | money }}
+                    </strong>
+                  </h5>
+                  <del>{{ product.compare_at_price | money }}</del>
+                </div>
+                <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+              </div>
+              <div class="text-inf mt-20 wow fadeIn">
+                <p>{{ product.metafields.my_fields.description }}</p>
+                <div class="order-tags valign wow fadeIn">
+                  <label for="">Quantity:</label>
+                  <div class="order">
+                    <div class="order-count">
+                       <input type="number" name="quantity"  value="1" max="50" min="1">
+                    </div>
+                    <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id  }}">	
+                    <div class="addcart">
+                      <button class="btn-skew btn-color btn-bg" type="submit" {% unless product.available  %} disabled="disabled"{% endunless %}>
+                        <span>{%- if product.available -%}Add to cart{%- else -%}Sold Out{%- endif -%}</span>
+                        <i></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="share mt-20 wow fadeIn">
+                {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product.featured_media %}
+              </div>
+            </div>
+            {% endform  %}
+          </div>
+          
+        </div>
+      </div>
+      <div class="description-product">
+        <ul class="nav nav-tabs wow fadeIn" id="details-tab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="des-tab" data-toggle="tab" href="#des" role="tab"
+               aria-controls="des" aria-selected="true">Description</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab"
+               aria-controls="review" aria-selected="false">Reviews</a>
+          </li>
+        </ul>
+        <div class="tab-content wow fadeIn" id="details-tab">
+          <div class="tab-pane fade show active" id="des" role="tabpanel" aria-labelledby="des-tab">
+            <div class="des mt-50">
+              {{ product.content }}
+            </div>
+          </div>
+          <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+            <style>
+              .spr-summary-actions {
+              	float: right
+              }
+            </style>
+              <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+  {% schema %}
+  {
+  "name": {
+  "cs": "Stránky produktů",
+  "da": "Produktsider",
+  "de": "Produktseiten",
+  "en": "Product pages",
+  "es": "Páginas de productos",
+  "fi": "Tuotesivut",
+  "fr": "Pages de produits",
+  "it": "Pagine di prodotto",
+  "ja": "商品ページ",
+  "ko": "제품 페이지",
+  "nb": "Produktsider",
+  "nl": "Productpagina's",
+  "pl": "Strony produktu",
+  "pt-BR": "Páginas de produtos",
+  "pt-PT": "Páginas de produtos",
+  "sv": "Produktsidor",
+  "th": "หน้าสินค้า",
+  "tr": "Ürün sayfaları",
+  "vi": "Trang sản phẩm",
+  "zh-CN": "产品页面",
+  "zh-TW": "產品頁面"
+  },
+  "settings": [
+  	  {
+      "type": "image_picker",
+      "id": "bg",
+      "label": "Background"
+    	}
+  ]
+  }
+  {% endschema %}

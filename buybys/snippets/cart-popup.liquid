@@ -1,0 +1,49 @@
+<div class="cart">
+  <div class="cart-icon">
+   	{% include 'icon-cart' %}
+    <div class="mad-count">{{ cart.item_count }}</div>
+  </div>
+  <div class="cart-side">
+    <span class="clos pe-7s-close cursor-pointer"></span>
+    <div class="titl">
+      <h6>Your Cart</h6>
+      <span>{{ cart.item_count }} Items</span>
+    </div>
+    {% if cart.item_count > 0 %} 
+      <form action="{{ routes.cart_url }}" method="post" class="h-100">
+        <div class="prods">
+         {% for item in cart.items %} 
+          <div class="item">
+            <div class="img">
+              <img src="{{ item | img_url: 'medium' }}" alt="{{ item.product.title }}">
+            </div>
+            <div class="cont">
+              <h6>{{ item.product.title }}</h6>
+              <div class="price">{{ item.quantity }} x <span>{{ item.price | money }}</span></div>
+            </div>
+            <div class="del valign">
+              <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0"><span class="pe-7s-close cursor-pointer"></span></a>
+            </div>
+          </div>
+		 {% endfor %} 
+        </div>
+        <div class="total">
+          <h6>Subtotal :</h6>
+          <p>{{ cart.total_price | money_with_currency }}</p>
+        </div>
+        <button name="checkout" type="submit" class="btn-skew btn-color btn-bg">
+          <span>Checkour</span>
+          <i></i>
+        </button>
+      </form>
+    {% else %}
+      <div class="prods">
+        <p>{{ 'cart.general.empty' | t }}</p>
+      </div>
+      <a href="{{ routes.all_products_collection_url }}" class="btn-skew btn-color btn-bg">
+        <span>{{ 'cart.general.continue_shopping' | t }}</span>
+        <i></i>
+      </a>
+    {% endif %}
+  </div>
+</div>
