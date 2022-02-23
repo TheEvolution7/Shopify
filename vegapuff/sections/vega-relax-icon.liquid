@@ -1,0 +1,66 @@
+{% if section.settings.show_section %}
+  <div class="icon-list" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 col-xl-6 mt_sm--40 mt_md--40">
+          <div class="brand-wrapper">
+            <div class="brand__list brand-default brand-style--2 no-border">
+             {% for block in section.blocks %}
+                <div class="brand move-up wow">
+                  <a href="{{ block.settings.url }}"><img src="{{ block.settings.image | img_url : 'medium' }}" alt="{{ block.settings.image.alt }}"></a>
+                </div>
+             {% endfor %} 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-12 wow move-up">
+        <p class="text-center text-after">
+          {{ section.settings.text }}
+        </p>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Icon",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+		  "default" : "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease."
+        }
+	],
+	"blocks": [
+    {
+      "type": "logo",
+      "name": "logo",
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Logo"
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        }
+		
+      ]
+    }
+  ]
+  }
+{% endschema %}

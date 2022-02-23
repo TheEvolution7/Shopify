@@ -1,0 +1,140 @@
+{%- capture relatedProducts -%}
+{% if section.settings.show_related_products == true %}
+  <!-- Start Related Product -->
+    <div class="brook-related-product pb--100 pb_md--80 pb_sm--60">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="brook-section-title text-center">
+              <h3 class="heading heading-h3">{{ section.settings.title }}</h3>
+            </div>
+          </div>
+        </div>
+        {% assign number_of_related_products_per_row = section.settings.related_grid_num %}
+        {% assign number_of_rows = section.settings.related_total_product_to_show | plus:1 %}
+
+        {% assign same_vendor = false %}
+        {% assign same_type = false %}
+
+        {% assign exclusions = 'frontpage,all' | split: ',' %}
+
+        {% if product.metafields.c_f['Related Products'] %}
+        {% assign collection = collections[product.metafields.c_f['Related Products']] %}
+        {% endif %}
+
+        {% assign found_a_collection = false %}
+        {% if collection and collection.all_products_count > 1 %}
+        {% unless exclusions contains collection.handle %}
+        {% assign found_a_collection = true %}
+        {% endunless %}
+        {% endif %}
+        {% unless found_a_collection %}
+        {% for c in product.collections limit: number_of_rows %}
+        {% unless exclusions contains c.handle or c.all_products_count < 2 %}
+        {% assign found_a_collection = true %}
+        {% assign collection = c %}
+        {% break %}
+        {% endunless %}
+        {% endfor %}
+        {% endunless %}
+       {% if found_a_collection %}
+        {% assign current_product = product %}
+        {%- capture related_items -%}
+        <div class="row mt--30">
+
+          <div class="col-12">
+            <div class="brook-element-carousel slick-arrow-center" data-slick-options='{
+                                                                                       "spaceBetween": 15, 
+                                                                                       "slidesToShow": 3, 
+                                                                                       "slidesToScroll": 1, 
+                                                                                       "arrows": true, 
+                                                                                       "infinite": true,
+                                                                                       "dots": false,
+                                                                                       "autoplay": true,
+                                                                                       "prevArrow": {"buttonClass": "slick-btn slick-prev", "iconClass": "fas fa-angle-left" },
+                                                                                       "nextArrow": {"buttonClass": "slick-btn slick-next", "iconClass": "fas fa-angle-right" }
+                                                                                       }'
+                 data-slick-responsive='[
+                                        {"breakpoint":991, "settings": {"slidesToShow": 3}},
+                                        {"breakpoint":690, "settings": {"slidesToShow": 2}},
+                                        {"breakpoint":590, "settings": {"slidesToShow": 2}}
+                                        ]'>
+              {% for product in collection.products limit : 4 %}
+                {% unless product.handle == current_product.handle %}
+                {% unless same_vendor and current_product.vendor != product.vendor %}
+                {% unless same_type and current_product.type != product.type %}
+                <!-- Start Single Carousel -->
+                  <div class="carousle-slider text-center">
+                    <div class="product mt--30">
+                      <div class="product-thumbnail">
+                        <div class="thumbnail">
+                          {%- for media in product.media limit : 2 -%}
+                          <div class="{% if forloop.index == 1 %}product-main-image{% else %}product-hover-image{% endif %}">
+                            <img src="{{ media | img_url: 'large' }}" alt="{{ media.alt | default : product.title }}">
+                          </div>
+                          {%- endfor -%} 
+                          {% if product.compare_at_price %}
+                          <div class="product-badges">
+                            <div class="onsale">-{{ product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0'}}%</div>
+                          </div>
+                          {% endif %}
+                        </div>
+                        <div class="product-action">
+                          <form method="post" action="/cart/add" id="product_form_{{ product.id }}">
+                            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id  }}">	
+                            <ul class="action-list text-center tooltip-layout">
+                              <li class="single-action addto-cart"><a type="submit" name="add" class="link hint--bounce hint--top hint--dark" {%- if product.available -%}onclick="document.getElementById('product_form_{{ product.id }}').submit();"{%- endif -%} aria-label="{%- if product.available -%}Add to cart{%- else -%}Sold Out{%- endif -%}" {%- if product.available == false -%}disabled{%- endif -%}><i class="fas fa-shopping-bag"></i></a></li>
+                            </ul>
+                          </form>
+                        </div>
+                      </div>
+                      <div class="product-info">
+                        <h5 class="heading heading-h5"><a href="{{ product.url }}">{{ product.title }}</a></h5>
+                        <div class="price"><span>{{ product.price | money }}</span> <span class="new-price">{{ product.compare_at_price | money }}</span></div>
+                      </div>
+                    </div>
+                  </div>
+                <!-- End Single Carousel -->
+                {% endunless %}
+                {% endunless %}
+                {% endunless %}
+              {% endfor %}
+              
+            </div>
+          </div>
+        </div>
+        {%- endcapture -%}
+      {% assign related_items = related_items | trim %}
+      {% unless related_items == blank %}
+      	<div id="products-{{ section.id }}">{{ related_items }}</div>
+      {% endunless %}  
+      {% endif %} 
+      </div>
+    </div>
+  <!-- End Related Product -->
+  {% endif %}
+{%- endcapture -%}
+{{ relatedProducts | strip_newlines | remove: "  " | remove: "	" }}
+{% schema %}
+  {
+    "name": "Section Related Product",
+    "settings": [
+	{
+        "type": "checkbox",
+        "id": "show_related_products",
+        "label": "Show related products",
+        "default": true
+     },
+ 	 {
+        "id": "title",
+        "type": "text",
+        "label": "Title",
+         "default": {
+             "en": "Related Products",
+             "zh-TW": "相關產品"
+          }
+      }
+ 
+	]
+  }
+{% endschema %}

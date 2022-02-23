@@ -1,0 +1,28 @@
+<div class="banner-subpage __dark-1" style="background-image: url({{ section.settings.bg | img_url : '1920x' }});"  data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center">
+        <h1 class="theme-creative heading heading-h1">{{ page_title }}</h1>
+        <p class="sub-title">{{ section.settings.subtitle }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Section Banner",
+    "settings": [
+		{
+          "type": "image_picker",
+          "id": "bg",
+          "label": "Background"
+        },
+		{
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default" : "Invest in rest, feel better, get better"
+    	} 
+	]
+  }
+{% endschema %}

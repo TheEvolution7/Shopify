@@ -1,0 +1,141 @@
+{% paginate collection.products by 9 %}
+<!-- Start Breadcaump Area -->
+
+<div class="banner-subpage __dark-1" style="background-image: url({{ section.settings.bg | img_url : '1920x' }});"  data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center">
+        <h1 class="theme-creative heading heading-h1">{{ section.settings.title }}</h1>
+        <p class="sub-title">{{ section.settings.subtitle }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Breadcaump Area -->
+
+<!-- Page Conttent -->
+<main class="page-content">
+  <!-- Start Shop Minimal Area -->
+  <div class="brook-shop-minimal ptb--150 bg_color--1">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="archive-shop-actions mb--30">
+            <div class="row align-items-center">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="archive-shop-inner text-center text-sm-left">
+                  <p class="bk_pra">{{ section.settings.text_2 }} {{ paginate.current_offset | plus: 1 }}-{% if paginate.next %}{{ paginate.current_offset | plus: paginate.page_size }}{% else %}{{ paginate.items }}{% endif %} of {{ paginate.items }} {{ section.settings.text_3 }}</p>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="archive-shop-inner text-center text-sm-right mt_mobile--20">
+                  <select name="SortBy" id="SortBy" class="sort-by">
+                    {%- for option in collection.sort_options -%}
+                    <option value="{{ option.value }}" {% if option.value == collection.sort_by %}selected{% endif %}>{{ option.name }}</option>
+                    {%- endfor -%} 
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+      <!-- Start Shop Minimal Product -->
+      <div class="shop-minimal-product">
+        <div class="row row--25">
+          {% for product in collection.products %}
+            <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6">
+              <div class="product mt--30">
+                {% include 'product-card-list', product: product %}
+              </div>
+            </div>
+          {% endfor %}
+          <!-- Start Pagenation Area -->
+          <div class="col-lg-12">
+            <div class="brook-pagination-wrapper text-center pt--80">
+              {%- if paginate.pages > 1 -%}
+              {% include 'pagination', paginate: paginate %}
+              {%- endif -%}
+            </div>
+          </div>
+          <!-- End Pagenation Area -->
+
+        </div>
+      </div>
+      
+      <!-- End Shop Minimal Product -->
+    </div>
+  </div>
+  <!-- End Shop Minimal Area -->
+
+</main>
+<!--// Page Conttent -->
+
+{% endpaginate %}
+
+{% schema %}
+{
+  "name": {
+    "cs": "Stránky s kolekcemi",
+    "da": "Kollektionssider",
+    "de": "Kategorie-Seiten",
+    "en": "Collection pages",
+    "es": "Páginas de colección",
+    "fi": "Kokoelman sivut",
+    "fr": "Pages de collections",
+    "it": "Pagine di collezioni",
+    "ja": "コレクションページ",
+    "ko": "컬렉션 페이지",
+    "nb": "Samlingssider",
+    "nl": "Collectiepagina's",
+    "pl": "Strony kolekcji",
+    "pt-BR": "Páginas de coleções",
+    "pt-PT": "Páginas de coleções",
+    "sv": "Produktseriesidor",
+    "th": "หน้าคอลเลกชัน",
+    "tr": "Koleksiyon sayfaları",
+    "vi": "Trang bộ sưu tập",
+    "zh-CN": "产品系列页面",
+    "zh-TW": "商品系列頁面"
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg",
+      "label": "Background"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default" : "Vega Product"
+    },
+	{
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default" : "Our newest collection inspired by the most popular flavors to provide the best e-juice experience"
+    },
+	{
+        "id": "text_2",
+        "type": "text",
+        "label": "Text",
+         "default": {
+             "en": "Showing",
+             "zh-TW": "顯示"
+          }
+      },
+	 {
+        "id": "text_3",
+        "type": "text",
+        "label": "Text",
+         "default": {
+             "en": "results",
+             "zh-TW": "結果"
+          }
+      }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,50 @@
+{% comment %}
+  The contents of the blog.liquid template can be found in /sections/blog-template.liquid
+{% endcomment %}
+
+{% section 'breadcrumb' %}
+{% paginate blog.articles by 6 %}
+<main class="page-content">
+  <div class="blog-section">
+    <div class="container">
+      <div class="row mt--40">
+		{%- for article in blog.articles -%} 
+          <!-- Start Single Portfolio -->
+          <div class="col-lg-4 col-xl-4 col-md-4 col-sm-12 col-12 wow move-up mt--30 d-flex">
+            <div class="blog blog-style--2 creative--blog">
+              <div class="thumb">
+                <a href="{{ article.url }}">
+                	{{ article | img_url: 'large', scale: 2 | img_tag: article.title }}
+                 </a>
+              </div>
+
+              <div class="blog-content">
+                <div class="content">
+                  <h3 class="the-title"><a href="{{ article.url }}">{{ article.title }}</a></h3>
+                  <ul class="meta">
+                    <li>{{ article.published_at | time_tag: format: 'date' }}</li>
+                    <li><a href="/blog/news">News</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End Single Portfolio -->
+		{%- endfor -%} 
+      </div>
+
+      <div class="row mb--60">
+        <div class="col-lg-12">
+          <div class="brook-pagination-wrapper text-center pt--60">
+            {%- if paginate.pages > 1 -%}
+            	{% include 'pagination', paginate: paginate %}
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+{% endpaginate %}
+

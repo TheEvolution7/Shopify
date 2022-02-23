@@ -1,0 +1,74 @@
+{% if section.settings.show_section %}
+  <div class="bk-about-area __2 section-ptb-100" id="section-about" data-section-id="{{ section.id }}">
+    <div class="parallax-container js-text-parallax">
+      <div class="fx-wrap" data-x="200">
+        <h3 class="fx-target">{{ section.settings.text_1 }}</h3>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row about--creative align-items-center">
+
+        <div class="col-lg-5 col-md-12 col-12 mt_md--40 mt_sm--40">
+          <div class="content pr--40 pr_md--5 pr_sm--5">
+            <div class="title--creative wow move-up">
+              <h2><span class="theme-creative">
+                {{ section.settings.title }}</span></h2>
+            </div>
+            <p class="wow move-up">
+              {{ section.settings.content }}
+            </p>
+
+          </div>
+        </div>
+
+        <div class="col-lg-7 col-md-12 col-12">
+          <div class="thumb thumb-sleep text-left text-lg-left">
+            <img class=" wow fadeIn" data-wow-delay="300ms" src="{{ section.settings.image | img_url : 'master' }}" alt="{{ section.settings.title }}">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Benefits",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "header",
+          "content": "Content"
+    	},
+		{
+          "type": "text",
+          "id": "text_1",
+          "label": "Text",
+		  "default": {
+			 "en": "Benefits",
+			 "zh-TW": "Benefits"
+          }
+        },
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Relax Benefits"
+        },
+		{
+          "type": "html",
+          "id": "content",
+          "label": "content"
+        }
+	]
+  }
+{% endschema %}

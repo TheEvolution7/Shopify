@@ -1,0 +1,111 @@
+<div class="contact-modern pb--120 pb_md--80 pb_sm--80">
+  <div class="container">
+    <div class="row align-items-end">
+      <div class="col-lg-6 col-12 pr--50 ptb-md--80 ptb-sm--80">
+        <div class="contact-modern bg_color--18 space_dec--100 pt--120 pb--120 pl--60 pr--60">
+          <div class="inner">
+            <h2 class="heading heading-h2 text-white">{{ section.settings.heading }}</h2>
+            <div class="classic-address text-left mt--60">
+              <h4 class="heading heading-h4 text-white">{{ section.settings.title }}</h4>
+              <div class="desc mt--15">
+                <p class="bk_pra line-height-2-22 text-white">{{ section.settings.description }}</p>
+              </div>
+            </div>
+            <div class="classic-address text-left mt--60">
+              <h4 class="heading heading-h4 text-white">{{ section.settings.text }}</h4>
+              <div class="desc mt--15 mb--30">
+                <p class="bk_pra line-height-2-22 text-white">{{ section.settings.email }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-12 pl--50 pt--40">
+        <div class="contact-form">
+          {%- assign  formId = 'contact-form' -%}
+          {% form 'contact', id: formId %} 
+            {%- if form.posted_successfully? -%}
+            	<p>{{ 'contact.form.post_success' | t }}</p>
+            {%- endif -%}
+            <div class="row">
+              <div class="col-lg-12">
+                <input type="text" id="{{ formId }}-name" name="contact[{{ 'contact.form.name' | t }}]" placeholder="{{ 'contact.form.name' | t }} *" required>
+              </div>
+
+              <div class="col-lg-12 mt--30">  
+                <input type="text"  id="{{ formId }}-email" name="contact[email]"  placeholder="{{ 'contact.form.email' | t }} *" required>
+              </div>
+
+              <div class="col-lg-12 mt--30">
+                <input type="text" id="{{ formId }}-phone" name="contact[phone]"  placeholder="{{ 'contact.form.phone' | t }}" required>
+              </div>
+
+              <div class="col-lg-12 mt--30">
+                <textarea id="{{ formId }}-message" placeholder="{{ 'contact.form.message' | t }} ..." name="contact[{{ 'contact.form.message' | t }}]"></textarea>
+              </div>
+
+              <div class="col-12 mt--30">
+                <div class="check-box">
+                  <input type="checkbox" name="check"id="check" required>
+                  <label for="check">{{ section.settings.checkbox }}</label>
+                </div>
+              </div>
+
+              <div class="col-lg-12 mt--30">
+                <button class="w-100 brook-btn bk-btn-white text-theme btn-sd-size btn-rounded" type="submit">{{ 'contact.form.submit' | t }}</button>
+                <p class="form-messege"></p>
+              </div>
+            </div>
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Section Contact Form",
+    "settings": [
+		{
+          "type": "header",
+          "content": "Content"
+    	},
+		{
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+		  "default" : "STORE LOCATOR"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Find Vega's products near you."
+        },
+		{
+          "type": "html",
+          "id": "description",
+          "label": "description",
+		  "default" : "Our store locator makes finding our products easy. Use the Vega's locator map to help you find our e-cigarette shops and vape stores that sell Vegas products devices, and accessories."
+        },
+		{
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+		  "default" : "Message us"
+        },
+		{
+          "type": "text",
+          "id": "email",
+          "label": "Email",
+		  "default" : "contact@vegapuff.com"
+        },
+		{
+          "type": "text",
+          "id": "checkbox",
+          "label": "Text Checkbox",
+		  "default" : "I agree this terms and condition."
+        }	
+	]
+  }
+{% endschema %}

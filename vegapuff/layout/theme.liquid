@@ -1,0 +1,187 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+<head>
+  <meta name="google-site-verification" content="NbVq-IbgdbM7mPRM8Ws7-1cO5IqXGjoKa22L8HVsxew" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_button }}">
+
+  <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.shopify.com" crossorigin>
+  <link rel="preconnect" href="https://monorail-edge.shopifysvc.com">
+
+  {%- if canonical_url != blank  -%}
+    <link rel="canonical" href="{{ canonical_url }}">
+  {%- endif -%}
+
+  {%- if settings.favicon != blank -%}
+    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+  {%- endif -%}
+
+  
+  <title>
+      {{ page_title }}
+      {%- if current_tags  %} &ndash; tagged {{ current_tags }}{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+	
+  {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+  {% include 'meta-tags' %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ 'lulo-font.css' | asset_url }}">
+  <link rel="stylesheet" href="{{ 'blackchancery-font.css' | asset_url }}">
+  <link rel="stylesheet" href="{{ 'bootstrap.min.css' | asset_url }}">
+  <link rel="stylesheet" href="{{ 'revoulation.css' | asset_url }}">
+  <link rel="stylesheet" href="{{ 'plugins.min.css' | asset_url }}">
+  <link rel="stylesheet" href="{{ 'style.min.css' | asset_url }}">
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="{{ 'custom.min.css' | asset_url }}">
+  <script src="https://cdn.jsdelivr.net/npm/typeit@7.0.4/dist/typeit.min.js"></script>
+  {{ content_for_header }}
+{% capture cur %}{% include "booster-currency" %}{% endcapture %}{% unless cur contains "Liquid error" %}{{ cur }}{% endunless %}
+</head>
+<body class="template-font-3 template-color-2">
+   
+<!--   	<div class="loading-container">
+        
+       
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="737.5px"
+        height="349.4px" viewBox="0 0 737.5 349.4" style="enable-background:new 0 0 737.5 349.4;" xml:space="preserve">
+        <style type="text/css">
+        .st0{fill:#FFFFFF;}
+        .st1{fill:none;stroke:#050505;stroke-width:40;stroke-miterlimit:10;}
+        </style>
+        <defs>
+            <clipPath id="websiteClip">
+                <path class="st0" d="M114.2,20.7h78.2c-12.5,13.5-21.9,29.7-27.6,47.4c-8.9,24-13,50-12.5,75.5c-0.5,30.2,4.7,59.9,15.1,88.1
+            c9.9,25,23.4,38,40.6,38c3.6,0,10.9-4.7,20.8-14.1c12-12,21.4-25.5,28.1-41.2c8.9-21.4,13-44.8,12.5-68.3c0.5-18.2-4.2-36-13-52.1
+            c-8.9-15.6-19.8-24-32.8-24c-2.6,0.5-5.2,1.6-7.3,3.6c-3.1,3.1-6.3,6.3-9.4,9.9c2.1-13,7.3-25,15.6-35.4
+            c8.3-11.5,16.7-17.2,24.5-17.2c7.8,0,24,9.9,39.1,30.2c15.6,19.8,23.4,43.8,23.4,68.8c0,28.7-12.5,60.4-38,95.9
+            S221,279.1,195,279.1c-26.1,1-50-13-62-36.5c-13.5-26.6-20.3-56.3-19.8-86.5c-0.5-23.4,4.2-46.4,13-67.7
+            c8.9-20.8,20.3-40.6,33.9-58.9h-42.2C97,29,76.7,35.3,59.5,47.3c-15.1,10.4-24,28.1-23.4,46.4c0.5,15.6,4.7,31.3,12.5,44.8
+            c8.3,15.1,22.9,29.2,44.3,41.2c-19.3,0.5-38-6.8-52.1-20.3c-14.1-13.5-21.4-32.8-20.8-52.1c0-27.6,9.4-48.5,28.7-63.6
+            C67.3,28.5,90.3,20.2,114.2,20.7z"/>
+        <path class="st0" d="M399.2,89c7.3-0.5,14.1,1.6,20.3,4.7c8.3,5.2,15.6,10.9,21.9,18.2L365.4,188c3.1,6.3,8.9,10.9,15.6,13
+            c6.8,2.1,13.5,3.1,20.8,3.1c7.3,0,14.6-1.6,21.4-5.2c6.3-3.1,12.5-7.3,18.2-11.5c-6.8,11.5-16.2,20.8-27.1,28.7
+            c-10.4,6.3-22.4,9.9-34.4,9.9c-18.8,0-31.8-6.3-39.6-18.2c-7.8-11.5-11.5-25-11.5-38.6c0-24,6.8-43.2,20.3-57.8
+            C361.7,96.8,380,88.4,399.2,89z M362.8,180.7l21.9-21.4c10.9-12,16.2-20.8,16.2-27.1c0.5-6.3-1.6-12-5.2-16.7
+            c-3.6-4.2-8.9-6.3-14.1-6.3c-7.3,0-13,4.2-17.2,13c-4.2,9.4-6.8,20.3-6.3,30.7c0,4.7,0.5,9.9,1,14.6S360.7,176.5,362.8,180.7z"/>
+        <path class="st0" d="M568.6,240.1c0.5,22.9-7.3,45.9-22.4,63c-15.1,17.7-31.8,26.1-50.5,26.1c-18.8,0-24-4.2-29.7-12.5
+            c-5.7-9.9-8.3-20.8-7.8-32.3c0-8.9,1-18.2,4.2-26.6c5.2-12.5,12.5-23.4,21.9-33.3c-7.3,0-13.5-4.2-19.3-12
+            c-5.7-9.9-8.3-21.4-7.8-32.8c0-27.1,8.9-49,27.1-65.1c15.1-15.6,36-24,57.3-24.5h27.1V240.1z M539.4,183.8
+            c-15.1,14.6-30.2,29.2-44.8,44.3c-10.9,14.6-17.2,31.8-17.7,50c0,12,2.6,20.3,7.8,25c12,10.9,30.7,10.4,42.2-1.6
+            c1-1.6,2.6-2.6,3.1-4.7c6.3-9.9,9.9-21.4,9.4-32.8V183.8z M486.8,156.2c-0.5,7.8,1.6,15.6,5.2,22.4c3.1,4.7,7.8,7.3,13.5,7.3
+            c5.7,0,11.5-1.6,16.2-4.7c6.3-3.6,12-7.8,17.7-12.5V99.4c-14.6-0.5-28.7,5.7-38,17.2C492,127.5,486.8,141.6,486.8,156.2z"/>
+        <path class="st0" d="M696.8,90.5v115.7c-0.5,2.1,1,3.6,3.1,4.2c0.5,0,0.5,0,1,0l6.8-2.1l12.5-7.3c-3.1,6.3-7.8,12-13.5,16.7
+            c-5.2,4.7-11.5,7.8-18.2,8.3c-5.2-1-9.9-3.6-13-7.3c-5.2-4.7-8.3-11.5-7.8-18.2v-16.7c-13,12.5-23.4,22.9-32.3,30.2
+            c-8.9,7.3-16.7,12-22.9,12s-13.5-4.2-18.8-12.5c-6.3-10.4-8.9-21.9-8.3-33.9c0-28.1,7.8-50,23.4-65.6c16.2-15.6,38-24.5,61-23.4
+            L696.8,90.5z M614.9,156.2c-0.5,7.8,1.6,15.6,5.2,22.4c3.1,4.7,7.8,7.3,13.5,7.3s11.5-1.6,16.2-4.7c6.3-3.6,12-7.8,17.7-12.5V99.4
+            c-14.6-0.5-28.7,5.7-38,17.2C620.2,127.5,614.9,141.6,614.9,156.2z"/>
+            </clipPath>
+        </defs>
+        <g id="icon_2_">
+        <g id="logo-svg-ani">
+            <path clip-path="url(#websiteClip)" class="st1 line-ic" id="line_1_" d="M92.2,180.3c-33.5-1.7-51.3-18.5-63-35c-12-17-12.2-57-1-77c14-25,31.1-33.8,49-41
+        c16-11,79-6,115.5-6.5c-14.7,11.8-40,35.8-45,51c-14,43-16.9,79-11,122c3.1,22.1,2.3,43.2,17,60s38.1,28.7,59,21
+        c12.5-4.6,21.4-15.8,29.8-26.1c31-38.2,42.6-70.2,45.7-119.4c1.1-17-7-34-15-49s-13-20-27.5-27.5c-15.9-8.2-26.4,6.8-34,23
+        c-14,29.9-22.9,64.5-11,95.3c11.9,30.8,43.9,54.7,76.7,50.9c12.9-1.5,25.1-7,36.6-13c28.5-14.9,54.9-33.6,78.4-55.5
+        c7.9-7.3,18.9-17.5,22.3-27.7c3.5-10.2,5.9-13.9-3-20c-12.7-8.7-37.8-6.2-48.2,5c-17.4,18.7-19.8,36.4-21.8,62
+        c-0.7,9.7,3.6,31.1,12,36c17,10,51.8,13.3,62,1c39-47,16.7-91,56-130c6.9-6.9,79.2,7,86,14c0,0-33,2-47,10c-6.9,3.9-20.7,16.3-25,23
+        c-25,39-19,20-14,62c4,15,74,31,87-87c-0.9,26-2.1,113-3,139c-1,28.9-2.8,61.8-26.5,78.5c-9.9,6.9-22,11-40,10
+        c-11-0.6-20.3-6.6-24-13c-14-24,0.7-50.9,9.5-65.5s18.5-29.5,31-41c33.2-30.7,73.7-59.8,106.9-90.5c13-12,24.5-21.8,42.1-23.5
+        c3.3-0.3,17-3.4,20-2c5.9,2.7,7.6,11.7,9,18c6.3,29.2-10.3,59.7-32,80.2c-13.3,12.5-18,13.8-35,11.8c-17.9-2.1-20-28-20-34
+        c0-28.8,23.3-59.9,49.4-72.3c5.7-2.7,12.2-4.8,18.1-2.6c9.1,3.3,11.9,14.8,12.3,24.5c1.2,29.7-1.8,36.1,3.2,65.4
+        c1.1,6.5-0.5,27.1,6,28c3.6,0.5,4.9,2.9,8,1c10.7-6.7,20.1-6.4,27-17"/>
+        </g>
+        </g>
+        
+        </svg>
+
+
+       
+
+    </div> -->
+  
+  <div id="wrapper" class="wrapper bg_color--1 all-wrapper"> 
+    {% section 'header' %} 
+    {% if request.path == '/challenge' %}
+    	{% include 'challenge' %}
+    {% else %}
+    	{{ content_for_layout }}
+    {% endif %}
+  </div>
+   {% section 'footer' %}
+
+    <script src="//cdn.codeblackbelt.com/js/modules/shipping-rates-calculator-plus/main.min.js?shop=vega-puff.myshopify.com" defer></script>
+   <!-- Use the minified version files listed below for better performance and remove the files listed above -->
+ <script src="{{ 'vendor.min.js' | asset_url }}"></script>
+ <script src="{{ 'plugins.min.js' | asset_url }}"></script>
+ <script src="{{ 'anime.min.js' | asset_url }}"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/animation.gsap.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/debug.addIndicators.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/jquery.ScrollMagic.min.js"></script>
+ 
+ <!-- REVOLUTION JS FILES -->
+ <script src="{{ 'revolution.tools.min.js' | asset_url }}"></script>
+ <!-- SLIDER REVOLUTION 5.0 EXTENSIONS -->
+ <script src="{{ 'revolution.extension.min.js' | asset_url }}"></script>
+ <script src="{{ 'main.js' | asset_url }}"></script>
+ <script src="{{ 'revoulation.js' | asset_url }}"></script>
+
+ <script>
+     $.firefly({
+         color: '#fff',
+         minPixel: 1,
+         maxPixel: 3,
+         total : 65,
+         on: '.product-home-st'
+     });
+
+     $.firefly({
+         color: '#fff',
+         minPixel: 1,
+         maxPixel: 3,
+         total : 65,
+         on: '.loading-container'
+     });
+
+     
+ </script>
+  <script>
+    // Save existing sort parameters
+    Shopify.queryParams = {};
+    if(location.search.length) {
+      for(var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+        aKeyValue = aCouples[i].split('=');
+        if (aKeyValue.length > 1) {
+          Shopify.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
+        }
+      }
+    }
+    // Add existing sort parameters to current URL
+    $('.sort-by').on('change', function(e) {
+      var value = e.currentTarget.value;
+      Shopify.queryParams.sort_by = value;
+      location.search = new URLSearchParams(Shopify.queryParams).toString();
+    });
+  </script>
+</body>
+</html>
+
+{% include 'etranslate-rtl' %}
+{% if shop.metafields.etranslate-lang-s.etrans-status == 'start'  %}
+{% include 'etranslate-language-default' %}
+{% endif %}
+
+{% include 'etranslate-language-switch-control.liquid' %}
+
+{% include 'el-pagefly' %}
+{% include 'etranslate-dynamic-element.liquid' %}

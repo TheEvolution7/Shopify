@@ -1,0 +1,85 @@
+{% if section.settings.show_section %}
+  <div class="bk-testimonial-area section-ptb-xl bg_color--1 poss_relative pt_sm--0 pb-0 pt-0" data-section-id="{{ section.id }}">
+    <div class="wavify-wrapper">
+      <svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" class="wavify-item"
+           data-wavify-height="140" data-wavify-background="rgba(245,245,245,0.5)" data-wavify-amplitude="80"
+           data-wavify-bones="4">
+        <defs xmlns="http://www.w3.org/2000/svg">
+          <linearGradient id="linear-gradient-2" gradientUnits="objectBoundingBox" gradientTransform="rotate(90)">
+            <stop offset="0" stop-color="#c1f5f0"></stop>
+            <stop offset="10%" stop-color="#fff"></stop>
+          </linearGradient>
+        </defs>
+        <path id="feel-the-wave-one" d="M 0 141.71042689406383 C 237.875 148.50471572578806 237.875 148.50471572578806 475.75 145.107571309926 C 713.625 141.71042689406383 713.625 141.71042689406383 951.5 165.82491752026056 C 1189.375 189.9394081464571 1189.375 189.9394081464571 1427.25 193.5786122514483 C 1665.125 197.21781635643944 1665.125 197.21781635643944 1903 165.82491752026056 L 1903 7389 L 0 7389 Z"
+              fill="rgba(245,245,245,0.5)"></path>
+      </svg>
+
+      <svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" class="wavify-item"
+           data-wavify-height="140" data-wavify-background="#f5f5f5" data-wavify-amplitude="80"
+           data-wavify-bones="3">
+        <defs xmlns="http://www.w3.org/2000/svg">
+          <linearGradient id="linear-gradient" gradientUnits="objectBoundingBox" gradientTransform="rotate(90)">
+            <stop offset="0" stop-color="#9ce4e3"></stop>
+            <stop offset="5%" stop-color="#fff"></stop>
+          </linearGradient>
+        </defs>
+        <path id="feel-the-wave-two" d="M 0 147.22020568980648 C 317.16666666666663 183.65559797623268 317.16666666666663 183.65559797623268 634.3333333333333 165.43790183301957 C 951.4999999999999 147.22020568980648 951.4999999999999 147.22020568980648 1268.6666666666665 200.09089320557024 C 1585.833333333333 252.96158072133412 1585.833333333333 252.96158072133412 1903 183.26276877337258 L 1903 7389 L 0 7389 Z"
+              fill="url(#linear-gradient)"></path>
+      </svg>
+    </div>
+    <div class="container section-pt-xl mt--50">
+      <div class="row about--creative justify-content-center">
+        <div class="col-lg-10 col-xl-8">
+          <div class="section-title--between justify-content-center mb--30 pb_lg--40 wow move-up">
+            <div class="title text-center wow move-up">
+              <h3> {{ section.settings.title_1 }} <span class="theme-creative"> {{ section.settings.title_2 }}</span></h3>
+              <p>{{ section.settings.content }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 wow move-up">
+          <div class="img-animation">
+            <img src="{{ 'vega-svg.svg' | asset_url }}" alt="">
+            <img class="rotate-img" src="{{ 'circle.png' | asset_url }}" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Outbreaking",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "header",
+          "content": "Content"
+    	},
+		{
+          "type": "text",
+          "id": "title_1",
+          "label": "Title",
+		  "default" : "Vega's"
+        },
+		{
+          "type": "text",
+          "id": "title_2",
+          "label": "Title",
+		  "default" : "Outbreaking blends"
+        },
+		{
+          "type": "html",
+          "id": "content",
+          "label": "content"
+        }
+	]
+  }
+{% endschema %}

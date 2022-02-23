@@ -1,0 +1,289 @@
+<!-- Header -->
+<header class="br_header header-default header-transparent pt--15 {% if request.page_type == 'product' %} black-logo--version {% else %} light-logo--version {% endif %}  haeder-fixed-width headroom--sticky header-mega-menu clearfix" data-section-id="{{ section.id }}">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="header__wrapper mr--0">
+          <!-- Header Left -->
+          <div class="header-left flex-20">
+            <div class="logo">
+              <a href="{{ routes.root_url }}">
+                {% if request.page_type == 'product' %}
+                	<img src="{{ section.settings.logo_search | img_url: 'medium' }}" alt="{{ section.settings.logo_search.alt | default: shop.name }}">
+                {% else %}
+                	 <img src="{{ section.settings.logo | img_url: 'medium' }}" alt="{{ section.settings.logo.alt | default: shop.name }}">
+                {% endif %}
+              </a>
+            </div>
+          </div>
+          <!-- Mainmenu Wrap -->
+          <style>
+            .__lang .dropdown__menu {
+            	width: auto;
+              	min-width: auto;
+              padding: 25px 0 25px
+            }
+          </style>
+          <div class="header-flex-right flex-80">
+            <div class="mainmenu-wrapper have-not-flex d-none d-lg-block">
+              <nav class="page_nav">
+                <ul class="mainmenu">
+                  {% for link in linklists[section.settings.main_linklist].links %}  
+                  	<li class="{%- if link.links != blank -%}lavel-1 with--drop slide-dropdown{%- else -%}lavel-1{%- endif -%}"><a href="{{ link.url }}"><span>{{ link.title }}</span></a>
+                  		 {%- if link.links != blank -%}
+                  			<ul class="dropdown__menu">
+                              {% for child_link in link.links %}
+                             	 <li><a href="{{ child_link.url }}"><span>{{ child_link.title | escape }}</span></a></li>
+                              {% endfor %}   
+                            </ul>  
+                          {%- endif -%}
+                  	</li>
+                  {% endfor %}  
+                  <li class="lavel-1 with--drop slide-dropdown __lang">
+                    {% if request.locale.iso_code == 'en' %}
+                          <a href="#"><span>EN</span></a>
+                    {% else %}
+                          <a href="#"><span>ZH-TW</span></a>
+                    {% endif %}
+                    <ul class="dropdown__menu">
+                     {% for link in linklists[section.settings.language].links %} 
+                      	<li><a href="{{ link.url }}"><span>{{ link.title }}</span></a></li>
+                     {% endfor %} 
+                    </ul>
+                    
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <!-- Header Right -->
+            <div class="header-right have-not-flex pl--35 pl_md--5 pr_md--20 pl_sm--5 pr_sm--20">
+              <div class="login-menu">
+                <a class="login-btn" href="{{ section.settings.link-ins }}">
+                   <i class="fab fa-instagram"></i>
+                </a>
+              </div>
+              <div class="login-menu d-none d-md-block">
+               {%- if customer -%}
+                <a class="login-btn d-none d-md-block" href="/account">
+                  {% include 'icon-login' %}
+                </a>
+               {%- else -%}
+                <a class="login-btn d-none d-md-block" href="/account/login">
+                   {% include 'icon-login' %}
+                </a>
+               {%- endif -%} 
+              </div>
+              <!-- Start Minicart -->
+              {% include 'cart-popup' %}
+              <!-- End Minicart -->
+              <!-- Start Popup Search Wrap -->
+              <div class="popup-search-wrap d-none d-md-block">
+                <a class="btn-search-click" href="#">
+                   {% include 'icon-search' %}
+                </a>
+              </div> 
+              <!-- End Popup Search Wrap -->
+              <!-- Start Hamberger -->
+              <div class="manu-hamber popup-mobile-click d-block d-lg-none light-version d-block d-xl-none">
+                <div>
+                  <i></i>
+                </div>
+              </div>
+              <!-- End Hamberger -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</header>
+<!--// Header -->
+
+<!-- Start Popup Menu -->
+<div class="popup-mobile-manu popup-mobile-visiable">
+  <div class="inner">
+    <div class="mobileheader">
+      <div class="logo">
+        <a href="{{ routes.root_url }}">
+          <img src="{{ section.settings.logo_search | img_url: 'medium' }}" alt="{{ section.settings.logo_search.alt | default: shop.name }}">
+        </a>
+      </div>
+      <a class="mobile-close" href="#"></a>
+    </div>
+    <div class="menu-content">
+      <ul class="menulist object-custom-menu">
+        {% for link in linklists[section.settings.main_linklist].links %}  
+        	<li class="{%- if link.links != blank -%}has-mega-menu{%- endif -%}"><a href="{{ link.url }}"><span>{{ link.title }}</span></a>
+              {%- if link.links != blank -%}
+                <ul class="object-submenu">
+                  {% for child_link in link.links %}
+                  <li><a href="{{ child_link.url }}"><span>{{ child_link.title | escape }}</span></a></li>
+                  {% endfor %} 
+                </ul>  
+              {%- endif -%}
+        	</li>
+        {% endfor %} 
+        <li class="has-mega-menu">    
+          {% if request.locale.iso_code == 'en' %}
+          	<a href="#"><span>EN</span></a>
+          {% else %}
+          	<a href="#"><span>ZH-TW</span></a>
+          {% endif %}
+          <ul class="object-submenu">
+            {% for link in linklists[section.settings.language].links %} 
+            	<li><a href="{{ link.url }}"><span>{{ link.title }}</span></a></li>
+            {% endfor %} 
+          </ul>
+        </li>
+        {%- if customer -%}
+        <li>	
+          <a href="/account">
+            <span>{{ customer.email }}</span>   
+          </a>
+        </li>
+        {%- else -%}
+        <li>
+          <a href="/account/login">
+            <span>Login </span>   
+          </a>
+        </li>
+        {%- endif -%}
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- End Popup Menu -->
+
+<!-- Start Brook Search Popup -->
+{% include 'search-drawer',image : section.settings.logo_search %}
+<!-- End Brook Search Popup -->
+{% schema %}
+{
+  "name": {
+    "cs": "Záhlaví",
+    "da": "Overskrift",
+    "de": "Titel",
+    "en": "Header",
+    "es": "Encabezado",
+    "fi": "Ylätunniste",
+    "fr": "En-tête",
+    "it": "Header",
+    "ja": "ヘッダー",
+    "ko": "헤더",
+    "nb": "Header",
+    "nl": "Koptekst",
+    "pl": "Nagłówek",
+    "pt-BR": "Cabeçalho",
+    "pt-PT": "Cabeçalho",
+    "sv": "Rubrik",
+    "th": "ส่วนหัว",
+    "tr": "Üstbilgi",
+    "vi": "Đầu trang",
+    "zh-CN": "标头",
+    "zh-TW": "標頭"
+  },
+  "settings": [
+	{
+      "type": "image_picker",
+      "id": "logo",
+      "label": {
+        "cs": "Obrázek loga",
+        "da": "Logobillede",
+        "de": "Logo-Foto",
+        "en": "Logo image",
+        "es": "Logo",
+        "fi": "Logokuva",
+        "fr": "Image du logo",
+        "it": "Immagine del logo",
+        "ja": "ロゴ画像",
+        "ko": "로고 이미지",
+        "nb": "Logobilde",
+        "nl": "Afbeelding van logo",
+        "pl": "Obraz logo",
+        "pt-BR": "Imagem do logotipo",
+        "pt-PT": "Imagem do logótipo",
+        "sv": "Logobild",
+        "th": "รูปภาพโลโก้",
+        "tr": "Logo görseli",
+        "vi": "Hình ảnh logo",
+        "zh-CN": "logo 图片",
+        "zh-TW": "標誌圖片"
+      }
+    },
+	{
+        "type": "text",
+        "id": "link-ins",
+        "label": "Link instagram",
+	 	"default" : "https://www.instagram.com/vega_puff/"
+  	},
+    {
+      "type": "link_list",
+      "id": "main_linklist",
+      "label": {
+        "cs": "Nabídka",
+        "da": "Menu",
+        "de": "Menü",
+        "en": "Menu",
+        "es": "Menú",
+        "fi": "Valikko",
+        "fr": "Menu",
+        "it": "Menu",
+        "ja": "メニュー",
+        "ko": "메뉴",
+        "nb": "Meny",
+        "nl": "Menu",
+        "pl": "Menu",
+        "pt-BR": "Menu",
+        "pt-PT": "Menu",
+        "sv": "Meny",
+        "th": "เมนู",
+        "tr": "Menü",
+        "vi": "Menu",
+        "zh-CN": "菜单",
+        "zh-TW": "選單"
+      },
+      "default": "main-menu"
+    },
+	{
+      "type": "link_list",
+      "id": "language",
+      "label": "Language"
+    },
+	{
+      "type": "header",
+      "content": "Popup Search"
+    },
+	{
+      "type": "image_picker",
+      "id": "logo_search",
+      "label": {
+        "cs": "Obrázek loga",
+        "da": "Logobillede",
+        "de": "Logo-Foto",
+        "en": "Logo image",
+        "es": "Logo",
+        "fi": "Logokuva",
+        "fr": "Image du logo",
+        "it": "Immagine del logo",
+        "ja": "ロゴ画像",
+        "ko": "로고 이미지",
+        "nb": "Logobilde",
+        "nl": "Afbeelding van logo",
+        "pl": "Obraz logo",
+        "pt-BR": "Imagem do logotipo",
+        "pt-PT": "Imagem do logótipo",
+        "sv": "Logobild",
+        "th": "รูปภาพโลโก้",
+        "tr": "Logo görseli",
+        "vi": "Hình ảnh logo",
+        "zh-CN": "logo 图片",
+        "zh-TW": "標誌圖片"
+      }
+    }
+	
+  ]
+}
+{% endschema %}
+

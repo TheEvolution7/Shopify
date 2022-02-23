@@ -1,0 +1,90 @@
+<div class="swiper-container swiper-banner-home" data-section-id="{{ section.id }}">
+  <div class="swiper-wrapper">
+    {% for block in section.blocks  %}
+      <div class="swiper-slide">
+        <div class="banner-home">
+          <div class="bg">
+            <img src="{{ block.settings.bg | img_url : '1920x' }}" alt="{{ block.settings.bg.alt | default : block.settings.title }}">
+
+            <div class="sp">
+              <img src="{{ block.settings.image | img_url : '1024x' }}" alt="{{ block.settings.image.alt | default : block.settings.title }}">
+              <div class="el-ani">
+                <img src="{{ block.settings.circle | img_url : 'grande' }}" alt="{{ block.settings.circle.alt | default : block.settings.title }}">
+              </div>
+              <div class="el-ani-1">
+                <img class="__1" src="{{ 'el-1.png' | asset_url }}" alt="">
+                <img class="__2" src="{{ 'el-2.png' | asset_url }}" alt="">
+              </div>
+            </div>
+          </div>
+
+          <div class="content">
+            <div class="type-wrap">
+              <div id="typed-strings">
+                <h4>{{ block.settings.heading }}</h4>
+                <h1>{{ block.settings.title }}</h1>
+              </div>
+            </div>
+            <div class="btn-slide">
+              <a href="{{ block.settings.url }}" class="brook-btn bk-btn-white text-theme btn-sd-size btn-rounded">{{ block.settings.button }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="swiper-pagination"></div>
+</div>
+{% schema %}
+  {
+    "name": "Section Banner",
+    "settings": [
+	
+	],
+	"blocks": [
+    {
+      "type": "banner",
+      "name": "banner",
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "bg",
+          "label": "Background"
+        },
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "image_picker",
+          "id": "circle",
+          "label": "Circle Image"
+        },
+		{
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+		{
+          "type": "text",
+          "id": "button",
+          "label": "Button",
+		  "default": "Shop Now"
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}
+

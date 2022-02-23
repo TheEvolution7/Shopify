@@ -1,0 +1,134 @@
+<div class="contact-modern section-ptb-100">
+  	<div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="section-title--between justify-content-center mb--30 pb_lg--40 wow move-up">
+            <div class="title text-center wow move-up">
+              <h5>{{ section.settings.heading }}</h5>
+              <h3>{{ section.settings.title }}</h3>
+            </div>
+          </div>
+          </div>
+        </div>
+     </div>
+    <div class="container">
+      <div class="row no-gutters">
+        <div class="col-12">
+          <ul class="infoGraphic"> 
+           {% for block in section.blocks  %}
+            <li>
+              <div class="numberWrap">
+                <div class="number fontColor{{ forloop.index }}">{{ forloop.index }}</div>
+                <div class="coverWrap">
+                  <div class="numberCover"></div>
+                </div>
+              </div>
+              <div class="content">
+                <h2>Step {{ forloop.index }}</h2>
+                {{ block.settings.content }}
+              </div>
+            </li>
+          {% endfor  %}  
+          </ul>
+        </div>
+      </div>
+    </div>
+ </div>
+
+
+{% if section.settings.show_section %}
+  <div class="firefly brook-row-column-area position-relative clearfix" data-section-id="{{ section.id }}">
+    <div class="aaa creative-gradient--1 ptb--80">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="call-to-action callto-action--1 wow move-up">
+              <div class="content">
+                <h3>{{ section.settings.heading_1 }}</h3>
+                <div class="d-flex" style="max-width: 320px;margin: auto">
+                	<div class="img-down">
+                      <img src="{{ section.settings.image | img_url : 'large' }}" alt="{{ section.settings.heading }}">
+                    </div>
+                </div>
+                <button onclick="window.location.href='{{ section.settings.url }}'"><span>{{ section.settings.button }}</span><i class="fa fa-arrow-right"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Wholsale",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "header",
+          "content": "Content"
+    	},
+		{
+          "type": "text",
+          "id": "heading_1",
+          "label": "Heading",
+		  "default": {
+			 "zh-TW": "Contact us by Line",
+             "en": "Contact us by Line"
+             
+        }
+        },
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "image_picker",
+          "id": "image-2",
+          "label": "Image Line"
+        },
+		{
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+		  "default" : "Get wholsale"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Start your business with <span>Vega ?</span>"
+        },
+		{
+          "type": "text",
+          "id": "button",
+          "label": "Button",
+		  "default": "Contact us"
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        }
+	],
+	"blocks": [
+    {
+      "type": "list",
+      "name": "step",
+      "settings": [
+		{
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

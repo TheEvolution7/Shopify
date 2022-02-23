@@ -1,0 +1,29 @@
+<div class="banner-subpage __dark" style="background-image: url({{ section.settings.bg | img_url : '1920x' }});" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <div class="img-animation">
+            <h1 class="theme-creative heading heading-h1">{{ page_title }}</h1>
+            <img class="rotate-img" src="{{ section.settings.image | img_url : 'grande' }}" alt="" style="transform: rotate(669.6deg);">
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+{% schema %}
+  {
+    "name": "Section Banner",
+    "settings": [
+		{
+          "type": "image_picker",
+          "id": "bg",
+          "label": "Background"
+        },
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+	]
+  }
+{% endschema %}

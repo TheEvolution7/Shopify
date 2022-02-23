@@ -1,0 +1,87 @@
+{% if section.settings.show_section %}
+  <div class="bk-brand-area bg_color--1 ptb--40 ptb-md--60 ptb-sm--60" data-section-id="{{ section.id }}">
+      <div class="parallax-container js-text-parallax">
+        <div class="fx-wrap" data-x="200">
+          <h3 class="fx-target">{{ section.settings.text_1 }}</h3>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-5">
+            <div class="brand-inner">
+              <div class="title--creative text-left wow move-up">
+                <h2><span class="theme-creative">{{ section.settings.title_1 }}</span> {{ section.settings.title_2 }} </h2>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-7 mt_sm--40 mt_md--40">
+            <div class="brand-wrapper">
+              <div class="brand__list brand-default brand-style--2 no-border">
+                {% for block in section.blocks %}
+                  <div class="brand move-up wow" data-wow-delay=".13s">
+                    <a href="{{ block.settings.url }}"> <img src="{{ block.settings.image | img_url : 'large' }}" alt="{{ block.settings.image.alt }}"></a>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Brand",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "header",
+          "content": "Content"
+    	},
+		{
+          "type": "text",
+          "id": "text_1",
+          "label": "Text",
+		  "default": {
+			 "en": "Recognized",
+			 "zh-TW": "Recognized"
+          }
+        },
+		{
+          "type": "text",
+          "id": "title_1",
+          "label": "Title",
+		  "default" : "Recognized"
+        },
+		{
+          "type": "text",
+          "id": "title_2",
+          "label": "Title",
+		  "default" : "by"
+        }
+	],
+	"blocks": [
+    {
+      "type": "logo",
+      "name": "Logo",
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

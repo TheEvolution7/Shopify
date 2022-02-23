@@ -1,0 +1,95 @@
+<div class="cart_area pt--60 pb--50">
+  <div class="container">
+    <div class="row">
+        <div class="col-12">
+          {% if cart.item_count > 0 %}
+          <form action="{{ routes.cart_url }}" method="post">
+           
+              <!-- Cart Table -->
+              <div class="cart-table table-responsive mb--40">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th class="product-thumbnail">{{ section.settings.text }}</th>
+                      <th class="cart-product-name">{{ 'cart.label.product' | t }}</th>
+                      <th class="product-price">{{ 'cart.label.price' | t }}</th>
+                      <th class="product-quantity">{{ 'cart.label.quantity' | t }}</th>
+                      <th class="product-subtotal">{{ 'cart.label.total' | t }}</th>
+                      <th class="product-remove">{{ 'cart.general.remove' | t }}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {%- for item in cart.items -%}
+                    <tr>
+                      <td class="pro-thumbnail"><a href="{{ item.url }}"><img src="{{ item | img_url: 'large' }}" alt="{{ item.product.title }}"></a></td>
+                      <td class="pro-title"><a href="{{ item.url }}">{{ item.title }}</a></td>
+                      <td class="pro-price"><span>{{ item.original_price | money }}</span></td>
+                      <td class="pro-quantity">
+                        <div class="pro-qty"><input type="text" id="{{ item.key }}" name="updates[]" value="{{ item.quantity }}" value="1"></div>
+                      </td>
+                      <td class="pro-subtotal"><span>{{ item.original_line_price | money }}</span></td>
+                      <td class="pro-remove"><a href="/cart/change?line={{ forloop.index }}&amp;quantity=0"><i class="ion ion-android-close"></i></a></td>
+                    </tr>
+                    {%- endfor -%}
+                  </tbody>
+                </table>
+              </div>
+              <div class="row">
+
+                <div class="col-lg-6 col-12 mb--15">
+                </div>
+                <!-- Cart Summary -->
+                <div class="col-lg-6 col-12 mb--40 d-flex">                  
+                  <div class="cart-summary">
+                    <div class="cart-summary-wrap">
+                      <h4>{{ section.settings.title }}</h4>
+                      <div id="akocvs_widget"></div>
+                      <p>{{ 'cart.general.subtotal' | t }} <span>{{ cart.total_price | money_with_currency }}</span></p>
+                      <h2>{{ 'cart.label.total' | t }} <span>{{ cart.total_price | money_with_currency }}</span></h2>
+                    </div>
+                     
+                    <div class="cart-summary-button-group">
+                      <p align="right"> 
+                        <button class="brook-btn bk-btn-theme btn-sd-size btn-rounded space-between" style="height:50px;width:500px" type="submit" name="checkout">{{ 'cart.general.checkout' | t }}</button>
+                      </p>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </form>
+          {% else %}
+          	<p style="text-align:center;">{{ 'cart.general.empty' | t }}</p>
+          {% endif %}   
+        </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Section Carts",
+    "settings": [
+		{
+        "id": "title",
+        "type": "text",
+        "label": "Title",
+         "default": {
+             "en": "Cart Summary",
+             "zh-TW": "購物車摘要"
+          }
+      },
+     {
+        "id": "text",
+        "type": "text",
+        "label": "Text",
+         "default": {
+             "en": "Image",
+             "zh-TW": "圖片"
+          }
+      }
+ 
+	]
+  }
+{% endschema %}
+

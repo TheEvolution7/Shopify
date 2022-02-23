@@ -1,0 +1,1659 @@
+{% include 'etranslate-language-fix-selector' %}
+<script>
+  var listenChange = function(element) {
+    mediaReplace();
+  }
+  const config = { attributeFilter: ["src","srcset"] };
+  const obsever = new MutationObserver(listenChange);
+  function mediaReplace(){
+    obsever.disconnect();
+    var img_dome_tag = document.getElementsByTagName('img')
+    var img_source = document.getElementsByTagName('source')
+    var media_file = {{shop.metafields.etranslate.media_config | json}}
+    var img_dome = []
+    if(!media_file) {return ''}
+    if(img_source && img_source[0]){
+      for(var sour=0; sour<img_source.length; sour++){
+        img_dome.push(img_source[sour])
+      }
+    }
+    if(img_dome_tag && img_dome_tag[0]){
+      for(var sour=0; sour<img_dome_tag.length; sour++){
+        img_dome.push(img_dome_tag[sour])
+      }
+    }
+    var source_url = media_file.source_url
+    var replace_url = media_file.replace_url
+    if(source_url && source_url[0]){
+      for(var s=0; s<source_url.length; s++){
+        var v = getQueryVariable('v', source_url[s].url_content)
+        if(!v){return;}
+        var url_name = v.split(".")[0]
+        var url_name_length = url_name ? url_name.length:0
+        var url_suffix = v.split(".")[1]
+        var end_url = source_url[s].url_content.length > 25 ? source_url[s].url_content.length-25 : source_url[s].url_content.length
+        var replace_srcset_url = source_url[s].url_content.substring(25, end_url)
+        for(var i=0; i<img_dome.length; i++){
+          var srcset_url = img_dome[i].srcset
+          var srcset_url_situ = img_dome[i].dataset.src
+          var is_version = false
+          srcset_url = srcset_url ? img_dome[i].getAttribute('data-srcset') : srcset_url
+          srcset_url_situ = srcset_url_situ ? img_dome[i].getAttribute('data-src') : srcset_url_situ
+          srcset_url = srcset_url ? srcset_url : srcset_url
+          srcset_url_situ = srcset_url_situ ? srcset_url_situ : srcset_url_situ
+          var is_url = isMatchFirstName(url_name_length, srcset_url, url_name)
+          var is_url_situ = isMatchFirstName(url_name_length, srcset_url_situ, url_name)
+          var is_url_src = isMatchFirstName(url_name_length, img_dome[i].src, url_name)
+          if(v!=false && ((is_url && srcset_url.indexOf(url_suffix) >= 0) || (is_url_situ && srcset_url_situ.indexOf(url_suffix) >= 0) || is_url_src)){
+            findReplace(replace_url, source_url[s].id, img_dome[i], srcset_url)
+            obsever.observe(img_dome[i], config);
+            continue
+          }
+        }
+      }
+      
+    }
+  }
+
+  function isMatchFirstName(name_length,sourct_url,replace_url){if(!sourct_url||!replace_url||!name_length){return false}var url_array=sourct_url?sourct_url.split("/"):[];var url_array_last_name=url_array[url_array.length-1];var url_name_is_match=url_array_last_name.substring(0,name_length)==replace_url;return url_name_is_match};
+  
+  // replace url
+  function findReplace(h,c,d,e){var g=getMediaLanguageList();var k=g.find(function(a){return a.primary});var j=k?k.iso_code:"en";var b=getMediaCurrentLocale(g,j);for(var i=0;i<h.length;i++){if(h[i].parent_id==c&&h[i].lan_code.toLowerCase()==b.toLowerCase()){if(h[i].url_content){d.src=h[i].url_content;d.srcset=h[i].url_content;d.style.opacity=1;d.setAttribute("data-src",h[i].url_content);d.setAttribute("srcset",h[i].url_content);if(e){var f=h[i].url_content.substring(6);d.srcset=h[i].url_content}}}}};  
+  function getMediaCurrentLocale(languages, defaultLocale) {
+    var path = window.location.pathname.split('/').filter(function (x) { return x; });
+    if (path && path.length > 0 && languages.find(function (x) { return x.iso_code.toLowerCase() === path[0].toLowerCase(); })) {
+      return path[0];
+    } else {
+      return defaultLocale;
+    }
+  }
+  
+  function getMediaLanguageList() {
+      return [
+        {%- for locale in shop.published_locales %}
+        {
+          name: '{{locale.name}}',
+          endonym_name: '{{locale.endonym_name}}',
+          iso_code: '{{locale.iso_code}}',
+          primary: {{locale.primary}},
+        }{% unless forloop.last %},{% endunless -%}
+        {%- endfor %}
+      ];
+  }
+  
+  const configImg = { attributes: true, childList: true };
+  const listenImg = function (element) {
+    element.forEach(function (item, index) {
+      mediaReplace();
+    })
+  }
+  const observerImg = new MutationObserver(listenImg);
+  window.onload = function () {
+    mediaReplace();
+    observerImg.observe(document.body, configImg);
+  }
+  
+function getQueryVariable(variable,query){if(query.indexOf("cdn.shopify")<=0){return false}var url_search=query.split("?")[0];if(url_search){var vars=url_search.split("/");if(vars&&vars[0]){var http_name=vars[vars.length-1];var http_array=http_name.split("_");if(http_array&&http_array[0]){var file_size_name="";var suffix_name=http_array[http_array.length-1].split(".")[1];for(var b=0;b<http_array.length-1;b++){if(b<http_array.length-2){file_size_name=file_size_name+http_array[b]+"_"}else{file_size_name=file_size_name+http_array[b]+"."+suffix_name}}if(file_size_name){return file_size_name}}return http_name}}return false};
+
+  if (document.addEventListener) {//firefox 
+    document.addEventListener('DOMMouseScroll', scrollFunc); 
+  }
+  window.onmousewheel = document.onmousewheel = scrollFunc;
+  
+  document.addEventListener("touchstart", scrollFunc, false);
+  
+  var scroll_time = null;
+  function scrollFunc(){
+    if(scroll_time){
+      window.clearTimeout(scroll_time)
+      scroll_time = null;
+    }
+    scroll_time=setTimeout(mediaReplace, 1000);
+  }
+  
+function compareDate(d,b){var a=false;if(!d){return true}var c=d.split("-");if(c[0]>b.getFullYear()){a=true}else{if(c[0]==b.getFullYear()){if(c[1]>b.getMonth()){a=true}else{if(c[1]==b.getMonth()){if(c[2]>b.getDate()){a=true}}}}}return a};
+  
+  function replaceMenuData(){
+    var a_dome = document.getElementsByTagName('a')
+    var languageList = getMediaLanguageList();
+    var primaryLanguage = languageList.find(function (x) { return x.primary; });
+    var defaultLocale = primaryLanguage ? primaryLanguage.iso_code : 'en';
+    var currentLocale = getMediaCurrentLocale(languageList, defaultLocale);
+    var pathname = window.location.pathname
+    var url_lan_code = (pathname.match(/\/(\S*?)\//) || pathname.match(/\/(\S*)/))[1]
+    var lan_code = ''
+    for(var i=0; i<a_dome.length; i++){
+      if(a_dome[i].getAttribute('href')){
+        var dome_href_array = a_dome[i].getAttribute('href')
+        let regexLang = new RegExp(/#Etranslate/g);
+        if(dome_href_array.match(regexLang) !== null){
+          var new_pathname = '/'
+          var cutData = dome_href_array.split(/(.*#Etranslate-)/g);
+          lan_code = cutData[2];
+          if(lan_code){
+              if(lan_code == defaultLocale.toLowerCase()){
+                  new_pathname = pathname.replace('/' + url_lan_code, '')
+            } else {
+                var find_lan_code=false;
+                  languageList.map((v,k)=>{
+                      if(v.iso_code.toLowerCase()===url_lan_code.toLowerCase()){
+                          find_lan_code=true
+                      }
+                  })
+                  if(find_lan_code){
+                      new_pathname = pathname.replace(url_lan_code, lan_code)
+                  } else {
+                      new_pathname = '/' + lan_code + pathname
+                  }
+            }
+            var change_href = `${window.location.protocol}//${window.location.host}${new_pathname}${window.location.search}`
+            a_dome[i].setAttribute("href",change_href);
+            a_dome[i].setAttribute("data-lancode",lan_code);
+          }
+        }
+      }
+    }
+    setLocalStorage()
+  }
+  
+  function setLocalStorage(){var a_dome=document.getElementsByTagName("a");for(var i=0;i<a_dome.length;i++){var lan_code=a_dome[i].getAttribute("data-lancode");if(lan_code){a_dome[i].onclick=changeLocalStorage(lan_code);children=a_dome[i].childNodes;if(children){for(var c=0;c<children.length;c++){if(children[c].nodeName!="#text"){children[c].onclick=changeLocalStorage(lan_code)}}}}}};
+  
+  function changeLocalStorage(lan_code){
+    return function() {
+      localStorage.setItem('lan_code', lan_code);
+    }
+  }
+  
+  documentMenuReady(replaceMenuData);
+
+  function documentMenuReady(fu) {
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      setTimeout(documentReady(mediaReplace), 1);
+    } else {
+      setTimeout(fu, 500);
+    }
+  }
+</script>
+<script>
+     function getLanguageListD() {
+      return [
+        {%- for locale in shop.published_locales %}
+        {
+          name: '{{locale.name}}',
+          endonym_name: '{{locale.endonym_name}}',
+          iso_code: '{{locale.iso_code}}',
+          primary: {{locale.primary}},
+        }{% unless forloop.last %},{% endunless -%}
+        {%- endfor %}
+        ];
+      }
+
+    var metaFiles = {{shop.metafields.etranslate.selector_config | json}};
+    var shopDomain = 'https://{{shop.domain}}';
+    var languageListD = getLanguageListD();
+    var primaryLanguageD = languageListD.find(function (x) { return x.primary; });
+    var defaultLocale = primaryLanguageD ? primaryLanguageD.iso_code : 'en';
+    var pathname = window.location.pathname;
+    var str = (pathname.match(/\/(\S*?)\//) || pathname.match(/\/(\S*)/))[1] // "12311232"
+    var lan_code = localStorage.getItem('lan_code');
+    lan_code = lan_code ? lan_code.toLowerCase():lan_code
+    var is_redirect = toRedirect(lan_code,languageListD)
+    if(is_redirect && metaFiles['status'] != '0'){
+        var subUrl =  window.location.search;
+        var lang_code_array=new Array();
+        //    const selectorConfigF = JSON.parse('{{shop.metafields.etranslate.selector_config | json}}')
+        //     const lang_array = selectorConfigF.languages;
+        languageListD.map(function(v){
+            lang_code_array.push(v.iso_code);
+        });
+        if(!in_array(str,lang_code_array) && defaultLocale.toLowerCase() != lan_code && lan_code != str){
+            // 如果在编辑框内，则不进行跳转
+            if (subUrl.indexOf('oseid=') >= 0 && self != top) {
+                lan_code = null;
+            }
+            if(lan_code != null){
+                link = shopDomain + '/' +lan_code+pathname+subUrl;
+                window.location.assign(link);
+            }
+        }
+    }
+    
+    
+
+    function in_array(stringToSearch, arrayToSearch) {
+        for (s = 0; s < arrayToSearch.length; s++) {
+            thisEntry = arrayToSearch[s].toString();
+            if (thisEntry.toLowerCase() == stringToSearch.toLowerCase()) {
+                return true;
+            }
+        }
+        return false;
+    }
+  
+    function toRedirect(lan_code,language_list){
+        if(language_list && lan_code){
+            for(var i=0;i<language_list.length;i++){
+                if(language_list[i].iso_code.toLowerCase() == lan_code.toLowerCase()){
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
+  if (document.addEventListener) {//firefox 
+    document.addEventListener('DOMMouseScroll', scrollFuncRedirect); 
+  }
+  window.onmousewheel = document.onmousewheel = scrollFuncRedirect;
+  
+  document.addEventListener("touchstart", scrollFuncRedirect, false);
+  
+  var scroll_time_checkout = null;
+  function scrollFuncRedirect(){
+    if(scroll_time_checkout){
+      window.clearTimeout(scroll_time)
+      scroll_time_checkout = null;
+    }
+    scroll_time_checkout=setTimeout(toCheckoutRedirect, 1000);
+  }
+  
+  function toCheckoutRedirect(){
+    if(!toRedirect(str,languageListD)){ return; }
+    var cart_from = document.getElementsByClassName("cart")[0]
+    if(cart_from){
+      var cart_from_link = cart_from.getAttribute('action')?cart_from.getAttribute('action'):null
+      if(cart_from_link){
+        if(cart_from_link.indexOf('local') >= 0){
+            var cart_link_param = cart_from_link?cart_from_link.split('?')[1]:''
+            var cart_link_lan_code = cart_link_param?cart_link_param.split('=')[1]:''
+            if(cart_link_lan_code && cart_link_lan_code!=str){
+                cart_from.setAttribute('action', cart_from_link.replace(cart_link_lan_code,str))
+            }
+        } else if(cart_from_link.indexOf('/'+str+'/') < 0) {
+            var cart_link_param = cart_from_link?cart_from_link.split('?')[1]:''
+            var cart_link_lan_code = cart_link_param?cart_link_param.split('=')[1]:''
+            cart_from.setAttribute('action', '/'+str+cart_from_link)
+        }
+      }
+    }
+  }
+</script>
+<style>
+  .etranslate-LanguageList {
+      position: absolute;
+      z-index: 2147483647;
+      cursor: pointer;
+      font-size:13px;
+      direction: ltr;
+  }
+  .etranslate-language-float-link {
+      border: 1px solid rgb(224, 226, 228);
+      background-color: white;
+  }
+
+  .rectangle_flag:before {
+      content: "\00a0";
+  }
+
+  .select-dropdown-flag-icon-link {
+      font-size: 20px;
+      box-sizing: content-box;
+      background-size: contain;
+      background-position: 50%;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: 50%;
+      background-repeat: no-repeat;
+      position: relative;
+      display: inline-block;
+      width: 1.33333333em;
+      line-height: 1em;
+  }
+
+  .select-dropdown-flag-icon-link:before {
+      content: "\00a0";
+  }
+  #localiser-translate-etranslate>ul{
+      margin: 0px;
+      -webkit-transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+      -moz-transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+      -ms-transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+      -o-transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+      transition: all 0.2s;
+  }
+
+  .etranslate-flag-wrapper {
+      display: flex;
+      align-items: center;
+      width: 28px;
+      height: 28px;
+      font-size: 20px;
+      margin-right: 3px;
+  }
+
+  .etranslate-language-list-button {
+      border: 1px solid rgba(224, 224, 224, 1);
+      padding: 8px 10px 8px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      -webkit-transition: max-height 0.2s, visibility 0.2s, opacity 0.2s;
+      -moz-transition: max-height 0.2s, visibility 0.2s, opacity 0.2s;
+      -ms-transition: max-height 0.2s, visibility 0.2s, opacity 0.2s;
+      -o-transition: max-height 0.2s, visibility 0.2s, opacity 0.2s;
+      transition: all 0.2s;
+  }
+
+  .etranslate-language-list-button-centent {
+
+      display: flex;
+      align-items: center;
+  }
+
+  .etranslate-language-arrow {
+      display: block!important;
+      width: 0.5em;
+      height: 0.5em;
+      border-right: 1.5px solid currentColor;
+      border-top: 1.5px solid currentColor;
+      transform: rotate(45deg);
+      transition: all 0.2s;
+      position: relative;
+      top: -1px;
+  }
+
+  .etranslate-language-arrow-up {
+      transform: rotate(-45deg) !important;
+  }
+
+  .etranslate-language-arrow-down {
+      transform: rotate(135deg) !important;
+  }
+
+  .etranslate-language-list-button:hover{
+      opacity: 0.8
+  }
+
+  .etranslate-language-list-dropdown {
+      padding: 0px;
+      overflow: auto;
+      background: white;
+      width: 208px;
+      user-select: none;
+      position: absolute;
+      z-index: 516;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      margin: 0px;
+      -webkit-transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+      -moz-transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+      -ms-transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+      -o-transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+      -webkit-overflow-scrolling: touch;
+      overflow: -moz-scrollbars-none;
+      display: block;
+      border: 1px solid rgba(224, 224, 224, 1);
+  }
+  .etranslate-language-list-dropdown::-webkit-scrollbar {
+      display: none;
+  }
+
+  .etranslate-language-list-dropdown > li{
+      margin:0px !important;
+      padding: 8px 10px 8px 10px;
+      cursor: pointer;
+  }
+
+  .etranslate-lo-select-dropdown-item {
+      display: flex;
+      align-items: center;
+      -webkit-transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+      -moz-transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+      -ms-transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+      -o-transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+      transition: all 0.2s;
+  }
+
+  .etranslate-language-name {
+      padding-top: 1px;
+  }
+
+  .etranslate-lo-select-dropdown-item:hover {
+      /* color: rgba(27, 160, 227, 1); */
+      opacity: 0.8
+  }
+
+  .lo-select-up {
+      position: absolute;
+      bottom: 100%;
+  }
+
+  .lo-select-selection-item-top {
+      border-bottom: 0px;
+  }
+
+  .lo-select-selection-item-bottom {
+      border-top: 0px;
+  }
+
+  .rectangle_flag:before {
+      content: "\00a0";
+  }
+
+  .flag-icon {
+      background-size: contain;
+      background-position: 50%;
+      background-repeat: no-repeat;
+      position: relative;
+      display: inline-block;
+      width: 1.33333333em;
+      line-height: 1em;
+      border-radius: 4px;
+  }
+
+  .circle_flag {
+      border-radius: 50%;
+      box-sizing: content-box !important;
+      width: 1em;
+  }
+</style>
+<div id='localiser-translate-etranslate' class='etranslate-LanguageList' style='display:none'>
+   <span class='language-button'>
+    <div class='etranslate-language-list-button' id='etranslate-language-button'>
+      <div class='etranslate-language-list-button-centent'>
+        <div class='etranslate-flag-wrapper'>
+          <span class="rectangle_flag select-dropdown-flag-icon flag-icon"/>
+        </div>
+
+        <div class="etranslate-language-name" data-name="{{ request.locale.endonym_name | split: '-' | first | strip }}">
+    {{ request.locale.name | split: '-' | first | strip }}
+        </div>
+
+      </div>
+      <div class='etranslate-language-arrow'></div>
+    </div>
+  </span>
+  <ul id='etranslate-language-list-dropdown' class='etranslate-language-list-dropdown'
+      style='max-height:0px;opacity:0;'>
+      {%- for locale in shop.published_locales -%}
+          <li class='etranslate-lo-select-dropdown-item' data-code="{{ locale.iso_code }}" data-name="{{ locale.endonym_name }}">
+              <div class="etranslate-flag-wrapper">
+                  <span class="rectangle_flag select-dropdown-flag-icon flag-icon"/>
+              </div>
+
+              <div class="etranslate-language-name">
+                  {{ locale.name }}
+              </div>
+          </li>
+      {%- endfor %}
+  </ul>
+</div>
+<script>
+  var isOpen = false
+  var is_up = false
+
+  var item_height = 46
+
+  var flag_min_width = {
+      rectangle_flag: 60,
+      square_flag: 60,
+      circle_flag: 55,
+      no_flag: 0,
+      without_flag: 0
+  }
+
+  var language_min_width = {
+      language_code: 25,
+      language_name: 60,
+      native_language_name: 60,
+      no_labels: 0
+  }
+
+  var langCodeToLangArray = {
+      "af": "Afrikaans",
+      "ak": "Akan",
+      "sq": "Albanian",
+      "am": "Amharic",
+      "ar": "Arabic",
+      "hy": "Armenian",
+      "as": "Assamese",
+      "az": "Azerbaijani",
+      "bm": "Bambara",
+      "bn": "Bangla",
+      "eu": "Basque",
+      "be": "Belarusian",
+      "bs": "Bosnian",
+      "br": "Breton",
+      "bg": "Bulgarian",
+      "my": "Burmese",
+      "ca": "Catalan",
+      "ce": "Chechen",
+      "zh-CN": "Chinese",
+      "zh-cn": "Chinese",
+      "zh-TW": "Chinese (TW)",
+      "zh-tw": "Chinese (TW)",
+      "cu": "Church Slavic",
+      "kw": "Cornish",
+      "hr": "Croatian",
+      "cs": "Czech",
+      "da": "Danish",
+      "nl": "Dutch",
+      "dz": "Dzongkha",
+      "en": "English",
+      "us": "English",
+      "eo": "Esperanto",
+      "et": "Estonian",
+      "ee": "Ewe",
+      "fo": "Faroese",
+      "fi": "Finnish",
+      "fr": "French",
+      "ff": "Fulah",
+      "gl": "Galician",
+      "lg": "Ganda",
+      "ka": "Georgian",
+      "de": "German",
+      "el": "Greek",
+      "gu": "Gujarati",
+      "ha": "Hausa",
+      "he": "Hebrew",
+      "hi": "Hindi",
+      "hu": "Hungarian",
+      "is": "Icelandic",
+      "ig": "Igbo",
+      "id": "Indonesian",
+      "ia": "Interlingua",
+      "ga": "Irish",
+      "it": "Italian",
+      "ja": "Japanese",
+      "jv": "Javanese",
+      "kl": "Kalaallisut",
+      "kn": "Kannada",
+      "ks": "Kashmiri",
+      "kk": "Kazakh",
+      "km": "Khmer",
+      "ki": "Kikuyu",
+      "rw": "Kinyarwanda",
+      "ko": "Korean",
+      "ku": "Kurdish",
+      "ky": "Kyrgyz",
+      "lo": "Lao",
+      "lv": "Latvian",
+      "ln": "Lingala",
+      "lt": "Lithuanian",
+      "lu": "Luba-Katanga",
+      "lb": "Luxembourgish",
+      "mk": "Macedonian",
+      "mg": "Malagasy",
+      "ms": "Malay",
+      "ml": "Malayalam",
+      "mt": "Maltese",
+      "gv": "Manx",
+      "mi": "Maori",
+      "mr": "Marathi",
+      "mn": "Mongolian",
+      "ne": "Nepali",
+      "nd": "North Ndebele",
+      "se": "Northern Sami",
+      "nb": "Norwegian (Bokmål)",
+      "nn": "Norwegian Nynorsk",
+      "or": "Odia",
+      "om": "Oromo",
+      "os": "Ossetic",
+      "ps": "Pashto",
+      "fa": "Persian",
+      "pl": "Polish",
+      "pt-BR": "Portuguese (Brazil)",
+      "pt-br": "Portuguese (Brazil)",
+      "pt-PT": "Portuguese (Portugal)",
+      "pt-pt": "Portuguese (Portugal)",
+      "pa": "Punjabi",
+      "qu": "Quechua",
+      "ro": "Romanian",
+      "rm": "Romansh",
+      "rn": "Rundi",
+      "ru": "Russian",
+      "sg": "Sango",
+      "gd": "Scottish Gaelic",
+      "sr": "Serbian",
+      "sn": "Shona",
+      "ii": "Sichuan Yi",
+      "sd": "Sindhi",
+      "si": "Sinhala",
+      "sk": "Slovak",
+      "sl": "Slovenian",
+      "so": "Somali",
+      "es": "Spanish",
+      "sw": "Swahili",
+      "sv": "Swedish",
+      "tg": "Tajik",
+      "ta": "Tamil",
+      "tt": "Tatar",
+      "te": "Telugu",
+      "th": "Thai",
+      "bo": "Tibetan",
+      "ti": "Tigrinya",
+      "to": "Tongan",
+      "tr": "Turkish",
+      "tk": "Turkmen",
+      "uk": "Ukrainian",
+      "ur": "Urdu",
+      "ug": "Uyghur",
+      "uz": "Uzbek",
+      "vi": "Vietnamese",
+      "vo": "Volapük",
+      "cy": "Welsh",
+      "fy": "Western Frisian",
+      "wo": "Wolof",
+      "xh": "Xhosa",
+      "yi": "Yiddish",
+      "yo": "Yoruba",
+      "zu": "Zulu",
+      "sa": "Arabic (Saudi Arabia)",
+      "ar-DZ": "Arabic (Algeria)",
+      "ar-dz": "Arabic (Algeria)",
+      "ar-EG": "Arabic (Egypt)",
+      "ar-eg": "Arabic (Egypt)",
+      "ar-IQ": "Arabic (Iraq)",
+      "ar-iq": "Arabic (Iraq)",
+      "ar-JO": "Arabic (Jordan)",
+      "ar-jo": "Arabic (Jordan)",
+      "ar-KW": "Arabic (Kuwait)",
+      "ar-kw": "Arabic (Kuwait)",
+      "ar-LB": "Arabic (Lebanon)",
+      "ar-lb": "Arabic (Lebanon)",
+      "ar-LY": "Arabic (Libya)",
+      "ar-ly": "Arabic (Libya)",
+      "ar-MA": "Arabic (Morocco)",
+      "ar-ma": "Arabic (Morocco)",
+      "ar-OM": "Arabic (Oman)",
+      "ar-om": "Arabic (Oman)",
+      "ar-QA": "Arabic (Qatar)",
+      "ar-qa": "Arabic (Qatar)",
+      "ar-SY": "Arabic (Syria)",
+      "ar-sy": "Arabic (Syria)",
+      "ar-TN": "Arabic (Tunisia)",
+      "ar-tn": "Arabic (Tunisia)",
+      "ar-YE": "Arabic (Yemen)",
+      "ar-ye": "Arabic (Yemen)",
+      "fr-CA": "French (Canada)",
+      "fr-ca": "French (Canada)",
+      "en-CA": "English (Canada)",
+      "en-ca": "English (Canada)",
+      "de-AT": "Austria",
+      "de-at": "Austria",
+      "de-CH": "Switzerland",
+      "de-ch": "Switzerland",
+      "de-LU": "Luxembourg",
+      "de-lu": "Luxembourg",
+      "es-MX": "Spanish (Mexico)",
+      "es-mx": "Spanish (Mexico)",
+      "es-CO": "Spanish (Columbia)",
+      "es-co": "Spanish (Columbia)",
+      "es-AR": "Spanish (Argentina)",
+      "es-ar": "Spanish (Argentina)",
+      "es-CL": "Chile",
+      "es-cl": "Chile",
+      "es-PE": "Peru",
+      "es-pe": "Peru",
+      "es-BO": "Bolivia",
+      "es-bo": "Bolivia",
+      "es-EC": "Ecuador",
+      "es-ec": "Ecuador",
+      "es-GT": "Guatemala",
+      "es-gt": "Guatemala",
+      "en-nz": "English (New Zealand)",
+      "en-NZ": "English (New Zealand)",
+  };
+
+  var langCodeToCountryArray = {
+      "af": "ZA",
+      "sq": "AL",
+      "am": "ET",
+      "ar": "AE",
+      "hy": "AM",
+      "az": "AZ",
+      "eu": "ES",
+      "be": "BY",
+      "bn": "BD",
+      "bs": "BA",
+      "bg": "BG",
+      "ca": "CA",
+      "ceb": "PH",
+      "ny": "MW",
+      "zh-CN": "CN",
+      "zh-cn": "CN",
+      "zh-TW": "TW",
+      "zh-tw": "TW",
+      "zh-HK": "HK",
+      "zh-hk": "HK",
+      "co": "FR",
+      "hr": "HR",
+      "cs": "CZ",
+      "da": "DK",
+      "nl": "NL",
+      "en": "GB",
+      "et": "EE",
+      "tl": "PH",
+      "fi": "FI",
+      "fr": "FR",
+      "fy": "NL",
+      "gl": "ES",
+      "ka": "GE",
+      "de": "DE",
+      "el": "GR",
+      "gu": "IN",
+      "ht": "HT",
+      "ha": "NE",
+      "haw": "US",
+      "us": "US",
+      "iw": "IL",
+      "hi": "IN",
+      "hmn": "CN",
+      "hu": "HU",
+      "is": "IS",
+      "ig": "NG",
+      "id": "ID",
+      "ga": "IE",
+      "it": "IT",
+      "ja": "JP",
+      "jw": "ID",
+      "kn": "IN",
+      "kk": "KZ",
+      "km": "KH",
+      "ko": "KR",
+      "ku": "IR",
+      "ky": "KG",
+      "lo": "LA",
+      "la": "IT",
+      "lv": "LV",
+      "lt": "LT",
+      "lb": "LU",
+      "mk": "MK",
+      "mg": "MG",
+      "ms": "MY",
+      "ml": "IN",
+      "mt": "MT",
+      "mi": "NZ",
+      "nz": "NZ",
+      "mr": "IN",
+      "mn": "MN",
+      "my": "MM",
+      "ne": "NP",
+      "no": "NO",
+      "ps": "AF",
+      "fa": "IR",
+      "pl": "PL",
+      "pt": "PT",
+      "pa": "IN",
+      "ro": "RO",
+      "ru": "RU",
+      "sm": "US",
+      "gd": "CA",
+      "sr": "RS",
+      "st": "LS",
+      "sn": "ZW",
+      "sd": "PK",
+      "si": "LK",
+      "sk": "SK",
+      "sl": "SI",
+      "so": "SO",
+      "es": "ES",
+      "su": "SD",
+      "sw": "TZ",
+      "sv": "SE",
+      "tg": "TJ",
+      "ta": "IN",
+      "te": "IN",
+      "th": "TH",
+      "tr": "TR",
+      "uk": "UA",
+      "ur": "PK",
+      "uz": "UZ",
+      "vi": "VN",
+      "cy": "GB",
+      "xh": "ZA",
+      "yi": "DE",
+      "yo": "NG",
+      "zu": "ZA",
+      "ak": "GH",
+      "as": "IN",
+      "bm": "ML",
+      "br": "fr",
+      "ce": "ru",
+      "cu": "BG",
+      "kw": "KW",
+      "dz": "BT",
+      "eo": "un",
+      "ee": "GH",
+      "fo": "DK",
+      "ff": "MR",
+      "lg": "UG",
+      "he": "IL",
+      "ia": "un",
+      "jv": "ID",
+      "kl": "GL",
+      "ks": "IN",
+      "ki": "KE",
+      "rw": "RW",
+      "ln": "CG",
+      "lu": "CD",
+      "gv": "GB",
+      "nd": "ZW",
+      "se": "NO",
+      "nb": "NO",
+      "nn": "NO",
+      "or": "IN",
+      "om": "ET",
+      "os": "RU",
+      "pt-BR": "BR",
+      "pt-br": "BR",
+      "pt-PT": "PT",
+      "pt-pt": "PT",
+      "qu": "PE",
+      "rm": "CH",
+      "rn": "BI",
+      "sg": "CF",
+      "ii": "CN",
+      "tt": "RU",
+      "bo": "CN",
+      "ti": "ER",
+      "to": "TO",
+      "tk": "TM",
+      "ug": "ZH",
+      "vo": "un",
+      "wo": "SN",
+      "sa": "SA",
+      "ar-SA": "sa",
+      "ar-sa": "sa",
+      "ar-DZ": "DZ",
+      "ar-dz": "DZ",
+      "ar-AE": "AE",
+      "ar-ae": "AE",
+      "ar-BH": "BH",
+      "ar-bh": "BH",
+      "ar-EG": "EG",
+      "ar-eg": "EG",
+      "ar-IQ": "IQ",
+      "ar-iq": "IQ",
+      "ar-JO": "JO",
+      "ar-jo": "JO",
+      "ar-LB": "LB",
+      "ar-lb": "LB",
+      "ar-LY": "LY",
+      "ar-ly": "LY",
+      "ar-OM": "OM",
+      "ar-om": "OM",
+      "ar-QA": "QA",
+      "ar-qa": "QA",
+      "ar-SD": "SD",
+      "ar-sd": "SD",
+      "ar-SY": "SY",
+      "ar-sy": "SY",
+      "ar-YE": "YE",
+      "ar-ye": "YE",
+      "fr-BE": "BE",
+      "fr-be": "BE",
+      "fr-LU": "LU",
+      "fr-lu": "LU",
+      "fr-MC": "MC",
+      "fr-mc": "MC",
+      "fr-CH": "CH",
+      "fr-ch": "CH",
+      "fr-CA": "FR-CA",
+      "fr-ca": "FR-CA",
+      "en-CA": "FR-CA",
+      "en-ca": "FR-CA",
+      "de-AT": "AT",
+      "de-at": "AT",
+      "de-CH": "CH",
+      "de-ch": "CH",
+      "de-LU": "LU",
+      "de-lu": "LU",
+      "es-MX": "MX",
+      "es-mx": "MX",
+      "es-CO": "CO",
+      "es-co": "CO",
+      "es-AR": "AR",
+      "es-ar": "AR",
+      "es-CL": "CL",
+      "es-cl": "CL",
+      "es-PE": "PE",
+      "es-pe": "PE",
+      "es-BO": "BO",
+      "es-bo": "BO",
+      "es-EC": "EC",
+      "es-ec": "EC",
+      "es-GT": "GT",
+      "es-gt": "GT",
+      "en-nz": "NZ",
+      "en-NZ": "NZ",
+  }
+
+  function getLanguageList() {
+      return [
+          {%- for locale in shop.published_locales %}
+          {
+              name: '{{ locale.name }}',
+              endonym_name: '{{ locale.endonym_name }}',
+              iso_code: '{{ locale.iso_code }}',
+              primary: {{ locale.primary }},
+          }{% unless forloop.last %},{% endunless -%}
+          {%- endfor %}
+      ];
+  }
+
+  function setSelectorWhite(f,d,e,c){var h;var a;var g;if(c){h=e.mobile_flags_type;a=e.mobile_labels_type;g=e.mobile_selector_width}else{h=e.flags_type;a=e.labels_type;g=e.selector_width}var i=d&&d[0]?d.length:0;var b=flag_min_width[h]+language_min_width[a]+6+Number(g)+"px";return b};
+
+  function setSelectorStyle(b,d,g,i,e){var o;var m;var h;var a;var c;if(e){o=i.mobile_position_lr;m=i.mobile_position_tb;h=i.mobile_font_color;a=i.mobile_horizontal;c=i.mobile_vertical}else{o=i.position_lr;m=i.position_tb;h=i.font_color;a=i.horizontal;c=i.vertical}var j=m==="fixed_top"||m==="fixed_bottom"?"fixed":"absolute";var f=o==="right"?"right":"left";var n=m==="bottom"||m==="fixed_bottom"?"bottom":"top";var k;if((i.background_color==undefined&&i.background_opacity==undefined)||(i.mobile_background_color==undefined&&i.mobile_background_opacity==undefined)){k="rgba(255,255,255,1)"}else{if(e){k=transformationRgb(i.mobile_background_color,i.mobile_background_opacity)}else{k=transformationRgb(i.background_color,i.background_opacity)}}var l="top: auto;bottom: auto;left: auto;right: auto;"+o+":auto;"+m+":auto;"+f+":"+a+"px;"+n+":"+c+"px;background-color:"+k+";color:"+h+";position:"+j+";";return l};
+
+  function findLanguageFlags(c,b){var a;if(c&&c[b]){a=langCodeToCountryArray[c[b]]?langCodeToCountryArray[c[b]]:langCodeToCountryArray[b]}else{a=langCodeToCountryArray[b]?langCodeToCountryArray[b]:langCodeToCountryArray[b.split("-")[0]]}return a};
+
+  function createLanguageFloatSelector(shopDomain, languageList, defaultLocale, currentLocale, etranslateDom, metaFiles, is_mobile) {
+      var flags_type
+      var labels_type
+      var size
+      var flags_type_display
+      var no_labels
+      var labels_language_name
+      var selector_width
+      var vertical
+      var position_tb
+      var border_width
+      var bg_rgba
+
+      if (is_mobile) {
+          flags_type = metaFiles.mobile_flags_type
+          labels_type = metaFiles.mobile_labels_type
+          selector_width = metaFiles.mobile_selector_width
+          vertical = metaFiles.mobile_vertical
+          position_tb = metaFiles.mobile_position_tb
+          border_width = metaFiles.mobile_border_width
+          bg_rgba = transformationRgb(metaFiles.mobile_background_color, metaFiles.mobile_background_opacity)
+      } else {
+          flags_type = metaFiles.flags_type
+          labels_type = metaFiles.labels_type
+          selector_width = metaFiles.selector_width
+          vertical = metaFiles.vertical
+          position_tb = metaFiles.position_tb
+          border_width = metaFiles.border_width
+          bg_rgba = transformationRgb(metaFiles.background_color, metaFiles.background_opacity)
+      }
+      size = flags_type !== 'rectangle_flag' ? '1x1' : '4x3'
+      var flagUrl = "https://my.parcelpanel.com/assets/other/flags/" + size
+      flags_type_display = flags_type === 'no_flag' || flags_type === 'without_flag' ? true : false
+      no_labels = labels_type === 'no_labels' ? true : false
+
+      var buttonDom = etranslateDom.getElementsByClassName('etranslate-language-list-button')[0]
+      var dropdownDom = etranslateDom.getElementsByClassName('etranslate-language-list-dropdown')[0]
+      var dropdown_css_code = setSelectorStyle(buttonDom, dropdownDom, languageList, metaFiles, is_mobile)
+      var language_flags = metaFiles.language_flags
+
+      var flags_svg = findLanguageFlags(language_flags, currentLocale)
+
+      var is_up = setPisition(buttonDom, dropdownDom, languageList, vertical, position_tb)
+
+      etranslateDom.setAttribute('style', dropdown_css_code)
+      var button_select_dom_flag = buttonDom.getElementsByClassName('select-dropdown-flag-icon')[0]
+      button_select_dom_flag.style.backgroundImage = 'url(' + flagUrl + '/' + flags_svg.toLowerCase() + '.svg)'
+      flags_type === 'circle_flag' ? button_select_dom_flag.classList.add('circle_flag') : ''
+
+      dropdownDom.setAttribute('style', 'width:' + selector_width + ';background-color:' + bg_rgba + ';max-height:0px;opacity:0;')
+      var min_width = setSelectorWhite(etranslateDom, languageList, metaFiles, is_mobile)
+
+      buttonDom.style.width = min_width
+      buttonDom.style.borderWidth = border_width + 'px'
+
+      dropdownDom.style.width = min_width
+      dropdownDom.style.borderWidth = border_width + 'px'
+
+      var select_children = dropdownDom.children
+      for (var i = 0; i < select_children.length; i++) {
+          var select_dom = select_children[i];
+          var select_dom_flag = select_dom.getElementsByClassName('select-dropdown-flag-icon')[0]
+          var language_code = select_dom.dataset.code;
+          var language_native_name = select_children[i].dataset.name;
+          var flags_svg = findLanguageFlags(language_flags, language_code)
+
+          select_dom_flag.style.backgroundImage = 'url(' + flagUrl + '/' + flags_svg.toLowerCase() + '.svg)'
+          flags_type === 'circle_flag' ? select_dom_flag.classList.add('circle_flag') : ''
+          select_dom.onclick = languageChange(languageList.find(function (x) {
+              return x.iso_code.toLowerCase() === language_code.toLowerCase();
+          }), defaultLocale);
+          var select_labels = select_dom.getElementsByClassName('etranslate-language-name')[0]
+          if (labels_type === 'language_name') {
+              select_labels.innerHTML = langCodeToLangArray[language_code] ? langCodeToLangArray[language_code] : select_labels.textContent
+          } else if (labels_type === 'native_language_name') {
+              language_native_name = language_native_name == 'français' ? 'Français' : language_native_name
+              select_labels.innerHTML = language_native_name ? language_native_name : langCodeToLangArray[language_code]
+          } else {
+              select_labels.innerHTML = language_code ? language_code.toLocaleUpperCase() : language_code
+          }
+      }
+      if (flags_type_display) {
+          var display_flag = etranslateDom.getElementsByClassName('etranslate-flag-wrapper')
+          for (var i = 0; i < display_flag.length; i++) {
+              display_flag[i].style.display = 'none'
+          }
+      }
+      if (no_labels) {
+          var display_flag = etranslateDom.getElementsByClassName('etranslate-language-name')
+          for (var i = 0; i < display_flag.length; i++) {
+              display_flag[i].style.display = 'none'
+          }
+      } else {
+          var buttom_labels = buttonDom.getElementsByClassName('etranslate-language-name')[0]
+          if (labels_type === 'language_name') {
+              buttom_labels.innerHTML = langCodeToLangArray[currentLocale] ? langCodeToLangArray[currentLocale] : buttom_labels.textContent
+          } else if (labels_type === 'native_language_name') {
+              var language_native_name = buttom_labels.dataset.name;
+              language_native_name = language_native_name == 'français' ? 'Français' : language_native_name
+              buttom_labels.innerHTML = language_native_name ? language_native_name : buttom_labels.textContent
+          } else {
+              buttom_labels.innerHTML = currentLocale ? currentLocale.toLocaleUpperCase() : currentLocale
+          }
+      }
+
+      if (flags_type === 'rectangle_flag') {
+          var display_flag = etranslateDom.getElementsByClassName('etranslate-flag-wrapper')
+          for (var i = 0; i < display_flag.length; i++) {
+              display_flag[i].style.marginRight = '8px'
+          }
+      }
+
+      var isOpen = false;
+      buttonDom.addEventListener('click', function (e) {
+          isOpen = !isOpen;
+          if (isOpen) {
+              openDropdown();
+          } else {
+              closeDropdown();
+          }
+      });
+
+      function openDropdown() {
+          dropdownDom.style.maxHeight = select_children.length * 46 + 'px'
+          dropdownDom.style.opacity = '1'
+          var pointer = buttonDom.getElementsByClassName('etranslate-language-arrow')[0]
+          if (is_up) {
+              pointer.classList.add('etranslate-language-arrow-up')
+          } else {
+              pointer.classList.add('etranslate-language-arrow-down')
+          }
+          isOpen = true;
+      }
+
+      function closeDropdown() {
+          dropdownDom.style.maxHeight = '0px'
+          dropdownDom.style.opacity = '0'
+          var pointer = buttonDom.getElementsByClassName('etranslate-language-arrow')[0]
+          pointer.classList.remove('etranslate-language-arrow-down')
+          pointer.classList.remove('etranslate-language-arrow-up')
+          isOpen = false;
+      }
+
+
+      function languageChange(lang) {
+          return function () {
+              var protocol = window.location.protocol
+              var host = window.location.host
+              var search_info = window.location.search
+              var pathname = window.location.pathname
+              var lan_code = lang.iso_code.toLowerCase()
+              var url_lan_code = (pathname.match(/\/(\S*?)\//) || pathname.match(/\/(\S*)/))[1]
+              localStorage.setItem('lan_code', lan_code);
+
+              //点击当前语言刷新
+              if (currentLocale === lan_code) {
+                  location.reload();
+              }
+
+              //切换为默认语言
+              if (currentLocale.toLowerCase() !== lan_code.toLowerCase() && url_lan_code.toLowerCase() !== lan_code.toLowerCase() && defaultLocale.toLowerCase() === lan_code.toLowerCase()) {
+                  var new_pathname
+                  if (!url_lan_code) {
+                      new_pathname = '/' + lan_code
+                  } else {
+                      new_pathname = pathname.replace('/' + url_lan_code, '')
+                  }
+                  window.location.href = `${window.location.protocol}//${window.location.host}${new_pathname}${window.location.search}`
+              }
+
+              //切换为非默认
+              if (currentLocale.toLowerCase() !== lan_code.toLowerCase() && url_lan_code.toLowerCase() !== lan_code.toLowerCase() && defaultLocale.toLowerCase() !== lan_code.toLowerCase()) {
+                  //插入url_lan_code
+                  var new_pathname
+                  if (lan_code === url_lan_code.toLowerCase()) {
+                      new_pathname = pathname
+                  } else {
+                      if (!url_lan_code) {
+                          new_pathname = '/' + lan_code
+                      } else {
+                          var find_lan_code = false;
+                          languageList.map((v, k) => {
+                              if (v.iso_code.toLowerCase() === url_lan_code.toLowerCase()) {
+                                  find_lan_code = true
+                              }
+                          })
+                          if (find_lan_code) {
+                              new_pathname = pathname.replace(url_lan_code, lan_code)
+                          } else {
+                              new_pathname = '/' + lan_code + pathname
+                          }
+                      }
+                  }
+                  window.location.href = `${window.location.protocol}//${window.location.host}${new_pathname}${window.location.search}`
+              }
+          }
+      }
+      return etranslateDom
+  }
+
+  function setPisition(j,l,b,c,k){var h=j.getBoundingClientRect();var e=l.getBoundingClientRect();const f=b[0]?b.length*item_height:0;const a=c+h["height"];const i=c-e["height"];const g=c-e["height"];var d=k.substring(k.lastIndexOf("_")+1,k.length);if(g<f&&d!=="top"){l.classList.add("lo-select-up");return true}else{if(g>=f&&d!=="top"){l.classList.remove("lo-select-up");return false}}};
+
+  function getCurrentLocale(c,b){var a=window.location.pathname.split("/").filter(function(d){return d});if(a&&a.length>0&&c.find(function(d){return d.iso_code.toLowerCase()===a[0].toLowerCase()})){return a[0]}else{return b}};
+
+  function setLanguageSelector() {
+      var languageList = getLanguageList();
+      var shopDomain = 'https://{{ shop.domain }}';
+      var primaryLanguage = languageList.find(function (x) {
+          return x.primary;
+      });
+      var defaultLocale = primaryLanguage ? primaryLanguage.iso_code : 'en';
+      var currentLocale = getCurrentLocale(languageList, defaultLocale);
+      var metaFiles = {{shop.metafields.etranslate.selector_config | json}}
+      var etranslateDom = document.getElementById('localiser-translate-etranslate')
+      var is_mobile = isMobile();
+      if (Number(metaFiles.status) === 1) {
+          if(is_mobile){
+              if(metaFiles.mobile_choose_language_selector === 'floating_selector' && (metaFiles.mobile_style_of_the_selector === undefined || metaFiles.mobile_style_of_the_selector === 'dropdown')){
+                  applyPriviewCssCode(metaFiles.mobile_css_code)
+                  createLanguageFloatSelector(shopDomain, languageList, defaultLocale, currentLocale, etranslateDom, metaFiles, is_mobile)
+              }else{
+                  etranslateDom.remove()
+              }
+          } else {
+              if (metaFiles.choose_language_selector === 'floating_selector' && (metaFiles.style_of_the_selector === undefined || metaFiles.style_of_the_selector === 'dropdown')) {
+                  applyPriviewCssCode(metaFiles.css_code)
+                  createLanguageFloatSelector(shopDomain, languageList, defaultLocale, currentLocale, etranslateDom, metaFiles, is_mobile)
+              } else {
+                  etranslateDom.remove()
+              }
+          }
+      } else {
+          etranslateDom.remove()
+      }
+  }
+
+  function applyPriviewCssCode(css_code) {
+      var myReg = /^[.#]?\w+[^{]+\{[^}]*\}/;
+      if (css_code && myReg.test(css_code)) {
+          document.styleSheets[0].insertRule(css_code)
+      }
+  }
+
+  function transformationRgb(color_value, aipha) {
+      if (color_value == undefined && aipha == undefined) {
+          return 'rgba(255,255,255,1)'
+      }
+      var a
+      if (aipha === undefined) {
+          a = 1
+      } else {
+          a = aipha / 100
+      }
+
+      if (!color_value) {
+          return "rgba(255,255,255," + a + ")";
+      }
+      var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
+
+      if (!color_value) {
+          return "rgba(255,255,255," + a + ")"
+      }
+      var color = color_value.toLowerCase();
+      if (reg.test(color)) {
+          if (color.length === 4) {
+              var colorNew = "#";
+              for (let i = 1; i < 4; i += 1) {
+                  colorNew += color.slice(i, i + 1).concat(color.slice(i, i + 1));
+              }
+              color = colorNew;
+          }
+          var colorChange = [];
+          for (let i = 1; i < 7; i += 2) {
+              colorChange.push(parseInt("0x" + color.slice(i, i + 2)));
+          }
+          return "rgba(" + colorChange.join(",") + "," + a + ")";
+      } else {
+          return color;
+      }
+  }
+
+  function isMobile() {return navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)}
+
+  documentReady(setLanguageSelector);
+  function documentReady(fu) {
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+          setTimeout(documentReady(setLanguageSelector), 1);
+      } else {
+          document.addEventListener('DOMContentLoaded', fu);
+      }
+  }
+</script><style>
+  .etranslate-LanguageList-link {
+    position: absolute;
+  	z-index: 2147483647;
+    font-size:13px;
+    direction: ltr;
+  }
+  .etranslate-language-float-link {
+    border: 1px solid rgb(224, 226, 228);
+    background-color: white;
+  }
+
+  .etranslate-language-list-link {
+  list-style: none;
+  overflow: auto;
+  background: white;
+  user-select: none;
+  position: absolute;
+  z-index: 516;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0px;
+  transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  overflow: -moz-scrollbars-none;
+  display: block;
+  border: 1px solid rgba(224, 224, 224, 1);
+  }
+
+.select-dropdown-flag-icon-link {
+        font-size: 20px;
+        box-sizing: content-box;
+        background-size: contain;
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: 50%;
+        background-repeat: no-repeat;
+        position: relative;
+        display: inline-block;
+        width: 1.33333333em;
+        line-height: 1em;
+    }
+
+.select-dropdown-flag-icon-link:before {
+        content: "\00a0";
+    }
+
+.etranslate-language-float-link>ul{
+  margin: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding-right: 1rem;
+        padding: 5px 8px 5px 4px;
+        -webkit-transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+        -moz-transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+        -ms-transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+        -o-transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+        transition: all 0.2s;
+}
+
+
+.etranslate-link-content {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 5px 10px;
+  			white-space:normal;
+        }
+  .etranslate-link-content:hover {
+            /* color: rgba(27, 160, 227, 1); */
+            opacity: 0.7
+        }
+
+
+  .etranslate-language-arrow {
+      width: 0.5em;
+      height: 0.5em;
+      border-right: 1.5px solid currentColor;
+      border-top: 1.5px solid currentColor;
+      transform: rotate(45deg);
+      position: relative;
+      top: -1px;
+    }
+
+.etranslate-language-float-link-code {
+            margin-left: 5px;
+        }
+
+  .etranslate-link-content {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+
+    .rectangle_flag:before {
+    content: "\00a0";
+	}
+
+  .flag-icon-link {
+    background-size: contain;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    position: relative;
+    display: inline-block;
+    width: 1.33333333em;
+    line-height: 1em;
+    border-radius: 4px;
+  }
+
+  .circle_flag {
+  	border-radius: 50%;
+  	box-sizing: content-box;
+  	border: solid 1px #e6e3e3;
+    width: 1em;
+	}
+
+.etranslate-flag-wrapper-link {
+    display: flex;
+  	align-items: center;
+  	height: 28px;
+  	margin-right: 3px;
+  }
+
+</style>
+<div id='localiser-translate-etranslate-link' class='etranslate-LanguageList-link etranslate-language-float-link' style='display:none'>
+  <ul id='etranslate-language-list-link' class='etranslate-language-list-link' style='' >
+    {%- for locale in shop.published_locales -%}
+  <li class='etranslate-language-list-link-li' data-code="{{ locale.iso_code }}" data-name="{{ locale.endonym_name }}">
+    <div class='etranslate-link-content'>
+          <div class="etranslate-flag-wrapper">
+          	<span class='flag-icon-link select-dropdown-flag-icon-link'></span>
+          </div>
+          <span class='etranslate-language-name-link'>
+
+          </span>
+    </div>
+    </li>
+    {%- endfor %}
+  </ul>
+</div>
+
+<script>
+
+var flag_min_link_width = {
+    rectangle_flag: 60,
+    square_flag: 45,
+    circle_flag: 45,
+    without_flag: 3,
+    no_flag: 3
+ }
+
+  var language_min_link_width = {
+    language_code: 30,
+    language_name: 60,
+    native_language_name: 60,
+    no_labels: 0
+ }
+
+
+
+  function getLanguageList() {
+      return [
+        {%- for locale in shop.published_locales %}
+        {
+          name: '{{locale.name}}',
+          endonym_name: '{{locale.endonym_name}}',
+          iso_code: '{{locale.iso_code}}',
+          primary: {{locale.primary}},
+        }{% unless forloop.last %},{% endunless -%}
+        {%- endfor %}
+      ];
+  }
+
+  function setLinkSelectorUlStyle(f,d,e,c){var h;var a;var g;if(c){h=e.mobile_flags_type;a=e.mobile_labels_type;g=e.mobile_selector_width}else{h=e.flags_type;a=e.labels_type;g=e.selector_width}var i=d&&d[0]?d.length:0;var b=(flag_min_link_width[h]+language_min_link_width[a]+2)*i+Number(g)+"px";return b};
+
+  function setLinkSelectorStyle(g,p,l,q){var c=p&&p[0]?p.length:0;var m;var n;var r;var i;var f;var o;var h;if(q){m=l.mobile_position_lr;n=l.mobile_position_tb;r=l.mobile_labels_type;i=l.mobile_flags_type;f=l.mobile_selector_width;h=l.mobile_font_color}else{m=l.position_lr;n=l.position_tb;r=l.labels_type;i=l.flags_type;f=l.selector_width;h=l.font_color}var d=n==="fixed_top"||n==="fixed_bottom"?"fixed":"absolute";var a=m==="right"?"right":"left";var k=n==="bottom"||n==="fixed_bottom"?"bottom":"top";var j=(flag_min_link_width[i]+language_min_link_width[r]+2)*c+Number(f);if(a==="right"){if(q){o=Number(l.mobile_horizontal)+j-1}else{o=Number(l.horizontal)+j-1}}else{if(q){o=Number(l.mobile_horizontal)-1}else{o=Number(l.horizontal)-1}}var b=Number(l.vertical)-1;if(k==="bottom"){b=b+45}var e="top: auto;bottom: auto;left: auto;right: auto;"+a+":"+o+"px;"+k+":"+b+"px;color:"+h+";position:"+d+";";return e};
+
+  function getLinkCurrentLocale(c,b){var a=window.location.pathname.split("/").filter(function(d){return d});if(a&&a.length>0&&c.find(function(d){return d.iso_code.toLowerCase()===a[0].toLowerCase()})){return a[0]}else{return b}};
+
+  function findLanguageFlags(c,b){var a;if(c&&c[b]){a=langCodeToCountryArray[c[b]]?langCodeToCountryArray[c[b]]:langCodeToCountryArray[b]}else{a=langCodeToCountryArray[b]}return a};
+
+  function createLanguageFloatLinkSelector(shopDomain, languageList, defaultLocale, currentLocale, etranslateDom, metaFiles, is_mobile){
+    var position_lr
+    var position_tb
+    var selector_width
+    var horizontal
+    var vertical
+    var selector_width
+    var font_color
+    var labels_type
+    var flags_type
+    var language_flags
+    var border_width
+    var bg_rgba
+    if (is_mobile) {
+      position_lr = metaFiles.mobile_position_lr
+      position_tb = metaFiles.mobile_position_tb
+      selector_width = metaFiles.mobile_selector_width
+      horizontal = metaFiles.mobile_horizontal
+      vertical = metaFiles.mobile_vertical
+      selector_width = metaFiles.mobile_selector_width
+      font_color = metaFiles.mobile_font_color
+      labels_type = metaFiles.mobile_labels_type
+      flags_type = metaFiles.mobile_flags_type
+      border_width = metaFiles.mobile_border_width
+      bg_rgba=transformationRgb(metaFiles.mobile_background_color,metaFiles.mobile_background_opacity)
+    } else {
+      position_lr = metaFiles.position_lr
+      position_tb = metaFiles.position_tb
+      selector_width = metaFiles.selector_width
+      horizontal = metaFiles.horizontal
+      vertical = metaFiles.vertical
+      selector_width = metaFiles.selector_width
+      font_color = metaFiles.font_color
+      labels_type = metaFiles.labels_type
+      flags_type = metaFiles.flags_type
+      border_width = metaFiles.border_width
+      bg_rgba=transformationRgb(metaFiles.background_color,metaFiles.background_opacity)
+    }
+     var language_flags = metaFiles.language_flags
+     var position_type=position_tb==='fixed_top'||position_tb==='fixed_bottom'?'fixed':'absolute'
+     var right_or_left=position_lr==='right'?'right':'left'
+     var top_or_button=position_tb==='top'||position_tb==='fixed_bottom'?'bottom':'top'
+
+     var dropdownDom=etranslateDom.getElementsByClassName('etranslate-language-list-link')[0]
+
+     var size = flags_type !== 'rectangle_flag' ? '1x1' : '4x3'
+     var flags_type_display = flags_type === 'no_flag' || flags_type === 'without_flag' ? true : false
+     var no_labels =  labels_type === 'no_labels' ? true: false
+     var flagUrl = "https://my.parcelpanel.com/assets/other/flags/" + size
+
+
+     var select_children=dropdownDom.children
+
+
+     for (var i = 0; i < select_children.length; i++) {
+       		var select_dom_flag = select_children[i].getElementsByClassName('select-dropdown-flag-icon-link')[0]
+       		var select_dom_link_flag = select_children[i].getElementsByClassName('etranslate-flag-wrapper')[0]
+            var language_code = select_children[i].dataset.code;
+            var language_native_name = select_children[i].dataset.name;
+       		var flags_svg=findLanguageFlags(language_flags,language_code)
+            if(flags_type_display){
+                 select_dom_link_flag.style.display='none'
+            }else{
+                 select_dom_flag.style.backgroundImage='url('+flagUrl+'/'+flags_svg.toLowerCase()+'.svg)'
+                 flags_type === 'circle_flag'?select_dom_flag.classList.add('circle_flag'):''
+            }
+    		select_children[i].onclick = languageLinkChange(languageList.find(function (x) { return x.iso_code.toLowerCase() === language_code.toLowerCase(); }),defaultLocale);
+       		var select_labels=select_children[i].getElementsByClassName('etranslate-language-name-link')[0]
+            if(no_labels){
+        		select_labels.style.display='none'
+      		}else{
+          		if (labels_type === 'language_name'){
+            		select_labels.innerHTML = langCodeToLangArray[language_code]?langCodeToLangArray[language_code]:select_labels.text()
+          		} else if (labels_type === 'native_language_name'){
+          		    language_native_name = language_native_name=='français'?'Français':language_native_name
+          		    select_labels.innerHTML = language_native_name?language_native_name:langCodeToLangArray[language_code]
+          		} else {
+                  	select_labels.innerHTML = language_code?language_code.toLocaleUpperCase():language_code
+          		}
+      		}
+          }
+     var selector_ul_style=setLinkSelectorUlStyle(etranslateDom, languageList, metaFiles, is_mobile)
+     dropdownDom.setAttribute('style','width:'+selector_ul_style+';border-width:'+border_width+'px; background-color:'+bg_rgba+';')
+     var selector_style=setLinkSelectorStyle(dropdownDom, languageList, metaFiles, is_mobile)
+     var horizontal=Number(horizontal)+Number(dropdownDom.offsetWidth)
+     etranslateDom.setAttribute('style',selector_style)
+
+
+    function languageLinkChange(lang,defaultLocale) {
+            return function () {
+              var protocol=window.location.protocol
+              var host=window.location.host
+              var search_info=window.location.search
+              var pathname = window.location.pathname
+              var lan_code=lang.iso_code.toLowerCase()
+              var url_lan_code = (pathname.match(/\/(\S*?)\//) || pathname.match(/\/(\S*)/))[1]
+              localStorage.setItem('lan_code', lan_code);
+
+              //点击当前语言刷新
+              if(currentLocale===lan_code){
+                location.reload();
+              }
+
+              //切换为默认语言
+              if(currentLocale!==lan_code && url_lan_code.toLowerCase()!==lan_code && defaultLocale===lan_code){
+                var new_pathname
+                if (!url_lan_code) {
+                    new_pathname = '/' + lan_code
+                } else {
+                    new_pathname = pathname.replace('/' + url_lan_code, '')
+                }
+                window.location.href = `${window.location.protocol}//${window.location.host}${new_pathname}${window.location.search}`
+              }
+
+              //切换为非默认
+              if(currentLocale!==lan_code && url_lan_code.toLowerCase()!==lan_code && defaultLocale!==lan_code){
+                //插入url_lan_code
+            	var new_pathname
+                if (lan_code === url_lan_code.toLowerCase()) {
+                	new_pathname = pathname
+            	} else {
+                	if (!url_lan_code) {
+                    	new_pathname = '/' + lan_code
+                	} else {
+                  		var find_lan_code=false;
+                  		languageList.map((v,k)=>{
+                    		if(v.iso_code.toLowerCase()===url_lan_code.toLowerCase()){
+                      		find_lan_code=true
+                    	}
+                  		})
+                		if(find_lan_code){
+                   			new_pathname = pathname.replace(url_lan_code, lan_code)
+                		} else {
+                   	 		new_pathname = '/' + lan_code + pathname
+                		}
+                	}
+                }
+                window.location.href = `${window.location.protocol}//${window.location.host}${new_pathname}${window.location.search}`
+              }
+            }
+          }
+     return etranslateDom
+  }
+
+
+  function setLanguageLinkSelector(){
+  	var languageList = getLanguageList();
+    var shopDomain = 'https://{{shop.domain}}';
+    var primaryLanguage = languageList.find(function (x) { return x.primary; });
+    var defaultLocale = primaryLanguage ? primaryLanguage.iso_code : 'en';
+    var currentLocale = getLinkCurrentLocale(languageList, defaultLocale);
+    var metaFiles = {{shop.metafields.etranslate.selector_config | json}}
+    var etranslateDom = document.getElementById('localiser-translate-etranslate-link')
+    var is_mobile = isMobile();
+    if( Number(metaFiles.status) === 1){
+      if (is_mobile) {
+        if (metaFiles.mobile_style_of_the_selector === 'links' && metaFiles.mobile_choose_language_selector === 'floating_selector') {
+          applyPriviewCssCode(metaFiles.mobile_css_code)
+          createLanguageFloatLinkSelector(shopDomain, languageList, defaultLocale, currentLocale, etranslateDom, metaFiles, is_mobile)
+        } else {
+          etranslateDom.remove()
+        }
+      } else {
+        if (metaFiles.style_of_the_selector === 'links' && metaFiles.choose_language_selector === 'floating_selector') {
+          applyPriviewCssCode(metaFiles.css_code)
+          createLanguageFloatLinkSelector(shopDomain, languageList, defaultLocale, currentLocale, etranslateDom, metaFiles, is_mobile)
+        } else {
+          etranslateDom.remove()
+        }
+      }
+    }else{
+      	etranslateDom.remove()
+    }
+  }
+
+  function applyPriviewCssCode(css_code) {
+    var myReg = /^[.#]?\w+[^{]+\{[^}]*\}/;
+    if (myReg.test(css_code)) {
+       document.styleSheets[0].insertRule(css_code)
+    }
+  }
+
+  function transformationRgb(color_value, aipha) {
+    if(color_value == undefined && aipha == undefined){
+       	return 'rgba(255,255,255,1)'
+     }
+    var a
+    if(aipha===undefined){
+      a=1
+    }else{
+      a= aipha / 100
+    }
+    var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
+
+    if (!color_value) {
+        return "rgba(255,255,255,"+a+")"
+    }
+    var color = color_value.toLowerCase();
+    if (reg.test(color)) {
+        if (color.length === 4) {
+            var colorNew = "#";
+            for (let i = 1; i < 4; i += 1) {
+                colorNew += color.slice(i, i + 1).concat(color.slice(i, i + 1));
+            }
+            color = colorNew;
+        }
+        var colorChange = [];
+        for (let i = 1; i < 7; i += 2) {
+            colorChange.push(parseInt("0x" + color.slice(i, i + 2)));
+        }
+        return "rgba(" + colorChange.join(",") + "," + a + ")";
+    } else {
+        return color;
+    }
+}
+
+function isMobile() {return navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)}
+
+  documentReady(setLanguageLinkSelector);
+  function documentReady(fu) {
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      setTimeout(documentReady(setLanguageLinkSelector), 1);
+    } else {
+      document.addEventListener('DOMContentLoaded', fu);
+    }
+  }
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded",function(){let defaultData=[];let reviewData=[];let defaultDom=[];let reviewDom=[];let elementContent=[];let elementTransDom=[];let appKey=0;const c={characterData:true,childList:true,subtree:true};let proReviewFormData=[];var m=function(n){defaultData=[];defaultDom=[];n.forEach(function(q,p){if(q.type=="childList"&&q.addedNodes.length!=0){elementContent=[];elementTransDom=[];j(q.addedNodes);for(var o=0;o<elementContent.length;o++){if(proReviewFormData.indexOf(elementContent[o])===-1){defaultData.push(elementContent[o]);defaultDom.push(elementTransDom[o])}}}});if(defaultData!=""){k(defaultData,[],defaultDom,[],appKey)}};const g=new MutationObserver(m);var d=function(n){defaultData=[];defaultDom=[];n.forEach(function(q,o){if(q.type=="childList"&&q.addedNodes.length!=0){elementContent=[];elementTransDom=[];j(q.addedNodes);for(var p=0;p<elementContent.length;p++){defaultData.push(elementContent[p]);defaultDom.push(elementTransDom[p])}}});if(elementContent!=""){k(defaultData,[],defaultDom,[],appKey)}};const l=new MutationObserver(d);var h=function(n){reviewData=[];reviewDom=[];n.forEach(function(q,o){if(q.type=="childList"&&q.addedNodes.length!=0){for(var p=0;p<q.addedNodes.length;p++){if(q.addedNodes[p].nodeType===1){let title=q.addedNodes[p].querySelectorAll(".jdgm-rev__title");let body=q.addedNodes[p].querySelectorAll(".jdgm-rev__body");if(title.length>0||body.length>0){elementContent=[];elementTransDom=[];j(title);j(body);reviewData=elementContent;reviewDom=elementTransDom}}}}});if(elementContent!=""){k([],reviewData,[],reviewDom,appKey)}};const e=new MutationObserver(h);var f=document.getElementById("shopify-product-reviews");if(f!=undefined){appKey=5;a()}var i=document.getElementById("judgeme_product_reviews");if(i!=undefined){appKey=1;b()}function a(){var s=document.querySelectorAll(".spr-header");var o=document.querySelectorAll(".new-review-form");var q=document.querySelectorAll(".spr-reviews");var r=document.querySelectorAll(".spr-review-header-title");var p=document.querySelectorAll(".spr-review-content-body");var n=document.querySelectorAll(".spr-form");if(s.length>0&&o.length>0&&q.length>0){elementContent=[];elementTransDom=[];j(s);j(o);defaultData=elementContent;defaultDom=elementTransDom;elementContent=[];elementTransDom=[];j(r);j(p);reviewData=elementContent;reviewDom=elementTransDom;k(defaultData,reviewData,defaultDom,reviewDom,appKey);elementContent=[];j(n);proReviewFormData=elementContent;g.observe(n[0],c)}else{setTimeout(()=>b(),1000)}}function b(){var q=document.querySelectorAll(".jdgm-rev-widg__header");var n=document.querySelectorAll(".jdgm-form");var r=document.querySelectorAll(".jdgm-rev-widg__reviews");var o=document.querySelectorAll(".jdgm-rev__title");var p=document.querySelectorAll(".jdgm-rev__body");if(q.length>0&&n.length>0&&r.length>0){elementContent=[];elementTransDom=[];j(q);defaultData=elementContent;defaultDom=elementTransDom;elementContent=[];elementTransDom=[];j(o);j(p);reviewData=elementContent;reviewDom=elementTransDom;k(defaultData,reviewData,defaultDom,reviewDom,appKey);l.observe(q[0],c);l.observe(n[0],c);e.observe(r[0],c)}else{setTimeout(()=>a(),1000)}}function j(n){for(var o=0;o<n.length;o++){if(n[o].nodeType==1&&n[o].nodeName!=="SCRIPT"){if((n[o].nodeName==="INPUT"||n[o].nodeName==="TEXTAREA")&&n[o].getAttribute("placeholder")!=null){elementContent.push(n[o].getAttribute("placeholder"));elementTransDom.push({"t":1,"d":n[o]});break}if(n[o].nodeName==="INPUT"&&n[o].attributes.type.value=="submit"){elementContent.push(n[o].attributes.value.value);elementTransDom.push({"t":8,"d":n[o]});break}j(n[o].childNodes)}let repeatRegexOne=new RegExp(/\([0-9]{1,}\)/g);let repeatRegexTwo=new RegExp(/[0-9]{1,3}%/g);if(n[o].nodeType==3&&n[o].textContent.trim()!=""&&n[o].textContent.trim()!=="("&&n[o].textContent.trim()!==")"&&n[o].textContent.match(repeatRegexOne)===null&&n[o].textContent.match(repeatRegexTwo)===null){elementContent.push(n[o].textContent.trim());elementTransDom.push({"t":3,"d":n[o]})}}}function k(n,o,r,p,q){if(n!=""||o!=""){let xmlHttp=new XMLHttpRequest();let paramData={"domain":"{{shop.permanent_domain}}","lan_code":"{{shop.locale}}","app_key":q,"default_data":n,"review_data":o,"is_thirdApp":true};xmlHttp.open("post","/apps/pagefly");xmlHttp.setRequestHeader("Content-Type","application/json");xmlHttp.setRequestHeader("CrossOrigin","true");xmlHttp.onreadystatechange=function(){if(xmlHttp.status==200){var t=xmlHttp.response;if(t!=""){transData=JSON.parse(t).data;if(transData!=""){if(transData["default"].length>0){for(var s=0;s<transData["default"].length;s++){if(transData["default"][s]!=""){if(r[s].t===1){r[s].d.setAttribute("placeholder",transData["default"][s])}else{if(r[s].t===3){r[s].d.textContent=transData["default"][s]}else{if(r[s].t===8){r[s].d.attributes.value.value=transData["default"][s]}}}}}}n=[];r=[];if(transData["reviews"].length>0){for(var s=0;s<transData["reviews"].length;s++){if(transData["reviews"][s]!=""){if(p[s].t===1){p[s].d.setAttribute("placeholder",transData["reviews"][s])
+}else{if(p[s].t===3){p[s].d.textContent=transData["reviews"][s]}else{if(p[s].t===8){p[s].d.attributes.value.value=transData["reviews"][s]}}}}}}o=[];p=[]}}}};xmlHttp.send(JSON.stringify(paramData))}}});
+</script>

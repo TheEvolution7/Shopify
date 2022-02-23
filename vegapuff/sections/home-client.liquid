@@ -1,0 +1,65 @@
+{% if section.settings.show_section %}
+	<div class="brook-testimonial-area ptb--100 pb--70 ptb-md--80 pb-md--50 ptb-sm--60 ptb-sd--30 bg_color--7 slick-arrow-hover" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 swiper-c-t">
+        <div class="swiper-container swiper-testimonial wow move-up">
+			<div class="swiper-wrapper">
+              {% for block in section.blocks %}
+                <div class="swiper-slide">
+                  <div class="testimonial testimonial_style--1">
+                    <div class="content">
+                      <p class="bk_pra">{{ block.settings.text }}</p>
+        <!--               <div class="testimonial-info">
+                        <div class="post-thumbnail">
+                          <img src="{{ block.settings.image | img_url : 'medium' }}" alt="{{ block.settings.title }}">
+                        </div>
+                        <div class="clint-info">
+                          <h6>{{ block.settings.title }}</h6>
+                          <span>- {{ block.settings.subtitle }}</span>
+                        </div>
+                      </div> -->
+                      <div class="testimonial-quote">
+                        <span class="fa fa-quote-right"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              {% endfor %}
+        	</div>
+          	<div class="swiper-pagination"></div>
+          	
+          </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Testimonial",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        }
+	],
+	"blocks": [
+    {
+      "type": "content",
+      "name": "content",
+      "settings": [
+		{
+          "type": "html",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

@@ -1,0 +1,654 @@
+<style>
+  .embed-etranslate-LanguageList {
+    display: inline-block;
+    cursor: pointer;
+    font-size: 13px;
+    direction: ltr;
+  }
+
+  .etranslate-language-float-link {
+    border: 1px solid rgb(224, 226, 228);
+    background-color: white;
+  }
+
+  .rectangle_flag:before {
+    content: "\00a0";
+  }
+
+  .select-dropdown-flag-icon-link {
+    font-size: 20px;
+    box-sizing: content-box;
+    background-size: contain;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    position: relative;
+    display: inline-block;
+    width: 1.33333333em;
+    line-height: 1em;
+  }
+
+  .select-dropdown-flag-icon-link:before {
+    content: "\00a0";
+  }
+
+  #new-embed-header-translate-ETranslate>ul {
+    margin: 0px;
+    -webkit-transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+    -moz-transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+    -ms-transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+    -o-transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+    transition: all 0.2s;
+  }
+
+  .embed-etranslate-flag-wrapper {
+    display: flex;
+    align-items: center;
+    width: 28px;
+    height: 28px;
+    font-size: 20px;
+    margin-right: 3px;
+  }
+
+  .embed-etranslate-language-list-button {
+    padding: 8px 10px 8px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    -webkit-transition: max-height 0.2s, visibility 0.2s, opacity 0.2s;
+    -moz-transition: max-height 0.2s, visibility 0.2s, opacity 0.2s;
+    -ms-transition: max-height 0.2s, visibility 0.2s, opacity 0.2s;
+    -o-transition: max-height 0.2s, visibility 0.2s, opacity 0.2s;
+    transition: all 0.2s;
+  }
+
+  .embed-etranslate-language-list-button-centent {
+
+    display: flex;
+    align-items: center;
+  }
+
+  .embed-etranslate-language-arrow {
+    display: block!important;
+    width: 0.5em;
+    height: 0.5em;
+    border-right: 1.5px solid currentColor;
+    border-top: 1.5px solid currentColor;
+    transform: rotate(45deg);
+    transition: all 0.2s;
+    position: relative;
+    top: -1px;
+  }
+
+  .etranslate-language-arrow-up {
+    transform: rotate(-45deg) !important;
+  }
+
+  .etranslate-language-arrow-down {
+    transform: rotate(135deg) !important;
+  }
+
+  .embed-etranslate-language-list-button:hover {
+    opacity: 0.8
+  }
+
+  .embed-etranslate-language-list-dropdown {
+    padding: 0px;
+    overflow: auto;
+    background: white;
+    width: 208px;
+    user-select: none;
+    position: absolute;
+    z-index: 516;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0px;
+    -webkit-transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+    -moz-transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+    -ms-transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+    -o-transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+    -webkit-overflow-scrolling: touch;
+    overflow: -moz-scrollbars-none;
+    display: block;
+    border: 1px solid rgba(224, 224, 224, 1);
+  }
+
+  .embed-etranslate-language-list-dropdown::-webkit-scrollbar {
+    display: none;
+  }
+
+  .embed-etranslate-language-list-dropdown>li {
+    margin: 0px !important;
+    padding: 8px 10px 8px 10px;
+    cursor: pointer;
+  }
+
+  .embed-etranslate-lo-select-dropdown-item {
+    display: flex !important;
+    align-items: center;
+    -webkit-transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+    -moz-transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+    -ms-transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+    -o-transition: max-height 0.3s, visibility 0.2s, opacity 0.2s;
+    transition: all 0.2s;
+  }
+
+  .embed-etranslate-language-name {
+    padding-top: 1px;
+  }
+
+  .embed-etranslate-lo-select-dropdown-item:hover {
+    /* color: rgba(27, 160, 227, 1); */
+    opacity: 0.8
+  }
+
+  .lo-select-up {
+    position: absolute;
+    bottom: 100%;
+  }
+
+  .lo-select-selection-item-top {
+    border-bottom: 0px;
+  }
+
+  .lo-select-selection-item-bottom {
+    border-top: 0px;
+  }
+
+  .rectangle_flag:before {
+    content: "\00a0";
+  }
+
+  .flag-icon {
+    background-size: contain;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    position: relative;
+    display: inline-block;
+    width: 1.33333333em;
+    line-height: 1em;
+    border-radius: 4px;
+  }
+
+  .circle_flag {
+    border-radius: 50%;
+    box-sizing: content-box !important;
+    width: 1em;
+  }
+</style>
+<div id='new-embed-header-translate-ETranslate' class='embed-etranslate-LanguageList' style='display:none'>
+  <span class='language-button'>
+    <div class='embed-etranslate-language-list-button' id='etranslate-language-button'>
+      <div class='embed-etranslate-language-list-button-centent'>
+        <div class='embed-etranslate-flag-wrapper'>
+          <span class="rectangle_flag select-dropdown-flag-icon flag-icon" />
+        </div>
+
+        <div class="embed-etranslate-language-name"
+          data-name="{{ request.locale.endonym_name | split: '-' | first | strip }}">
+          {{ request.locale.name | split: '-' | first | strip }}
+        </div>
+
+      </div>
+      <div class='embed-etranslate-language-arrow'></div>
+    </div>
+  </span>
+  <ul id='embed-etranslate-language-list-dropdown' class='embed-etranslate-language-list-dropdown'
+    style='max-height:0px;opacity:0;'>
+    {%- for locale in shop.published_locales -%}
+    <li class='embed-etranslate-lo-select-dropdown-item' data-code="{{ locale.iso_code }}"
+      data-name="{{ locale.endonym_name }}">
+      <div class="embed-etranslate-flag-wrapper">
+        <span class="rectangle_flag select-dropdown-flag-icon flag-icon" />
+      </div>
+
+      <div class="embed-etranslate-language-name">
+        {{ locale.name }}
+      </div>
+    </li>
+    {%- endfor %}
+  </ul>
+</div>
+<script>
+  var isOpen = false
+  var is_up = false
+
+  var item_height = 46
+
+  var embed_flag_min_width = {
+    rectangle_flag: 60,
+    square_flag: 60,
+    circle_flag: 55,
+    no_flag: 25,
+    without_flag: 25
+  }
+
+  var embed_language_min_width = {
+    language_code: 50,
+    language_name: 70,
+    native_language_name: 70,
+    no_labels: 7
+  }
+
+  function getLanguageList() {
+      return [
+          {%- for locale in shop.published_locales %}
+          {
+              name: '{{ locale.name }}',
+              endonym_name: '{{ locale.endonym_name }}',
+              iso_code: '{{ locale.iso_code }}',
+              primary: {{ locale.primary }},
+          }{% unless forloop.last %},{% endunless -%}
+          {%- endfor %}
+      ];
+  }
+
+  function setSelectorWhite(h,f,b,e){var a;var d;if(e){a=b.mobile_flags_type;d=b.mobile_labels_type}else{a=b.flags_type;d=b.labels_type}var c=f&&f[0]?f.length:0;var g=embed_flag_min_width[a]+embed_language_min_width[d]+6+"px";return g};
+
+  function setEmbedSelectorStyle(f,d,h,a,c){var e;if(c){e=a.mobile_font_color}else{e=a.font_color}var b;if((a.background_color==undefined&&a.background_opacity==undefined)||(a.mobile_background_color==undefined&&a.mobile_background_opacity==undefined)){b="rgba(255,255,255,1)"}else{if(c){b=transformationRgb(a.mobile_background_color,a.mobile_background_opacity)}else{b=transformationRgb(a.background_color,a.background_opacity)}}var g="background-color:"+b+";color:"+e+";";return g};
+
+  function findLanguageFlags(c,b){var a;if(c&&c[b]){a=langCodeToCountryArray[c[b]]?langCodeToCountryArray[c[b]]:langCodeToCountryArray[b]}else{a=langCodeToCountryArray[b]?langCodeToCountryArray[b]:langCodeToCountryArray[b.split("-")[0]]}return a};
+
+  function createLanguageFixSelector(shopDomain, languageList, defaultLocale, currentLocale, embedEtranslateDom, metaFiles, is_mobile) {
+    var flags_type
+    var labels_type
+    var size
+    var flags_type_display
+    var no_labels
+    var labels_language_name
+    var bg_rgba
+
+    if (is_mobile) {
+      flags_type = metaFiles.mobile_flags_type
+      labels_type = metaFiles.mobile_labels_type
+      bg_rgba = transformationRgb(metaFiles.mobile_background_color, metaFiles.mobile_background_opacity)
+    } else {
+      flags_type = metaFiles.flags_type
+      labels_type = metaFiles.labels_type
+      bg_rgba = transformationRgb(metaFiles.background_color, metaFiles.background_opacity)
+    }
+    size = flags_type !== 'rectangle_flag' ? '1x1' : '4x3'
+    var flagUrl = "https://my.parcelpanel.com/assets/other/flags/" + size
+    flags_type_display = flags_type === 'no_flag' || flags_type === 'without_flag' ? true : false
+    no_labels = labels_type === 'no_labels' ? true : false
+    labels_language_name = labels_type === 'language_name' ? true : false
+
+    var buttonDom = embedEtranslateDom.getElementsByClassName('embed-etranslate-language-list-button')[0]
+    var dropdownDom = embedEtranslateDom.getElementsByClassName('embed-etranslate-language-list-dropdown')[0]
+    var embed_dropdown_css_code = setEmbedSelectorStyle(buttonDom, dropdownDom, languageList, metaFiles, is_mobile)
+    var language_flags = metaFiles.language_flags
+
+    var flags_svg = findLanguageFlags(language_flags, currentLocale)
+
+    embedEtranslateDom.setAttribute('style', embed_dropdown_css_code)
+    var button_select_dom_flag = buttonDom.getElementsByClassName('select-dropdown-flag-icon')[0]
+    button_select_dom_flag.style.backgroundImage = 'url(' + flagUrl + '/' + flags_svg.toLowerCase() + '.svg)'
+    flags_type === 'circle_flag' ? button_select_dom_flag.classList.add('circle_flag') : ''
+
+    dropdownDom.setAttribute('style', 'background-color:' + bg_rgba + ';max-height:0px;opacity:0;')
+    var min_width = setSelectorWhite(embedEtranslateDom, languageList, metaFiles, is_mobile)
+
+    buttonDom.style.width = min_width
+
+    dropdownDom.style.width = min_width
+
+    var select_children = dropdownDom.children
+    for (var i = 0; i < select_children.length; i++) {
+      var select_dom = select_children[i];
+      var select_dom_flag = select_dom.getElementsByClassName('select-dropdown-flag-icon')[0]
+      var language_code = select_dom.dataset.code;
+      var language_native_name = select_children[i].dataset.name;
+      var flags_svg = findLanguageFlags(language_flags, language_code)
+
+      select_dom_flag.style.backgroundImage = 'url(' + flagUrl + '/' + flags_svg.toLowerCase() + '.svg)'
+      flags_type === 'circle_flag' ? select_dom_flag.classList.add('circle_flag') : ''
+      select_dom.onclick = languageChange(languageList.find(function (x) {
+        return x.iso_code.toLowerCase() === language_code.toLowerCase();
+      }), defaultLocale);
+      var select_labels = select_dom.getElementsByClassName('embed-etranslate-language-name')[0]
+      if (labels_type === 'language_name') {
+        select_labels.innerHTML = langCodeToLangArray[language_code] ? langCodeToLangArray[language_code] : select_labels.textContent
+      } else if (labels_type === 'native_language_name') {
+        language_native_name = language_native_name == 'français' ? 'Français' : language_native_name
+        select_labels.innerHTML = language_native_name ? language_native_name : langCodeToLangArray[language_code]
+      } else {
+        select_labels.innerHTML = language_code ? language_code.toLocaleUpperCase() : language_code
+      }
+    }
+    if (flags_type_display) {
+      var display_flag = embedEtranslateDom.getElementsByClassName('embed-etranslate-flag-wrapper')
+      for (var i = 0; i < display_flag.length; i++) {
+        display_flag[i].style.display = 'none'
+      }
+    }
+    if (no_labels) {
+      var display_flag = embedEtranslateDom.getElementsByClassName('embed-etranslate-language-name')
+      for (var i = 0; i < display_flag.length; i++) {
+        display_flag[i].style.display = 'none'
+      }
+    } else {
+      var buttom_labels = buttonDom.getElementsByClassName('embed-etranslate-language-name')[0]
+      if (labels_type === 'language_name') {
+        buttom_labels.innerHTML = langCodeToLangArray[currentLocale] ? langCodeToLangArray[currentLocale] : buttom_labels.textContent
+      } else if (labels_type === 'native_language_name') {
+        var language_native_name = buttom_labels.dataset.name;
+        language_native_name = language_native_name == 'français' ? 'Français' : language_native_name
+        buttom_labels.innerHTML = language_native_name ? language_native_name : buttom_labels.textContent
+      } else {
+        buttom_labels.innerHTML = currentLocale ? currentLocale.toLocaleUpperCase() : currentLocale
+      }
+    }
+
+    if (flags_type === 'rectangle_flag') {
+      var display_flag = embedEtranslateDom.getElementsByClassName('embed-etranslate-flag-wrapper')
+      for (var i = 0; i < display_flag.length; i++) {
+        display_flag[i].style.marginRight = '8px'
+      }
+    }
+
+    var isOpen = false;
+    buttonDom.addEventListener('click', function (e) {
+      isOpen = !isOpen;
+      if (isOpen) {
+        openDropdown();
+      } else {
+        closeDropdown();
+      }
+    });
+
+    function openDropdown() {
+      dropdownDom.style.maxHeight = select_children.length * 46 + 'px'
+      dropdownDom.style.opacity = '1'
+      var pointer = buttonDom.getElementsByClassName('embed-etranslate-language-arrow')[0]
+      if (is_up) {
+        pointer.classList.add('etranslate-language-arrow-up')
+      } else {
+        pointer.classList.add('etranslate-language-arrow-down')
+      }
+      isOpen = true;
+    }
+
+    function closeDropdown() {
+      dropdownDom.style.maxHeight = '0px'
+      dropdownDom.style.opacity = '0'
+      var pointer = buttonDom.getElementsByClassName('embed-etranslate-language-arrow')[0]
+      pointer.classList.remove('etranslate-language-arrow-down')
+      pointer.classList.remove('etranslate-language-arrow-up')
+      isOpen = false;
+    }
+
+
+    function languageChange(lang) {
+      return function () {
+        var protocol = window.location.protocol
+        var host = window.location.host
+        var search_info = window.location.search
+        var pathname = window.location.pathname
+        var lan_code = lang.iso_code.toLowerCase()
+        var url_lan_code = (pathname.match(/\/(\S*?)\//) || pathname.match(/\/(\S*)/))[1]
+        localStorage.setItem('lan_code', lan_code);
+
+        //点击当前语言刷新
+        if (currentLocale === lan_code) {
+          location.reload();
+        }
+
+        //切换为默认语言
+        if (currentLocale.toLowerCase() !== lan_code.toLowerCase() && url_lan_code.toLowerCase() !== lan_code.toLowerCase() && defaultLocale.toLowerCase() === lan_code.toLowerCase()) {
+          var new_pathname
+          if (!url_lan_code) {
+            new_pathname = '/' + lan_code
+          } else {
+            new_pathname = pathname.replace('/' + url_lan_code, '')
+          }
+          window.location.href = `${window.location.protocol}//${window.location.host}${new_pathname}${window.location.search}`
+        }
+
+        //切换为非默认
+        if (currentLocale.toLowerCase() !== lan_code.toLowerCase() && url_lan_code.toLowerCase() !== lan_code.toLowerCase() && defaultLocale.toLowerCase() !== lan_code.toLowerCase()) {
+          //插入url_lan_code
+          var new_pathname
+          if (lan_code === url_lan_code.toLowerCase()) {
+            new_pathname = pathname
+          } else {
+            if (!url_lan_code) {
+              new_pathname = '/' + lan_code
+            } else {
+              var find_lan_code = false;
+              languageList.map((v, k) => {
+                if (v.iso_code.toLowerCase() === url_lan_code.toLowerCase()) {
+                  find_lan_code = true
+                }
+              })
+              if (find_lan_code) {
+                new_pathname = pathname.replace(url_lan_code, lan_code)
+              } else {
+                new_pathname = '/' + lan_code + pathname
+              }
+            }
+          }
+          window.location.href = `${window.location.protocol}//${window.location.host}${new_pathname}${window.location.search}`
+        }
+      }
+    }
+
+    return embedEtranslateDom
+  }
+
+  function getCurrentLocale(c,b){var a=window.location.pathname.split("/").filter(function(d){return d});if(a&&a.length>0&&c.find(function(d){return d.iso_code.toLowerCase()===a[0].toLowerCase()})){return a[0]}else{return b}};
+
+  function setLanguageSelector() {
+    var languageList = getLanguageList();
+    var shopDomain = 'https://{{ shop.domain }}';
+    var primaryLanguage = languageList.find(function (x) {
+      return x.primary;
+    });
+    var defaultLocale = primaryLanguage ? primaryLanguage.iso_code : 'en';
+    var currentLocale = getCurrentLocale(languageList, defaultLocale);
+    var metaFiles = {{ shop.metafields.etranslate.selector_config | json}}
+    var embedEtranslateDom = document.getElementById('new-embed-header-translate-ETranslate')
+    var is_mobile = isMobile();
+    if (Number(metaFiles.status) === 1) {
+      if(is_mobile){
+        if(metaFiles.mobile_choose_language_selector === 'embedded_selector'){
+          applyPriviewCssCode(metaFiles.mobile_css_code)
+          createLanguageFixSelector(shopDomain, languageList, defaultLocale, currentLocale, embedEtranslateDom, metaFiles, is_mobile)
+        }else{
+          embedEtranslateDom.remove()
+        }
+      }else{
+        if(metaFiles.choose_language_selector === 'embedded_selector'){
+          applyPriviewCssCode(metaFiles.css_code)
+          createLanguageFixSelector(shopDomain, languageList, defaultLocale, currentLocale, embedEtranslateDom, metaFiles, is_mobile)
+        }else{
+          embedEtranslateDom.remove()
+        }
+      }
+    } else {
+      embedEtranslateDom.remove()
+    }
+    var header = document.querySelector('header');
+    var theme_name = window.Shopify.theme.name
+    var shop_name = "{{ shop.domain }}"
+    if (theme_name) {
+      if (is_mobile) {
+        if (theme_name.match(/Dawn/i)) {
+          var nav = document.querySelector('.menu-drawer__navigation');
+          nav.children[0].appendChild(embedEtranslateDom)
+        } else if (theme_name.match(/Simple/i)) {
+          var nav = document.querySelector('.site-nav');
+          nav.children[0].appendChild(embedEtranslateDom)
+        } else if (theme_name.match(/Boundless/i) || theme_name.match(/Brooklyn/i) || theme_name.match(/Motion/i)) {
+          var nav = document.querySelector('.drawer__inner');
+          nav.children[0].appendChild(embedEtranslateDom)
+        } else if (theme_name.match(/Venture/i)) {
+          var nav = document.querySelector('.drawer__inner');
+          nav.lastElementChild.appendChild(embedEtranslateDom)
+        } else if (theme_name.match(/Debut/i)) {
+          header.appendChild(embedEtranslateDom);
+        } else if (theme_name.match(/Supply/i) || theme_name.match(/Minimal/i) || theme_name.match(/Pet Frendly/i)) {
+          var nav = document.querySelector('.mobile-nav');
+          nav.appendChild(embedEtranslateDom)
+        } else if (theme_name.match(/Narrative/i)) {
+          var nav = document.querySelector('.navigation__container');
+          nav.children[0].appendChild(embedEtranslateDom)
+        } else if (theme_name.match(/Express/i)) {
+          var nav = document.querySelector('.header__content-wrapper');
+          nav.lastElementChild.appendChild(embedEtranslateDom)
+        } else if (theme_name.match(/Woodmart/i) || theme_name.match(/skinla/i)) {
+          var nav = document.querySelector('.site-mobile-menu');
+          nav.appendChild(embedEtranslateDom)
+        } else if (theme_name.match(/launch/i)) {
+          var nav = document.querySelector('#drawer-navigation');
+          nav.children[0].appendChild(embedEtranslateDom)
+        } else if (theme_name.match(/Prestige/i)) {
+          /*var nav = document.querySelector('.Drawer__Container')
+          var side_menu = document.querySelector('.SidebarMenu__Nav')
+          nav.insertBefore(embedEtranslateDom, side_menu)*/
+          var nav = document.querySelector('.Header__Wrapper')
+          nav.children[0].appendChild(embedEtranslateDom)
+        } else if (theme_name.match(/Customize/i)) {
+          var nav = document.querySelector('.drawer__scrollable')
+          nav.lastElementChild.appendChild(embedEtranslateDom)
+        }
+      } else {
+        if (theme_name.match(/Simple/i)) {
+          var headTab = document.querySelector(".grid");
+          var cartDom = document.querySelector(".site-header__cart");
+          headTab.lastElementChild.insertBefore(embedEtranslateDom, cartDom);
+        } else if (theme_name.match(/Boundless/i)) {
+          header.children[0].lastElementChild.appendChild(embedEtranslateDom);
+        } else if (theme_name.match(/Venture/i)) {
+          var nav = document.querySelector('.drawer__inner');
+          header.children[0].lastElementChild.lastElementChild.lastElementChild.appendChild(embedEtranslateDom);
+        } else if (theme_name.match(/Debut/i)) {
+          header.children[0].lastElementChild.lastElementChild.appendChild(embedEtranslateDom);
+        } else if (theme_name.match(/Supply/i)) {
+          header.lastElementChild.lastElementChild.lastElementChild.appendChild(embedEtranslateDom)
+        } else if (theme_name.match(/Brooklyn/i)) {
+          var nav = document.querySelector('.site-nav');
+          nav.appendChild(embedEtranslateDom)
+        } else if (theme_name.match(/Minimal/i)) {
+          var nav = document.querySelector('.header-bar');
+          nav.children[0].lastElementChild.lastElementChild.appendChild(embedEtranslateDom)
+        } else if (theme_name.match(/Express/i)) {
+          header.lastElementChild.lastElementChild.appendChild(embedEtranslateDom);
+        } else if (theme_name.match(/Motion/i)) {
+          header.children[0].children[0].appendChild(embedEtranslateDom);
+        } else if (theme_name.match(/Woodmart/i)) {
+          var headerDom = document.querySelector('.wrapp-header');
+          headerDom.lastElementChild.appendChild((embedEtranslateDom))
+        } else if (theme_name.match(/Pet Frendly/i)) {
+          header.children[0].children[0].lastElementChild.appendChild(embedEtranslateDom);
+        } else if (theme_name.match(/New Year/i)) {
+          var headerDom = document.querySelector('.header-layout');
+          headerDom.lastElementChild.lastElementChild.appendChild((embedEtranslateDom))
+        } else if (theme_name.match(/launch/i)) {
+          var headerDom = document.querySelector('.header-tools');
+          headerDom.lastElementChild.appendChild((embedEtranslateDom))
+        } else if (theme_name.match(/Customize/i)) {
+          if(shop_name == "magicskinco.com"){
+            var nav = document.querySelector('.header-layout')
+            nav.lastElementChild.lastElementChild.appendChild(embedEtranslateDom)
+          }else{
+            var nav = document.querySelector('.drawer__scrollable')
+            nav.lastElementChild.appendChild(embedEtranslateDom)
+          }
+        } else if (theme_name.match(/Prestige/i)) {
+          var nav = document.querySelector('.Header__Wrapper')
+          nav.lastElementChild.appendChild(embedEtranslateDom)
+        } else if (theme_name.match(/Turbo-portland/i)) {
+          var nav = document.querySelector('.nav')
+          nav.lastElementChild.appendChild(embedEtranslateDom)
+        } else {
+          header.lastElementChild.appendChild(embedEtranslateDom);
+        }
+      }
+    }
+  }
+
+  function applyPriviewCssCode(css_code) {
+    var myReg = /^[.#]?\w+[^{]+\{[^}]*\}/;
+    if (css_code && myReg.test(css_code)) {
+      addCSS(css_code)
+    }
+  }
+
+  function addCSS(cssText){
+    var style = document.createElement('style'),  //创建一个style元素
+            head = document.head || document.getElementsByTagName('head')[0]; //获取head元素
+    style.type = 'text/css'; //这里必须显示设置style元素的type属性为text/css，否则在ie中不起作用
+    if(style.styleSheet){ //IE
+      var func = function(){
+        try{ //防止IE中stylesheet数量超过限制而发生错误
+          style.styleSheet.cssText = cssText;
+        }catch(e){
+
+        }
+      }
+      //如果当前styleSheet还不能用，则放到异步中则行
+      if(style.styleSheet.disabled){
+        setTimeout(func,10);
+      }else{
+        func();
+      }
+    }else{ //w3c
+      //w3c浏览器中只要创建文本节点插入到style元素中就行了
+      var textNode = document.createTextNode(cssText);
+      style.appendChild(textNode);
+    }
+    head.appendChild(style); //把创建的style元素插入到head中
+  }
+
+  function transformationRgb(color_value, aipha) {
+    if (color_value == undefined && aipha == undefined) {
+      return 'rgba(255,255,255,1)'
+    }
+    var a
+    if (aipha === undefined) {
+      a = 1
+    } else {
+      a = aipha / 100
+    }
+
+    if (!color_value) {
+      return "rgba(255,255,255," + a + ")";
+    }
+    var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
+
+    if (!color_value) {
+      return "rgba(255,255,255," + a + ")"
+    }
+    var color = color_value.toLowerCase();
+    if (reg.test(color)) {
+      if (color.length === 4) {
+        var colorNew = "#";
+        for (let i = 1; i < 4; i += 1) {
+          colorNew += color.slice(i, i + 1).concat(color.slice(i, i + 1));
+        }
+        color = colorNew;
+      }
+      var colorChange = [];
+      for (let i = 1; i < 7; i += 2) {
+        colorChange.push(parseInt("0x" + color.slice(i, i + 2)));
+      }
+      return "rgba(" + colorChange.join(",") + "," + a + ")";
+    } else {
+      return color;
+    }
+  }
+
+  function isMobile() {return navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)}
+
+  documentReady(setLanguageSelector);
+  function documentReady(fu) {
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      setTimeout(documentReady(setLanguageSelector), 1);
+    } else {
+      document.addEventListener('DOMContentLoaded', fu);
+    }
+  }
+</script>

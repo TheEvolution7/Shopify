@@ -1,0 +1,26 @@
+{% section 'breadcrumb' %}
+<div class="contact-modern pb--120 pb_md--80 pb_sm--80">
+  <div class="container">
+    <div class="row align-items-end">
+      <div class="col-12">
+        <!-- Start Single Accordion -->
+        {{ content_for_layout }}  {% comment %} <--- conent_for_layout IS the captcha form in this context {% endcomment %}
+                                                     <style>
+        /* NOTE: these classes are subject to change at any time... since they are injected by shopify / google captcha */
+        .shopify-challenge__container {
+        }
+
+        .shopify-challenge__message {
+        }
+
+        #g-recapthca {
+        }
+        </style>
+      <script>
+        $('shopify-challenge__message').text('Custom message or {{ settings.challenge_message }}')
+      </script>
+      <!-- End Single Accordion -->
+      </div>
+    </div>
+  </div>
+</div>

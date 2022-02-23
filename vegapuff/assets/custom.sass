@@ -1,0 +1,794 @@
+$thm-gradien: linear-gradient(33deg, #000232 0, #004d91 30%, #2ec1b7 100%)
+
+.bg-gradient
+    background: $thm-gradien
+.banner-subpage
+    background: $thm-gradien
+    min-height: 400px
+    padding-top: 150px
+    display: flex
+    align-items: center
+    justify-content: center
+    background-size: cover
+    background-repeat: no-repeat
+    padding-bottom: 50px
+    position: relative
+    h1 
+        color: #fff
+        margin-bottom: 30px
+    .sub-title
+        color: #fff
+    .img-animation
+        width: 350px
+        max-width: unset
+        height: 350px
+        display: flex
+        align-items: center
+        justify-content: center
+        h1
+            margin-bottom: 0
+    &.__dark
+        &::before
+            content: ''
+            position: absolute   
+            width: 100%
+            height: 100%
+            top: 0
+            left: 0
+            background: $thm-gradien
+            opacity: 0.8
+.img-animation
+    max-width: 240px
+    margin: auto
+    position: relative
+    .rotate-img
+        position: absolute
+        width: 100%
+        height: 100%
+        object-fit: contain
+        top: 0
+        left: 0
+        transition: all linear
+.loading-container
+    position: fixed
+    width: 100%
+    height: 100%
+    top: 0
+    left: 0
+    display: flex
+    align-items: center
+    justify-content: center
+    z-index: 999999
+    background: $thm-gradien
+    padding: 35px
+    svg 
+        overflow: unsset
+        width: 100%
+        max-width: 500px
+        height: 100%
+    .line-ic 
+        opacity: 0
+        stroke-width: 35pt
+        stroke: #fff
+        fill: none
+        // stroke-dashoffset: 1455px
+@keyframes rotate-ani 
+    0%
+        transform: rotate(0deg)
+    100%
+        transform: rotate(360deg)
+.banner-home
+    height: 62.5vw
+    max-height: 100vh
+    position: relative
+    display: flex
+    align-items: center
+    @media screen and ( max-height: 500px )
+        max-height: unset
+        
+    @media screen and ( max-width: 991.82px )
+        height: 80vw
+    @media screen and ( max-width: 767.82px )
+        min-height: 480px 
+    
+    
+    .bg 
+        position: absolute
+        width: 100%
+        height: 100%
+        top: 0
+        left: 0
+        &::after
+            content: ''
+            position: absolute
+            width: 100%
+            height: 100%
+            top: 0
+            left: 0
+            opacity: 0
+            background-color: rgba(0,0,0,0.3)
+            @media screen and ( max-width: 767.82px )
+                opacity: 1
+                z-index: 3
+        .sp
+            position: absolute
+            top: 0
+            bottom: 0
+            width: 50%
+            right: 0
+            margin: 12.5% 0
+            text-align: center
+            @media screen and ( max-width: 767.82px )
+                width: 100%
+                margin: 100px 0 50px
+                
+            > img 
+                object-fit: contain
+                height: 100%
+                margin:  auto
+                position: relative
+                z-index: 2
+            .el-ani-1
+                position: absolute
+                width: 100%
+                height: 100%
+                top: 0
+                left: 0
+                img 
+                    position: absolute
+                .__1
+                    right: 10%
+                    top: 0
+                    width: 10%
+                    max-width: 70px
+                    min-width: 40px
+                .__2
+                    left: 0
+                    width: 10%
+                    max-width: 30px
+                    min-width: 20px
+                    top: 60%
+
+            .el-ani
+                position: absolute
+                mix-blend-mode: color-dodge
+                opacity: 0.7
+                top: 5%
+                left: -10%
+                width: 120%
+                height: 120%
+                z-index: 1
+                @media screen and ( max-width: 767.82px )
+                    top: 0
+                > img 
+                    height: 100%
+                    object-fit: contain
+                    animation: rotate-ani 15s infinite linear
+        > img 
+            position: absolute
+            width: 100%
+            height: 100% 
+            object-fit: cover
+            @media screen and ( max-width: 991.82px )
+                object-position: right
+    .content 
+        position: relative
+        z-index: 4
+        text-align: left
+        width: 100%
+        max-width: 620px
+        left: 10%
+        padding: 25px
+        @media screen and ( max-width: 767.82px )
+            left: unset
+        .type-wrap
+            font-family: 'LuloCleanW01-One'
+            font-size: 40px
+            font-weight: 900
+            line-height: 1.4
+            margin-bottom: 40px
+            width: 100%
+            h4 
+                color: #fff
+                opacity: 0.8
+                font-size: 24px
+                font-weight: 400
+                margin-bottom: 20px
+                @media screen and ( max-width: 991.82px )
+                    font-size: 22px
+                @media screen and ( max-width: 575.82px )
+                    font-size: 16px
+
+            h1 
+                // font-family: 'Anton', sans-serif
+                font-size: 48px
+                font-weight: 600
+                line-height: 1.4
+                color: #fff
+                // -webkit-background-clip: text
+                // background-clip: text
+                max-width: 600px
+                // background-image: linear-gradient(33deg, #000232 0, #004d91 30%, #2ec1b7 100%)
+                @media screen and ( max-width: 991.82px )
+                    font-size: 35px
+                @media screen and ( max-width: 575.82px )
+                    font-size: 28px
+.swiper-banner-home 
+    .swiper-slide 
+        .content
+            h4, h1 ,.btn-slide
+                transition: all .6s ease
+                transition-delay: .5s
+                opacity: 0
+                visibility: hidden
+                transform: translateY(20px)
+        .sp
+            
+            > img 
+                opacity: 0
+                visibility: hidden
+                transform: translateX(100px)
+                transition: all .6s ease
+                transition-delay: 1s
+        
+        &.swiper-slide-active
+            .content
+                h4, h1 ,.btn-slide
+                    transition-delay: 1s
+                    opacity: 1
+                    visibility: visible
+                    transition: opacity 1s ease ,transform .6s ease
+                    transform: translateY(0px)
+                h4
+                    transition-delay: 1s
+                h1
+                    transition-delay: 1.25s
+                .btn-slide 
+                    transition-delay: 1.5s
+            .sp
+                >img
+                    transform: translateX(0px)
+                    opacity: 1
+                    visibility: visible
+
+    .swiper-pagination
+        bottom: 20px
+        @media screen and ( max-width: 575.82px )
+            bottom: 10px
+        .swiper-pagination-bullet
+            width: 24px 
+            height: 24px
+            margin: 0 10px
+            background: transparent
+            position: relative
+            border: 2px solid #fff
+            @media screen and ( max-width: 575.82px )
+                width: 20px 
+                height: 20px
+            &::after
+                border-radius: 50%
+                background: #fff
+                position: absolute
+                width: 12px
+                height: 12px
+                top: 50%
+                left: 50%
+                transform: translate(-50%, -50%) scale(0)
+                content: ''
+                z-index: 4
+                opacity: 0
+                transition: all .3s ease
+                @media screen and ( max-width: 575.82px )
+                    width: 8px
+                    height: 8px
+            &:hover
+                &::after
+                    transform: translate(-50%, -50%) scale(1)
+                    opacity: 1
+            &.swiper-pagination-bullet-active
+                &::after
+                    transform: translate(-50%, -50%) scale(1)
+                    opacity: 1
+.brook-testimonial-area 
+    background-image: linear-gradient(230deg, #00242c 0%, #219f9b 47%, #6777b5 80%)
+.service--2
+    text-align: center
+    .thumb 
+        color: transparent
+        -webkit-background-clip: text
+        background-clip: text
+        background-image: linear-gradient(45deg, #f2a620 0, #d02924 100%)
+        width: fit-content
+        margin: auto
+        height: auto
+        line-height: 1.2
+        font-size: 60px
+        font-weight: 500
+        @media screen and ( max-width: 767.82px )
+            font-size: 40px
+            margin-bottom: 15px!important
+            
+        
+.about--creative
+    .thumb 
+        position: relative
+        padding-bottom: 120%
+        img 
+            position: absolute
+            width: 100%
+            height: 100%
+            top: 0
+            left: 0
+            object-fit: cover
+.section-title--between 
+    .title 
+        h3
+            margin-bottom: 30px
+            @media screen and ( max-width: 575.82px )
+                margin-bottom: 10px
+        p
+            font-size: 18px
+            line-height: 1.7
+            @media screen and ( max-width: 575.82px )
+                font-size: 16px
+                
+#feel-the-wave-two
+    fill: url(#linear-gradient)!important
+#feel-the-wave-one
+    fill: url(#linear-gradient-2)!important
+.about--creative 
+    .thumb
+        margin: 0 0 50px 50px
+        // -webkit-mask-image: url(../img/effect.png)
+        // -webkit-mask-position: center
+        // -webkit-mask-repeat: no-repeat
+        // -webkit-mask-size: 100% 100%
+        // background-color: red
+        &::before
+            position: absolute
+            width: 100%
+            height: 100%
+            left: -50px
+            bottom: -50px
+            background: linear-gradient(45deg, #6a6fb3 0, #004d91 50%, #2ec1b7 100%)
+            content: ''
+            z-index: 0
+        img 
+            z-index: 2  
+.theme-creative
+    font-family: 'BlackChancery'!important
+    font-style: normal!important
+    font-weight: 500!important
+.blog 
+    .thumb
+        padding-bottom: 60%
+        overflow: hidden
+        &:hover 
+            img 
+                transform: scale(1.05)
+        img 
+            position: absolute
+            width: 100%
+            height: 100%
+            object-fit: cover
+            top: 0 
+            left: 0
+            transition: all .3s ease
+.product-home-st
+    background: linear-gradient(to bottom,#ffffff 0%, #b7f1ee 100%)
+.blog.blog-style--2
+    display: flex
+    flex-direction: column
+    &:hover
+        .blog-content
+            h3
+                &.the-title  
+                    a
+                        color: transparent!important
+                        background-position: 100% 0!important
+    .blog-content
+        display: flex
+        flex-direction: column
+        justify-content: space-between
+        background: #fafafa
+        
+        .content 
+            flex: 1 0 auto
+            display: flex
+            flex-direction: column
+            justify-content: space-between
+            ul
+                &.meta 
+                    li
+                        color: #646464
+                        a
+                           color: #646464 
+            h3
+                &.the-title 
+                    font-size: 20px
+                    margin-bottom: 15px
+                    @media screen and ( max-width: 575.82px )
+                        font-size: 18px
+                        
+                    a
+                        display: block
+                        color: transparent!important
+                        -webkit-background-clip: text
+                        background-clip: text
+                        background-image: linear-gradient(to right, #6a6fb3, #004d91 , #2ec1b7  ,#f2a620 , #d02924)!important
+                        background-size: 200% 100%!important
+                        transition: all 1s ease
+                        &:hover
+                            color: transparent!important
+                            background-position: 100% 0!important
+.call-to-action
+    .img-down
+        width: 150px
+        height: 150px
+        margin: auto
+        margin-bottom: 30px
+        img 
+            object-fit: contain
+.reveal-effect 
+    transition-duration: 1.2s
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1)
+    transition-property: transform
+    position: relative
+    > * 
+        animation-duration: 1s;
+        animation-fill-mode: forwards
+        animation-timing-function: cubic-bezier(.785,.135,.15,.86)
+        position: relative
+    &::after 
+        content: ""
+        width: 100%
+        height: 100%
+        display: block
+        position: absolute
+        top: 0
+        left: 0
+        transform-origin: left top
+        transform: scale(0.05, 0)
+        animation-duration: 1s
+        animation-fill-mode: forwards
+        animation-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86)
+    &.masker
+        &::after 
+            background: $thm-gradien
+    &.animated 
+        transform: translate(0,0)
+        * 
+            animation-name: show-img-1
+        &::after 
+            animation-name: slide-bg-2
+@keyframes show-img-1 
+    0%,66.6%
+        visibility: hidden
+        opacity: 0
+    100%,66.7% 
+        opacity: 1
+        visibility: visible
+@keyframes slide-bg-2 
+    33.3% 
+        transform-origin: left top
+        transform: scale(.05,1)
+    66.6% 
+        transform-origin: left center
+        transform: scale(1,1)
+
+    66.7% 
+        transform-origin: right center
+        transform: scale(1,1)
+
+    100% 
+        transform-origin: right center
+        transform: scale(0,1)
+
+
+.brook-btn
+    background-image: linear-gradient(45deg, #6a6fb3, #004d91 , #2ec1b7  ,#f2a620 , #d02924)!important
+    color: #fff!important
+    background-size: 300% 100%!important
+    transition: all 2s ease
+    padding: 0 36px
+    height: 55px
+    line-height: 55px
+    font-size: 14px
+    @media screen and ( max-width: 767.82px )
+        padding: 0 23px!important
+        height: 45px!important
+        line-height: 45px!important
+        
+    &:hover
+        background-position: 100% 0!important
+.parallax-container
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    overflow: hidden
+    .fx-wrap 
+        position: absolute
+        h3
+            opacity: 0.05
+            font-size: 200px
+            font-weight: bold 
+            font-family: "BlackChancery" !important
+            color: transparent
+            -webkit-background-clip: text
+            background-clip: text
+            background-image: linear-gradient(45deg, #6a6fb3 0, #004d91 50%, #2ec1b7 100%)
+            @media screen and ( max-width: 991.82px )
+                font-size: 140px
+            @media screen and ( max-width: 767.82px )
+                font-size: 100px
+                
+.bk-blog-area
+    position: relative
+    .fx-wrap
+        top: 0
+        left: -10%
+.product-home-st
+    .fx-wrap
+        right: -10%
+        top: 0%
+.bk-about-area
+    position: relative
+    .fx-wrap
+        right: -10%
+        top: 0%
+    &.__2 
+        .fx-wrap
+            right: unset
+            left: -10%
+            top: 0%
+.collection-section
+    position: relative
+    .fx-wrap
+        right: -10%
+        top: 0%
+.function-section
+    position: relative
+    .fx-wrap
+        left: -10%
+        top: 0%
+.bk-brand-area
+    position: relative
+    .fx-wrap
+        left: -10%
+        top: 0%
+body
+    overflow-x: hidden
+.text-footer
+    p 
+        color: #999
+        font-size: 14px
+        font-family: "Montserrat", sans-serif
+.slick-arrow-center 
+    .slick-btn 
+        i
+            color: #fff
+.testimonial-nav-content 
+    .testimonial-nav 
+        .content
+            width: 100%
+            max-width: 900px
+.page-footer-wrapper
+    position: relative
+.single-product-left-side
+    .big_img
+        position: relative
+        padding-bottom: 100%
+        background: linear-gradient(-33deg, #000232 0, #004d91 30%, #2ec1b7 100%)
+        img 
+            position: absolute
+            width: 100%
+            height: 100%
+            object-fit: contain
+.sm_roduct_nav
+    margin-top: 16px
+    a
+        position: relative
+        flex: 0 0 calc( 25% - 16px)
+        padding: 0
+        padding-bottom: 23%
+        margin: 0 8px
+        background: linear-gradient(33deg, #000232 0, #004d91 30%, #2ec1b7 100%)
+        img 
+            position: absolute
+            width: 100%
+            height: 100%
+            object-fit: contain
+.food-menu-wrap
+    a
+        &:hover
+            color: #267481
+.food-menu-area
+    margin-bottom: 50px
+    .food-menu-wrap
+        background-color: rgba(250, 247, 244,0.95)
+.bg-left-p
+    margin-right: -120px
+    position: relative
+    padding-bottom: 90%
+    @media screen and ( max-width: 991.82px )
+        margin-right: 0
+        padding-bottom: 60%
+        
+    img 
+        position: absolute
+        width: 100%
+        height: 100%
+        object-fit: cover
+.bg-right-p
+    margin-left: -120px
+    position: relative
+    padding-bottom: 90%
+    z-index: -1
+    @media screen and ( max-width: 991.82px )
+        margin-left: 0
+        padding-bottom: 60%
+    img 
+        position: absolute
+        width: 100%
+        height: 100%
+        object-fit: cover
+.food-menu-wrap
+    @media screen and ( max-width: 991.82px )
+        margin-top: 0
+    @media screen and ( max-width: 767.82px )
+        padding-bottom: 15px
+        padding-top: 30px
+        .title--creative
+            margin-bottom: 20px
+.about--creative 
+    .thumb
+        &.thumb-sleep 
+            padding-bottom: 66.7%
+            margin: 0
+            &::before
+                display: none
+.banner-section
+    padding:  150px 0
+    position: relative
+    @media screen and ( max-width: 767.82px )
+        padding: 80px 0
+    &::before
+        content: ''
+        position: absolute
+        width: 100%
+        height: 100%
+        top: 0
+        left: 0
+        background-color: rgba(0,0,0,0.5)
+    h4 
+        margin-bottom: 0
+        font-family: "BlackChancery" !important
+        font-style: normal !important
+        font-weight: 500 !important
+        font-size: 40px
+        @media screen and ( max-width: 767.82px )
+            font-size: 30px
+            
+@media (min-width: 1400px) 
+    .container, .container-lg, .container-md, .container-sm, .container-xl
+        max-width: 1300px
+
+
+.img-icon
+    position: relative
+    width: 200px
+    height: 200px
+    margin: auto
+    border-radius: 50%
+    overflow: hidden
+    img 
+        position: absolute
+        width: 100%
+        height: 100%
+        top: 0
+        left: 0
+        object-fit: cover
+.service
+    &.service--1
+        padding: 40px 30px 30px
+.about--creative
+    .content 
+        ul 
+            list-style-type: disc
+            padding-left: 20px
+            font-size: 18px
+            line-height: 1.67
+            color: #313131
+            word-wrap: break-word
+            max-width: 100%
+            font-family: "Montserrat", sans-serif
+            margin-bottom: 20px
+            li
+                margin-bottom: 5px
+        p 
+            margin-bottom: 20px
+.box-vega
+    padding: 80px 0
+.icon-list
+    background-color: #f2f2f2
+.text-after 
+    font-size: 13px
+    padding: 50px 0
+    margin-bottom: 0
+.box-img-ani
+    position: relative
+    margin-bottom: 50px
+    .bg-ani
+        position: absolute
+        width: 100%
+        height: 100%
+        object-fit: contain
+        z-index: 1
+        opacity: 0.7
+    .box-sp
+        z-index: 2
+        position: relative
+        padding: 40% 30% 0
+    .box-icon
+        position: absolute
+        display: flex
+        flex-direction: column
+        bottom: -15px
+        right: 10px
+        z-index: 2
+        .icon  
+            width: 70px
+            height: 70px
+            margin-bottom: 15px
+            background: $thm-gradien
+            -webkit-mask-size: contain
+            -webkit-mask-repeat: no-repeat
+            @media screen and ( max-width: 767.8px )
+                width: 50px
+                height: 50px
+.header-default
+    .header-right 
+        .login-menu
+            .login-btn 
+                img 
+                    border-radius: 50%
+                    width: 30px 
+                    height: 30px
+                    object-fit: cover
+    &.light-logo--version 
+        .header-right 
+            .login-menu
+                a
+                    color: #fff   
+    &.black-logo--version   
+        .header-right 
+            .login-menu
+                a
+                    color: #222222    
+
+#page-lost-password 
+    display: none
+.brook-element-carousel
+    .slick-track
+        display: flex
+        .slick-slide 
+            display: flex
+            height: auto
+            > div 
+                width: 100%
+                display: flex
+        .testimonial_style--1
+            display: flex!important
+            .content
+                width: 100%
+                display: flex
+                flex-direction: column
+                justify-content: space-between
+.testimonial_style--1 .content .testimonial-info .post-thumbnail
+    width: 60px
+    height: 60px
+.login-form-wrapper
+    max-width: 450px
+    margin: auto

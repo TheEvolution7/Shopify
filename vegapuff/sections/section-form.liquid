@@ -1,0 +1,57 @@
+{% if section.settings.show_section %}
+  <div class="contact-modern section-ptb-100" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row no-gutters">
+        <div class="col-12">
+          <ul class="infoGraphic"> 
+           {% for block in section.blocks  %}
+            <li>
+              <div class="numberWrap">
+                <div class="number fontColor{{ forloop.index }}">{{ forloop.index }}</div>
+                <div class="coverWrap">
+                  <div class="numberCover"></div>
+                </div>
+              </div>
+              <div class="content">
+                <h2>Step {{ forloop.index }}</h2>
+                {{ block.settings.content }}
+              </div>
+            </li>
+           {% endfor  %} 
+          </ul>
+        </div>
+      </div>
+      <div class="row align-items-end">
+        <div class="col-lg-12">
+         {{ page.content }}<script src="https://www.powr.io/powr.js?platform=shopify"></script>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Step",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        }
+	],
+	"blocks": [
+    {
+      "type": "list",
+      "name": "step",
+      "settings": [
+		{
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

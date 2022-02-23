@@ -1,0 +1,92 @@
+<!-- Page Conttent -->
+        <main class="page-content">
+            
+            <!-- My Account Page -->
+            <div class="my-account-area pt--70 pb--70 bg_color--1">
+                <div class="container">
+                    <div class="row justify-content-center">
+
+                        <!-- Register Form -->
+                        <div class="col-lg-8 col-xl-6">
+                            <div class="login-form-wrapper">
+                                  {%- assign formId = 'RegisterForm' -%}
+                                  {% form 'create_customer', id: formId, novalidate: 'novalidate' %}
+                                    <div class="text-center pb-5">
+                                        <h4>{{ section.settings.title }}</h4>
+                                        <a href="/account/login" class="brook-btn bk-btn-white text-theme btn-sd-size btn-rounded">{{ section.settings.button }}</a>
+                                    </div>
+                                    <div class="sn-form-inner">
+                                        <h4 class="text-center m-auto">{{ section.settings.text }}</h4>
+                                        <div class="single-input">
+                                            <label for="register-form-name">{{ 'customer.register.first_name' | t }}</label>
+                                          	<input type="text" name="customer[first_name]" id="{{ formId }}-FirstName" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} required>
+                                        </div>
+                                      	 <div class="single-input">
+                                            <label for="register-form-name">{{ 'customer.register.last_name' | t }}</label>
+                                          	<input type="text" name="customer[last_name]" id="{{ formId }}-LastName" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} required>
+                                        </div>
+                                        <div class="single-input">
+                                            <label for="register-form-email">{{ 'customer.register.email' | t }}</label>
+                                            <input type="email" name="customer[email]" id="{{ formId }}-email" required>
+                                        </div>
+                                        <div class="single-input">
+                                            <label for="register-form-password">{{ 'customer.register.password' | t }}</label>
+                                             <input type="password" name="customer[password]" id="{{ formId }}-password" required>
+                                        </div>
+                                        <div class="single-input text-center">
+                                            <button type="submit" class="brook-btn bk-btn-white text-theme btn-sd-size btn-rounded">
+                                                {{ 'customer.register.submit' | t }}
+                                            </button>
+                                        </div>
+
+<!--                                         <div class="login-box">
+                                            <h4>Or sign up with</h4>
+                                            <a href="#" class="social-button" id="facebook-connect"> <span>Connect with Facebook</span></a>
+                                            <a href="#" class="social-button" id="google-connect"> <span>Connect with Google</span></a>
+                                        </div> -->
+                                    </div>
+                                {% endform %}
+                            </div>
+                        </div>
+                        <!--// Register Form -->
+                    </div>
+                </div>
+            </div>
+            <!--// My Account Page -->
+        </main>
+        <!--// Page Conttent -->
+{% schema %}
+  {
+    "name": "Section Register",
+    "settings": [
+	  {
+        "id": "title",
+        "type": "text",
+        "label": "Title",
+         "default": {
+             "en": "Already a member?",
+             "zh-TW": "已经是会员？"
+          }
+      },
+	  {
+        "id": "button",
+        "type": "text",
+        "label": "Button",
+         "default": {
+             "en": "Sign In",
+             "zh-TW": "登入"
+          }
+      },
+	  {
+        "id": "text",
+        "type": "text",
+        "label": "Text",
+         "default": {
+             "en": "Creat account by mail",
+             "zh-TW": "通过邮件创建帐户"
+          }
+      }
+	
+	]
+  }
+{% endschema %}

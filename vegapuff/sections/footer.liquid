@@ -1,0 +1,90 @@
+<!-- Footer -->
+<footer id="page-footer-wrapper" class="page-footer-wrapper page-footer bg_color--4 fixed-footer" data-section-id="{{ section.id }}">
+  <!-- Start Copyright Area -->
+  <div class="copyright copyright--2 plr_sm--30">
+    <div class="container ptb--40">
+      <div class="row align-items-center">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+          <div class="copyright-left text-md-left text-left">
+            <p class="m-0">{{ section.settings.copyright }}</p>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+          <div class="copyright-right text-center text-sm-right">
+            {%- assign formId = 'Newsletter' -%}
+            {% form 'customer', id: formId %}
+              {%- if form.posted_successfully? -%}
+              	<p>{{ 'contact.form.post_success' | t }}</p>
+              {%- endif -%}
+                <div class="input-box">
+                  <input type="hidden" name="contact[tags]" value="newsletter">
+                  <input type="email" id="{{ formId }}-email" name="contact[email]" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"  placeholder="{{ 'general.newsletter_form.email_placeholder' | t }}" aria-label="{{ 'general.newsletter_form.email_placeholder' | t }}" required>
+                  <button type="submit"><i class="ion-android-arrow-forward"></i></button>
+                </div>
+            {% endform %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-footer plr_sm--30">
+    <div class="container ptb--40 pt-0">
+      <div class="row">
+        <div class="col-12">
+          	{{ section.settings.text }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Copyright Area -->
+</footer>
+<!--// Footer -->
+
+
+
+{% schema %}
+{
+  "name": {
+    "cs": "Zápatí",
+    "da": "Sidefod",
+    "de": "Fußzeile",
+    "en": "Footer",
+    "es": "Pie de página",
+    "fi": "Alatunniste",
+    "fr": "Pied de page",
+    "it": "Footer",
+    "ja": "フッター",
+    "ko": "바닥글",
+    "nb": "Footer",
+    "nl": "Voettekst",
+    "pl": "Stopka",
+    "pt-BR": "Rodapé",
+    "pt-PT": "Rodapé",
+    "sv": "Sidfot",
+    "th": "ส่วนท้าย",
+    "tr": "Altbilgi",
+    "vi": "Chân trang",
+    "zh-CN": "页脚",
+    "zh-TW": "頁尾"
+  },
+  "settings": [
+	{
+      "type": "header",
+      "content": "Content"
+    },
+	{
+		"type" : "text",
+		"id" : "copyright",
+		"label" : "copyright",
+		"default" : "© Copyright 2021 Vega Puff. All Rights Reserved."
+	},
+	{
+		"type" : "richtext",
+		"id" : "text",
+		"label" : "Text"
+	}
+  ]
+
+}
+{% endschema %}

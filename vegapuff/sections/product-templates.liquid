@@ -1,0 +1,233 @@
+<!-- Start Single Product -->
+<div class="brook-single-product plr--160 plr_lg--100 plr_md--50 plr_sm--30">
+  <div class="row">
+
+    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+      <div class="single-product-left-side">
+        <div class="product__details__container">
+          <div class="tab_container big_img_container">
+            {%- for media in product.media -%}
+            <div class="big_img tab-pane fade {% if forloop.index == 1 %}show active{% endif %}" id="img{{ forloop.index }}" role="tabpane{{ forloop.index }}">
+              <img class="w-100" src="{{ media | img_url: 'grande' }}" alt="{{ media.alt | default : product.title }}">
+            </div>
+            {%- endfor -%} 
+          </div>
+          <div class="sm_roduct_nav nav nav-tabs" role="tablist">
+            {%- for media in product.media -%} 
+            <a {% if forloop.index == 1 %}class="active"{% endif %} id="img{{ forloop.index }}-tab" data-toggle="tab" href="#img{{ forloop.index }}" role="tab"
+               aria-controls="img{{ forloop.index }}" aria-selected="{% if forloop.index == 1 %}true{% else %}false{% endif %}">
+              <img src="{{ media | img_url: 'large' }}" alt="{{ media.alt | default : product.title }}">
+            </a>
+            {%- endfor -%} 
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-12 mt_sm--40">
+      <div class="single-product-details-side">
+        <div class="product-details">
+          <div class="inner">
+            <div class="header">
+
+              <h4 class="heading heading-h4">{{ product.title }}</h4>
+
+            </div>
+            <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+            <br>
+            <div class="price">
+              <p class="theme-color">{{ product.price | money }}</p>
+            </div>
+
+            <div class="description">
+              <p class="bk_pra">{{ product.metafields.my_fields.description }}</p>
+            </div>
+            {% form 'product', product %}
+            <div class="quenty-container">
+              <div class="quenty-button">
+                <h6 class="heading heading-h6">{{ section.settings.title_1 }}</h6>
+                <input type="number" class="input-text qty text" step="1" min="1" name="quantity"
+                       value="1" title="Qty" size="4">
+              </div>
+
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id  }}">	
+              <div class="product-action">
+                <button class="addtocart brook-btn" type="submit" style="height: 50px; width: 500px;" {% unless product.available  %} disabled="disabled"{% endunless %}><i class="fas fa-shopping-bag"></i>
+                  <span>{%- if product.available -%}{{ 'products.product.add_to_cart' | t }}{%- else -%}{{ 'products.product.sold_out' | t }}{%- endif -%}</span></button>
+              </div>
+            </div>
+            {% endform %}
+            <div class="product-meta">
+              <div class="meta-item">
+                <h6 class="heading heading-h6">{{ section.settings.title_2 }}:</h6>
+                <div class="item-list">
+                  <a href="#">{{ product.type }}</a>
+                </div>
+              </div>
+              <div class="meta-item">
+                <h6 class="heading heading-h6">{{ section.settings.title_3 }}:</h6>
+                <div class="item-list">
+                  {% for tag in product.tags %}
+                  {% capture url %}/collections/all/{{ tag | handle }}{% endcapture %}
+                  {{ tag | link_to: url }}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Single Product -->
+
+{% if product.variants.size > 1 %}
+
+<div class="brook-related-product pt--100 pt_md--80 pt_sm--60">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="brook-section-title text-center">
+          <h3 class="heading heading-h3">{{ section.settings.title_4 }}</h3>
+        </div>
+      </div>
+    </div>
+    <div class="row mt--30 justify-content-center">
+      {% for variant in product.variants %}
+      {% if forloop.index != 1 %}
+      <!-- Start Single Product -->
+      <div class="col-lg-4 mt--30 col-md-6 col-12">
+        <div class="product">
+          <div class="product-thumbnail">
+            <a href="#" class="thumbnail">
+              <div class="product-main-image">
+                <img src="{{ variant.featured_image | img_url : 'large' }}" alt="{{ variant.title }}">
+              </div> 
+              <div class="product-hover-image">
+                <img src="{{ product.media[1] | img_url: 'large' }}" alt="{{ product.media[1].alt | default : variant.title }}">
+              </div>
+              {% if variant.compare_at_price %}
+              <div class="product-badges">
+                <div class="onsale">-{{ variant.compare_at_price | minus: variant.price | times: 100.0 | divided_by: variant.compare_at_price | money_without_currency | times: 100 | remove: '.0'}}%</div>
+              </div>
+              {% endif  %}
+            </a>
+            <div class="product-action">
+              <form method="post" action="/cart/add" id="product_form_{{ variant.id }}">
+                <input type="hidden" name="id" value="{{ variant.id  }}">	
+                <ul class="action-list text-center tooltip-layout">
+                  <li class="single-action addto-cart"><a type="submit" name="add" class="link hint--bounce hint--top hint--dark" {%- if variant.available -%}onclick="document.getElementById('product_form_{{ variant.id }}').submit();"{%- endif -%} aria-label="{%- if variant.available -%}Add to cart{%- else -%}Sold Out{%- endif -%}" {%- unless variant.available == false -%}disabled{%- endunless -%}><i class="fas fa-shopping-bag"></i></a></li>
+                </ul>
+              </form>
+            </div>
+          </div>
+          <div class="product-info">
+            <h5 class="heading heading-h5"><a href="#">{{ variant.title }}</a></h5> 
+            <div class="price">
+              <span>{{ variant.price | money }}</span>
+              <span>( {{ variant.price | divided_by : variant.metafields.my_fields.quantity | money }} each)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Single Product -->
+      {% endif %}
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+{% endif %}
+<!-- End Related Product -->
+
+<!-- Start Product Review -->
+<div class="product_review pb--100 pb_md--80 pb_sm--60">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="description_nav nav nav-tabs d-block" role="tablist">
+          <a class="active" id="descrip-tab" data-toggle="tab" href="#descrip" role="tab"
+             aria-controls="descrip" aria-selected="true">{{ section.settings.title_5 }}</a>
+          <a id="nav-review" data-toggle="tab" href="#review" role="tab" aria-controls="review"
+             aria-selected="false">{{ section.settings.title_6 }}</a>
+        </div>
+      </div>
+    </div>
+    <div class="tab_container">
+      <div class="single_review_content tab-pane fade show active" id="descrip" role="tabpanel">
+        <div class="content">
+          {{ product.content }}
+        </div>
+      </div>
+      <div class="single_review_content tab-pane fade" id="review" role="tabpanel">
+        <div class="classs__review__inner">
+          <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Product Review -->
+{% schema %}
+  {
+    "name": "Section Products",
+    "settings": [
+	 {
+        "id": "title_1",
+        "type": "text",
+        "label": "Title",
+         "default": {
+             "en": "QUANTITY",
+             "zh-TW": "數量"
+          }
+      },
+ 	 {
+        "id": "title_2",
+        "type": "text",
+        "label": "Text",
+         "default": {
+             "en": "CATEGORY",
+             "zh-TW": "類別"
+          }
+      },
+	  {
+        "id": "title_3",
+        "type": "text",
+        "label": "Text",
+         "default": {
+             "en": "TAG",
+             "zh-TW": "TAG"
+          }
+      },
+	  {
+        "id": "title_4",
+        "type": "text",
+        "label": "Text",
+         "default": {
+             "en": "Save With Packs",
+             "zh-TW": "Save With Packs"
+          }
+      },
+	  {
+        "id": "title_5",
+        "type": "text",
+        "label": "Text",
+         "default": {
+             "en": "Description",
+             "zh-TW": "操作說明"
+          }
+      },
+	  {
+        "id": "title_6",
+        "type": "text",
+        "label": "Text",
+         "default": {
+             "en": "Reviews",
+             "zh-TW": "評論"
+          }
+      }
+ 
+	]
+  }
+{% endschema %}

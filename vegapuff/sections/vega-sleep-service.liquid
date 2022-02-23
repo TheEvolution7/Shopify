@@ -1,0 +1,82 @@
+{% if section.settings.show_section %}
+  <div class="bk-service-area section-ptb-xl" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row section-title--between">
+        <div class="col-lg-12">
+          <div class="title text-center wow move-up">
+            <h3>{{ section.settings.title_1 }} <span class="theme-creative">{{ section.settings.title_2 }}</span></h2>
+          </div>
+        </div>
+      </div>
+      <div class="row mt--70 mt_sm--20 mt_md--30">
+          {% for block in section.blocks %}
+              <!-- Start Single Service -->
+              <div class="col-lg-4 col-md-6 col-sm-12 col-12 d-flex wow move-up">
+                <div class="service service--1 text-center mt--30">
+                  <div class="icons img-icon">
+                    <img src="{{ block.settings.image | img_url : 'large' }}" alt="{{ block.settings.image.alt | default : block.settings.title  }}">
+                  </div>
+                  <div class="content">
+                    <h4>{{ block.settings.title }}</h4>
+                    {{ block.settings.description }}
+                  </div>
+                </div>
+              </div>
+              <!-- End Single Service -->
+          {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Service",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "header",
+          "content": "Content"
+    	},
+		{
+          "type": "text",
+          "id": "title_1",
+          "label": "Title",
+		  "default" : "Vega's Sleep"
+        },
+		{
+          "type": "text",
+          "id": "title_2",
+          "label": "Title",
+		  "default" : "Blend Contains"
+        }
+	],
+	"blocks": [
+    {
+      "type": "content",
+      "name": "content",
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+		{
+          "type": "richtext",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

@@ -1,0 +1,102 @@
+{% if section.settings.show_section %}
+	<div class="bk-blog-area section-ptb-120 clearfix" data-section-id="{{ section.id }}">
+  <div class="parallax-container js-text-parallax">
+    <div class="fx-wrap" data-x="200">
+      <h3 class="fx-target">{{ section.settings.text }}</h3>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="section-title--between wow move-up">
+          <div class="title">
+            <h3>{{ section.settings.title_1 }} <span class="theme-creative">{{ section.settings.title_2 }}</span></h3>
+          </div>
+          <div class="section-btn mt_mobile--10">
+            <a class="button-text" href="{{ section.settings.url }}"><span>{{ section.settings.button }}</span><i class="fa fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt--40">
+	{%- assign blog = blogs[section.settings.blog] -%}
+    {%- for article in blog.articles limit: 3 -%}
+      <!-- Start Single Portfolio -->
+      <div class="col-lg-4 col-xl-4 col-md-4 col-sm-12 col-12 wow move-up mt--30 d-flex">
+        <div class="blog blog-style--2 creative--blog">
+          <div class="thumb">
+            <a href="{{ article.url }}"><img src="{{ article.image | img_url: 'large' }}" alt="{{ article.title | escape }}"></a>
+          </div>
+
+          <div class="blog-content">
+            <div class="content">
+              <h3 class="the-title"><a href="{{ article.url }}">{{ article.title | escape }}</a></h3>
+              <ul class="meta">
+                <li>{{ article.published_at | time_tag: format: 'date' }}</li>
+                <li><a href="/blog/news">News</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Single Portfolio -->
+	{%- endfor -%}
+
+      
+
+    </div>
+
+  </div>
+</div>
+{% endif %}
+{% schema %}
+{
+  "name": "Section Blog",
+  "settings": [
+	{
+      "type": "checkbox",
+      "id": "show_section",
+      "label": "Show section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Title",
+	  "default": {
+			 "en": "Blog",
+			 "zh-TW": "Blog"
+          }
+    },
+	{
+      "type": "text",
+      "id": "title_1",
+      "label": "Title 1",
+      "default": "Blog"
+    },
+	{
+      "type": "text",
+      "id": "title_2",
+      "label": "Title 2",
+      "default": "Updates"
+    },
+	{
+      "type": "text",
+      "id": "button",
+      "label": "Button",
+      "default": "View all posts"
+    },
+	{
+      "type": "url",
+      "id": "url",
+      "label": "Url"
+    },
+    {
+      "id": "blog",
+      "type": "blog",
+      "label": "Blog"
+    }
+	]
+}
+{% endschema %}

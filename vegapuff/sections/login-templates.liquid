@@ -1,0 +1,104 @@
+<main class="page-content">
+            
+            <!-- My Account Page -->
+            <div class="my-account-area pt--70 pb--70 bg_color--1">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <!-- Login Form -->
+                        <div class="col-lg-8 col-xl-6">
+                            <div class="login-form-wrapper">
+                                  {% form 'customer_login', novalidate: 'novalidate' %}
+                              			{%- if form.errors -%}
+                                            <div class="form-message form-message--error">
+                                              <h2 class="h3 form-message__title " tabindex="-1" data-form-status>{{ 'contact.form.error_heading' | t }}</h2>
+                                              {{ form.errors | default_errors }}
+                                            </div>
+          								{%- endif -%}
+                                    <div class="text-center pb-5">
+                                        <h4>{{ section.settings.title }}</h4>
+                                        <a href="/account/register" class="brook-btn bk-btn-white text-theme btn-sd-size btn-rounded">{{ section.settings.button }}</a>
+                                    </div>
+                                    
+                                    <div class="sn-form-inner">
+                                        <div class="single-input">
+                                            <label for="login-form-email">{{ 'customer.login.email' | t }} *</label>
+                                            <input type="email" name="customer[email]"  id="CustomerEmail" required>
+                                        </div>
+                                      {% if form.password_needed %}
+                                        <div class="single-input">
+                                            <label for="login-form-password">{{ 'customer.login.password' | t }} *</label>
+                                             <input type="password" value="" name="customer[password]"id="CustomerPassword" required>
+                                        </div>
+                                      {% endif %}
+                                        <div class="single-input text-center">
+                                            <button type="submit" class="brook-btn  bk-btn-white text-theme btn-sd-size btn-rounded">
+                                                <span>{{ 'customer.login.sign_in' | t }}</span>
+                                            </button>
+                                        </div>
+                                        <div class="single-input text-center">
+                                            <a href="javascrip:;" id="move-to-lost">{{ section.settings.text }}</a>
+                                        </div>     
+                                    </div>
+                                {% endform %}
+
+                                {% form 'recover_customer_password',class : 'sn-form sn-form-boxed',id : 'page-lost-password' %}                                                                      
+                                    <div class="sn-form-inner">
+                                        <div class="single-input">
+                                            <label for="login-form-email">{{ 'customer.recover_password.email' | t }} *</label>
+                                             <input type="email" value="" name="email" id="RecoverEmail">                                                                    	
+                                        </div>
+                                        
+                                        <div class="single-input">
+                                            <button type="submit" class="brook-btn bk-btn-white text-theme btn-sd-size btn-rounded">
+                                                {{ 'customer.recover_password.submit' | t }}
+                                            </button>
+                                        </div>
+                                        <div class="single-input">
+                                            <a href="javascript:;" id="back-login">{{ 'customer.recover_password.cancel' | t }}</a>
+                                        </div>
+                                    </div>
+                                {% endform %}
+                            </div>
+                        </div>
+                        <!--// Login Form -->
+                    </div>
+                </div>
+            </div>
+            <!--// My Account Page -->
+        </main>
+{% schema %}
+  {
+    "name": "Section Login",
+    "settings": [
+		{
+        "id": "title",
+        "type": "text",
+        "label": "Title",
+         "default": {
+             "en": "New to this site?",
+             "zh-TW": "刚接触这个网站？"
+          }
+      },
+	  {
+        "id": "button",
+        "type": "text",
+        "label": "Button",
+         "default": {
+             "en": "Sign Up",
+             "zh-TW": "报名"
+          }
+      },
+	  {
+        "id": "text",
+        "type": "text",
+        "label": "Text",
+         "default": {
+             "en": "Lost your password?",
+             "zh-TW": "忘记密码？"
+          }
+      }
+	
+	]
+  }
+{% endschema %}
+

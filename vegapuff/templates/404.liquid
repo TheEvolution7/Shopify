@@ -1,0 +1,32 @@
+{% section 'breadcrumb' %}
+<main class="page-content">
+  <!-- Start 404 Area -->
+  <div class="error-not-found" style="min-height: auto;">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="error-inner text-center">
+            <div class="image mb--55">
+              <img src="{{ 'image_404.png' | asset_url }}" alt="{{ 'general.404.title' | t }}">
+            </div>
+            <h3 class="heading heading-h3 text-white">{{ 'general.404.title' | t }}</h3>
+            <div class="error-text mt--20">
+              <p class="text-white">{{ 'general.404.subtext' | t }}</p>
+              <div class="error-button-group mt--40">
+                <button class="brook-btn bk-btn-theme btn-sd-size btn-rounded space-between" onclick="goBack()">Go back</button>
+                <a class="brook-btn bk-btn-white btn-sd-size btn-rounded space-between" href="{{ routes.root_url }}">Homepage</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End 404 Area -->
+
+</main>
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>

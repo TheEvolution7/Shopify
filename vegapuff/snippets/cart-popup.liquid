@@ -1,0 +1,48 @@
+<div class="mini-cart">
+  <div id="minicart-trigger" class="minicart-trigger mini-cart-button" data-count="{{ cart.item_count }}">
+    <button>{% include 'icon-cart' %}</button>
+  </div>
+  <div class="shopping-cart cart-box">
+    <div class="shop-inner">
+      <form action="{{ routes.cart_url }}" method="post" class="h-100">
+        {% if cart.item_count > 0 %} 
+          <div class="header">
+            <ul class="product-list">
+			{% for item in cart.items %} 
+              <!-- Start Single Product -->
+              <li>
+                <div class="thumb">
+                  <a href="{{ item.url }}">
+                    <img src="{{ item | img_url: 'medium' }}" alt="{{ item.product.title }}">
+                  </a>
+                </div>
+                <div class="content">
+                  <div class="inner">
+                    <h4><a href="{{ item.url }}">{{ item.product.title }}</a></h4>
+                    <div class="quatity">
+                      <span>{{ item.quantity }} ×</span>
+                      <span>{{ item.price | money }}</span>
+                    </div>
+                  </div>
+                  <a class="delete-btn" href="/cart/change?line={{ forloop.index }}&amp;quantity=0"><i class="fas fa-times"></i></a>
+                </div>
+              </li>
+            {% endfor %} 
+            </ul>
+          </div>
+          <div class="footer">
+            <div class="total">{{ 'cart.label.total' | t }}: <span>{{ cart.total_price | money_with_currency }}</span></div>
+          	<a class="brook-btn" style="height: 50px; width: 220px;" href="{{ routes.cart_url }}">{{ 'products.product.view_cart' | t }}</a>
+          </div>
+          {% else %}
+           <div class="header">
+            <p>{{ 'cart.general.empty' | t }}</p>
+           </div>
+           <div class="footer">
+              <a class="brook-btn" href="{{ routes.all_products_collection_url }}">{{ 'cart.general.continue_shopping' | t }}</a>
+           </div>
+        {% endif %}
+      </form>
+    </div>
+  </div>
+</div>

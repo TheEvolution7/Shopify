@@ -1,0 +1,31 @@
+{% comment %}
+    Renders a pagination bar
+
+    Accepts:
+    - paginate: {Object} Paginate Liquid object (required)
+
+    Usage:
+    {% include 'pagination', paginate: paginate %}
+{% endcomment %}
+<ul class="brook-pagination">
+    {%- for part in paginate.parts -%}
+      {%- if part.is_link -%}
+          <li><a href="{{ part.url }}">{{ part.title }}</a></li>
+      {%- else -%}
+          {%- if part.title == paginate.current_page -%}
+              <li class="active"><a href="#" disabled="disabled">{{ part.title }}</a></li>
+          {%- else -%}
+              <li><a href="#" disabled="disabled">{{ part.title }}</a></li>
+          {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if paginate.next -%}
+      <li>
+        <a href="{{ paginate.next.url }}">{% include 'icon-arrow-right' %}</a>
+      </li>
+    {%- else -%}
+      <li>
+        <a href="#" disabled="disabled">{% include 'icon-arrow-right' %}</a>
+      </li>
+    {%- endif  -%}
+ </ul>

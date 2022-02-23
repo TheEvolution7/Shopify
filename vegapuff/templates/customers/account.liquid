@@ -1,0 +1,208 @@
+<!-- Start Breadcaump Area -->
+
+<div class="banner-subpage" style="background-image: url({{ '1.jpeg' | asset_url }});">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center">
+        <h1 class="theme-creative heading heading-h1">Welcome! {{ customer.first_name }} {{ customer.last_name }}</h1>
+        <button class="addtocart brook-btn" onclick="window.location.href='/account/logout/'"><i class="fas fa-chevron-right"></i>
+                      <span>Logout</span></button>
+        <!-- <p class="sub-title"></p> -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Breadcaump Area -->
+
+<!-- Page Conttent -->
+<main class="page-content">
+
+  <!-- Start My Account Area -->
+  <div class="my-account-area pt--120 pb--90">
+    <div class="container">
+      <div class="row">
+        <div class="ml-auto mr-auto col-lg-12">
+          <div class="checkout-wrapper">
+            <div id="faq" class="panel-group">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h5 class="panel-title">
+                        <span>1</span>
+                        <a data-toggle="collapse" class="collapsed" data-parent="#faq" href="#my-account-1">Information</a>
+                      </h5>
+                    </div>
+                    <div id="my-account-1" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <div class="billing-information-wrapper">
+                          <div class="account-info-wrapper">
+                            <h4>My Account Information</h4>
+                            <h5>Your Personal Details</h5>
+                          </div>
+                          {% form 'customer', customer, class : 'account' %}
+                            <div class="row">
+                              <div class="col-lg-12 col-md-12">
+                                <div class="billing-info">
+                                  <img name="hiko-avatar" style="...."></img>
+                              </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                              <div class="billing-info">
+                                <label>First Name</label>
+                                <input type="text" name="first_name" value="{{ customer.first_name }}">
+
+                              </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                              <div class="billing-info">
+                                <label>Last Name</label>
+                                <input type="text" name="last_name" value="{{ customer.last_name }}">
+                              </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                              <div class="billing-info">
+                                <label>Email Address</label>
+                                <input type="email" name="email" value="{{ customer.email }}">
+                              </div>
+                            </div>
+
+                          </div>
+                        {% endform %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+				<div class="col-lg-12">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h5 class="panel-title">
+                        <span>4</span>
+                        <a data-toggle="collapse" class="collapsed" data-parent="#faq" href="#my-account-4">Modify your address book entries </a>
+                      </h5>
+                    </div>
+                    <div id="my-account-4" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <div class="billing-information-wrapper">
+                           {% if customer.addresses != empty %}
+                          	{% for address in customer.addresses %}
+                              <div class="account-info-wrapper">
+                                <h4>Address {{ forloop.index }} {% if address == customer.default_address %}(default){% endif %}</h4>
+                                <a href="{{ routes.account_addresses_url }}" class="edit">Add New Address</a>
+                              </div>
+							 {% form 'customer_address', address %}
+                              <div class="entries-wrapper mb--30">
+                                <div class="row">
+                                  <div class="col-lg-6 col-md-6 col-sm-6 col-12 d-flex align-items-center">
+                                    <div class="billing-info pt--10 pb--10 pl--10 pr--10">
+                                      <label>Address:</label>
+                                      <input type="text" id="AddressAddress1New" name="address[address1]" value="{{ form.address1 }}" required>
+                                    </div>
+                                    <div class="billing-info pt--10 pb--10 pl--10 pr--10">
+                                      <label>Phone:</label>
+                                      <input type="text" id="AddressPhoneNew" name="address[phone]" value="{{ form.phone }}" required>
+                                    </div>
+                                  </div>
+                                  <div class="col-lg-6 col-md-6 col-sm-6 col-12 d-flex align-items-center justify-content-center">
+                                    <div class="entries-edit-delete text-center">
+                                      <button class="edit" type="submit">Edit</button>
+                                    {% if address != customer.default_address %}
+                                     {% form 'customer_address', address  %}
+                                       	<button type="submit" class="edit" id="{{ address.id }}">Choose Default</button>
+                        				<input type="hidden" id="address_default_address_new" name="address[default]" value="1">
+                                     {% endform %}
+                                     {% endif %}
+                          			 <form class="address-delete-form" method="post" action="/account/addresses/{{ address.id }}" >
+                                        <input type="hidden" name="_method" value="delete">
+                                        <button type="submit">{{ 'customer.addresses.delete' | t }}</button>
+                                      </form>
+                                        <a href="/account/addresses" class="edit">View More</a> 
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                          	{% endform %}
+                          	{% endfor %}
+                           {% else %}
+                          	 <p>Delivery address is empty</p>
+                          	 <a href="{{ routes.account_addresses_url }}" class="edit">Add Address</a>
+                           {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h5 class="panel-title">
+                        <span>3</span>
+                        <a data-toggle="collapse" class="collapsed" data-parent="#faq" href="#my-account-3">My order </a>
+                      </h5>
+                    </div>
+                    <div id="my-account-3" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <div class="billing-information-wrapper">
+                          <div class="account-info-wrapper">
+                            <h4>{{ 'customer.orders.title' | t }}</h4>
+                          </div>
+                          <div class="cart_area">
+                            <div class="container">
+                              <div class="row">
+                                <div class="col-12">
+                                  <form action="#">
+                                    <!-- Cart Table -->
+                                    <div
+                                         class="table table-responsive mb--40">
+                                      {% if customer.orders.size != 0 %}
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>{{ 'customer.orders.order_number' | t }}</th>
+                                                    <th>{{ 'customer.orders.date' | t }}</th>
+                                                    <th>{{ 'customer.orders.payment_status' | t }}</th>
+                                                    <th>{{ 'customer.orders.fulfillment_status' | t }}</th>
+                                                    <th>{{ 'customer.orders.total' | t }}</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                               {% for order in customer.orders %}
+                                                <tr>
+                                                    <td data-label="Order">{{ order.name }}</td>
+                                                    <td data-label="Date">{{ order.created_at | time_tag: format: 'date' }}</td>
+                                                    <td data-label="Payment status">{{ order.financial_status_label }}</td>
+                                                    <td data-label="Fullfillment status">{{ order.fulfillment_status_label }}</td>
+                                                    <td data-label="Total">{{ order.total_price | money }}</td>
+                                                    <td>
+                                                        <a href="{{ order.customer_url }}">View</a>
+                                                    </td>
+                                                </tr>
+                                               {% endfor %}
+                                            </tbody>
+                                        </table>
+                                      {% else %}
+                                        <p>{{ 'customer.orders.none' | t }}</p>
+                                      {% endif %}
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End My Account Area -->
+</main>
+<!--// Page Conttent -->

@@ -1,0 +1,104 @@
+{% if section.settings.show_section %}
+	<div class="bk-service-area function-section section-pb-120" data-section-id="{{ section.id }}">
+    <div class="parallax-container js-text-parallax">
+      <div class="fx-wrap" data-x="200">
+        <h3 class="fx-target">{{ section.settings.text_1 }}</h3>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="section-title--between justify-content-center mb--30 pb_lg--40 wow move-up">
+            <div class="title">
+              <h3>{{ section.settings.title_1 }}<span class="theme-creative"> {{ section.settings.title_2 }}</span></h3>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="row justify-content-center">
+       {% for block in section.blocks %}
+        <!-- Start Single Service -->
+        <div class="col-lg-4 col-md-4 col-sm-6 col-12 wow move-up">
+          <div class="service service--2">
+            <div class="thumb"  style="-webkit-mask-image: url({{ block.settings.image-icon | img_url : 'master' }});">
+<!--               {{ block.settings.text }} -->
+            </div>
+            <div class="content">
+              <h4>{{ block.settings.title }}</h4>
+            </div>
+          </div>
+        </div>
+        <!-- End Single Service -->
+       {% endfor %}
+        <div class="col-12 wow move-up mt_sm--40 text-center">
+          <p class="text-note">{{ section.settings.content }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Service",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "header",
+          "content": "Content"
+    	},
+		{
+          "type": "text",
+          "id": "text_1",
+          "label": "Text",
+		  "default": {
+			 "en": "Function",
+			 "zh-TW": "Function"   
+          }
+        },
+		{
+          "type": "text",
+          "id": "title_1",
+          "label": "Title",
+		  "default" : "Vega's"
+        },
+		{
+          "type": "text",
+          "id": "title_2",
+          "label": "Title",
+		  "default" : "Function contain"
+        },
+		{
+          "type": "html",
+          "id": "content",
+          "label": "content",
+		  "default" : "Benefits from 100% Essential oil, and Vitamins."
+        }
+	],
+	"blocks": [
+    {
+      "type": "content",
+      "name": "content",
+	  "limit" : 3,
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "image-icon",
+          "label": "Image Icon"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

@@ -1,0 +1,29 @@
+<div class="product-thumbnail">
+  <a href="{{ product.url }}" class="thumbnail">
+    {%- for media in product.media limit : 2 -%}
+    <div class="{% if forloop.index == 1 %}product-main-image{% else %}product-hover-image{% endif %}">
+      <img src="{{ media | img_url: 'large' }}" alt="{{ media.alt | default : product.title }}">
+    </div>
+    {%- endfor -%} 
+    {% if product.selected_or_first_available_variant.compare_at_price %}
+    <div class="product-badges">
+      <div class="onsale">-{{ product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price | times: 100.0 | divided_by: product.selected_or_first_available_variant.compare_at_price | money_without_currency | times: 100 | remove: '.0'}}%</div>
+    </div>
+    {% endif %}
+  </a>
+  <div class="product-action">
+
+  </div>
+</div>
+<div class="product-info">
+  <h5 class="heading heading-h5"><a href="{{ product.url }}">{{ product.title }}</a></h5>
+  <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+  {% if product.selected_or_first_available_variant.compare_at_price %}
+  		<div class="price">
+          <span><del>{{ product.selected_or_first_available_variant.compare_at_price | money }}</del>&nbsp</span>
+          <span class="new-price">{{ product.selected_or_first_available_variant.price | money }}</span>
+  		</div>
+  {% else %}
+  <div class="price"><span>{{ product.price | money }}</span></div>
+  {% endif %}
+</div>

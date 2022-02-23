@@ -1,0 +1,22 @@
+<div class="brook-search-popup">
+  <div class="inner">
+    <div class="search-header">
+      <div class="logo">
+         <a href="{{ routes.root_url }}">
+            <img src="{{ image | img_url: 'medium' }}" alt="{{ image.alt | default: shop.name }}">
+          </a>
+      </div>
+      <a href="#" class="search-close"></a>
+    </div>
+    <div class="search-content">
+       <form action="{{ routes.search_url }}" method="get" role="search">
+        <label>
+          <input type="text" id="keyword" name="q" placeholder="{{ 'general.search.placeholder' | t }}" value="{{ search.terms | escape }}">
+          <input type="hidden" name="type" value="product" aria-hidden="true" />
+          <input type="hidden" name="options[prefix]" value="last" aria-hidden="true" />
+        </label>
+        <button class="search-submit" type="submit">{% include 'icon-search' %}</button>
+      </form>
+    </div>
+  </div>
+</div>

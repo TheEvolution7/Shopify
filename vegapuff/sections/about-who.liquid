@@ -1,0 +1,82 @@
+{% if section.settings.show_section %}
+  <div class="food-menu-area" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row no-gutters">
+        <div class="col-lg-6">
+          <div class="bg-left-p">
+            <img src="{{ section.settings.image | img_url : 'grande' }}" alt="{{ section.settings.image.alt | default: section.settings.title }}">
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="food-menu-wrap wow move-up text-center">
+            <div class="title--creative text-center mb--50">
+              <h3 class="heading ml-auto mr-auto">{{ section.settings.text }}</h3>
+              <h2 class="ml-auto mr-auto"><span class="theme-creative">{{ section.settings.title }}</span></h2>
+
+            </div>
+            <p class="wow move-up pb--20">
+              {{ section.settings.content }}
+            </p>
+            <div class="wow move-up">
+              <a href="{{ section.settings.url }}" class="brook-btn">{{ section.settings.button_1 }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Wholesale",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "header",
+          "content": "Content"
+    	},
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+		  "default" : "Contact Us For"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Wholesale"
+        },
+		{
+          "type": "html",
+          "id": "content",
+          "label": "content"
+        },
+		{
+          "type": "text",
+          "id": "button_1",
+          "label": "Button",
+		  "default": {
+			 "zh-TW": "保持聯繫",
+             "en": "GET IN TOUCH"
+             
+          }
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        }
+	]
+  }
+{% endschema %}

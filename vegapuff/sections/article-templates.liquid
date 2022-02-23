@@ -1,0 +1,124 @@
+<div class="breadcaump-area pt--260 pt_md--200 pt_sm--200 pb--160 pb_sm--100 bg-gradient breadcaump-title-bar breadcaump-title-white">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="breadcaump-inner text-center">
+          <div class="breadcrumb-insite">
+            <div class="header mb--40 text-center">
+              <h3 class="heading heading-h3 font-32 text-white">{{ article.title }}</h3>
+              <div class="post-meta mt--20 text-white bk-hover align-items-center d-flex justify-content-center">
+                <div class="post-date">{{ article.published_at | time_tag: format: 'date' }}</div>
+                <div class="post-category"><a href="/blog/news">{{ section.settings.title_1 }}</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+ <!-- Start Blog Details -->
+        <div class="brook-blog-details-area space_dec--100 pt_md--80 pt_sm--80">
+            <div class="container">
+                <div class="row mb--85 justify-content-center">
+
+                    <div class="col-lg-12">
+                        <!-- Start Thumbnail -->
+                        <div class="blog-modern-layout">
+                            <div class="thumbnail mb--60">
+                                <img class="w-100" src="{{ article.image | img_url : '1024x' }}" alt="{{ article.image.alt | default : article.title }}">
+                            </div>
+                        </div>
+                        <!-- End Thumbnail -->
+                    </div>
+
+                    
+                    <div class="col-lg-8 order-1 order-lg-2">
+                        <div class="blog-details-wrapper">
+                            <article class="blog-post blog-modern-layout">
+                                <!-- Start Header -->
+                                <!-- Start Content -->
+                                <div class="content basic-dark2-line-1px pb--50 mb--35">
+                                     {{ article.content }}
+                                </div>
+                                <!-- Start Footer -->
+                                <div class="blog-footer wow move-up">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-12">
+                                            <div class="post-tag d-flex align-items-center justify-content-center">
+                                                <h6 class="heading heading-h6">{{ section.settings.title_2 }}:</h6>
+                                                <div class="blog-tag-list pl--5">
+                                                    {% for tag in article.tags %}
+                      									<a href="/blogs/news/tagged/{{ tag | handle }}">{{ tag }}</a>
+                      								{% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- End Blog Details -->
+
+        <!-- Start Pagination Area -->
+        {% if blog.next_article %}
+          <div class="blog-modern-pagination bg-gradient ptb--110 ptb-md--80 ptb-sm--60">
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                  <div class="modern-pagination text-center">
+                    <a href="{{ blog.next_article.url }}">
+                      <p class="bk_pra body-color">{{ section.settings.title_3 }}</p>
+                      <div class="title mt--25 mb--40">
+                        <h4 class="heading heading-h4 text-white">{{ blog.next_article.title }}</h4>
+                      </div>
+                      <span class="nav-icon fa fa-arrow-right"></span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+        <!-- End Pagination Area -->
+{% schema %}
+  {
+    "name": "Section News",
+    "settings": [
+	 {
+        "id": "title_1",
+        "type": "text",
+        "label": "Text",
+         "default": {
+             "en": "News",
+             "zh-TW": "博客"
+          }
+      },
+ 	 {
+        "id": "title_2",
+        "type": "text",
+        "label": "Text",
+         "default": {
+             "en": "TAGS",
+             "zh-TW": "TAGS"
+          }
+      },
+	  {
+        "id": "title_3",
+        "type": "text",
+        "label": "Text",
+         "default": {
+             "en": "Next",
+             "zh-TW": "下一個"
+          }
+      }
+	  
+ 
+	]
+  }
+{% endschema %}
