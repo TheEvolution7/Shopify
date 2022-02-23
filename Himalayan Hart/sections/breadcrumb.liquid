@@ -1,0 +1,32 @@
+<section class="page-header">
+  <div class="page-header__bg" style="background-image: url({{ section.settings.image | img_url : 'master' }});"></div>
+
+  <div class="container">
+    <ul class="thm-breadcrumb list-unstyled">
+      <li><a href="{{ routes.root_url }}">Home</a></li>
+      <li>/</li>
+      <li><span>{{ page_title }}</span></li>
+    </ul>
+    <h2>{{ page_title }}</h2>
+    {%- if request.page_type == 'customers/account' -%}
+    	 {{ 'layout.customer.log_out' | t | customer_logout_link }}
+    {%- endif -%}
+     {%- if request.page_type == 'customers/addresses' or request.page_type == 'customers/order' -%}
+    	<p><a href="{{ routes.account_url }}">{{ 'customer.account.return' | t }}</a></p>
+     {%- endif -%}
+  </div>
+</section>
+{% schema %}
+  {
+    "name": "Section Breadcrumb",
+    "settings": [
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }	
+	]
+  }
+{% endschema %}
+
+

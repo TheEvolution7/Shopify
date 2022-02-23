@@ -1,0 +1,118 @@
+{% section 'breadcrumb' %}
+
+  <section class="project-details">
+    <div class="container">
+      
+      <h2>{{ 'customer.orders.title' | t }}</h2>
+
+      {% paginate customer.orders by 20 %}
+        {% if customer.orders.size != 0 %}
+
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">{{ 'customer.orders.order_number' | t }}</th>
+                <th scope="col">{{ 'customer.orders.date' | t }}</th>
+                <th scope="col">{{ 'customer.orders.payment_status' | t }}</th>
+                <th scope="col">{{ 'customer.orders.fulfillment_status' | t }}</th>
+                <th scope="col">{{ 'customer.orders.total' | t }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order in customer.orders %}
+                <tr>
+                  <th data-label="{{ 'customer.orders.order_number' | t }}" scope="row">
+                    <a href="{{ order.customer_url }}" class="btn btn--secondary btn--small" aria-label="{{ 'customer.orders.order_number_link' | t: number: order.name }}">{{ order.name }}</a>
+                  </th>
+                  <td data-label="{{ 'customer.orders.date' | t }}">{{ order.created_at | time_tag: format: 'date' }}</td>
+                  <td data-label="{{ 'customer.orders.payment_status' | t }}">{{ order.financial_status_label }}</td>
+                  <td data-label="{{ 'customer.orders.fulfillment_status' | t }}">{{ order.fulfillment_status_label }}</td>
+                  <td data-label="{{ 'customer.orders.total' | t }}">{{ order.total_price | money }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+        {% else %}
+
+          <p>{{ 'customer.orders.none' | t }}</p>
+
+        {% endif %}
+        {%- if paginate.pages > 1 -%}
+          {% include 'pagination', paginate: paginate %}
+        {%- endif -%}
+      {% endpaginate %}
+    </div>
+    
+    <div class="project-details account">
+    <div class="container">
+        <div class="row">
+           
+          {% for address in customer.addresses %}
+          {% if address == customer.default_address %}
+          	<div class="col-lg-6">
+            <div class="box-address">
+              <h3 class="mb-10">{% if address == customer.default_address %}{{ 'customer.addresses.default' | t }}{% endif %}</h3>
+              <table>
+                <tbody>
+                  
+                  <tr>
+                    <td>First Name</td>
+                    <td>{{ address.first_name }}</td>
+                  </tr>
+                  <tr>
+                    <td>Last Name</td>
+                    <td>{{ address.last_name }}</td>
+                  </tr>
+                  <tr>
+                    <td>Phone Number</td>
+                    <td>{{ address.phone }}</td>
+                  </tr>
+                  <tr>
+                    <td>Company</td>
+                    <td>{{ address.company }}</td>
+                  </tr>
+                  <tr>
+                    <td>Address</td>
+                    <td>{{ address.address1 }}</td>
+                  </tr>
+                  <tr>
+                    <td>City</td>
+                    <td>{{ address.city }}</td>
+                  </tr>
+                  <tr>
+                    <td>Country</td>
+                    <td>{{ address.country }}</td>
+                  </tr>
+                  <tr>
+                    <td>ZIP/Postal Code</td>
+                    <td>{{ address.zip }}</td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+              <div class="row">
+                <div class="col-12 d-flex justify-content-between">
+                  
+                 <p><a href="{{ routes.account_addresses_url }}" class="thm-btn">{{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a></p>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+			{% endif %}
+          {% endfor %}
+
+        </div>
+    </div>
+</div>
+    </section>
+
+
+      
+        
+    
+
+
+  
+

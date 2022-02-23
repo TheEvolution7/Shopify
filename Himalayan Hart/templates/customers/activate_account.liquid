@@ -1,0 +1,18 @@
+{% section 'breadcrumb' %}
+<div class="project-details">
+  <div class="container">
+    <div class="row contact-one__form justify-content-center">
+      <div class="col-6">
+        {% form 'activate_customer_password' %}
+          <input type="password" value=""  name="customer[password]" id="CustomerPassword" placeholder="{{ 'customer.activate_account.password' | t }}" required>
+          <input type="password" value=""  name="customer[password_confirmation]" id="CustomerPasswordConfirmation" placeholder="{{ 'customer.activate_account.password_confirm' | t }}" required>
+          <div class="action-auth d-flex justify-content-between">
+            <button type="submit" class="thm-btn main-btn"><span>{{ 'customer.activate_account.submit' | t }}</span></button>
+            <button class="thm-btn " onclick="window.location.href='{{ routes.account_login_url }}'"><span>{{ 'customer.activate_account.cancel' | t }}</span></button>
+          </div>
+        {% endform %}
+      </div>
+
+    </div>
+  </div>
+</div>

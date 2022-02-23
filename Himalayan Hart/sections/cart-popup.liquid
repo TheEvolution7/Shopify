@@ -1,0 +1,70 @@
+<div class="modal modal-cart fade" id="modal-cart" tabindex="-1" role="dialog">
+  <form action="{{ routes.cart_url }}" method="post" class="cart-popup">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" data-ajax-cart-section>
+      
+      <div class="modal-header">
+        <h5 class="modal-title">Cart ({{cart.item_count}} tems)</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+       
+      {% if cart.item_count > 0 %} 
+
+      <div class="modal-body">
+
+       
+          <div class="cart-container">
+            {% for item in cart.items %} 
+            <div class="cart-item">
+              <div class="img-p">
+                <img src="{{ item | img_url: 'medium' }}" alt="{{ item.product.title }}">
+              </div>
+              <div class="content">
+                <div class="title-p">
+                  {{ item.product.title }}
+                  <a data-ajax-cart-request-button href="{{ routes.cart_change_url }}?id={{ item.key }}&quantity=0" class="del-btn"><i class="fas fa-trash-alt"></i></a>
+                </div>
+                <div class="quantity-price-p">
+                  <div class="pro-qty">
+                    <input data-ajax-cart-quantity-input="{{ forloop.index }}" name="updates[]" id="quantity1" value="1" title="Quantity"  value="{{ item.quantity }}"  type="text" />
+                    <a data-ajax-cart-request-button href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity={{ item.quantity | plus: 1 }}" class="inc qty-btn">+</a><a data-ajax-cart-request-button href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity={{ item.quantity | minus: 1 }}"  class="dec qty-btn">-</a>
+                  </div>
+                  <div class="price-p">
+                    <del> {{ item.compare_at_price | money }} </del>{{ item.price | money }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %} 
+          </div>
+          </div>
+        <div class="modal-footer">
+          <div class="total-price">
+            Total: <span>{{ cart.total_price | money }}</span>
+          </div>
+          <button type="submit" name="checkout" class="thm-btn">Check out</button>
+          
+      </div>
+
+      {% else %} 
+      <div class="modal-body">
+        <div class="cart-container">
+          <p>{{ 'cart.general.empty' | t }}</p><br>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a  class="thm-btn" href="{{ routes.all_products_collection_url }}">{{ 'cart.general.continue_shopping' | t }}</a>
+      </div>
+      {% endif %} 
+
+    </div>
+  </div></form>
+</div>
+{% schema %}
+  {
+    "name": "Section Cart Popup",
+    "settings": []
+  }
+{% endschema %}

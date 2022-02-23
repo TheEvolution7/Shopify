@@ -1,0 +1,80 @@
+{% if section.settings.show_section %}
+<section class="video-one" data-section-id="{{ section.id }}">
+  <img src="{{ 'video-bg-1-1.png' | asset_url }}" class="video-one__bg" alt="">
+  <div class="container">
+  <div class="row">
+  <div class="col-lg-6">
+  <div class="video-one__image">
+  <img src="{{ section.settings.image | img_url : 'master' }}" alt="{{ section.settings.image.alt | default : section.settings.text }}">
+  <a href="{{ section.settings.link }}" class="video-popup"><i class="fa fa-play"></i></a>
+  <span class="video-one__text">{{ section.settings.text }}</span>
+  </div>
+  </div>
+  <div class="col-lg-6">
+  <div class="video-one__content">
+  <div class="block-title">
+  <div class="block-title__image"></div>
+  <p>{{ section.settings.title }}</p>
+  <h3>{{ section.settings.heading }}</h3>
+  </div>
+  <div class="video-one__summery">
+  {{ section.settings.content }}
+  </div>
+  <div class="video-one__count-wrap">
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+</section>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Video",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+		  "default" : "8008 Projects are completed"
+        },
+		{
+          "type": "text",
+          "id": "link",
+          "label": "Link Youtube",
+		  "default" : "https://www.youtube.com/embed/AVoyRxRZi1E"
+        },
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Our story"
+        },
+		{
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+		  "default" : "Tradition met passion and that's how it came to be"
+        },
+		{
+          "type": "richtext",
+          "id": "content",
+          "label": "Text",
+		  "default": "<p>We are selling these Tea under our own brand which is made from the single garden tea leaf from India. We are not giving dust by the name of tea. Green Black White We are also featuring very few tea gardens where we will introduce garden’s name on our Tea Packets from where the tea is actually plugged from. </p>"
+        }
+      
+	]
+	
+  }
+{% endschema %}

@@ -1,0 +1,244 @@
+{% section 'breadcrumb' %}
+<div class="project-details account">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 ">
+                <button class="thm-btn" data-toggle="modal" data-target="#modal-add">Add Address</button>
+            </div>
+          {% for address in customer.addresses %}
+          	<div class="col-lg-6">
+            <div class="box-address">
+              <h3 class="mb-10">{{ forloop.index}}. {% if address == customer.default_address %}({{ 'customer.addresses.default' | t }}){% endif %}</h3>
+              <table>
+                <tbody>
+                  
+                  <tr>
+                    <td>First Name</td>
+                    <td>{{ address.first_name }}</td>
+                  </tr>
+                  <tr>
+                    <td>Last Name</td>
+                    <td>{{ address.last_name }}</td>
+                  </tr>
+                  <tr>
+                    <td>Phone Number</td>
+                    <td>{{ address.phone }}</td>
+                  </tr>
+                  <tr>
+                    <td>Company</td>
+                    <td>{{ address.company }}</td>
+                  </tr>
+                  <tr>
+                    <td>Address</td>
+                    <td>{{ address.address1 }}</td>
+                  </tr>
+                  <tr>
+                    <td>City</td>
+                    <td>{{ address.city }}</td>
+                  </tr>
+                  <tr>
+                    <td>Country</td>
+                    <td>{{ address.country }}</td>
+                  </tr>
+                  <tr>
+                    <td>ZIP/Postal Code</td>
+                    <td>{{ address.zip }}</td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+              <div class="row">
+                <div class="col-12 d-flex justify-content-between">
+                  
+                  <button class="thm-btn" data-toggle="modal" data-target="#modal-edit-{{ address.id }}">Edit</button> 
+                  <form class="address-delete-form" method="post" action="/account/addresses/{{ address.id }}" >
+                 <input type="hidden" name="_method" value="delete">
+                  <button
+                    type="submit"
+                    class="thm-btn"
+                    data-target="{{ address.url }}"
+                    data-confirm-message="{{ 'customer.addresses.delete_confirm' | t }}"
+                  >
+                    {{ 'customer.addresses.delete' | t }}
+                  </button>
+              	</form>
+                </div>
+              </div>
+            </div>
+          </div>
+			<div class="modal fade" id="modal-edit-{{ address.id }}" tabindex="{{ forloop.index }}" role="dialog" aria-labelledby="modal-edit" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Address</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+           {%   form 'customer_address', address,class : 'contact-one__form pl-0' %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-30">
+                            <label>{{ 'customer.addresses.first_name' | t }}<span>*</span></label>
+                           <input type="text" id="AddressFirstNameNew" name="address[first_name]" value="{{ form.first_name }}" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-30">
+                            <label>{{ 'customer.addresses.last_name' | t }}<span>*</span></label>
+                            <input type="text" id="AddressLastNameNew" name="address[last_name]" value="{{ form.last_name }}" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-30">
+                            <label>{{ 'customer.addresses.phone' | t }}<span>*</span></label>
+                            <input type="tel" id="AddressPhoneNew" name="address[phone]" value="{{ form.phone }}" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-30">
+                            <label>Company</label>
+                            <input type="text" id="AddressCompanyNew" name="address[company]" value="{{ form.company }}">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="mb-30">
+                            <label>{{ 'customer.addresses.address1' | t }}<span>*</span></label>
+                            <input type="text" id="AddressAddress1New" name="address[address1]" value="{{ form.address1 }}" required>
+                        </div>
+                    </div>
+                  <div class="col-md-12">
+                        <div class="mb-30">
+                            <label>{{ 'customer.addresses.address2' | t }}</label>
+                            <input type="text" id="AddressAddress1New" name="address[address2]" value="{{ form.address2 }}">
+                        </div>
+                    </div>
+                  	<div class="col-md-12">
+                        <div class="mb-30">
+                            <label>Country <span>*</span></label>
+                            <select id="AddressCountry" class="address-country-option" data-form-id="{{ form.id }}" name="address[country]" data-default="{{ form.country }}" autocomplete="country">{{ all_country_option_tags }}</select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-30">
+                            <label>{{ 'customer.addresses.city' | t }}<span>*</span></label>
+                            <input type="text" id="AddressCityNew" name="address[city]" value="{{ form.city }}" required>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="mb-30">
+                            <label>{{ 'customer.addresses.zip' | t }}<span>*</span></label>
+                            <input type="text" id="AddressZipNew" name="address[zip]" value="{{ form.zip }}" autocapitalize="characters" required>
+                        </div>
+                    </div>
+                  {% if address != customer.default_address %}
+                  <div class="col-md-12">
+                        <div class="mb-30">
+                          {{ form.set_as_default_checkbox }}
+                          <label for="address_default_address_new">{{ 'customer.addresses.set_default' | t }}</label>
+                        </div>
+                    </div>
+                  {% endif %}
+                </div>
+           
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="thm-btn">{{ 'customer.addresses.edit' | t }}</button>
+        </div>
+         {% endform %}
+      </div>
+    </div>
+  </div>
+          {% endfor %}
+
+        </div>
+    </div>
+</div>
+ <!-- Modal -->
+ 
+  <!-- Modal -->
+  <div class="modal fade" id="modal-add" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{ 'customer.addresses.add_new' | t }}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+              {% form 'customer_address', customer.new_address ,class : 'contact-one__form pl-0' %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-30">
+                            <label>{{ 'customer.addresses.first_name' | t }}<span>*</span></label>
+                           <input type="text" id="AddressFirstNameNew" name="address[first_name]" value="{{ form.first_name }}" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-30">
+                            <label>{{ 'customer.addresses.last_name' | t }}<span>*</span></label>
+                            <input type="text" id="AddressLastNameNew" name="address[last_name]" value="{{ form.last_name }}" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-30">
+                            <label>{{ 'customer.addresses.phone' | t }}<span>*</span></label>
+                            <input type="tel" id="AddressPhoneNew" name="address[phone]" value="{{ form.phone }}" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-30">
+                            <label>Company</label>
+                            <input type="text" id="AddressCompanyNew" name="address[company]" value="{{ form.company }}">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="mb-30">
+                            <label>{{ 'customer.addresses.address1' | t }}<span>*</span></label>
+                            <input type="text" id="AddressAddress1New" name="address[address1]" value="{{ form.address1 }}" required>
+                        </div>
+                    </div>
+                  <div class="col-md-12">
+                        <div class="mb-30">
+                            <label>{{ 'customer.addresses.address2' | t }}</label>
+                            <input type="text" id="AddressAddress1New" name="address[address2]" value="{{ form.address2 }}">
+                        </div>
+                    </div>
+                  	<div class="col-md-12">
+                        <div class="mb-30">
+                            <label>Country <span>*</span></label>
+                            <select id="AddressCountryNew" name="address[country]" data-default="{{ form.country }}" class="select" required>{{ all_country_option_tags }}</select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-30">
+                            <label>{{ 'customer.addresses.city' | t }}<span>*</span></label>
+                            <input type="text" id="AddressCityNew" name="address[city]" value="{{ form.city }}" required>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="mb-30">
+                            <label>{{ 'customer.addresses.zip' | t }}<span>*</span></label>
+                            <input type="text" id="AddressZipNew" name="address[zip]" value="{{ form.zip }}" autocapitalize="characters" required>
+                        </div>
+                    </div>
+                  <div class="col-md-12">
+                        <div class="mb-30">
+                          {{ form.set_as_default_checkbox }}
+                          <label for="address_default_address_new">{{ 'customer.addresses.set_default' | t }}</label>
+                        </div>
+                    </div>
+                </div>
+           
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="thm-btn">{{ 'customer.addresses.add' | t }}</button>
+        </div>
+         {% endform %}
+      </div>
+    </div>
+  </div>

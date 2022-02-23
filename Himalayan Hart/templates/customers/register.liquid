@@ -1,0 +1,21 @@
+{% section 'breadcrumb' %}
+<div class="project-details">
+    <div class="container">
+        <div class="row contact-one__form justify-content-center">
+          <div class="col-6">
+            {%- assign formId = 'RegisterForm' -%}
+            {% form 'create_customer', id: formId %}
+              <input type="text" name="customer[first_name]" id="{{ formId }}-FirstName" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} placeholder="{{ 'customer.register.first_name' | t }}" required>
+              <input type="text" name="customer[last_name]" id="{{ formId }}-LastName" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} placeholder="{{ 'customer.register.last_name' | t }}" required>
+              <input type="email" name="customer[email]" id="{{ formId }}-email"{% if form.email %} value="{{ form.email }}"{% endif %} placeholder="{{ 'customer.register.email' | t }}" required>
+              <input type="password" name="customer[password]" id="{{ formId }}-password" placeholder="{{ 'customer.register.password' | t }}" required> 
+              <input type="hidden" name="return_to" value="/account" />
+              <div class="action-auth d-flex justify-content-between">
+                <button type="submit" class="thm-btn main-btn"><span>{{ 'customer.register.submit' | t }}</span></button>
+                <button class="thm-btn" onclick="window.location.href='{{ routes.account_login_url }}'"><span>Login</span></button>
+              </div>
+            {% endform %}
+          </div>
+      </div>
+    </div>
+</div>

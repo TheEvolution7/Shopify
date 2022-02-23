@@ -1,0 +1,14 @@
+{% form 'product', product, id: 'add-cart' %}
+<div class="team-card">
+  <div class="team-card__image">
+    <img src="{{ product.featured_image | img_url : 'grande' }}" alt="{{ product.featured_image.alt | default : product.title }}">
+    <div class="team-card__social">
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+      <a href="{{ product.url }}"><i class="fas fa-eye    "></i></a>
+      <button type="submit" {% unless product.available %} disabled="disabled"{% endunless %}><i class="fas fa-cart-plus"></i></button>
+    </div>
+  </div>
+  <a href="{{ product.url }}"><h3>{{ product.title }}</h3></a>
+
+</div>
+{% endform %}

@@ -1,0 +1,84 @@
+<div class="mobile-nav__wrapper">
+<div class="mobile-nav__overlay mobile-nav__toggler"></div>
+
+<div class="mobile-nav__content">
+<span class="mobile-nav__close mobile-nav__toggler"><i class="far fa-times"></i></span>
+<div class="logo-box">
+<a href="{{ routes.root_url }}" aria-label="logo image"><img src="{{ section.settings.logo | img_url: 'medium' }}" alt="{{ section.settings.logo.alt | default: shop.name }}" width="155"/></a>
+</div>
+
+<div class="mobile-nav__container"></div>
+
+<ul class="mobile-nav__contact list-unstyled">
+<li>
+<i class="agrikon-icon-email"></i>
+<a href="mailto:{{ section.settings.email }}"><span class="__cf_email__" data-cfemail="8fe1eaeaebe7eae3ffcfeee8fde6e4e0e1a1ece0e2">{{ section.settings.email }}</span></a>
+</li>
+<li>
+<i class="agrikon-icon-telephone"></i>
+<a href="tel:{{ section.settings.phone }}">{{ section.settings.phone }}</a>
+</li>
+</ul>
+<div class="mobile-nav__top">
+<div class="mobile-nav__social">
+  {%- assign socials = "Facebook Twitter Pinterest Instagram Tumblr Snapchat YouTube Vimeo" | split: ' ' -%}
+  {%- for social in socials -%}
+  {%- assign social_link = social | prepend: 'social_' | append: '_link' | downcase -%}
+  {%- assign icon_link = social | prepend: 'icon-' | downcase -%}
+  {%- if settings[social_link] != blank -%}
+  	<a href="{{ settings[social_link] | escape }}" aria-label="{{ social }}">{%- include icon_link -%}</a>
+  {%- endif -%}
+  {%- endfor -%}  
+</div>
+</div>
+</div>
+
+</div>
+{% schema %}
+  {
+    "name": "Section Mobile",
+    "settings": [
+	  {
+      "type": "image_picker",
+      "id": "logo",
+      "label": {
+        "cs": "Obrázek loga",
+        "da": "Logobillede",
+        "de": "Logo-Foto",
+        "en": "Logo image",
+        "es": "Logo",
+        "fi": "Logokuva",
+        "fr": "Image du logo",
+        "it": "Immagine del logo",
+        "ja": "ロゴ画像",
+        "ko": "로고 이미지",
+        "nb": "Logobilde",
+        "nl": "Afbeelding van logo",
+        "pl": "Obraz logo",
+        "pt-BR": "Imagem do logotipo",
+        "pt-PT": "Imagem do logótipo",
+        "sv": "Logobild",
+        "th": "รูปภาพโลโก้",
+        "tr": "Logo görseli",
+        "vi": "Hình ảnh logo",
+        "zh-CN": "logo 图片",
+        "zh-TW": "標誌圖片"
+      }
+    },
+      {
+        "type": "text",
+        "id": "email",
+        "label": "Email",
+        "default" : "himalayanhart@tea.com"
+      },
+      {
+        "type": "text",
+        "id": "phone",
+        "label": "Phone",
+        "default" : "666 888 0000"
+      }
+	]
+  }
+{% endschema %}
+
+

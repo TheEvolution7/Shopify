@@ -1,0 +1,49 @@
+<section class="call-to-action jarallax" data-jarallax data-speed="0.3" data-imgPosition="-80% 50%"  data-section-id="{{ section.id }}">
+  <img class="call-to-action__bg jarallax-img" src="{{ section.settings.image | img_url : 'master' }}" alt="{{ section.settings.image.alt | default : section.settings.title }}" />
+
+  <div class="container">
+    <div class="call-to-action__content">
+      <i class="call-to-action__icon agrikon-icon-agriculture-2"></i>
+      <h3>{{ section.settings.title }}</h3>
+    </div>
+    <div class="call-to-action__button">
+      <a href="{{ section.settings.url }}" class="thm-btn">{{ section.settings.button }}</a>
+    </div>
+  </div>
+</section>
+{% schema %}
+  {
+    "name": "Section Discover More",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+      	{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "We’re popular leader in tea market globally"
+        },
+		{
+          "type": "text",
+          "id": "button",
+          "label": "Button",
+		  "default" : "Discover More"
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        }
+	]
+	
+  }
+{% endschema %}

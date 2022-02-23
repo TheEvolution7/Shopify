@@ -1,0 +1,97 @@
+{% if section.settings.show_section %}
+<section class="testimonials-one testimonials-one__about" data-section-id="{{ section.id }}">
+  <img src="assets/images/icons/testimonials-bg-1-1.png" class="testimonials-one__bg" alt="">
+  <div class="container">
+    <h2 class="testimonials-one__title">{{ section.settings.title }}</h2>
+    <div id="testimonials-one__carousel" class="testimonials-one__carousel swiper-container">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          <div class="swiper-slide">
+            <div class="testimonials-one__icons">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            {{ block.settings.content }}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div id="testimonials-one__thumb" class="swiper-container">
+      <div class="swiper-wrapper">
+       {% for block in section.blocks %}
+        <div class="swiper-slide">
+          <div class="testimonials-one__image">
+            <img src="{{ block.settings.image | img_url : 'master' }}" alt="{{ block.settings.image.alt | default : block.settings.title }}">
+          </div>
+        </div>
+       {% endfor %} 
+      </div>
+    </div>
+    <div id="testimonials-one__meta" class="testimonials-one__carousel swiper-container">
+      <div class="swiper-wrapper">\
+        {% for block in section.blocks %} 
+        <div class="swiper-slide">
+          <div class="testimonials-one__meta">
+            <h4>{{ block.settings.title }}</h4>
+            <span>{{ block.settings.subtitle }}</span>
+          </div>
+        </div>
+        {% endfor %} 
+      </div>
+    </div>
+    <div class="swiper-pagination" id="testimonials-one__swiper-pagination"></div>
+  </div>
+</section>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Testimonials",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Testimonials"
+		  
+        }
+	],
+	"blocks": [
+    {
+      "type": "content",
+      "name": "content",
+      "settings": [
+		{
+          "type": "richtext",
+          "id": "content",
+          "label": "Content" 
+        },
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+		{
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "SubTitle" 
+        }
+		
+      ]
+    }
+  ]
+  }
+{% endschema %}

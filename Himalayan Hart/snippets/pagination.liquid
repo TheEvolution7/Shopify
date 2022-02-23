@@ -1,0 +1,19 @@
+<ul class="post-pagination">
+  {%- for part in paginate.parts -%}
+    {%- if part.is_link -%}
+    <li>
+      <a href="{{ part.url }}">{{ part.title }}</a>
+    </li>
+    {%- else -%}
+      {%- if part.title == paginate.current_page -%}
+        <li>
+          <a class="active" href="#" disabled="disabled">{{ part.title }}</a>
+        </li>
+      {%- else -%}
+        <li>
+          <a href="#" disabled="disabled">{{ part.title }}</a>
+        </li>
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+</ul>

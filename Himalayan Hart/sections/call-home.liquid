@@ -1,0 +1,62 @@
+{% if section.settings.show_section %}
+  <section class="call-to-action__three jarallax" data-jarallax data-speed="0.3" data-imgPosition="50% 50%" data-section-id="{{ section.id }}">
+    <img class="call-to-action__three__bg jarallax-img" src="{{ 'cta-1-bg-1.jpg' | asset_url }}" alt="parallax-image" />
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5 wow fadeInLeft" data-wow-duration="1500ms">
+          <div class="call-to-action__three-image">
+            <img src="{{ section.settings.image_1 | img_url : 'master' }}" alt="{{ section.settings.image_1.alt | default : section.settings.title }}">
+            <img src="{{ section.settings.image_2 | img_url : 'master' }}" alt="{{ section.settings.image_2.alt | default : section.settings.title }}">
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div class="call-to-action__three-content">
+            <h3>{{ section.settings.title }}</h3>
+            <a href="{{ section.settings.url }}" class="thm-btn">{{ section.settings.button }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Providing",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Image 1"
+        },
+      	{
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Image 2"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Providing High Quality Products"
+        },
+		{
+          "type": "text",
+          "id": "button",
+          "label": "Button",
+		  "default" : "Discover More"
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        }
+	]
+	
+  }
+{% endschema %}

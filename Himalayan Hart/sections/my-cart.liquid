@@ -1,0 +1,142 @@
+<div class="project-details">
+  
+    <div class="container">
+      <form action="{{ routes.cart_url }}" method="post" class="my-cart">
+        <div class="row" data-ajax-cart-section>
+           
+            <div class="col-lg-8 table-cart border-right">
+                <h2 class="section-title"><span>{{ page_title }}</span></h2>
+                <div class="table-responsive table-content" data-ajax-cart-section-scroll>
+                  {% if cart.item_count > 0 %}
+                <table class="table">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col">{{ 'cart.label.product' | t }}</th>
+                        <th scope="col">{{ 'cart.label.quantity' | t }}</th>
+                        <th scope="col">{{ 'cart.label.price' | t }}</th>
+                        <th scope="col">{{ 'cart.label.total' | t }}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {%- for item in cart.items -%}
+                        <tr>
+                          <th scope="row">
+                            <div class="box-price-action">
+                              <div class="like-btn">
+                                <a data-ajax-cart-request-button href="{{ routes.cart_change_url }}?id={{ item.key }}&quantity=0" class="btn-remove">X</a>
+                              </div>
+                            </div>
+                          </th>
+                          <td data-label="Image" class="image_item"><a href="{{ item.url }}"><img width="150" src="{{ item | img_url: 'large' }}" alt="{{ item.product.title }}" class="pro_image"></a></td>
+                          <td data-label="Product">
+                            <span>{{ item.product.title }}</span>
+                          </td>
+                          <td data-label="Quantity" class="action-top">
+                            <div class="pro-qty-area">
+                              <div class="pro-qty">
+                                 <input data-ajax-cart-quantity-input="{{ forloop.index }}" name="updates[]" id="quantity1" value="1" title="Quantity"  value="{{ item.quantity }}"  type="text" />
+                                <a data-ajax-cart-request-button href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity={{ item.quantity | plus: 1 }}" class="inc qty-btn">+</a><a data-ajax-cart-request-button href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity={{ item.quantity | minus: 1 }}"  class="dec qty-btn">-</a></div>
+                            </div>
+                          </td>
+                          <td data-label="Price"><span>{{ item.original_price | money }}</span></td>
+                          <td data-label="Subtotal"><span>{{ item.original_line_price | money }}</span></td>
+                        </tr>
+                      {%- endfor -%}
+                    </tbody>
+                  </table>
+                   {% else %}
+          <p>{{ 'cart.general.empty' | t }}</p>
+         
+          {% endif %}
+                </div>
+              
+                  <div class="row action_cart justify-content-between cart-center border-bottom pb-5">
+                      <div class="col-auto">
+                        <button class="thm-btn mb-3" onclick="window.location.href='{{ routes.all_products_collection_url }}'"><span>Continue Shopping</span></button>
+                      </div>
+<!--                       <div class="col-auto">
+                        <button class="thm-btn"><span>Update cart</span></button>
+                      </div> -->
+                  </div>
+              <div data-ajax-cart-static-element class="my-cart__app-container"></div>
+<!--                   <div class="row cart-center contact-one__form pl-0 pt-5">
+                      <div class="col-auto">
+                        <input type="text" name="coupon" id="coupon" placeholder="Coupon code">
+                        <button class="thm-btn"><span>Apply coupon</span></button>
+                      </div>
+                  </div> -->
+            </div>
+          
+            <div class="col-lg-4">
+              <div class="cart-payment">
+                <div class="cart-subtotal">
+                  <h2 class="section-title">Cart totals</h2>
+                  <table>
+                    <tbody>
+                      
+                      <tr class="shipping-totals">
+                       
+                        <td>
+                          {%- capture taxes_shipping_checkout -%}
+                        {%- if shop.taxes_included and shop.shipping_policy.body != blank -%}
+                        {{ 'cart.general.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                        {%- elsif shop.taxes_included -%}
+                        {{ 'cart.general.taxes_included_but_shipping_at_checkout' | t }}
+                        {%- elsif shop.shipping_policy.body != blank -%}
+                        {{ 'cart.general.taxes_and_shipping_policy_at_checkout_html' | t: link: shop.shipping_policy.url }}
+                        {%- else -%}
+                        {{ 'cart.general.taxes_and_shipping_at_checkout' | t }}
+                        {%- endif -%}
+                        {%- endcapture -%}
+                        <div class="cart__shipping rte">{{ taxes_shipping_checkout }}</div>
+                        </td>
+                      </tr>
+                      <tr class="amount-total">
+                        <th>{{ 'cart.label.total' | t }}</th>
+                        <td><span class="amount">{{ cart.total_price | money_with_currency }}</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <button type="submit" class="thm-btn d-block m-auto" name="checkout"  {% if cart.item_count == 0 %} disabled {% endif %}><span>Proceed to Checkout</span></button>
+              </div>
+            </div>
+          
+          </div>
+       </form> 
+    </div>
+</div>
+
+
+{% schema %}
+{
+  "name": {
+    "cs": "Stránka košíku",
+    "da": "Side med indkøbskurv",
+    "de": "Warenkorb-Seite",
+    "en": "Cart page",
+    "es": "Página del carrito de compras",
+    "fi": "Ostoskorisivu",
+    "fr": "Page du panier",
+    "it": "Pagina del carrello",
+    "ja": "カートページ",
+    "ko": "카트 페이지",
+    "nb": "Handlekurvside",
+    "nl": "Winkelwagenpagina",
+    "pl": "Strona koszyka",
+    "pt-BR": "Página do carrinho",
+    "pt-PT": "Página do carrinho",
+    "sv": "Varukorgssida",
+    "th": "หน้าตะกร้าสินค้า",
+    "tr": "Sepet sayfası",
+    "vi": "Trang giỏ hàng",
+    "zh-CN": "购物车页面",
+    "zh-TW": "購物車頁面"
+  },
+  "settings": [
+   
+  ]
+}
+{% endschema %}

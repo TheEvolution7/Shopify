@@ -1,0 +1,86 @@
+<section class="contact-infos">
+  <div class="container">
+    <div class="inner-container wow fadeInUp" data-wow-duration="1500ms">
+      <div class="row no-gutters">
+        <div class="col-sm-12 col-md-12 col-lg-4">
+          <div class="contact-infos__single">
+            <h3>{{ section.settings.title }}</h3>
+           {{ section.settings.subtitle }}
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4">
+          <div class="contact-infos__single">
+            <h3>{{ section.settings.title_2 }}</h3>
+            {{ section.settings.subtitle_2 }}
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4">
+          <div class="contact-infos__single">
+            <h3>{{ section.settings.title_3 }}</h3>
+            <p><a href="mailto:{{ section.settings.email }}"><span class="__cf_email__" >{{ section.settings.email }}</a> <br>
+
+              <a href="tel:{{ section.settings.phone }}">{{ section.settings.phone }}</a>
+              </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="google-map__home-two">
+  {{ section.settings.iframe }}
+</div>
+{% schema %}
+  {
+    "name": "Section Contact Info",
+    "settings": [
+		{
+          "type" : "text",
+          "id" : "title",
+          "label" : "Title",
+		  "default" : "About Company"
+        },
+		{
+          "type" : "richtext",
+          "id" : "subtitle",
+          "label" : "Subtitle",
+		  "default" : "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit nulla sit amet lectus neque.</p>"
+        },
+		{
+          "type" : "text",
+          "id" : "title_2",
+          "label" : "Title",
+		  "default" : "Visit Company"
+        },
+		{
+          "type" : "text",
+          "id" : "subtitle_2",
+          "label" : "Subtitle",
+		  "default" : "<p>66 broklyn golden street line, New York. United States of America.</p>"
+        },
+		{
+          "type" : "text",
+          "id" : "title_3",
+          "label" : "Title",
+		  "default" : "Call or Email"
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email",
+          "default" : "himalayanhart@tea.com"
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "Phone",
+          "default" : "666 888 0000"
+        },
+		{
+          "type" : "html",
+          "id" : "iframe",
+          "label" : "Iframe"
+        }
+	]
+  }
+{% endschema %}

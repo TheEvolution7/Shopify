@@ -1,0 +1,58 @@
+{% paginate blog.articles by 8 %}
+<div class="projects-one">
+  <div class="container">
+    <div class="row">
+      {% for article in blog.articles %}
+      	<div class="col-sm-12 col-md-6 col-lg-4">
+        <div class="projects-one__single">
+          <img src="{{ article | img_url: 'master'}}" alt="{{ article.title }}">
+          <div class="projects-one__content">
+            <h3>{{ article.title }}</h3>
+            <a href="{{ article.url }}" class="projects-one__button"><i class="agrikon-icon-right-arrow"></i></a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="text-center more-btn__box">
+      {%- if paginate.pages > 1 -%}
+      	{% include 'pagination', paginate: paginate %}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+</div>
+{% endpaginate %}
+
+
+
+{% schema %}
+{
+  "name": {
+    "cs": "Stránky blogu",
+    "da": "Blogsider",
+    "de": "Blogseiten",
+    "en": "Blog pages",
+    "es": "Páginas del blog",
+    "fi": "Blogisivut",
+    "fr": "Pages du blog",
+    "it": "Pagine del blog",
+    "ja": "ブログページ",
+    "ko": "블로그 페이지",
+    "nb": "Bloggsider",
+    "nl": "Blogpagina's",
+    "pl": "Strony blogu",
+    "pt-BR": "Páginas do blog",
+    "pt-PT": "Páginas do blogue",
+    "sv": "Bloggsidor",
+    "th": "หน้าบล็อก",
+    "tr": "Blog sayfaları",
+    "vi": "Trang blog",
+    "zh-CN": "博客页面",
+    "zh-TW": "部落格頁面"
+  },
+  "settings": [
+    
+  ]
+}
+{% endschema %}

@@ -1,0 +1,140 @@
+{%- capture relatedProducts -%}
+{% if section.settings.show_related_products == true %}
+<section class="team-one pt-0" data-section-id="{{ section.id }}">
+  <img src="{{ 'team-bg-1-1.png' | asset_url }}" alt="" class="team-one__bg">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-lg-12 col-xl-5">
+        <div class="team-one__content">
+          <div class="block-title">
+            <div class="block-title__image"></div>
+            <p>{{ section.settings.title }}</p>
+            <h3>{{ section.settings.heading }}</h3>
+          </div>
+          <div class="team-one__summery">
+            {{ section.settings.text }}
+          </div>
+
+          <div class="team-one__nav">
+            <div class="swiper-button-prev swiper-button-disabled" id="team-one__swiper-button-next" tabindex="-1" role="button" aria-label="Next slide" aria-disabled="true"><i class="agrikon-icon-left-arrow"></i>
+            </div>
+            <div class="swiper-button-next" id="team-one__swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide" aria-disabled="false"><i class="agrikon-icon-right-arrow"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% assign number_of_related_products_per_row = section.settings.related_grid_num %}
+        {% assign number_of_rows = section.settings.related_total_product_to_show | plus:1 %}
+
+        {% assign same_vendor = false %}
+        {% assign same_type = false %}
+
+        {% assign exclusions = 'frontpage,all' | split: ',' %}
+
+        {% if product.metafields.c_f['Related Products'] %}
+        {% assign collection = collections[product.metafields.c_f['Related Products']] %}
+        {% endif %}
+
+        {% assign found_a_collection = false %}
+        {% if collection and collection.all_products_count > 1 %}
+        {% unless exclusions contains collection.handle %}
+        {% assign found_a_collection = true %}
+        {% endunless %}
+        {% endif %}
+        {% unless found_a_collection %}
+        {% for c in product.collections limit: number_of_rows %}
+        {% unless exclusions contains c.handle or c.all_products_count < 2 %}
+        {% assign found_a_collection = true %}
+        {% assign collection = c %}
+        {% break %}
+        {% endunless %}
+        {% endfor %}
+        {% endunless %}
+       {% if found_a_collection %}
+        {% assign current_product = product %}
+        {%- capture related_items -%}  
+  <div class="team-one__carousel-wrap">
+    <div class="thm-swiper__slider swiper-container swiper-container-initialized swiper-container-horizontal" data-swiper-options="{&quot;spaceBetween&quot;: 0, &quot;slidesPerView&quot;: 1, &quot;slidesPerGroup&quot;: 1, &quot;autoplay&quot;: { &quot;delay&quot;: 5000 }, &quot;navigation&quot;: {
+                                                                                                                                   &quot;nextEl&quot;: &quot;#team-one__swiper-button-next&quot;,
+                                                                                                                                   &quot;prevEl&quot;: &quot;#team-one__swiper-button-prev&quot;
+                                                                                                                                   },&quot;breakpoints&quot;: {
+                                                                                                                                   &quot;0&quot;: {
+                                                                                                                                   &quot;spaceBetween&quot;: 0,
+                                                                                                                                   &quot;slidesPerView&quot;: 1,
+                                                                                                                                   &quot;slidesPerGroup&quot;: 1
+                                                                                                                                   },
+                                                                                                                                   &quot;640&quot;: {
+                                                                                                                                   &quot;spaceBetween&quot;: 30,
+                                                                                                                                   &quot;slidesPerView&quot;: 2,
+                                                                                                                                   &quot;slidesPerGroup&quot;: 2
+                                                                                                                                   },
+                                                                                                                                   &quot;992&quot;: {
+                                                                                                                                   &quot;spaceBetween&quot;: 30,
+                                                                                                                                   &quot;slidesPerView&quot;: 3,
+                                                                                                                                   &quot;slidesPerGroup&quot;: 3
+                                                                                                                                   },
+                                                                                                                                   &quot;1200&quot;: {
+                                                                                                                                   &quot;spaceBetween&quot;: 30,
+                                                                                                                                   &quot;slidesPerView&quot;: 3,
+                                                                                                                                   &quot;slidesPerGroup&quot;: 3
+                                                                                                                                   }
+                                                                                                                                   }}">
+      
+      <div class="swiper-wrapper" style="transform: translate3d(-830px, 0px, 0px); transition-duration: 0ms;">
+         {% for product in collection.products  %}
+               
+        <div class="swiper-slide" style="width: 246.667px; margin-right: 30px;">
+          {% include 'product-card-list', product: product %}
+        </div>
+         
+              {% endfor %}
+              
+          
+       
+      </div>
+      
+      <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+  </div>
+   {%- endcapture -%}
+      {% assign related_items = related_items | trim %}
+      {% unless related_items == blank %}
+      	<div id="products-{{ section.id }}">{{ related_items }}</div>
+      {% endunless %}  
+      {% endif %} 
+</section>
+
+{% endif %}
+{%- endcapture -%}
+{{ relatedProducts | strip_newlines | remove: "  " | remove: "	" }}
+{% schema %}
+  {
+    "name": "Section Related Product",
+    "settings": [
+	{
+        "type": "checkbox",
+        "id": "show_related_products",
+        "label": "Show related products",
+        "default": true
+     },
+ 	 {
+        "id": "title",
+        "type": "text",
+        "label": "Title",
+        "default": "Our product"
+      },
+	  {
+        "id": "heading",
+        "type": "text",
+        "label": "Heading",
+        "default": "Our Recommendations"
+      },
+	   {
+        "id": "text",
+        "type": "richtext",
+        "label": "Text",
+        "default": "<p>Black Tea. This loose leaf Indian Darjeeling tea steeps a pink, light amber color with fresh floral and apple-like flavor notes.</p>"
+      }
+	]
+  }
+{% endschema %}

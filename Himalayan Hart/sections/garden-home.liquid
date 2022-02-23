@@ -1,0 +1,81 @@
+{% if section.settings.show_section %}
+<div class="projects-one project-one__home-one" data-section-id="{{ section.id }}">
+<div class="container">
+<div class="block-title text-center">
+<div class="block-title__image"></div>
+<h3>{{ section.settings.title }}</h3>
+</div>
+<div class="thm-swiper__slider swiper-container" data-swiper-options='{"spaceBetween": 0, "slidesPerView": 1, "loop": true, "slidesPerGroup": 1, "pagination": {
+            "el": "#projects-one__swiper-pagination",
+            "type": "bullets",
+            "clickable": true
+        },
+        "breakpoints": {
+            "0": {
+                "spaceBetween": 0,
+                "slidesPerView": 1,
+                "slidesPerGroup": 1
+            },
+            "640": {
+                "spaceBetween": 30,
+                "slidesPerView": 2,
+                "slidesPerGroup": 2
+            },
+            "992": {
+                "spaceBetween": 30,
+                "slidesPerView": 2,
+                "slidesPerGroup": 2
+            }
+        }}'>
+<div class="swiper-wrapper">
+  {%- assign blog = blogs[section.settings.blog] -%}
+    {%- for article in blog.articles -%}
+    <div class="swiper-slide">
+      <div class="projects-one__single">
+        <img src="{{ article.image | img_url: 'large' }}" alt="{{ article.title | escape }}">
+        <div class="projects-one__content">
+          <h3>{{ article.title | escape }}</h3>
+          <a href="{{ article.url }}" class="projects-one__button"><i class="agrikon-icon-right-arrow"></i></a>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+<div class="swiper-pagination" id="projects-one__swiper-pagination"></div>
+</div>
+</div>
+</div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Garden",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Our Garden"
+        }
+	],
+	"blocks": [
+    {
+      "type": "garden",
+      "name": "garden",
+      "settings": [
+        {
+          "id": "blog",
+          "type": "blog",
+          "label": "Garden"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}
+

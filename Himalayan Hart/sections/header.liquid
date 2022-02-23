@@ -1,0 +1,186 @@
+<header class="main-header">
+<div class="topbar">
+<div class="container">
+<div class="topbar__left">
+<div class="topbar__social">
+  {%- assign socials = "Facebook Twitter Pinterest Instagram Tumblr Snapchat YouTube Vimeo" | split: ' ' -%}
+  {%- for social in socials -%}
+  {%- assign social_link = social | prepend: 'social_' | append: '_link' | downcase -%}
+  {%- assign icon_link = social | prepend: 'icon-' | downcase -%}
+  {%- if settings[social_link] != blank -%}
+  <a href="{{ settings[social_link] | escape }}">{%- include icon_link -%}</a>
+  {%- endif -%}
+  {%- endfor -%}  
+</div>
+{{ section.settings.title }}
+</div>
+<div class="topbar__right">
+<a href="mailto:{{ section.settings.email }}"><i class="agrikon-icon-email"></i><span class="__cf_email__">{{ section.settings.email }}</span></a>
+<a href="#"><i class="agrikon-icon-clock"></i>{{ section.settings.time }}</a>
+</div>
+</div>
+</div>
+<nav class="main-menu">
+<div class="container">
+<div class="logo-box">
+<a href="{{ routes.root_url }}" aria-label="logo image"><img src="{{ section.settings.logo | img_url: 'medium' }}" alt="{{ section.settings.logo.alt | default: shop.name }}" width="153"></a>
+
+</div>
+<ul class="main-menu__list">
+{% for link in linklists[section.settings.main_linklist].links %}
+  <li  {% if link.active %} class="current" {% endif %}>
+  	<a href="{{ link.url }}">{{ link.title | escape }}</a>
+  </li>
+{% endfor %}
+</ul>
+
+<div class="main-header__info">
+<a href="#" class="search-toggler main-header__search-btn"><i class="agrikon-icon-magnifying-glass"></i></a>
+<!-- <a class="main-header__cart-btn" href="{{ routes.cart_url }}"><i class="agrikon-icon-shopping-cart"></i></a> -->
+<a class="main-header__cart-btn" href="javascript:;" data-toggle="modal" data-target="#modal-cart"><i class="agrikon-icon-shopping-cart"></i> <span data-ajax-cart-bind-state="cart.item_count">{{ cart.item_count }}</span></a>
+  {% if customer %}
+  	<a href="{{ routes.account_url }}" class="user-icon-menu dropdown"><i class="fas fa-user-circle"></i></a>
+  {% else %}
+  	<a href="{{ routes.account_login_url }}" class="user-icon-menu dropdown"><i class="fas fa-user-circle"></i></a>
+  {% endif %}
+  
+<a href="tel:{{ section.settings.phone }}" class="main-header__info-phone">
+<i class="agrikon-icon-phone-call"></i>
+<span class="main-header__info-phone-content">
+<span class="main-header__info-phone-text">{{ section.settings.text }}</span>
+<span class="main-header__info-phone-title">{{ section.settings.phone }}</span>
+</span>
+</a>
+</div>
+ <span class="fa fa-bars mobile-nav__toggler"></span>
+</div>
+</nav>
+
+</header>
+<div class="stricky-header stricked-menu main-menu">
+<div class="sticky-header__content"></div>
+</div>
+
+
+{% schema %}
+{
+  "name": {
+    "cs": "Záhlaví",
+    "da": "Overskrift",
+    "de": "Titel",
+    "en": "Header",
+    "es": "Encabezado",
+    "fi": "Ylätunniste",
+    "fr": "En-tête",
+    "it": "Header",
+    "ja": "ヘッダー",
+    "ko": "헤더",
+    "nb": "Header",
+    "nl": "Koptekst",
+    "pl": "Nagłówek",
+    "pt-BR": "Cabeçalho",
+    "pt-PT": "Cabeçalho",
+    "sv": "Rubrik",
+    "th": "ส่วนหัว",
+    "tr": "Üstbilgi",
+    "vi": "Đầu trang",
+    "zh-CN": "标头",
+    "zh-TW": "標頭"
+  },
+  "settings": [
+	{
+	  "type" : "header",
+	  "content" : "Top Header"
+	},
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title",
+	  "default" : "<p>Welcome to Haymalayan Hart</p>"
+    },
+	{
+      "type": "text",
+      "id": "email",
+      "label": "Email",
+	  "default" : "himalayanhart@tea.com"
+    },
+	{
+      "type": "text",
+      "id": "time",
+      "label": "Time",
+	  "default" : "Mon - Sat 8:00 - 6:30, Sunday - CLOSED"
+    },
+	{
+	  "type" : "header",
+	  "content" : "Menu"
+	},
+	{
+      "type": "image_picker",
+      "id": "logo",
+      "label": {
+        "cs": "Obrázek loga",
+        "da": "Logobillede",
+        "de": "Logo-Foto",
+        "en": "Logo image",
+        "es": "Logo",
+        "fi": "Logokuva",
+        "fr": "Image du logo",
+        "it": "Immagine del logo",
+        "ja": "ロゴ画像",
+        "ko": "로고 이미지",
+        "nb": "Logobilde",
+        "nl": "Afbeelding van logo",
+        "pl": "Obraz logo",
+        "pt-BR": "Imagem do logotipo",
+        "pt-PT": "Imagem do logótipo",
+        "sv": "Logobild",
+        "th": "รูปภาพโลโก้",
+        "tr": "Logo görseli",
+        "vi": "Hình ảnh logo",
+        "zh-CN": "logo 图片",
+        "zh-TW": "標誌圖片"
+      }
+    },
+    {
+      "type": "link_list",
+      "id": "main_linklist",
+      "label": {
+        "cs": "Nabídka",
+        "da": "Menu",
+        "de": "Menü",
+        "en": "Menu",
+        "es": "Menú",
+        "fi": "Valikko",
+        "fr": "Menu",
+        "it": "Menu",
+        "ja": "メニュー",
+        "ko": "메뉴",
+        "nb": "Meny",
+        "nl": "Menu",
+        "pl": "Menu",
+        "pt-BR": "Menu",
+        "pt-PT": "Menu",
+        "sv": "Meny",
+        "th": "เมนู",
+        "tr": "Menü",
+        "vi": "Menu",
+        "zh-CN": "菜单",
+        "zh-TW": "選單"
+      },
+      "default": "main-menu"
+    },
+	{
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+	  "default" : "Call Anytime"
+    },
+	{
+      "type": "text",
+      "id": "phone",
+      "label": "Phone",
+	  "default" : "666 888 0000"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,81 @@
+{% if section.settings.show_section %}
+<section class="service-two service-two__home-two" data-section-id="{{ section.id }}">
+  <div class="service-two__bottom-curv"></div>
+  <div class="container">
+  <div class="block-title text-center">
+  <div class="block-title__image"></div>
+  <p>{{ section.settings.title }}</p>
+  <h3>{{ section.settings.heading }}</h3>
+  </div>
+  <div class="row">
+   {% for block in section.blocks %}
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <div class="service-two__card">
+        <div class="service-two__card-image">
+          <img src="{{ block.settings.image | img_url : 'master' }}" alt="{{ block.settings.image.alt | default : block.settings.title }}">
+        </div>
+        <div class="service-two__card-content">
+          <h3><a href="{{ block.settings.url }}">{{ block.settings.title }}</a></h3>
+          {{ block.settings.subtitle }}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+  </div>
+  </section>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Services",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Our Services list"
+        },
+		{
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+		  "default" : "What We’re Offering"
+        }
+	],
+	"blocks": [
+    {
+      "type": "content",
+      "name": "content",
+      "settings": [
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+		{
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "Subtitle",
+		  "default" : "<p>Lorem ium dolor sit ametad pisicing elit sed simply do ut.</p>"
+        },
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

@@ -1,0 +1,145 @@
+<!-- content -->
+<section class="detail-product project-details" data-section-id="{{ section.id }}">
+  <div class="container">
+     {% form 'product', product %}
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id  }}">
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <div style="--swiper-navigation-color: #255946; --swiper-pagination-color: #255946" class="swiper mySwiper2">
+          <div class="swiper-wrapper">
+           {%- for media in product.media -%}
+            <div class="swiper-slide">
+              <div class="thumb-pro">
+                <img src="{{ media | img_url: 'master' }}" alt="{{ media.alt | default : product.title }}" />
+
+              </div>
+            </div>
+           {%- endfor -%} 
+
+          </div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+        <div thumbsSlider="" class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            {%- for media in product.media -%}
+              <div class="swiper-slide">
+                <div class="thumb-pro">
+                  <img src="{{ media | img_url: 'master' }}" alt="{{ media.alt | default : product.title }}" />
+                </div>
+              </div>
+            {%- endfor -%} 
+          </div>
+        </div>
+      </div>
+     
+      <div class="col-12 col-md-6">
+        
+        <h2>{{ product.title }}</h2>
+        <div class="product-rating">
+<!-- 			<span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span> -->
+        </div>
+        <nav class="Product-tags ">
+          {% for tag in product.tags %}
+          {% capture url %}/collections/all/{{ tag | handle }}{% endcapture %}
+            <a class="ProductTag" href="{{ tag | link_to: url }}">
+              {{ tag }}      
+            </a>
+          {% endfor %}
+         </nav>
+        <h4 class="Product-subtitle">{{ product.content | truncatewords: 10 }}</h4>
+        <div class="price_and_badge_container ">
+          <div class="js-price-preview current_price Product-price" data-product-id="4478439817259">{{ product.price | money }} {% if product.compare_at_price %}<del> {{ product.compare_at_price | money }} </del>{% endif %}</div><div class="percentage_badge">
+          </div>
+
+        </div>
+        {% if section.settings.show_quantity_selector %}
+        <div class="action-top">
+          <span class="title">Quantity </span>
+          <div class="pro-qty-area">
+            <div class="pro-qty">
+              <input type="text" name="quantity" id="quantity1" title="Quantity" value="1">
+              <a href="javascript:;" class="inc qty-btn">+</a><a href="javascript:;" class="dec qty-btn">-</a></div>
+          </div>
+
+        </div>
+         {% endif %}
+        <button type="submit" class="thm-btn btn-add-cart" {% unless product.available %} disabled="disabled"{% endunless %}>{%- if product.available -%}{{ 'products.product.add_to_cart' | t }}{%- else -%} {{ 'products.product.sold_out' | t }}{%- endif -%}</button>
+        	{{ form | payment_button }}
+      </div>
+     
+    </div>
+ {% endform %}
+  </div>
+  <div class="container mt-3">
+    <div class="row ">
+      <div class="col-12 mt-3">
+        <section class="project-details pb-0">
+          <h2>Product Detail</h2>
+          {{ product.content }}
+        </section>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+{% schema %}
+{
+  "name": {
+    "cs": "Stránky produktů",
+    "da": "Produktsider",
+    "de": "Produktseiten",
+    "en": "Product pages",
+    "es": "Páginas de productos",
+    "fi": "Tuotesivut",
+    "fr": "Pages de produits",
+    "it": "Pagine di prodotto",
+    "ja": "商品ページ",
+    "ko": "제품 페이지",
+    "nb": "Produktsider",
+    "nl": "Productpagina's",
+    "pl": "Strony produktu",
+    "pt-BR": "Páginas de produtos",
+    "pt-PT": "Páginas de produtos",
+    "sv": "Produktsidor",
+    "th": "หน้าสินค้า",
+    "tr": "Ürün sayfaları",
+    "vi": "Trang sản phẩm",
+    "zh-CN": "产品页面",
+    "zh-TW": "產品頁面"
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_quantity_selector",
+      "label": {
+        "cs": "Zobrazit výběr množství",
+        "da": "Vis antalsvælger",
+        "de": "Mengenauswahl anzeigen",
+        "en": "Show quantity selector",
+        "es": "Mostrar selector de cantidad",
+        "fi": "Näytä määrän valitsin",
+        "fr": "Afficher le sélecteur de quantité",
+        "it": "Mostra selettore quantità",
+        "ja": "数量セレクターを表示する",
+        "ko": "수량 선택기 표시",
+        "nb": "Vis mengdevelger",
+        "nl": "Hoeveelheidskiezer weergeven",
+        "pl": "Pokaż selektor ilości",
+        "pt-BR": "Exibir seletor de quantidade",
+        "pt-PT": "Mostrar um seletor de quantidade",
+        "sv": "Visa kvantitetsväljare",
+        "th": "แสดงตัวเลือกจำนวน",
+        "tr": "Adet seçiciyi göster",
+        "vi": "Hiển thị hộp chọn số lượng",
+        "zh-CN": "显示数量选择器",
+        "zh-TW": "顯示數量選擇器"
+      },
+      "default": false
+    }
+  ]
+}
+{% endschema %}

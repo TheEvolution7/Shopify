@@ -1,0 +1,14 @@
+<section class="page-header page-404">
+  <div class="page-header__bg" style="background-image: url({{'page-header-bg-1-1.jpg' | asset_url }});"></div>
+
+  <div class="container">
+    <ul class="thm-breadcrumb list-unstyled">
+      <li><a href="{{ routes.root_url }}">Home</a></li>
+      <li>/</li>
+      <li><span>404</span></li>
+    </ul>
+    <h2>{{ 'general.404.title' | t }}</h2>
+    <p>{{ 'general.404.subtext' | t }}</p>
+    <a href="{{ routes.root_url }}" class="thm-btn mt-3">Back to home</a>
+  </div>
+</section>

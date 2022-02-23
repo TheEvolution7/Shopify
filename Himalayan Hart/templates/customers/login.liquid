@@ -1,0 +1,27 @@
+{% section 'breadcrumb' %}
+<div class="project-details">
+  <div class="container">
+    
+    <div class="row contact-one__form justify-content-center">
+      
+      <div class="col-6">
+        {% form 'customer_login' %}
+        <input type="email" name="customer[email]" id="UserName" placeholder="{{ 'customer.login.email' | t }}" required>
+        <input type="password" value="" name="customer[password]"  id="password" placeholder="{{ 'customer.login.password' | t }}" required>
+        <div class="input_ctn row">
+          <div class="col-6">
+                   
+                </div>
+          <div class="col-6 d-flex justify-content-end"><a href="/pages/lost-password" target="_blank"><span>Lost your password?</span></a></div>
+        </div>
+        <div class="action-auth d-flex justify-content-between">
+          <button type="submit" class="thm-btn main-btn"><span>{{ 'customer.login.sign_in' | t }}</span></button>
+          <button class="thm-btn " onclick="window.location.href='{{ routes.account_register_url }}'"><span>Register</span></button>
+
+        </div>
+        {% endform %}
+      </div>
+      
+    </div>
+  </div>
+</div>

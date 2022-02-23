@@ -1,0 +1,14 @@
+<div class="search-popup">
+  <div class="search-popup__overlay search-toggler"></div>
+  <div class="search-popup__content">
+    <form action="{{ routes.search_url }}" method="get" role="search" class="search-form">
+      <label for="search" class="sr-only">search here</label>
+      <input type="text" id="search" id="keyword" name="q" placeholder="{{ 'general.search.placeholder' | t }}" value="{{ search.terms | escape }}">
+      <input type="hidden" name="type" value="product" aria-hidden="true" />
+      <input type="hidden" name="options[prefix]" value="last" aria-hidden="true" />
+      <button type="submit" aria-label="search submit" class="thm-btn">
+        <i class="fa fa-search"></i>
+      </button>
+    </form>
+  </div>
+</div>

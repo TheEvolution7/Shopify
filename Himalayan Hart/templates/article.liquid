@@ -1,0 +1,34 @@
+{% section 'breadcrumb' %}
+<section class="project-details">
+  <div class="container">
+    <img src="{{ article | img_url: 'master'}}" alt="{{ article.title }}" class="img-fluid d-block m-auto">
+    <ul class="list-unstyled project-details__list">
+      <li>
+        <span>Date:
+        </span>
+         {{ article.published_at | time_tag: format: 'date' }}
+      </li>
+      <li>
+        <span>Garden Owner:
+        </span>
+        {{ article.author }}
+      </li>
+      <li>
+        <span>Acreage:
+        </span>
+       {{ article.tags[0].title }} 
+      </li>
+      <li>
+        <span>Category:
+        </span>
+        {{ article.tags[1].title }}
+      </li>
+    </ul>
+    {{ article.excerpt }}
+    <div class="bottom-content">
+      <div class="row">
+        {{ article.content }}
+      </div>
+    </div>
+  </div>
+</section>
