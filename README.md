@@ -62,3 +62,4 @@ custom styles.
 
 # Shopify
 # Shopify
+# Shopify
