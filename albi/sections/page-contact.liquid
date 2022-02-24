@@ -1,0 +1,153 @@
+<!--====== BREADCRUMB PART START ======-->
+<section class="breadcrumb-area" style="background-image: url('{{ section.settings.image_1 | img_url: 'master' }}');">
+  <div class="container">
+    <div class="breadcrumb-text col-sm-6 col-md-6 col-lg-5">
+      <h2 class="page-title">{{ section.settings.title_1 }}</h2>
+    </div>
+  </div>
+</section>
+<!--====== BREADCRUMB PART END ======-->
+
+
+<!--====== CONTACT PART START ======-->
+<section class="contact-part pt-80 pb-50">
+  <div class="container">
+    <!-- Contact Mapts -->
+    <div class="contact-maps mb-50 wow fadeInDown" data-wow-delay=".3s">
+      {{ section.settings.title_2 }}
+      </div>
+
+    <div class="row">
+      <div class="col-lg-4">
+        <!-- Contact Info -->
+        <div class="contact-info ">
+          <div class="row justify-content-center">
+            <div class="col-lg-12">
+              <div class="info-box wow fadeInLeft" data-wow-delay=".3s">
+                <div class="icon">
+                  <i class="flaticon-home"></i>
+                </div>
+                <div class="desc">
+                  {{ section.settings.title_3 }}
+                  
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="info-box wow fadeInLeft" data-wow-delay=".5s">
+                <div class="icon">
+                  <i class="flaticon-phone"></i>
+                </div>
+                <div class="desc">
+                  {{ section.settings.title_4 }}
+                  
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="info-box wow fadeInLeft" data-wow-delay=".7s">
+                <div class="icon">
+                  <i class="flaticon-message"></i>
+                </div>
+                <div class="desc">
+                  {{ section.settings.title_5 }}
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <!-- Contact Form -->
+        <div class="contact-form wow fadeIn" data-wow-delay=".3s">
+          <h4>Send a message</h4>
+          {% form 'contact', id: formId %}
+          {% include 'form-status', form: form, form_id: formId %}
+            <div class="row">
+              <div class="col-md-6">
+                <div class="input-group mb-30">
+                  <span class="icon"><i class="far fa-user"></i></span>
+                  <input type="text" id="{{ formId }}-name" name="contact[{{ 'contact.form.name' | t }}]" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}" placeholder="Full Name">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-group mb-30">
+                  <span class="icon"><i class="far fa-envelope"></i></span>
+                  <input
+                  type="email"
+                  id="{{ formId }}-email"
+                  name="contact[email]"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                  aria-required="true"
+                  placeholder="Email"
+                  {%- if form.errors contains 'email' -%}
+                    class="input--error"
+                    aria-invalid="true"
+                    aria-describedby="{{ formId }}-email-error"
+                  {%- endif -%}
+                  >
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="input-group mb-30">
+                  <span class="icon"><i class="far fa-phone"></i></span>
+                  <input type="tel" id="{{ formId }}-phone" name="contact[{{ 'contact.form.phone' | t }}]" pattern="[0-9\-]*" value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}" placeholder="Phone">
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="input-group textarea mb-30">
+                  <span class="icon"><i class="far fa-pen"></i></span>
+                  <textarea rows="10" id="{{ formId }}-message" name="contact[{{ 'contact.form.message' | t }}]" placeholder="Message">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+                </div>
+              </div>
+              <div class="col-12 text-center wow fadeInRight" data-wow-delay=".7s">
+                <button type="submit" class="main-btn btn-filled">Send</button>
+              </div>
+            </div>
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "About",
+    "settings": [
+		{
+         "type": "text",
+         "id": "title_1",
+         "label": "Title 1"
+      	},
+        {
+        "id": "image_1",
+        "type": "image_picker",
+        "label": "Image"
+        },
+		{
+         "type": "text",
+         "id": "title_2",
+         "label": "Title 2"
+      	},
+		{
+         "type": "text",
+         "id": "title_3",
+         "label": "Title 3"
+      	},
+		{
+         "type": "text",
+         "id": "title_4",
+         "label": "Title 4"
+      	},
+		{
+         "type": "text",
+         "id": "title_5",
+         "label": "Title 5"
+      	}
+	]
+  }
+{% endschema %}

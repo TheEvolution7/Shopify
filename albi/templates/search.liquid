@@ -1,0 +1,45 @@
+<section class="breadcrumb-area" style="background-image: url('https://cdn.shopify.com/s/files/1/0562/5590/6000/files/1_7d5ab910-fcbb-4280-a4fb-f4abc4868d20_2048x.jpg?v=1620128846');">
+  <div class="container">
+    <div class="breadcrumb-text col-sm-6 col-md-6 col-lg-5">
+      <h2 class="page-title">Search</h2>         
+    </div>
+  </div>
+</section>
+{% paginate search.results by 10 %}
+<div id="pillows" class="subcatagory1">
+  <div class="container">
+    <div class="row wow fadeInUp" data-wow-delay=".5s">
+      {% for item in search.results %}
+      	{% if item.object_type == 'product' %}
+          <div class="col-sm-12 col-md-4">
+              <div class="cata-box">
+                <div class="thumb-img">
+                  <a href="{{ item.url }}">
+                    <img src="{{ item.featured_media.preview_image | img_url: '400x' }}" alt="">
+                  </a>
+                </div>
+                <div class="cata-content">
+                  <a href="{{ item.url }}">{{ item.title }}</a>
+                  <span>{{ item.price_min  | money }} - {{ item.price_max  | money }}</span>
+                </div>
+              </div>
+        	</div>
+      	{% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+
+{%- if paginate.pages > 1 -%}
+	{% include 'pagination', paginate: paginate %}
+{%- endif -%}
+
+{% if search.results_count < 2  %}
+  <div class="search--less-than-2-results"></div>
+{% endif %}
+
+{% endpaginate %}
+
+

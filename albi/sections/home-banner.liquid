@@ -1,0 +1,108 @@
+<section class="banner-area banner-style-three" id="bannerSlider">
+  {% for block in section.blocks %}
+  	<div class="single-banner d-flex align-items-center justify-content-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="banner-content">
+              <span class="promo-tag" data-animation="fadeInDown" data-delay=".6s">
+                {{ block.settings.description }}
+              </span>
+              <h1 class="title" data-animation="fadeInLeft" data-delay=".9s">
+                {{ block.settings.title }}
+              </h1>
+              <ul>
+                {% if block.settings.show_button_1 == true%}
+                	<li data-animation="fadeInUp" data-delay="1.1s">
+                      <a class="main-btn btn-filled" href="{{ block.settings.url_1 }}">{{ block.settings.title_button_1 }}</a>
+                    </li>
+                {% endif %}
+                
+                {% if block.settings.show_button_2 == true%}
+                	<li data-animation="fadeInUp" data-delay="1.3s">
+                      <a class="main-btn btn-border" href="{{ block.settings.url_2 }}">{{ block.settings.title_button_2 }}</a>
+                    </li>
+                {% endif %}
+                
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- banner bg -->
+      <div class="banner-bg" style="background-image: url('{{ block.settings.image | img_url: '1920x' }}');"></div>
+      <div class="banner-overly"></div>
+    </div>
+  {% endfor %}
+  
+</section>
+
+{% schema %}
+  {
+	"blocks": [
+      {
+        "type": "quote",
+        "name": "Home Banner",
+        "settings": [
+          {
+            "id": "title",
+            "type": "text",
+            "label": "Title"
+          },
+          {
+            "id": "description",
+            "type": "textarea",
+            "label": "Description"
+          },
+		  {
+            "id": "image",
+            "type": "image_picker",
+            "label": "Image"
+          },
+		  {
+            "id": "title_button_1",
+            "type": "text",
+            "label": "Title button 1"
+          },
+		  {
+            "id": "url_1",
+            "type": "url",
+            "label": "Url 1"
+          },
+		  {
+            "id": "show_button_1",
+            "type": "checkbox",
+            "label": "Show button 1"
+          },
+		  {
+            "id": "title_button_2",
+            "type": "text",
+            "label": "Title button 2"
+          },
+		  {
+            "id": "show_button_2",
+            "type": "checkbox",
+            "label": "Show button 2"
+          },
+		  {
+            "id": "url_2",
+            "type": "url",
+            "label": "Url 2"
+          }
+        ]
+      }
+    ],
+	"presets": [
+    {
+      "name": "Home Banner",
+      "category": "Home"
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

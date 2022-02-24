@@ -1,0 +1,173 @@
+<section class="room-type-section" style="background-image: url('{{ section.settings.image | img_url: '1920x' }}');">
+  <div class="parallax-container js-text-parallax">
+    <div class="fx-wrap" data-x="-200">
+      <h3 class="fx-target">{{ section.settings.title_1 }}</h3>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <div class="section-title text-lg-left text-center">
+          <span class="title-tag wow fadeInUp">{{ section.settings.title_2 }}</span>
+          <h2 class=" wow fadeInUp">{{ section.settings.title_3 }}</h2>
+        </div>
+      </div>
+      <div class="col-lg-6">
+<!--         <ul class="room-filter nav nav-pills justify-content-center justify-content-lg-end wow fadeInUp" id="room-tab"
+            role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="luxury-tab" data-toggle="pill" href="#luxury">
+              Fabric beds
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="family-tab" data-toggle="pill" href="#family">
+              Leather beds
+            </a>
+          </li>
+
+        </ul> -->
+      </div>
+    </div>
+    <div class="tab-content mt-65 wow fadeInUp" id="room-tabContent">
+      <div class="tab-pane fade show active" id="luxury" role="tabpanel">
+        <div class="room-items">
+          <div class="row">
+            {%- assign collection = collections[section.settings.collection] -%}
+      		{% for product in collection.products %}
+            	<div class="col-lg-4">
+                  <div class="room-box video-bg extra-height">
+                    <div class="thumb-video">
+                      <video muted src="assets/video/1.mov"></video>
+                    </div>
+                    <div class="room-bg" style="background-image: url('{{ product.featured_media.preview_image | img_url: '800x' }}');">
+                    </div>
+                    <div class="room-content">
+                      <span class="room-count"><i class="fal fa-th"></i>{% for collection in product.collections %}
+    {{ collection.title }}
+{% endfor %}</span>
+                      <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
+                    </div>
+                    <a href="{{ product.url }}" class="room-link"><i class="fal fa-arrow-right"></i></a>
+                  </div>
+                </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+<!--       <div class="tab-pane fade" id="family" role="tabpanel">
+        <div class="room-items">
+          <div class="row">
+            <div class="col-lg-8">
+              <div class="row">
+                <div class="col-12">
+                  <div class="room-box video-bg extra-wide">
+                    <div class="thumb-video">
+                      <video muted src="assets/video/1.mov"></video>
+                    </div>
+                    <div class="room-bg"
+                         style="background-image: url('assets/img/bed/1.jpg');"></div>
+                    <div class="room-content">
+                      <span class="room-count"><i class="fal fa-th"></i>Leather Collections</span>
+                      <h3><a href="#">Multifunctional Black Leather</a></h3>
+                    </div>
+                    <a href="#" class="room-link"><i class="fal fa-arrow-right"></i></a>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-sm-6">
+                  <div class="room-box video-bg">
+                    <div class="thumb-video">
+                      <video muted src="assets/video/1.mov"></video>
+                    </div>
+                    <div class="room-bg"
+                         style="background-image: url('assets/img/bed/2.jpg');">
+                    </div>
+                    <div class="room-content">
+                      <span class="room-count"><i class="fal fa-th"></i>Leather Collections</span>
+                      <h3><a href="#">Smart Bed</a></h3>
+                    </div>
+                    <a href="#" class="room-link"><i class="fal fa-arrow-right"></i></a>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-sm-6">
+                  <div class="room-box video-bg">
+                    <div class="thumb-video">
+                      <video muted src="assets/video/1.mov"></video>
+                    </div>
+                    <div class="room-bg"
+                         style="background-image: url('assets/img/bed/3.jpg');">
+                    </div>
+                    <div class="room-content">
+                      <span class="room-count"><i class="fal fa-th"></i>Leather Collections</span>
+                      <h3><a href="#">Luxury Bed</a></h3>
+                    </div>
+                    <a href="#" class="room-link"><i class="fal fa-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="room-box video-bg extra-height">
+                <div class="thumb-video">
+                  <video muted src="assets/video/1.mov"></video>
+                </div>
+                <div class="room-bg" style="background-image: url('assets/img/bed/4.jpg');">
+                </div>
+                <div class="room-content">
+                  <span class="room-count"><i class="fal fa-th"></i>Leather Collections</span>
+                  <h3><a href="#">Accessories</a></h3>
+                </div>
+                <a href="#" class="room-link"><i class="fal fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Bed",
+    "settings": [
+		{
+         "type": "text",
+         "id": "title_1",
+         "label": "Title 1"
+      	},
+	  	{
+         "type": "text",
+         "id": "title_2",
+         "label": "Title 2"
+      	},
+	  	{
+         "type": "text",
+         "id": "title_3",
+         "label": "Title 3"
+      	},
+		{
+        "id": "image",
+        "type": "image_picker",
+        "label": "Image"
+        },
+		{
+        "id": "collection",
+        "type": "collection",
+        "label": "Collection"
+        }
+	],
+	"presets": [
+    {
+      "name": "Home Bed",
+      "category": "Home"
+    }
+]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,64 @@
+
+{% for block in section.blocks %}
+<div class="text-block bgColor">
+  <div class="container">
+    <div class="row align-items-center justify-content-center wow fadeInLeft" data-wow-delay=".3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
+      <div class="col-lg-5">
+        <div class="thumb-img-h">
+          <img src="{{ block.settings.image | img_url: 'master' }}" alt="Image">
+        </div>
+      </div>
+      <div class="col-lg-7 col-md-8 col-sm-10 wow fadeInRight" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInRight;">
+        <div class="block-text">
+          <div class="section-title mb-20">
+            <span class="title-tag">{{ block.settings.tag }}</span>
+            <h2>{{ block.settings.title }}</h2>
+          </div>
+          <p>
+            {{ block.settings.description }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+
+
+{% schema %}
+  {
+    "name": "Collections",
+    "settings": [
+	],
+	"blocks": [
+      {
+        "type": "pillows",
+        "name": "Pillows",
+        "settings": [
+          {
+           "type": "text",
+           "id": "title",
+           "label": "Title"
+          },
+          {
+           "type": "text",
+           "id": "tag",
+           "label": "Tag"
+          },
+          {
+          "id": "image",
+          "type": "image_picker",
+          "label": "Image"
+          },
+          {
+           "type": "textarea",
+           "id": "description",
+           "label": "Description"
+          }
+        ]
+      }
+	  
+    ]
+  }
+{% endschema %}

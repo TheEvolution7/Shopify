@@ -1,0 +1,379 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign product_image_zoom_size = '1024x1024' -%}
+{%- assign product_image_scale = '2' -%}
+{%- assign enable_image_zoom = section.settings.enable_image_zoom -%}
+{%- assign compare_at_price = current_variant.compare_at_price -%}
+{%- assign price = current_variant.price -%}
+
+<!--====== BREADCRUMB PART START ======-->
+<!-- <section class="breadcrumb-area" style="background-image: url('{{ section.settings.image | img_url: 'master' }}');">
+  <div class="container">
+    <div class="breadcrumb-text col-sm-6 col-md-6 col-lg-5">
+      <h2 class="page-title">{{ section.settings.title }}</h2>
+      
+    </div>
+  </div>
+</section> -->
+<!--====== BREADCRUMB PART END ======-->
+<meta itemprop="name" content="{{ product.title }}">
+  <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+  <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
+<style>
+  .table table {
+    width: 100%
+  }
+  .room-fearures.table strong {
+    color: #c69533
+  }
+  .shopify-payment-button {
+  	width: 100%
+  }
+  .shopify-payment-button .shopify-payment-button__button--unbranded {
+  	 height: 40px;
+    line-height: 35px;
+    padding: 0;
+    border-radius: 0;
+        font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
+    text-transform: uppercase
+  }	
+ 
+  
+</style>
+
+<!--====== ROOM-DETAILS START ======-->
+<section class="room-details pt-150 pb-90">
+  <div class="cart-at-top">
+  <div class="container">
+    <div class="row justify-content-center align-items-end">
+      <div class="col-sm-auto col-6">
+        <div class="input-group input-group-two left-icon">
+          <label for="massage">Choose size bed:</label>
+          <select name="id" id="ProductSelect-{{ section.id }}" class="choose-size-top product-form__variants no-js" style="dislay:none">
+            {% for variant in product.variants %}
+            <option value="{{ variant.id }}"
+                    {%- if variant == current_variant %} selected="selected" {%- endif -%}
+                    >
+              {{ variant.title }}  {%- if variant.available == false %} - {{ 'products.product.sold_out' | t }}{% endif %}
+                          </option>
+            {% endfor %}
+          </select>
+      	</div>
+      </div>
+      <div class="col-sm-auto col-6">
+      	<div class="input-group input-group-two left-icon">
+          <label for="massage">Left Side or Right Side:</label>
+          <select name="massage" id="massage">
+            <option value="Right">Right</option>
+            <option value="Left">Left</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-auto col-6">
+        <div class="input-group input-group-two left-icon">
+        	<label for="massage">Price:</label>
+          {% for variant in product.variants %}
+        	<div class="p-number number-top" value="{{ variant.id }}">{{ variant.price | money }}</div>
+          {% endfor %}
+        </div>
+        
+      </div>
+      
+      <div class="col-sm-auto col-6">
+        <div class="input-group">
+          <button type="submit" name="add"
+                  {% unless current_variant.available %} aria-disabled="true"{% endunless %}
+                  aria-label="{% unless current_variant.available %}{{ 'products.product.sold_out' | t }}{% else %}{{ 'products.product.add_to_cart' | t }}{% endunless %}"
+                  class="main-btn btn-filled"
+                  {% if settings.enable_ajax %}aria-haspopup="dialog"{% endif %}
+                  data-add-to-cart>
+            <span data-add-to-cart-text>
+              {% unless current_variant.available %}
+              {{ 'products.product.sold_out' | t }}
+              {% else %}
+              {{ 'products.product.add_to_cart' | t }}
+              {% endunless %}
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+	
+</div>
+  <div class="container">
+    <div class="row">
+      <!-- details -->
+      <div class="col-lg-8 order-0 order-lg-0">
+        <div class="deatils-box">
+        	<div class="thumb">
+            <div class="room-details-slider">
+              {% for media in product.media %}
+              	<div>
+                  <div class="thumb-item">
+                    <img src="{{ media.preview_image | img_url: 'master' }}" alt="{{ thumbnailAlt }}">
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+            <div class="room-details-slider-nav">
+              {% for media in product.media %}
+              	<div>
+                  <div class="thumb-item">
+                    <img src="{{ media.preview_image | img_url: '110x110', scale: 2 }}" alt="{{ thumbnailAlt }}">
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="title-wrap">
+            <div class="title">
+              <div class="room-cat">
+                Fabric beds
+              </div>
+              <h2>{{ product.title}}</h2>
+            </div>
+<!--             <div class="price">
+              <div class="price-day">From <span>$1000</span></div>
+              <div class="price-place">
+                As low as $84/mo
+              </div>
+
+
+            </div> -->
+          </div>
+          </div>
+      </div>
+      <!-- form -->
+      
+      <div class="col-lg-4 order-1 order-lg-1">
+        <div class="room-booking-form">
+          <h5 class="title">Choose Option</h5>
+          
+          	{% form 'product', product, class:form_classes, novalidate: 'novalidate', data-product-form: '' %}
+            	{{ form | payment_terms }}
+          		<div class="input-group input-group-two left-icon">
+                  <label for="massage">Choose size bed:</label>
+                  <select name="id" id="ProductSelect-{{ section.id }}" class="choose-size-left product-form__variants no-js" style="dislay:none">
+                    {% for variant in product.variants %}
+                      <option value="{{ variant.id }}"
+                        {%- if variant == current_variant %} selected="selected" {%- endif -%}
+                      >
+                        {{ variant.title }}  {%- if variant.available == false %} - {{ 'products.product.sold_out' | t }}{% endif %}
+                      </option>
+                    {% endfor %}
+                  </select>
+                </div>
+          
+<!--                 <div class="input-group input-group-two left-icon">
+                    <label for="massage">Left Side or Right Side:</label>
+                    <select name="massage" id="massage">
+                      <option value="Right">Right</option>
+                      <option value="Left">Left</option>
+                    </select>
+                </div> -->
+          
+          		<div class="input-group input-group-two left-icon">
+                  <div class="box-price">
+                    <div class="p-title">
+                      Price:
+                    </div>
+                    {% for variant in product.variants %}
+                    <div class="p-number number-left" value="{{ variant.id }}">
+                      {{ variant.price | money }}
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+          
+                <div class="input-group">
+                    <button type="submit" name="add"
+                        {% unless current_variant.available %} aria-disabled="true"{% endunless %}
+                        aria-label="{% unless current_variant.available %}{{ 'products.product.sold_out' | t }}{% else %}{{ 'products.product.add_to_cart' | t }}{% endunless %}"
+                        class="main-btn btn-filled"
+                        {% if settings.enable_ajax %}aria-haspopup="dialog"{% endif %}
+                        data-add-to-cart>
+                        <span data-add-to-cart-text>
+                          {% unless current_variant.available %}
+                            {{ 'products.product.sold_out' | t }}
+                          {% else %}
+                            {{ 'products.product.add_to_cart' | t }}
+                          {% endunless %}
+                        </span>
+                      </button>
+                  </div>
+          		<div class="input-group">{{ form | payment_button }}</div>
+          	{% endform %}
+        </div>
+      </div>
+
+<!--       <div class="col-lg-12 order-2">
+        <div class="deatils-box">
+          <div class="related-room">
+            <h3 class="subtitle wow fadeInLeft" data-wow-delay=".1s">Related Product</h3>
+            <div class="row room-gird-loop">
+              <div class="col-lg-4 col-sm-4">
+                <div class="room-box mb-30 wow fadeInRight" data-wow-delay=".5s wow fadeInRight" data-wow-delay=".4s">
+                  <div class="room-img-wrap">
+                    <div class="room-img"
+                         style="background-image: url('assets/img/bed/1.jpg');">
+                    </div>
+                  </div>
+                  <div class="room-desc">
+
+                    <h4 class="title"><a href="#">Luxury Smart Bed</a></h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipi sicing elit, sed do eiusmod
+                      tempor.</p>
+                    <span class="price">From $400</span>
+                    <a href="#" class="book-btn">Buy Now</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-sm-4">
+                <div class="room-box mb-30 wow fadeInRight" data-wow-delay=".4s">
+                  <div class="room-img-wrap">
+                    <div class="room-img"
+                         style="background-image: url('assets/img/bed/2.jpg');">
+                    </div>
+                  </div>
+                  <div class="room-desc">
+
+                    <h4 class="title"><a href="#">Luxury Smart Bed</a></h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipi sicing elit, sed do eiusmod
+                      tempor.</p>
+                    <span class="price">From $500</span>
+                    <a href="#" class="book-btn">Buy Now</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-sm-4">
+                <div class="room-box mb-30 wow fadeInRight" data-wow-delay=".4s">
+                  <div class="room-img-wrap">
+                    <div class="room-img"
+                         style="background-image: url('assets/img/bed/2.jpg');">
+                    </div>
+                  </div>
+                  <div class="room-desc">
+
+                    <h4 class="title"><a href="#">Luxury Smart Bed</a></h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipi sicing elit, sed do eiusmod
+                      tempor.</p>
+                    <span class="price">From $500</span>
+                    <a href="#" class="book-btn">Buy Now</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+    <div class="row content-h" >
+      <div class="col-12">
+      	<ul class="product-detail-content nav nav-pills" id="product-tab" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link active" id="description-tab" data-toggle="pill" href="#description">
+								Description
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" id="review-tab" data-toggle="pill" href="#review">
+								Review
+							</a>
+						</li>
+					</ul>
+        <div class="tab-content mt-65" id="room-tabContent">
+				<div class="tab-pane fade active show" id="description" role="tabpanel">
+					<div class="deatils-box">
+          
+          
+          
+<!--           <h3>{{ product.title}}</h3> -->
+                    <div class="room-fearures  table table-bordered">
+          		<h3 class="subtitle wow fadeInLeft" data-wow-delay=".1s">Description</h3>
+          {{ product.description}}
+          </div>
+          <div class="room-fearures clearfix mt-60 mb-60">
+            <h3 class="subtitle wow fadeInUp">Key Features</h3>
+            <ul class="room-fearures-list">
+              {%- case product.id -%}
+        		{%- when 6599742062800 -%}
+              		{% section 'template-bed-king-size-black-leather' %}
+              	{%- when 6600474165456 -%}
+              		{% section 'template-bed-king-size-gray-leather' %}
+              {%- endcase -%}
+              
+            </ul>
+          </div>
+          <div class="dimensions-chart room-fearures clearfix mt-60 mb-60">
+            <h3 class="subtitle wow fadeInLeft" data-wow-delay=".1s">Size</h3>
+            <table class="wow fadeInRight" data-wow-delay=".4s">
+              <thead>
+                <tr>
+                  <th>Sizes</th>
+                  <th>Mattress size</th>
+                  <th>Overall size</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="colum-1">Queen Size</td>
+                  <td>60” W x 80” L</td>
+                  <td>88” W x 104” L</td>
+                </tr>
+                <tr>
+                  <td class="colum-1">King Size</td>
+                  <td>76” W x 80” L</td>
+                  <td>104” W x 104” L</td>
+                </tr>
+                
+              </tbody>
+            </table>
+          </div>
+
+<!--           <div class="room-fearures cancellation-box clearfix mt-60 mb-60">
+            <h3 class="subtitle wow fadeInDown" data-wow-delay=".1s">Warranty</h3>
+            <ul class="room-fearures-list wow fadeInUp" data-wow-delay=".4s">
+              <li><img src="assets/icon-svg/11.svg" alt="">Three years against manufacturing defect for eletronic parts.</li>
+              <li><img src="assets/icon-svg/12.svg" alt=""> At least two years warrenty on cover skin of the bed.</li>
+              <li><img src="assets/icon-svg/13.svg" alt="">Offer lifetime consultation on problems occurred.</li>
+
+
+            </ul>
+          </div> -->
+                      <style>
+                        .text-block {
+                        	padding: 30px;
+                          background-color: #fff
+                        }
+                        .block-text {
+                        	padding: 15px
+                        }
+                        @media (max-width: 767.82px) {
+                        	.text-block {
+                            	padding: 0px
+                            }
+                        }
+                        .bgColor {
+                        	background-color: #c695330e
+                        }
+                        
+                      </style>    
+                     {% section 'section-add' %} 
+               
+
+        </div>
+				</div>
+				<div class="tab-pane fade" id="review" role="tabpanel">
+					
+				</div>
+			</div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--====== ROOM-DETAILS END ======-->
+
+
+

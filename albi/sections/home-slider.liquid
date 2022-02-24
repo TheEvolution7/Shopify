@@ -1,0 +1,85 @@
+<section class="room-slider wow fadeInUp">
+  <div class="container-fluid p-0">
+    <div class="row rooms-slider-one wow fadeInUp">
+      {% for block in section.blocks %}
+      	{% if block.type == 'slider' %}
+      		<div class="col">
+              <div class="slider-img" style="background-image: url('{{ block.settings.image | img_url: '700x' }}');">
+              </div>
+            </div>
+      	{% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  <div class="rooms-content-wrap">
+    <div class="container">
+      <div class="row justify-content-center justify-content-md-start">
+        <div class="col-xl-4 col-lg-5 col-sm-8">
+          <div class="room-content-box">
+            <div class="slider-count"></div>
+            <div class="slider-count-big"></div>
+            <div class="room-content-slider">
+              {% for block in section.blocks %}
+                {% if block.type == 'room' %}
+                    <div class="single-content">
+                      <div class="icon">
+                        <i class="flaticon-hotel"></i>
+                      </div>
+                      <h3><a href="{{ block.settings.url }}">{{ block.settings.title }}</a></h3>
+                      <p>{{ block.settings.description }}</p>
+                    </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+	"blocks": [
+      {
+        "type": "slider",
+        "name": "Slider",
+        "settings": [
+		  {
+            "id": "image",
+            "type": "image_picker",
+            "label": "Image"
+          }
+        ]
+      },
+	  {
+        "type": "room",
+        "name": "Room",
+        "settings": [
+		  {
+            "id": "title",
+            "type": "text",
+            "label": "Title"
+          },
+		  {
+           "type": "textarea",
+           "id": "description",
+           "label": "Description"
+          },
+          {
+           "id": "url",
+           "type": "url",
+           "label": "Url"
+          }
+        ]
+      }
+    ],
+    "name": "Slider",
+	"presets": [
+    {
+      "name": "Home Slider",
+      "category": "Home"
+    }
+]
+  }
+{% endschema %}

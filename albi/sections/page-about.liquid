@@ -1,0 +1,131 @@
+ <section class="breadcrumb-area" style="background-image: url('{{ section.settings.image_1 | img_url: 'master' }}assets/img/bg/04.jpg');">
+   <div class="container">
+     <div class="breadcrumb-text col-sm-6 col-md-6 col-lg-5">
+       <h2 class="page-title">{{ section.settings.title_1 }}</h2>
+     </div>
+   </div>
+</section>
+<!--====== BREADCRUMB PART END ======-->
+
+
+<!--====== ABOUT PART START ======-->
+<section class="about-section pt-115 pb-115">
+  <div class="container">
+    <!-- <div class="about-img">
+<img src="assets/img/banner/2.jpg" alt="">
+</div> -->
+    <div class="section-title about-title text-center mb-20">
+      <span class="title-tag wow fadeInDown" data-wow-delay=".3s">{{ section.settings.title_2 }}</span>
+      <h2 class=" wow fadeInDown" data-wow-delay=".5s">
+        {{ section.settings.title_3 }}                  
+      </h2>
+      <p class=" wow fadeInDown" data-wow-delay=".7s">
+        {{ section.settings.title_4 }}
+      </p>
+      <p class=" wow fadeInDown" data-wow-delay=".9s">
+        {{ section.settings.title_5 }}
+      </p>
+    </div>
+    <ul class="about-features masonry-layout">
+      {% for block in section.blocks %}
+      	<li class=" wow fadeInUp" data-wow-delay=".3s">
+          <a href="#">
+            <i class="thumb-icon" style="-webkit-mask-image: url({{ block.settings.image | img_url: 'master' }});"></i>
+            <i class="hover-icon thumb-icon" style="-webkit-mask-image: url({{ block.settings.image | img_url: 'master' }});"></i>
+            <span class="title">{{ block.settings.title }}</span>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <div class="about-text-box">
+      <div class="row align-items-center">
+        <div class="col-lg-6 col-md-12 wow fadeInLeft" data-wow-delay=".5s">
+          <div class="video-wrap" style="background-image: url('{{ section.settings.image_2 | img_url: 'master' }}');">
+            <a href="" class="popup-video"><i
+                                              class="fas fa-play"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-12 wow fadeInRight" data-wow-delay=".5s">
+          <div class="about-text">
+            {{ section.settings.richtext }}
+            
+            <a href="/pages/about" class="main-btn btn-filled">View More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--====== ABOUT PART END ======-->
+
+{% schema %}
+  {
+	"blocks": [
+      {
+        "type": "quote",
+        "name": "Features",
+        "settings": [
+          {
+            "id": "title",
+            "type": "text",
+            "label": "Title"
+          },
+		  {
+            "id": "image",
+            "type": "image_picker",
+            "label": "Image"
+          },
+		  {
+            "id": "url",
+            "type": "url",
+            "label": "Url"
+          }
+        ]
+      }
+    ],
+    "name": "About",
+    "settings": [
+		{
+         "type": "text",
+         "id": "title_1",
+         "label": "Title"
+      	},
+        {
+        "id": "image_1",
+        "type": "image_picker",
+        "label": "Image"
+        },
+		{
+         "type": "text",
+         "id": "title_2",
+         "label": "Title"
+      	},
+		{
+         "type": "text",
+         "id": "title_3",
+         "label": "Title"
+      	},
+		{
+         "type": "text",
+         "id": "title_4",
+         "label": "Title"
+      	},
+		{
+         "type": "text",
+         "id": "title_5",
+         "label": "Title"
+      	},
+        {
+        "id": "image_2",
+        "type": "image_picker",
+        "label": "Image 2"
+        },
+		{
+         "type": "html",
+         "id": "richtext",
+         "label": "Richtext"
+      	}
+	]
+  }
+{% endschema %}

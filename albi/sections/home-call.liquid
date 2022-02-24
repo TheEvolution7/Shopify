@@ -1,0 +1,104 @@
+<section class="cta-section">
+  <div class="parallax-container js-text-parallax">
+    <div class="fx-wrap" data-x="200">
+      <h3 class="fx-target">{{ section.settings.title_1 }}</h3>
+    </div>
+  </div>
+  <div class="container">
+    <div class="cta-inner">
+
+      <div class="row justify-content-center">
+        <div class="col-lg-4 col-md-8 col-sm-9 col-10 order-2 order-lg-1">
+          <div class="cta-text">
+            <div class="section-title mb-20">
+              <span class="title-tag wow fadeInUp">{{ section.settings.title_2 }}</span>
+              <h2 class=" wow fadeInUp">{{ section.settings.title_3 }}</h2>
+            </div>
+            <a href="{{ section.settings.url }}" class="main-btn btn-filled wow fadeInUp">{{ section.settings.title_4 }}</a>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-10 col-sm-11 col-10 order-1 order-lg-2">
+          <!-- feature loop -->
+          <div class="cta-features">
+            {% for block in section.blocks %}
+            	<div class="single-feature wow fadeInUp" data-wow-delay=".3s">
+                  <div class="icon">
+                    <i class="thumb-icon" style="-webkit-mask-image: url({{ block.settings.image | img_url: 'master' }});"></i>
+                  </div>
+                  <div class="cta-desc">
+                    <h3><a href="#">{{ block.settings.title }}</a></h3>
+                    <p>
+                      {{ block.settings.textarea }}
+                    </p>
+<!--                     <span class="count">0{% increment counter %}</span> -->
+                  </div>
+                </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+	"blocks": [
+      {
+        "type": "quote",
+        "name": "Features",
+        "settings": [
+          {
+            "id": "title",
+            "type": "text",
+            "label": "Title"
+          },
+		  {
+            "id": "image",
+            "type": "image_picker",
+            "label": "Image"
+          },
+		  {
+            "id": "textarea",
+            "type": "textarea",
+            "label": "Description"
+          }
+        ]
+      }
+    ],
+    "name": "Call",
+    "settings": [
+		{
+         "type": "text",
+         "id": "title_1",
+         "label": "Title 1"
+      	},
+	  	{
+         "type": "text",
+         "id": "title_2",
+         "label": "Title 2"
+      	},
+	  	{
+         "type": "text",
+         "id": "title_3",
+         "label": "Title 3"
+      	},
+	  	{
+         "type": "text",
+         "id": "title_4",
+         "label": "Title 4"
+      	},
+		{
+        "id": "url",
+        "type": "url",
+        "label": "Url"
+        }
+	],
+	"presets": [
+    {
+      "name": "Home Call",
+      "category": "Home"
+    }
+]
+  }
+{% endschema %}

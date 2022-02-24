@@ -1,0 +1,68 @@
+<section class="room-gallery-cta" style="background-image: url('{{ section.settings.image | img_url: '1920x' }}');">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="cta-text text-center">
+          <span class=" wow fadeInUp">{{ section.settings.title }}</span>
+          <h2 class=" wow fadeInUp">
+            {{ section.settings.description }}
+            </h2>
+          <ul class="mt-50">
+            <li class="wow fadeInUp" data-wow-delay=".3s"><a class="main-btn btn-filled" href="{{ section.settings.url_1 }}">Shop Now</a></li>
+            <li class=" wow fadeInUp" data-wow-delay=".5s"><a class="main-btn btn-border" href="{{ section.settings.url_2 }}">Learn
+              More</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="rotate-images">
+<img src="assets/img/bed/2.jpg" class="rotate-image-one" alt="Image">
+<img src="assets/img/bed/6.jpg" class="rotate-image-two" alt="Image">
+<img src="assets/img/bed/8.jpg" class="rotate-image-three" alt="Image">
+</div> -->
+</section>
+{% schema %}
+  {
+    "name": "Story",
+    "settings": [
+		{
+         "type": "text",
+         "id": "title",
+         "label": "Title"
+      	},
+	  	{
+         "type": "textarea",
+         "id": "description",
+         "label": "Description"
+      	},
+	  	{
+         "type": "image_picker",
+         "id": "image",
+         "label": "Image"
+      	},
+		{
+        "id": "url_1",
+        "type": "url",
+        "label": "Url 1"
+        },
+		{
+        "id": "url_2",
+        "type": "url",
+        "label": "Url 2"
+        }
+	],
+	"presets": [
+    {
+      "name": "Home Story",
+      "category": "Home"
+    }
+]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

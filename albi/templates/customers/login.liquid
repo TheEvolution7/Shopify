@@ -1,0 +1,122 @@
+<section class="breadcrumb-area" style="background-image: url('{{ '04.jpg' | asset_url }}');">
+  <div class="container">
+    <div class="breadcrumb-text col-sm-6 col-md-6 col-lg-5">
+      <h2 class="page-title">Login</h2>
+      <!-- <span>
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis quas alias impedit reprehenderit, porro quod aspernatur soluta vero dicta deserunt possimus fuga. 
+Voluptates non sapiente, voluptatum sequi alias delectus voluptatibus.
+</span>   -->          
+    </div>
+  </div>
+</section>
+<!--====== BREADCRUMB PART END ======-->
+
+
+<!--====== LOGIN START======-->
+<section class="login-area">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2">
+        <div class="basic" id="page-login">
+          <div class="section-title text-center mb-30">
+            <h2>Login From Here</h2>
+          </div>
+          {% form 'customer_login', novalidate: 'novalidate' %}
+
+          {%- if form.errors -%}
+            <div class="form-message form-message--error">
+              <h2 class="h3 form-message__title " tabindex="-1" data-form-status>{{ 'contact.form.error_heading' | t }}</h2>
+              {{ form.errors | default_errors }}
+            </div>
+          {%- endif -%}
+            <div class="input-group mb-30">
+              <span class="icon"><i class="far fa-envelope"></i></span>
+              <input
+                type="email"
+                name="customer[email]"
+                id="CustomerEmail"
+                autocomplete="email"
+                autocorrect="off"
+                autocapitalize="off"
+                placeholder="email"
+                {%- if form.errors contains 'form' -%}
+                  class="input--error"
+                  aria-invalid="true"
+                {%- endif -%}
+                >
+            </div>
+            <div class="input-group mb-30">
+              <span class="icon"><i class="far fa-lock"></i></span>
+              <input
+                type="password"
+                value=""
+                name="customer[password]"
+                id="CustomerPassword"
+                placeholder="password"
+                {%- if form.errors contains 'form' -%}
+                  class="input--error"
+                  aria-invalid="true"
+                {%- endif -%}
+              >
+            </div>
+            <div class="login-action mb-20 fix">
+              <span class="log-rem">
+<!--                 <input id="remember" type="checkbox" />
+                <label for="remember">Remember me!</label> -->
+              </span>
+              <span class="forgot-login">
+                <a href="#" id="move-to-lost">Lost your password?</a>
+              </span>
+            </div>
+            <div class="button text-center">
+              <input type="submit" class="main-btn btn-filled" value="{{ 'customer.login.sign_in' | t }}">
+              <div class="or-divide"><span>or</span></div>
+              <a href="/account/register" class="main-btn btn-border">Register</a>
+            </div>
+          {% endform %}
+        </div>
+        <div class="basic" id="page-lost-password">
+          <div class="section-title text-center mb-30">
+            <h2>Forgot Password</h2>
+          </div>
+          {% form 'recover_customer_password' %}
+            <div class="input-group">
+              <span class="icon"><i class="far fa-envelope"></i></span>
+              <input
+                type="email"
+                value=""
+                name="email"
+                id="RecoverEmail"
+                class="input-full{% if form.errors %} input--error{% endif %}"
+                autocorrect="off"
+                autocapitalize="off"
+                placeholder="Email address"
+                {% if form.errors %}
+                  aria-invalid="true"
+                  aria-describedby="RecoverEmail-email-error"
+                {%- endif -%}
+                >
+            </div>
+          	{%- if form.errors -%}
+              <span id="RecoverEmail-email-error" class="input-error-message">
+                <span class="visually-hidden">{{ 'general.accessibility.error' | t }} </span>
+                {% include 'icon-error' %}
+                <span>{{ form.errors.messages['form'] }}</span>
+              </span>
+            {%- endif -%}
+            <div class="button text-center mt-30">
+              <input type="submit" class="main-btn btn-filled" value="{{ 'customer.recover_password.submit' | t }}">
+              <div class="or-divide"><span>or</span></div>
+              <a href="#" class="main-btn btn-border" id="back-login">Back to Login</a>
+            </div>
+            <div class="button mt-30">
+
+
+            </div>
+
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

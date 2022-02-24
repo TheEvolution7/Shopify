@@ -1,0 +1,84 @@
+<section class="latest-news">
+  <div class="parallax-container js-text-parallax">
+    <div class="fx-wrap" data-x="200">
+      <h3 class="fx-target">{{ section.settings.title_1 }}</h3>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 col-md-8 col-sm-7">
+        <div class="section-title">
+          <span class="title-tag wow fadeInUp">{{ section.settings.title_2 }}</span>
+          <h2 class=" wow fadeInUp">{{ section.settings.title_3 }}</h2>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-4 col-sm-5 d-none d-sm-block">
+        <div class="latest-post-arrow arrow-style text-right">
+
+        </div>
+      </div>
+    </div>
+    <!-- Latest post loop -->
+    <div class="row latest-post-slider mt-80 wow fadeInUp">
+      {%- assign blog = blogs[section.settings.blog] -%}
+      {% for article in blog.articles %}
+      	<div class="col-lg-4">
+          <div class="latest-post-box">
+            <div class="post-img" style="background-image: url('{{ article.image | img_url: '500x' }}');"></div>
+            <div class="post-desc">
+              <ul class="post-meta">
+                <li>
+                  <a href="{{ article.url }}"><i class="fal fa-calendar-alt"></i>{{ article.published_at | time_tag: format: 'date' }}</a>
+                </li>
+
+              </ul>
+              <h4><a href="{{ article.url }}">{{ article.title }}</a></h4>
+              <p>
+                {{ article.excerpt  }}
+              </p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "New",
+    "settings": [
+		{
+         "type": "text",
+         "id": "title_1",
+         "label": "Title 1"
+      	},
+	  	{
+         "type": "text",
+         "id": "title_2",
+         "label": "Title 2"
+      	},
+	  	{
+         "type": "text",
+         "id": "title_3",
+         "label": "Title 3"
+      	},
+		{
+        "id": "url",
+        "type": "url",
+        "label": "Url"
+        },
+		{
+         "type": "blog",
+         "id": "blog",
+         "label": "Blog"
+       }
+	],
+	"presets": [
+    {
+      "name": "Home New",
+      "category": "Home"
+    }
+]
+  }
+{% endschema %}

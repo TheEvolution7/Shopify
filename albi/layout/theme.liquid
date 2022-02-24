@@ -1,0 +1,241 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_primary }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+
+  {% if settings.favicon %}
+    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png" />
+  {% endif %}
+
+  <title>
+  {{ page_title }}{% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+  </title>
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  {% include 'social-meta-tags' %}
+  
+  <link rel="stylesheet" href="{{ 'animate.min.css' | asset_url }}">
+  <!--====== Bootstrap css ======-->
+  <link rel="stylesheet" href="{{ 'bootstrap.min.css' | asset_url }}" />
+  <!--====== Fontawesome css ======-->
+  <link rel="stylesheet" href="{{ 'font-awesome.min.css' | asset_url }}" />
+  <!--====== Flaticon css ======-->
+  <link rel="stylesheet" href="{{ 'flaticon.css' | asset_url }}" />
+  <!--====== Magnific Popup css ======-->
+  <link rel="stylesheet" href="{{ 'magnific-popup.css' | asset_url }}" />
+  <!--====== Owl Carousel css ======-->
+  <link rel="stylesheet" href="{{ 'slick.css' | asset_url }}" />
+  <!--====== Nice Select ======-->
+  <link rel="stylesheet" href="{{ 'nice-select.css' | asset_url }}" />
+  <!--====== Bootstrap Datepicker ======-->
+  <link rel="stylesheet" href="{{ 'bootstrap-datepicker.css' | asset_url }}" />
+  <!--====== Default css ======-->
+  <link rel="stylesheet" href="{{ 'default.css' | asset_url }}" />
+  <!--====== Style css ======-->
+  <link rel="stylesheet" href="{{ 'style.css' | asset_url }}" />
+  
+  <style>
+  	.shopify-policy__container {
+    	padding-top: 150px;
+      	max-width: 900px!important;
+      padding-bottom: 50px
+    }
+    .shopify-policy__container p,
+    .shopify-policy__container h1,
+    .shopify-policy__container h2,
+    .shopify-policy__container h3,
+    .shopify-policy__container h4,
+    .shopify-policy__container h5{
+    	margin-bottom: 10px
+    }
+  </style>
+  
+  {{ content_for_header }}
+</head>
+
+<body>
+  {% section 'header' %}
+  {{ content_for_layout }}
+  {% section 'footer' %}
+  <!--====== jquery js ======-->
+  <script src="{{ 'modernizr-3.6.0.min.js' | asset_url }}"></script>
+  <script src="{{ 'jquery-1.12.4.min.js' | asset_url }}"></script>
+  <!--====== Bootstrap js ======-->
+  <script src="{{ 'bootstrap.min.js' | asset_url }}"></script>
+  <script src="{{ 'popper.min.js' | asset_url }}"></script>
+  <!--====== Slick js ======-->
+  <script src="{{ 'slick.min.js' | asset_url }}"></script>
+  <!--====== Isotope js ======-->
+  <script src="{{ 'isotope.pkgd.min.js' | asset_url }}"></script>
+  <!--====== Magnific Popup js ======-->
+  <script src="{{ 'jquery.magnific-popup.min.js' | asset_url }}"></script>
+  <!--====== inview js ======-->
+  <script src="{{ 'jquery.inview.min.js' | asset_url }}"></script>
+  <!--====== counterup js ======-->
+  <script src="{{ 'jquery.countTo.js' | asset_url }}"></script>
+  <!--====== Nice Select ======-->
+  <script src="{{ 'jquery.nice-select.min.js' | asset_url }}"></script>
+  <!--====== Bootstrap datepicker ======-->
+  <script src="{{ 'bootstrap-datepicker.js' | asset_url }}"></script>
+  <!--====== Wow JS ======-->
+  <script src="{{ 'wow.min.js' | asset_url }}"></script>
+  <script src="{{ 'Tweenmax.min.js' | asset_url }}"></script>
+  <script src="{{ 'ScrollMagic.min.js' | asset_url }}"></script>
+  <script src="{{ 'animation.gsap.min.js' | asset_url }}"></script>
+  <script src="{{ 'debug.addIndicators.min.js' | asset_url }}"></script>
+  <script src="{{ 'jquery.ScrollMagic.min.js' | asset_url }}"></script>
+  <script src="{{ 'jquery.sticky.js' | asset_url }}"></script>
+  <script>
+//         (function ($) {
+//             $(document).ready(function(){
+//                 if($(window).width() < 992){
+//                     $(".room-booking-form").unstick()
+//                 }
+//                 else{
+//                     $(".room-booking-form").sticky({
+//                     topSpacing:110,
+//                     bottomSpacing: $('footer.footer-two').height() + 152 + $('.related-room').height() + $('.content-h').height(),
+//                 });
+//                 }
+//                 $(window).on('resize',function(){
+//                     if($(window).width() < 992){
+//                     $(".room-booking-form").unstick()
+//                 }
+//                 else{
+//                     $(".room-booking-form").sticky({
+//                     topSpacing:110,
+//                     bottomSpacing: $('footer.footer-two').height() + 152 + $('.related-room').height(),
+//                 });
+//                 }
+//                 })
+//             });
+//         })(jQuery);
+    </script>
+  <!--====== Main js ======-->
+  <script src="{{ 'main.js' | asset_url }}"></script>
+  
+  <script>
+
+
+    jQuery.noConflict();
+    (function( $ ) {
+      $(function() {
+        $('.video-bg').on('mouseenter', function() {
+          // $(this).play();
+          $('.room-bg', this).fadeOut(100);
+          // $('video',this).fadeIn(500);
+          // $('.thumb-video video', this).fadeIn(500);
+          $('video',this).trigger('play');
+
+        })
+        $('.video-bg').on('mouseleave', function() {
+          // $(this).play();
+          $('.room-bg', this).fadeIn(100);
+          // $('video',this).fadeOut(500);
+          $('video',this).trigger('pause');
+        })
+        
+        
+        $(document).ready(function(){
+          
+        	
+          if ($(window).width() >= 992) {
+              var h = $('.room-booking-form').height() + 100;
+              $(window).scroll(function() {
+                      if ($(window).scrollTop() > h ) {
+                        $('.room-booking-form').addClass('fixed-active')
+                       	$('.room-booking-form').addClass('show')
+                      }
+                      else {
+                         $('.room-booking-form').removeClass('fixed-active')
+                       	$('.room-booking-form').removeClass('show')
+                      }
+                  });
+            }
+          
+        })
+        
+        $(window).on('resize', function (){
+          if ($(window).width() < 992) {
+            $('.room-booking-form').addClass('fixed-active')
+            $(window).scroll(function() {
+
+                  var footer = $('footer').height();
+                  var a = $('body').height();
+                  var scrollH = $('.content-h').height() + 100;
+                var b = a - footer;
+                console.log(b)
+                      if ($(window).scrollTop() > scrollH ) {
+                       $('.room-booking-form').removeClass('show')
+                      }
+                      else {
+                         $('.room-booking-form').addClass('show')
+                      }
+                  });
+            
+          }
+          
+          if ($(window).width() >= 992) {
+//             $('.room-booking-form').removeClass('fixed-active')
+              var h = $('.room-booking-form').height() + 100;
+              $(window).scroll(function() {
+                      if ($(window).scrollTop() > h ) {
+                        $('.room-booking-form').addClass('fixed-active')
+                       	$('.room-booking-form').addClass('show')
+                      }
+                      else {
+                         $('.room-booking-form').removeClass('fixed-active')
+                       	$('.room-booking-form').removeClass('show')
+                      }
+                  });
+            }
+        })
+        
+        if ($(window).width() < 992) {
+            $('.room-booking-form').addClass('fixed-active')
+            $(window).scroll(function() {
+
+              var footer = $('footer').height();
+              var a = $('body').height();
+              var scrollH = $('.content-h').height() + 100;
+              var b = a - footer;
+              console.log(b)
+              if ($(window).scrollTop() > scrollH ) {
+                $('.room-booking-form').removeClass('show')
+              }
+              else {
+                $('.room-booking-form').addClass('show')
+              }
+            });
+        }
+        if ($(window).width() >= 992) {
+//             $('.room-booking-form').removeClass('fixed-active')
+              var h = $('.room-booking-form').height() + 100;
+              $(window).scroll(function() {
+                      if ($(window).scrollTop() > h ) {
+                        $('.room-booking-form').addClass('fixed-active')
+                       	$('.room-booking-form').addClass('show')
+                      }
+                      else {
+                         $('.room-booking-form').removeClass('fixed-active')
+                       	$('.room-booking-form').removeClass('show')
+                      }
+                  });
+           }
+        
+         
+      });
+    })(jQuery);
+
+  </script>
+  
+  
+</body>
+</html>

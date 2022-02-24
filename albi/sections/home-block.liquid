@@ -1,0 +1,79 @@
+<section class="text-block with-bg" style="background-image: url('{{ section.settings.image_1 | img_url: '1920x' }}');">
+  <div class="container">
+    <div class="row align-items-center justify-content-center justify-content-lg-between">
+      <div class="col-lg-5 col-md-8 col-sm-10 wow fadeInLeft" data-wow-delay=".3s">
+        <div class="block-text mb-small">
+          <div class="section-title mb-20">
+            <span class="title-tag">{{ section.settings.title_1 }}</span>
+            <h2>{{ section.settings.title_2 }}</h2>
+          </div>
+          <p>
+            {{ section.settings.title_3 }}</p>
+          <a href="{{ section.settings.url }}" class="main-btn btn-filled mt-40">View More</a>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-10 wow fadeInRight" data-wow-delay=".5s">
+        <div class="video-wrap" style="position:relative">
+          
+          <div style="position:absolute;width:100%;height:100%;top:0;left:0"><iframe src="https://player.vimeo.com/video/595031110?h=47bbeac9a7&loop=1&color=c69533&title=0&byline=0&portrait=0" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+ 		
+<!--           <a href="{{ section.settings.video_url }}" class="popup-video"><i
+                                            class="fas fa-play"></i></a> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Block",
+    "settings": [
+		{
+         "type": "text",
+         "id": "title_1",
+         "label": "Title 1"
+      	},
+	  	{
+         "type": "text",
+         "id": "title_2",
+         "label": "Title 2"
+      	},
+	  	{
+         "type": "text",
+         "id": "title_3",
+         "label": "Title 3"
+      	},
+		{
+        "id": "url",
+        "type": "url",
+        "label": "Url"
+        },
+		{
+        "id": "image_1",
+        "type": "image_picker",
+        "label": "Image"
+        },
+		{
+        "id": "image_2",
+        "type": "image_picker",
+        "label": "Image"
+        },
+		{
+          "type": "video_url",
+          "id": "video_url",
+          "label": "Video",
+          "accept": [
+            "youtube",
+            "vimeo"
+          ]
+        }
+	],
+	"presets": [
+    {
+      "name": "Home Block",
+      "category": "Home"
+    }
+]
+  }
+{% endschema %}

@@ -1,0 +1,81 @@
+<section class="testimonial-section">
+  <div class="parallax-container js-text-parallax">
+    <div class="fx-wrap" data-x="-200">
+      <h3 class="fx-target">{{ section.settings.title_1 }}</h3>
+    </div>
+  </div>
+  <div class="container">
+    <div class="section-title text-center mb-80">
+      <span class="title-tag wow fadeInUp">{{ section.settings.title_2 }}</span>
+      <h2 class=" wow fadeInUp">{{ section.settings.title_3 }}</h2>
+    </div>
+    <div class="row testimonial-slider">
+      {% for block in section.blocks %}
+      	<div class="col-lg-4 wow fadeInUp">
+          <div class="testimonial-box">
+            <div class="client-img">
+              <img src="{{ block.settings.image | img_url: '800x' }}" alt="images">
+              <span class="check"><i class="fal fa-check"></i></span>
+            </div>
+            <h3>{{ block.settings.title }}</h3>
+            <p>
+              {{ block.settings.description }}
+            </p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+	"blocks": [
+	  {
+        "type": "room",
+        "name": "Room",
+        "settings": [
+		  {
+            "id": "title",
+            "type": "text",
+            "label": "Title"
+          },
+		  {
+           "type": "textarea",
+           "id": "description",
+           "label": "Description"
+          },
+          {
+           "id": "image",
+           "type": "image_picker",
+           "label": "Image"
+          }
+        ]
+      }
+    ],
+    "name": "testimonial",
+	"settings": [
+          {
+            "id": "title_1",
+            "type": "text",
+            "label": "Title 1"
+          },
+          {
+            "id": "title_2",
+            "type": "text",
+            "label": "Title 2"
+          },
+		  {
+            "id": "title_3",
+            "type": "text",
+            "label": "Title 3"
+          }
+        ],
+	"presets": [
+    {
+      "name": "Home Testimonial",
+      "category": "Home"
+    }
+]
+  }
+{% endschema %}

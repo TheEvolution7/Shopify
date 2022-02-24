@@ -1,0 +1,447 @@
+<!--====== BREADCRUMB PART START ======-->
+<section class="breadcrumb-area" style="background-image: url('{{ section.settings.image | img_url: '2048x' }}');">
+  <div class="container">
+    <div class="breadcrumb-text col-sm-6 col-md-6 col-lg-5">
+      <h2 class="page-title">{{ section.settings.title }}</h2>
+      <!-- <span>
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis quas alias impedit reprehenderit, porro quod aspernatur soluta vero dicta deserunt possimus fuga. 
+Voluptates non sapiente, voluptatum sequi alias delectus voluptatibus.
+</span>   -->          
+    </div>
+  </div>
+</section>
+<!--====== BREADCRUMB PART END ======-->
+
+
+<!--====== CATAGORY PART START======-->
+<section class="catagory">
+<!--   <div class="cata-menu wow fadeInUp">
+    <ul>
+      {% for block in section.blocks %}
+      	<li><a href="#{{ block.type }}">{{ block.type }}</a></li>
+      {% endfor %}
+    </ul>
+  </div> -->
+  
+  {% for block in section.blocks %}
+  	{% if block.type == 'pillows' %}
+  		<div id="pillows" class="subcatagory1">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-12 col-md-7 col-lg-8">
+                <div class="cata-thumb wow fadeInLeft" data-wow-delay=".3s">
+                  <img src="{{ block.settings.image | img_url: '900x' }}" alt="">
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-5 col-lg-4">
+                <div class="section-title wow fadeInRight" data-wow-delay=".5s">
+                  <span class="title-tag">{{ block.settings.type }}</span>
+                  <h3>{{ block.settings.title }}</h3>
+                </div>
+              </div>
+            </div>
+            <div class="row wow fadeInUp" data-wow-delay=".5s">
+              {%- assign collection = collections[block.settings.collections] -%}
+      		  {% for product in collection.products %}
+              	<div class="col-sm-12 col-md-4">
+                  <div class="cata-box">
+                    <div class="thumb-img">
+                      <a href="{{ product.url }}">
+                        <img src="{{ product.featured_media.preview_image | img_url: '400x' }}" alt="">
+                      </a>
+                    </div>
+                    <div class="cata-content">
+                      <a href="{{ product.url }}">{{ product.title }}</a>
+<!--                       <p>{{ product.description }}</p> -->
+                      <span>{{ product.price_min  | money }} - {{ product.price_max  | money }}</span>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+  	{% endif %}
+    
+<!--   	{% if block.type == 'essential' %}
+        <div class="product-features bgColor">
+          <div class="container">
+            <div class="row">
+              <div class="col-3 col-md-3 col-lg-3">
+                <div class="fea-box wow fadeInUp" data-wow-delay=".3s">
+                  <div class="fea-thumb">
+                    <i class="thumb-icon" style="-webkit-mask-image: url({{ '6.svg' | asset_url }});"></i>
+                  </div>
+                  <h5>{{ block.settings.ic1 }}</h5>
+                </div>
+              </div>
+              <div class="col-3 col-md-3 col-lg-3">
+                <div class="fea-box wow fadeInUp" data-wow-delay=".5s">
+                  <div class="fea-thumb">
+                    <i class="thumb-icon" style="-webkit-mask-image: url({{ '3.svg' | asset_url }});"></i>
+                  </div>
+                  <h5>{{ block.settings.ic2 }}</h5>
+                </div>
+              </div>
+              <div class="col-3 col-md-3 col-lg-3">
+                <div class="fea-box wow fadeInUp" data-wow-delay=".7s">
+                  <div class="fea-thumb">
+                    <i class="thumb-icon" style="-webkit-mask-image: url({{ '7.svg' | asset_url }});"></i>
+                  </div>
+                  <h5>{{ block.settings.ic3 }}</h5>
+                </div>
+              </div>
+              <div class="col-3 col-md-3 col-lg-3">
+                <div class="fea-box wow fadeInUp" data-wow-delay=".9s">
+                  <div class="fea-thumb">
+                    <i class="thumb-icon" style="-webkit-mask-image: url({{ '8.svg' | asset_url }});"></i>
+                  </div>
+                  <h5>{{ block.settings.ic4 }}</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div id="essential" class="subcatagory1">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-5 col-lg-4">
+                <div class="section-title wow fadeInLeft" data-wow-delay=".3s">
+                  <span class="title-tag">{{ block.settings.title }}</span>
+                  <h3>{{ block.settings.description }}</h3>
+                </div>
+              </div>
+              <div class="col-sm-7 col-lg-8">
+                <div class="cata-thumb wow fadeInRight" data-wow-delay=".5s">
+                  <img src="{{ block.settings.image | img_url: 'master' }}" alt="">
+                </div>
+              </div>
+            </div>
+            <div class="row wow fadeInDown" data-wow-delay=".5s">
+              {%- assign collection = collections[block.settings.collections] -%}
+      		  {% for product in collection.products %}
+              	<div class="col-sm-12 col-md-4">
+                  <div class="cata-box">
+                    <div class="thumb-img">
+                      <a href="{{ product.url }}">
+                        <img src="{{ product.featured_media.preview_image | img_url: 'grande' }}" alt="">
+                      </a>
+                    </div>
+                    <div class="cata-content">
+                      <a href="{{ product.url }}">{{ product.title }}</a>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+  {% endif %} -->
+  	
+  	
+  	{% if block.type == 'accessories' %}
+<!--   		<div id="accessories" class="subcatagory2 bgColor">
+        <div class="container">
+          <div class="section-title wow fadeInRight">
+            <span class="title-tag">{{ block.settings.title }}</span>
+            <h3>
+              {{ block.settings.description }}
+            </h3>
+          </div>
+          <div class="row wow fadeInUp" data-wow-delay=".5s">
+            {%- assign collection = collections[block.settings.collections] -%}
+            {% for product in collection.products %}
+              <div class="col-sm-12 col-md-4 col-lg-4">
+                <div class="cata-box">
+                  <div class="thumb-img">
+                    <a href="{{ product.url }}">
+                      <img src="{{ product.featured_media.preview_image | img_url: 'master' }}" alt="">
+                    </a>
+                  </div>
+                  <div class="cata-content">
+                    <a href="{{ product.url }}">{{ product.title }}</a>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div> -->
+
+
+    </section>
+    <!--====== CATAGORY PART END ======-->
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+      	<div class="room-details">
+              <div class="deatils-box">
+               <div class="room-fearures clearfix">
+              <h3 class="subtitle wow fadeInUp">Key Features</h3>
+              <ul class="room-fearures-list">
+                <li class="wow fadeInDown" data-wow-delay=".4s"><img src="{{ '01.svg' | asset_url }}" alt=""> Wrapped in genuine top grain cowhide leather for touching surface, surrounded with synthetic leather</li>
+              <li class="wow fadeInDown" data-wow-delay=".4s"><img src="{{ '02.svg' | asset_url }}" alt=""> High-density foam bedhead, Height adjustable Bedhead</li>
+              <li class="wow fadeInDown" data-wow-delay=".4s"><img src="{{ '03.svg' | asset_url }}" alt="">Liftable side table</li>
+              <li class="wow fadeInDown" data-wow-delay=".4s"><img src="{{ '04.svg' | asset_url }}" alt="">Massage Chaise</li>
+              <li class="wow fadeInDown" data-wow-delay=".4s"><img src="{{ '05.svg' | asset_url }}" alt="">Iphone,ipad,ipod and Android player system, USB recharge and bluetooth speaker fuction</li>
+              <li class="wow fadeInDown" data-wow-delay=".4s"><img src="{{ '06.svg' | asset_url }}" alt="">Bed Frame: Bentwood frame, metal brackets</li>
+              <li class="wow fadeInDown" data-wow-delay=".4s"><img src="{{ '07.svg' | asset_url }}" alt="">Assembly: Easy assembly required</li>
+              <li class="wow fadeInDown" data-wow-delay=".4s"><img src="{{ '08.svg' | asset_url }}" alt="">Inner size : Fit for Standard American Queen or King Size Mattress</li>
+              <li class="wow fadeInDown" data-wow-delay=".4s"><img src="{{ '09.svg' | asset_url }}" alt="">24 months for skin cover and 36 months for eletronic parts</li>
+              <li class="wow fadeInDown" data-wow-delay=".4s"><img src="{{ '010.svg' | asset_url }}" alt="">Fully Customisable: Not the size or finish you are looking for? No need to worry, we can custom make your bed in line with your unique needs and wants.</li>
+
+
+              </ul>
+            </div>
+              </div>
+            </div>
+      </div>
+    </div>
+  </div>
+	
+</section>
+
+    <!--======DIMENSION CHART PART END ======-->
+<!--     <section class="dimensions-chart">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-4 col-lg-4 d-flex align-items-center">
+            <div class="section-title wow fadeInRight">
+              <span class="title-tag">{{ block.settings.title_c_1 }}</span>
+              <h3>{{ block.settings.title_c_2 }}</h3>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-8 col-lg-8">
+            
+           
+            <table class="wow fadeInRight" data-wow-delay=".6s">
+              <thead>
+                <tr>
+                  <th>Mattress Size</th>
+                  <th>Albi beds</th>
+                  <th>Normal beds</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="colum-1">Full</td>
+                  <td>54" X 75"</td>
+                  <td>134.5 X 190.5cm</td>
+                </tr>
+                <tr>
+                  <td class="colum-1">King</td>
+                  <td>76" X 80"</td>
+                  <td>193 X 203.5cm</td>
+                </tr>
+                <tr>
+                  <td class="colum-1">Queen</td>
+                  <td>60" X 80"</td>
+                  <td>152 X 203.5cm</td>
+                </tr>
+                <tr>
+                  <td class="colum-1">Twin</td>
+                  <td>38" X 75"</td>
+                  <td>96.5 X 188.0cm</td>
+                </tr>
+                <tr>
+                  <td class="colum-1">Small Single</td>
+                  <td>30" X 75"</td>
+                  <td>76.2 X 190.5cm</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+
+
+
+
+
+    <!--====== SUPPORT PART END ======-->
+    <section class="support bgColor">
+      <div class="container">
+        <div class="text-center mb-20">
+          <div class="section-title  wow fadeInRight">
+            <h3 class="wow fadeInUp" data-wow-delay=".2s">{{ block.settings.text_2 }}</h3>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-4 col-md-4 col-lg-4">
+            <div class="sup-box wow fadeInLeft" data-wow-delay=".3s">
+              <div class="sup-thumb">
+                <i class="thumb-icon" style="-webkit-mask-image: url({{ '3.svg' | asset_url }});"></i>
+              </div>
+              <h5>{{ block.settings.ic1 }}</h5>
+            </div>
+          </div>
+          <div class="col-4 col-md-4 col-lg-4">
+            <div class="sup-box wow fadeInLeft" data-wow-delay=".6s">
+              <div class="sup-thumb">
+                <i class="thumb-icon" style="-webkit-mask-image: url({{ '4.svg' | asset_url }});"></i>
+              </div>
+              <h5>{{ block.settings.ic2 }}</h5>
+            </div>
+          </div>
+          <div class="col-4 col-md-4 col-lg-4">
+            <div class="sup-box wow fadeInLeft" data-wow-delay=".9s">
+              <div class="sup-thumb">
+                <i class="thumb-icon" style="-webkit-mask-image: url({{ '2.svg' | asset_url }});"></i>
+              </div>
+              <h5>{{ block.settings.ic3 }}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--====== SUPPORT PART END ======-->
+
+  	{% endif %}
+  {% endfor %}
+
+
+  
+{% schema %}
+  {
+    "name": "Collections",
+    "settings": [
+		{
+         "type": "text",
+         "id": "title",
+         "label": "Title"
+      	},
+        {
+        "id": "image",
+        "type": "image_picker",
+        "label": "Image"
+        }
+	],
+	"blocks": [
+      {
+        "type": "pillows",
+        "name": "Pillows",
+        "settings": [
+          {
+            "id": "title",
+            "type": "text",
+            "label": "Title"
+          },
+		  {
+            "id": "image",
+            "type": "image_picker",
+            "label": "Image"
+          },
+		  {
+            "id": "collections",
+            "type": "collection",
+            "label": "Collections"
+          }
+        ]
+      },
+	  {
+        "type": "essential",
+        "name": "Essential",
+        "settings": [
+          {
+            "id": "title",
+            "type": "text",
+            "label": "Title"
+          },
+		  {
+            "id": "description",
+            "type": "textarea",
+            "label": "Description"
+          },
+		  {
+            "id": "image",
+            "type": "image_picker",
+            "label": "Image"
+          },
+		  {
+            "id": "collections",
+            "type": "collection",
+            "label": "Collections"
+          },
+          {
+           "type": "text",
+           "id": "ic1",
+           "label": "IC"
+          },
+          {
+           "type": "text",
+           "id": "ic2",
+           "label": "IC"
+          },
+          {
+           "type": "text",
+           "id": "ic3",
+           "label": "IC"
+          },
+          {
+           "type": "text",
+           "id": "ic4",
+           "label": "IC"
+          }
+        ]
+      },
+	  {
+        "type": "accessories",
+        "name": "Accessories",
+        "settings": [
+          {
+            "id": "title",
+            "type": "text",
+            "label": "Title"
+          },
+		  {
+            "id": "description",
+            "type": "textarea",
+            "label": "Description"
+          },
+		  {
+            "id": "collections",
+            "type": "collection",
+            "label": "Collections"
+          },
+		  {
+            "id": "title_c_1",
+            "type": "text",
+            "label": "Title Chart 1"
+          },
+		  {
+            "id": "title_c_2",
+            "type": "text",
+            "label": "Title Chart 2"
+          },
+          {
+           "type": "text",
+           "id": "text_2",
+           "label": "Text"
+          },
+          {
+           "type": "text",
+           "id": "ic1",
+           "label": "IC"
+          },
+          {
+           "type": "text",
+           "id": "ic2",
+           "label": "IC"
+          },
+          {
+           "type": "text",
+           "id": "ic3",
+           "label": "IC"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

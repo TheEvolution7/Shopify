@@ -1,0 +1,124 @@
+<!--====== PRELOader ======-->
+<!-- <div class="preloader d-flex align-items-center justify-content-center">
+  <div class="cssload-container">
+    <div class="cssload-loading" style="-webkit-mask-image: url({{ section.settings.logo | img_url: image_size }})">
+    </div>
+  </div>
+</div> -->
+<!--====== HEADER START ======-->
+<header class="header-three">
+  <div class="main-menu-area sticky-header">
+    <div class="container container-custom-three">
+      <div class="nav-container d-flex align-items-center justify-content-between">
+        <!-- Site Logo -->
+        <div class="site-logo">
+          <a href="{{ routes.root_url }}"><img src="{{ section.settings.logo | img_url: image_size }}" alt="{{ shop.name }}"></a>
+        </div>
+        <!-- Main Menu -->
+        <div class="nav-menu d-lg-flex align-items-center justify-content-between">
+
+          <!-- Navbar Close Icon -->
+          <div class="navbar-close">
+            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+          </div>
+
+          <!-- Mneu Items -->
+          <div class="menu-items">
+            <ul>
+              <li {% if request.path == '/' %} class="active"{% endif %}><a href="/">Home</a></li>
+              <li {% if request.path == '/pages/about' %} class="active"{% endif %}><a href="/pages/about">Our Story</a></li>
+              <li {% if request.path == '/collections' %} class="active"{% endif %}>
+                <a href="/collections">Products</a>
+<!--                 <ul class="submenu">
+                  <li><a href="#">Fabric beds </a></li>
+                  <li><a href="#">Leather beds</a></li>
+                </ul> -->
+              </li>
+              <li><a href="#">Financing</a></li>
+              <li {% if request.path == '/pages/warranty' %} class="active"{% endif %}><a href="/pages/warranty">Warranty</a></li>
+              <li {% if request.path == '/pages/contact' %} class="active"{% endif %}><a href="/pages/contact">Contact Us</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- navbar right content -->
+        <div class="menu-right-buttons">
+
+          <!-- search btton -->
+          <div class="search">
+            <a href="#" class="search-icon" id="searchBtn">
+              <i class="fal fa-search open-icon"></i>
+              <i class="fal fa-times close-icon"></i>
+            </a>
+            <div class="search-form">
+              <form action="{{ routes.search_url }}">
+                <input type="text"
+                  placeholder="Search your keyword..."
+                  name="q"
+                  value="{{ search.terms | escape }}"
+               >
+                <button type="submit"><i class="far fa-search"></i></button>
+              </form>
+<!--               <form action="#">
+                <input type="text" placeholder="Search your keyword...">
+                <button type="submit"><i class="far fa-search"></i></button>
+              </form> -->
+            </div>
+          </div>
+
+          <!-- Log in icon -->
+          <div class="login-btn">
+            <a href="/account/login" id="loginBtn"><i class="fal fa-user"></i></a>
+          </div>
+
+          <!-- Cart in icon -->
+          <div class="cart-btn">
+            <a href="/cart" id="cartBtn"><i class="fal fa-shopping-cart"></i></a>
+          </div>
+
+
+          <!-- Navbar Toggler -->
+          <div class="navbar-toggler">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<!--====== HEADER END ======-->
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": {
+        "cs": "Obrázek loga",
+        "da": "Logobillede",
+        "de": "Logo-Foto",
+        "en": "Logo image",
+        "es": "Logo",
+        "fi": "Logokuva",
+        "fr": "Image du logo",
+        "it": "Immagine del logo",
+        "ja": "ロゴ画像",
+        "ko": "로고 이미지",
+        "nb": "Logobilde",
+        "nl": "Afbeelding van logo",
+        "pl": "Obraz logo",
+        "pt-BR": "Imagem do logo",
+        "pt-PT": "Imagem do logótipo",
+        "sv": "Logobild",
+        "th": "รูปภาพโลโก้",
+        "tr": "Logo görseli",
+        "vi": "Hình ảnh logo",
+        "zh-CN": "logo 图片",
+        "zh-TW": "標誌圖片"
+      }
+    }
+  ]
+}
+{% endschema %}

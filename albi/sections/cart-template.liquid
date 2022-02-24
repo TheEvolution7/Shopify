@@ -1,0 +1,131 @@
+<section class="breadcrumb-area" style="background-image: url('{{ section.settings.image | img_url: 'master' }}');">
+  <div class="container">
+    <div class="breadcrumb-text col-sm-6 col-md-6 col-lg-5">
+      <h2 class="page-title">{{ section.settings.title }}</h2>
+    </div>
+  </div>
+</section>
+<form action="{{ routes.cart_url }}" method="post" novalidate class="cart">
+<section class="cart-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="cart-table table-content table-responsive">
+          <table class="table-mobile">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>{{ 'cart.label.product' | t }}</th>
+                <th>{{ 'cart.label.price' | t }}</th>
+                <th>{{ 'cart.label.quantity' | t }}</th>
+                <th>{{ 'cart.label.total' | t }}</th>
+                <th>Remove</th>
+              </tr>
+
+            </thead>
+            <tbody>
+              {%- for item in cart.items -%}
+                <tr>
+                  <td data-label="Image">
+                    <a href="{{ item.url }}" class="cart-thumb">
+                      <img src="{{ item | img_url: 'x190' }}" alt="{{ item.image.alt | escape }}">
+                    </a>
+                  </td>
+                  <td data-label="Name">
+                    <div class="cart-title">
+                      <a href="{{ item.url }}"> {{ item.product.title }}</a>
+
+                      {%- assign variant_options = 'template ' | split: ' ' -%}
+                      {%- if item.product.has_only_default_variant != true -%}
+                      {%- assign variant_options = item.options_with_values -%}
+                      {%- endif -%}
+                      {%- assign property_size = item.properties | size -%}
+
+                      {%- for option in variant_options -%}
+                      <p>{{ option.name }}: {{ option.value }}</p>
+                      {%- endfor -%}
+
+                    </div>
+                  </td>
+                  <td data-label="Price">
+                    {{ item.original_price | money }}
+                  </td>
+                  <td data-label="Quantity">
+                    <div class="cart-plus">
+                      <input id="updates_large_{{ item.key }}" class="qty-input" type="number"
+                    name="updates[]" value="{{ item.quantity }}" min="0" pattern="[0-9]*"
+                    data-quantity-input data-quantity-item="{{ forloop.index }}" data-quantity-input-desktop data-role="product-quantity-desktop">
+                      <div class="dec qtybutton">-</div>
+                      <div class="inc qtybutton">+</div>
+                    </div>
+                  </td>
+                  <td data-label="Total">
+                    <span>{{ item.original_line_price | money }}</span>
+                  </td>
+                  <td data-label="Remove">
+                    <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="card-remove" aria-label="{{ 'cart.label.remove' | t: product: item.title }}" data-cart-remove data-role="product-remove"></a>
+                  </td>
+                </tr>
+                {%- endfor -%}
+            </tbody>
+          </table>
+          <div class="button-box-two">
+            {%- unless section.settings.cart_ajax_enable -%}
+            <input type="submit" name="update"
+                   class="main-btn btn-border"
+                   value="{{ 'cart.general.update' | t }}">
+            {%- endunless -%}
+        </div>    
+      </div>
+    </div>
+  </div>
+  <div class="row clearfix coupon-box">
+    <div class="col-lg-6 col-md-12 col-sm-12 mb-30">
+      <div class="coupon-input d-flex flex-wrap">
+        <input type="text" value placeholder="Enter Coupon Code">
+        <button class="main-btn btn-filled" type="submit">apply coupon</button>
+      </div>
+    </div>
+    <div class="col-lg-4 ml-auto">
+      <div class="total-box wow fadeInUp animated" data-wow-duration="3s">
+        <ul>
+          <li>Total<span>{{ cart.total_price | money_with_currency }}</span> </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 wow fadeInUp animated" data-wow-duration="3s">
+      <div class="button-box-one">
+        
+        <a href="{{ routes.root_url }}">
+          <button class="main-btn btn-filled" type="submit">back</i></button>
+        </a>
+    </div>
+    <div class="button-box-two">
+      <input type="submit" name="checkout"
+                 class="main-btn btn-filled"
+                 value="{{ 'cart.general.checkout' | t }}">
+  </div>
+  </div>
+</div>
+</div>
+</section>
+</form>
+{% schema %}
+{
+"name": "Block",
+"settings": [
+{
+"type": "text",
+"id": "title",
+"label": "Title"
+},
+{
+"id": "image",
+"type": "image_picker",
+"label": "Image"
+}
+]
+}
+{% endschema %}

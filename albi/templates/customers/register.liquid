@@ -1,0 +1,82 @@
+<!--====== BREADCRUMB PART END ======-->
+<section class="breadcrumb-area" style="background-image: url('{{ '04.jpg' | asset_url }}');">
+  <div class="container">
+    <div class="breadcrumb-text col-sm-6 col-md-6 col-lg-5">
+      <h2 class="page-title">Register</h2>
+      <!-- <span>
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis quas alias impedit reprehenderit, porro quod aspernatur soluta vero dicta deserunt possimus fuga. 
+Voluptates non sapiente, voluptatum sequi alias delectus voluptatibus.
+</span>   -->          
+    </div>
+  </div>
+</section>
+
+<!--====== LOGIN START======-->
+<section class="register">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2">
+        <div class="basic" id="page-login">
+          <div class="section-title text-center mb-30">
+            <h2>Register From Here</h2>
+          </div>
+          {% form 'create_customer', id: formId, novalidate: 'novalidate' %}
+            <div class="row">
+              <div class="col-md-6">
+                <div class="input-group mb-30">
+                  <input type="text" name="customer[first_name]" id="{{ formId }}-FirstName" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} autocomplete="given-name" placeholder="Your first name">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-group mb-30">
+                  <input type="text" name="customer[last_name]" id="{{ formId }}-LastName" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} autocomplete="family-name"  placeholder="Your last name">
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="input-group mb-30">
+                 <input
+                  type="email"
+                  name="customer[email]"
+                  id="{{ formId }}-email"
+                  class="{% if form.errors contains 'email' %} input--error{% endif %}"
+                  {% if form.email %} value="{{ form.email }}"{% endif %}
+                  autocorrect="off"
+                  autocapitalize="off"
+                  autocomplete="email"
+                  aria-required="true"
+                  placeholder="Email"
+                  {%- if form.errors contains 'email' -%}
+                    class="input--error"
+                    aria-invalid="true"
+                    aria-describedby="{{ formId }}-email-error"
+                  {%- endif -%}
+                >
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="input-group mb-30">
+                  <input
+                    type="password"
+                    name="customer[password]"
+                    id="{{ formId }}-password"
+                    class="{% if form.errors contains 'password' %} input--error{% endif %}"
+                    aria-required="true"
+                         placeholder="Password"
+                    {%- if form.errors contains 'password' -%}
+                      class="input--error"
+                      aria-invalid="true"
+                      aria-describedby="{{ formId }}-password-error"
+                    {%- endif -%}
+                  >
+                </div>
+              </div>
+              <div class="col-12 mt-30 text-center wow fadeInRight" data-wow-delay=".5s">
+                <input type="submit" value="{{ 'customer.register.submit' | t }}" class="main-btn btn-filled">
+              </div>
+            </div>
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
