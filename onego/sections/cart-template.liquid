@@ -1,0 +1,152 @@
+<div class="breadcrumb-area breadcrumb-style-1" style="background-image: url({{ '18.jpeg' | asset_url }});">
+  <div class="container">
+    <div class="row custom-gutter">
+      <div class="col-lg-12">
+        <div class="breadcrumb-inner text-center">
+          <h1 class="page-title">Cart</h1>
+          <!-- <ul class="page-list">
+<li><a href="#">Home</a></li>
+<li>Shop</li>
+</ul> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Breadcrumb area end -->
+
+<!-- Cart area start -->
+<div class="cart-area margin-bottom-120  mobile-mb-50 tab-mb-80">
+  <div class="container">
+    <div class="row custom-gutter">
+
+      <!-- shoping-cart-tab-info -->
+      <div class="col-xl-8 offset-xl-2">
+        <div class="shoping-cart-tab-info">
+          <div class="shopping-cart-info">
+            <div class="row">
+              <div class="col-xl-12">
+                <div class="shoping-cart-inner">
+                  <div class="shoping-cart-inner-table">
+                    <form action="{{ routes.cart_url }}" method="post" novalidate class="cart">
+                      
+                      <div class="table-content table-responsive mb-50">
+                        <table class="text-center">
+                          <tbody>
+                            {%- for item in cart.items -%}
+                            <tr>
+                              <td data-label="Remove" class="cart-product-remove">
+                                <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0"><i class="ti-trash"></i></a>
+                              </td>
+                              <td data-label="Image" class="cart-product-thumbnail">
+                                <a href="{{ item.url }}"><img src="{{ item | img_url: 'x190' }}" alt="{{ item.image.alt | escape }}"></a>
+                              </td>
+                              <td data-label="Title" class="cart-product-title">
+                                <h6><a href="{{ item.url }}">{{ item.product.title }}</a></h6>
+                              </td>
+                              <td data-label="Price" class="cart-product-price">{{ item.original_price | money }}</td>
+                              <td data-label="" class="cart-product-multifly">x</td>
+                              <td data-label="Quantity" class="cart-product-quantity">
+                                <div class="product-meta product-quantity clearfix">
+                                  <!-- <span class="product-meta-title">Quantity</span> -->
+                                  <div class="product-meta-type">
+                                    <div class="cart-plus-minus">
+                                      <input id="updates_large_{{ item.key }}" class="cart-plus-minus-box" type="number"
+                                      name="updates[]" value="{{ item.quantity }}" min="0" pattern="[0-9]*">
+                                    </div>
+                                  </div>
+                                </div>
+                              </td>
+                              <td data-label="Total" class="cart-product-subtotal">{{ item.final_line_price | money }}</td>
+                            </tr>
+                            {%- endfor -%}
+                          </tbody>
+                        </table>
+                      </div>
+                      
+                    <div class="shoppint-cart-total">
+                      <div class="row">
+                        <div class="col-xl-6">
+<!--                           <div class="shopping-cart-coupon">
+                            <p>Enter a promo code</p>
+                            <form action="#" class="form-input-box">
+                              <input type="text" placeholder="HELLOSUMMER">
+                              <button type="submit"><i class="ti-check"></i></button>
+                            </form>
+                          </div> -->
+                          <div class="identixweb-order-delivery"></div>
+                          
+                        </div>
+                        <div class="col-xl-6 desktop-text-right">
+                          <div class="shopping-cart-total-inner">
+                            <div class=" table-responsive mb-50">
+                              <table class="text-right">
+                                <tbody>
+                                  <tr>
+                                  	<td class="save-from-coupon">
+                                    	{%- capture taxes_shipping_checkout -%}
+                                          {%- if shop.taxes_included and shop.shipping_policy.body != blank -%}
+                                            {{ 'cart.general.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                                          {%- elsif shop.taxes_included -%}
+                                            {{ 'cart.general.taxes_included_but_shipping_at_checkout' | t }}
+                                          {%- elsif shop.shipping_policy.body != blank -%}
+                                            {{ 'cart.general.taxes_and_shipping_policy_at_checkout_html' | t: link: shop.shipping_policy.url }}
+                                          {%- else -%}
+                                            {{ 'cart.general.taxes_and_shipping_at_checkout' | t }}
+                                          {%- endif -%}
+                                        {%- endcapture -%}
+                                    </td>
+                                    <td>
+                                    	<div class="cart__shipping rte">{{ taxes_shipping_checkout }}</div>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="cart-total-title">Total:</td>
+                                    <td class="cart-total-price">{{ cart.total_price | money_with_currency }}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="shopping-cart-btn margin-top-60 mobile-mt-10 tab-mt-50">
+                        <div class="btn-wrapper desktop-text-right">
+<!--                           <a href="shop.html" class="boxed-btn btn-rounded btn-opacity-6">Continue shopping</a> -->
+<!--                           <button type="submit" name="update"
+                          class="boxed-btn btn-rounded btn-opacity-6"
+                                  value="{{ 'cart.general.update' | t }}">{{ 'cart.general.update' | t }}</button> -->
+                          <button type="submit" name="checkout"
+                          class="boxed-btn btn-rounded"
+                          value="{{ 'cart.general.checkout' | t }}">{{ 'cart.general.checkout' | t }}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$( document ).ready(function() {
+	var hideDeliveryTime = setInterval(function() {
+	   if ($('.deliveryTime').length) {
+	     $('.deliveryTime').css('display', 'none');
+         //$('.uiDeliveryTimeVal').val('02:00PM');
+	      clearInterval(hideDeliveryTime);
+	   }
+	}, 100); // check every 100ms
+  
+  $("button[name=checkout]").click(function(){
+        $('.uiDeliveryTimeVal').val('02:00PM');
+    }); 
+  
+});
+</script>

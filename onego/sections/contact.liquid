@@ -1,0 +1,164 @@
+<!-- Breadcrumb area start -->
+<div class="breadcrumb-area breadcrumb-style-3 margin-top-80" data-aos="fade-up" data-aos-duration="1500">
+  <div class="container-fluid">
+    <div class="row custom-gutter">
+      <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-12">
+        <div class="breadcrumb-inner text-center" style="background-image: url({{ '18.jpeg' | asset_url }});">
+          <div class="breadcrumb-shape"></div>
+          <h1 class="page-title">{{ section.settings.title1 }}</h1>
+          <!-- <ul class="page-list">
+<li><a href="#">Home</a></li>
+<li>Shop</li>
+</ul> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Breadcrumb area end -->
+
+<!-- Contact us area start -->
+<div class="contact-us-area">
+  <div class="container">
+    <div class="row custom-gutter">
+      <div class="col-lg-6">
+        <div class="contact-us-info margin-bottom-120 mobile-mb-50 tab-mb-40">
+          <div class="section-title-area section-title-width ">
+            <div class="section-title section-title-2" data-aos="fade-up" data-aos-duration="1500">
+              <div class="icon">
+                <img src="{{ 'title.svg' | asset_url }}" alt="Bloom">
+              </div>
+              <div class="title-text">
+                <h2 class="title">{{ section.settings.title2 }}</h2>
+              </div>
+            </div>
+            <p data-aos="fade-up" data-aos-duration="1500">{{ section.settings.title3 }}</p>
+          </div>
+          <div class="contact-address" data-aos="fade-up" data-aos-duration="1500">
+            <ul>
+              {{ section.settings.title4 }}
+            </ul>
+          </div>
+          <div class="social_share" data-aos="fade-up" data-aos-duration="1500">
+            <ul>
+              <li><a href="#" target="_blank"><i class="fa fa-instagram"></i></a></li>
+              <li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
+              <li><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="google-map-area mobile-mb-50 tab-mb-80 ">
+          <div class="map-bg-img-1">
+            <img src="{{ 'map-bg-3.png' | asset_url }}" alt="">
+          </div>
+          <div class="google-map-inner" data-aos="fade-up" data-aos-duration="1500">
+            <div id="map">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d415857.6238107584!2d-97.76005290609594!3d35.48232259057262!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87ad8a547ef8d281%3A0x33a21274d14f3a9d!2zVGjDoG5oIHBo4buRIE9rbGFob21hLCBPa2xhaG9tYSwgSG9hIEvhu7M!5e0!3m2!1svi!2s!4v1640586647751!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+          </div>
+          <div class="map-bg-img-2">
+            <img src="{{ 'map-bg-4.png' | asset_url }}" alt="">
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="contact-form-area margin-bottom-115 mobile-mb-50 tab-mb-80">
+          <div class="section-title-area  section-title-width">
+            <div class="section-title section-title-2" data-aos="fade-up" data-aos-duration="1500">
+              <div class="icon">
+                <img src="{{ 'title.svg' | asset_url }}" alt="Bloom">
+              </div>
+              <div class="title-text">
+                <h2 class="title">Contact us</h2>
+              </div>
+            </div>
+            <p data-aos="fade-up" data-aos-duration="1500">{{ section.settings.title5 }}</p>
+          </div>
+          {%- assign formId = 'ContactForm' -%}
+          {% form 'contact', id: formId, class: 'contact-form-bo' %}
+          {% include 'form-status', form: form, form_id: formId %}
+          <div class="row">
+            <div class="col-lg-6">
+              <input required type="text" id="{{ formId }}-name" name="contact[{{ 'contact.form.name' | t }}]" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}" placeholder="Name">
+            </div>
+            <div class="col-lg-6">
+
+              <input
+                      required
+                     type="email"
+                     id="{{ formId }}-email"
+                     name="contact[email]"
+                     autocorrect="off"
+                     autocapitalize="off"
+                     value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                     aria-required="true"
+                     placeholder="Email"
+                     {%- if form.errors contains 'email' -%}
+                     class="input--error"
+                     aria-invalid="true"
+                     aria-describedby="{{ formId }}-email-error"
+                     {%- endif -%}
+                     >
+            </div>
+            <div class="col-lg-12">
+
+              <input required type="text" id="{{ formId }}-phone" name="contact[{{ 'contact.form.phone' | t }}]" pattern="[0-9\-]*" value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}" placeholder="Phone">
+              <textarea required rows="3" id="{{ formId }}-message" name="contact[{{ 'contact.form.message' | t }}]" placeholder="Message">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+              <div class="btn-wrapper">
+                <button class="boxed-btn btn-rounded" type="submit" value="{{ 'contact.form.submit' | t }}">Send message</button>
+              </div>
+              <p class="form-messege mb-0"></p>
+            </div>
+          </div>
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Contact us area end -->
+{% schema %}
+  {
+    "name": "Contact",
+    "settings": [
+	  	{
+        	"type": "text",
+        	"id": "title1",
+        	"label": "Title 1"
+      	},
+		{
+          "type": "image_picker",
+          "id": "image1",
+          "label": "Image 1"
+        },
+		{
+        	"type": "text",
+        	"id": "title2",
+        	"label": "Title 2"
+      	},
+		{
+        	"type": "text",
+        	"id": "title3",
+        	"label": "Title 3"
+      	},
+		{
+        	"type": "text",
+        	"id": "title4",
+        	"label": "Title 4"
+      	},
+		{
+        	"type": "text",
+        	"id": "title5",
+        	"label": "Title 5"
+      	}
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

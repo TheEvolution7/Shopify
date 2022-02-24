@@ -1,0 +1,63 @@
+<div class="bloom-product-area margin-bottom-65 mobile-mb-20 tab-mb-30">
+  <div class="container">
+    <div class="row custom-gutter">
+      <div class="col-md-12">
+        <div class="section-title-area text-center mobile-text-left">
+          <div class="section-title section-title-2" data-aos="fade-up" data-aos-duration="1500">
+            <div class="icon">
+              <img src="{{ 'title.svg' | asset_url }}" alt="Bloom">
+            </div>
+            <div class="title-text">
+              <h2 class="title">Best Sellers</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      {%- for product in collections[section.settings.collection].products -%}
+      	<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
+          <div class="product-item" data-aos="fade-up" data-aos-duration="1500">
+            <div class="product-image">
+              <a href="{{ product.url }}"><img src="{{ product.featured_media | img_url: '500x' }}" alt="{{ product.featured_media.alt }}"></a>
+              <div class="product-badge text-center">
+                <ul>
+                  <li class="sale-badge">Sale</li>
+                </ul>
+              </div>
+              <div class="product-action">
+                <ul>
+<!--                   <li><a class="add-to-cart" href="#">Add to cart</a></li> -->
+                  <li class="details-link"><a href="{{ product.url }}">Details</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="product-item-brief">
+              <h2 class="product-title"><a href="{{ product.url }}">{{ product.title }}</a></h2>
+              <div class="product-price">
+                <del>{{ compare_at_price | money }}</del>
+                <span>{{ product.price | money }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Best Sellers",
+    "settings": [
+		{
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,79 @@
+<div class="bloom-testimonial-area testimonial-style-one margin-bottom-110 mobile-mb-30 tab-mb-60">
+  <div class="container">
+    <div class="row custom-gutter">
+      <div class="col-lg-10 offset-lg-1">
+        <div class="section-title-area text-center">
+          <div class="section-title section-title-2" data-aos="fade-up" data-aos-duration="1500">
+            <div class="icon">
+              <img src="{{ 'title.svg' | asset_url }}" alt="Bloom">
+            </div>
+            <div class="title-text">
+              <h2 class="title">{{ section.settings.title }}</h2>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-carousel-one owl-arrow-style-1">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'testimonial' %}
+                <div class="testimonial-item text-center" data-aos="fade-up" data-aos-duration="1500">
+                  <div class="testimonial-img">
+                    <span class="testimonial-bg-img-1"><img src="{{ 'testimoni-bg-1.png' | asset_url }}" alt="Client"></span>
+                    <img class="testimoni-main-img" src="{{ block.settings.image | image_url: width: master }}" alt="">
+                    <span class="testimonial-bg-img-2"><img src="{{ 'testimoni-bg-2.png' | asset_url }}" alt="Client"></span>
+                  </div>
+                  <div class="testimonial-brief">
+                    <div class="testimonial-opinion">
+                      <p>{{ block.settings.description }}</p>
+                    </div>
+                    {{ block.settings.title }}
+                  </div>
+                </div>
+            {% endcase %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Testimonial",
+    "settings": [
+	  {
+      	"type": "text",
+      	"id": "title",
+      	"label": "Title"
+      }
+	],
+	"blocks": [
+     {
+       "name": "Testimonial",
+       "type": "testimonial",
+       "settings": [
+		 {
+           "type": "text",
+           "id": "title",
+           "label": "Title"
+         },
+		 {
+           "type": "textarea",
+           "id": "description",
+           "label": "Description"
+         },
+         {
+           "type": "image_picker",
+           "id": "image",
+           "label": "Image"
+         }
+       ]
+     }
+   ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

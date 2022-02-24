@@ -1,0 +1,77 @@
+<div class="bloom-newsletter-area margin-bottom-120 mobile-mb-40 tab-mb-70">
+  <div class="container-fluid pr-0">
+    <div class="row custom-gutter">
+      <div class="col-lg-5 offset-lg-1 col-md-10 offset-md-1 col-sm-12">
+        <div class="newsletter-form">
+          <div class="newsletter-inner">
+            <div class="section-title-area ">
+              <div class="section-title section-title-2" data-aos="fade-up" data-aos-duration="1500">
+                <div class="icon">
+                  <img src="{{ 'title.svg' | asset_url }}" alt="Bloom">
+                </div>
+                <div class="title-text">
+                  <h2 class="title">{{ section.settings.title }}</h2>
+                </div>
+              </div>
+              <p data-aos="fade-up" data-aos-duration="1500">{{ section.settings.description }}</p>
+            </div>
+            <form action="#" class="form-input-box" data-aos="fade-up" data-aos-duration="1500">
+              <input type="text" placeholder="Enter your email address">
+              <button type="submit"><img src="{{ 'arrow-right-white-2.svg' | asset_url }}" alt="Arrow Icon"></button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12 col-sm-12">
+        <ul class="newsletter-img" data-aos="fade-up" data-aos-duration="1500">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'image' %}
+          		<li>
+                  <a href="{{ block.settings.image | image_url: width: master }}" data-rel="lightcase:myCollection">
+                    <img src="{{ block.settings.image | image_url: width: master }}" alt="Flower Image">
+                  </a>
+                </li>
+            {% endcase %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Newletter",
+    "settings": [
+		{
+           "type": "text",
+           "id": "title",
+           "label": "Title"
+         },
+		 {
+           "type": "textarea",
+           "id": "description",
+           "label": "Description"
+         }
+	],
+	"blocks": [
+     {
+       "name": "Image",
+       "type": "image",
+       "settings": [
+         {
+           "type": "image_picker",
+           "id": "image",
+           "label": "Image"
+         }
+       ]
+     }
+   ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,72 @@
+<!-- Breadcrumb area start -->
+<div class="breadcrumb-area breadcrumb-style-1" style="background-image: url({{ '18.jpeg' | asset_url }});">
+  <div class="container">
+    <div class="row custom-gutter">
+      <div class="col-lg-12">
+        <div class="breadcrumb-inner text-center">
+          <h1 class="page-title">Create Account</h1>
+          <!-- <ul class="page-list">
+<li><a href="#">Home</a></li>
+<li>Shop</li>
+</ul> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Breadcrumb area end -->
+
+<!-- Sign us area start -->
+<div class="sign-up-area margin-bottom-120 mobile-mb-50 tab-mb-100">
+  <div class="container">
+    <div class="row custom-gutter justify-content-center">
+      <div class="col-xl-5 col-lg-6 col-md-7 col-12">
+        <div class="sign-up-inner">
+          {%- assign formId = 'RegisterForm' -%}
+          {% form 'create_customer', id: formId, novalidate: 'novalidate', class: 'contact-form-box' %}
+            {% include 'form-status', form: form, form_id: formId %}
+          	
+          	<input type="text" name="customer[first_name]" id="{{ formId }}-FirstName" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} autocomplete="given-name" placeholder="First name*">
+            <input type="text" name="customer[last_name]" id="{{ formId }}-LastName" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} autocomplete="family-name" placeholder="Last name*">
+          	<input
+              type="email"
+              name="customer[email]"
+              id="{{ formId }}-email"
+              class="{% if form.errors contains 'email' %} input--error{% endif %}"
+              {% if form.email %} value="{{ form.email }}"{% endif %}
+              autocorrect="off"
+              autocapitalize="off"
+              autocomplete="email"
+              aria-required="true"
+              placeholder="Email address*"
+              {%- if form.errors contains 'email' -%}
+                class="input--error"
+                aria-invalid="true"
+                aria-describedby="{{ formId }}-email-error"
+              {%- endif -%}
+            >
+          	
+          	<input
+              type="password"
+              name="customer[password]"
+              id="{{ formId }}-password"
+              class="{% if form.errors contains 'password' %} input--error{% endif %}"
+              aria-required="true"
+              placeholder="Password*"
+              {%- if form.errors contains 'password' -%}
+                class="input--error"
+                aria-invalid="true"
+                aria-describedby="{{ formId }}-password-error"
+              {%- endif -%}
+            >
+            <div class="btn-wrapper">
+              <button class="boxed-btn btn-rounded" type="submit" value="{{ 'customer.register.submit' | t }}">Sign up</button>
+            </div>
+          {% endform %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Sign us area end -->

@@ -1,0 +1,117 @@
+<div class="bloom-product-details-area margin-top-50 margin-bottom-110 mobile-mb-30 tab-mb-50 s-laptop-mb-90">
+  <div class="container">
+    <div class="row custom-gutter">
+      <div class="col-xl-6 col-lg-6 col-md-12" data-aos="fade-up" data-aos-duration="1500">
+        <div class="product-details-image-gallery mobile-mb-20 tab-mb-60 s-laptop-mb-80">
+          <!-- <div class="product-details-small-img-slider ">
+<div class="single-item">
+<img src="assets/img/new/1.jpeg" alt="Flower Image">
+</div>
+<div class="single-item">
+<img src="assets/img/new/2.jpeg" alt="Flower Image">
+</div>
+<div class="single-item">
+<img src="assets/img/new/3.jpeg" alt="Flower Image">
+</div>
+<div class="single-item">
+<img src="assets/img/new/4.jpeg" alt="Flower Image">
+</div>
+<div class="single-item">
+<img src="assets/img/new/5.jpeg" alt="Flower Image">
+</div>
+</div> -->
+          <div class="product-details-large-img-slider ">
+            {% for media in product.media %}
+            <div class="single-item">
+              <a href="{{ media.preview_image | img_url: 'master' }}" data-rel="lightcase:myCollection">
+                <img src="{{ media.preview_image | img_url: 'master' }}" alt="{{media.alt | escape}}">
+              </a>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-12" data-aos="fade-up" data-aos-duration="1500">
+        <div class="product-details-content">
+          <h4 class="product-title"><a href="product-details.html">{{ product.title }}</a></h4>
+          <div class="product-price">
+          {% assign current_variant = product.selected_or_first_available_variant %}
+            {% if current_variant.compare_at_price > current_variant.price %}
+              <del>{{ current_variant.compare_at_price | money }}</del>
+            {% endif %}
+            <span id="price">{{ current_variant.price | money }}</span>
+            
+          </div>
+          <span id="sku">SKU: {{current_variant.sku}}</span>
+          {%- if shop.taxes_included or shop.shipping_policy.body != blank -%}
+            <div class="product__policies rte" data-product-policies>
+              {%- if shop.taxes_included -%}
+                {{ 'products.product.include_taxes' | t }}
+              {%- endif -%}
+              {%- if shop.shipping_policy.body != blank -%}
+                {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+          <p>{{ product.description }}</p>
+          
+          {% form 'product', product, class:form_classes, novalidate: 'novalidate', data-product-form: '' %}
+          <div class="product-meta-area">
+            <div class="product-meta product-quantity clearfix">
+              <span class="product-meta-title">Quantity</span>
+              <div class="product-meta-type">
+                <div class="cart-plus-minus">
+                  <input type="number" id="Quantity-{{ section.id }}"
+                    name="quantity" value="1" min="1" pattern="[0-9]*"
+                    class="cart-plus-minus-box"
+                  >
+                </div>
+              </div>
+            </div>
+            
+            <div class="option-select wow fadeIn" style="visibility: visible; animation-name: fadeIn;">
+              <h4>Size:</h4>
+              <select name="id" id="ProductSelect-{{ section.id }}" class="nice-select">
+                {% for variant in product.variants %}
+                  <option value="{{ variant.id }}" data-price="{{ variant.price | money }}" data-sku="SKU: {{ variant.sku }}"
+                    {%- if variant == current_variant %} selected="selected" {%- endif -%}
+                  >
+                    {{ variant.title }}{%- if variant.available == false %} - {{ 'products.product.sold_out' | t }}{% endif %}
+                  </option>
+                {% endfor %}
+              </select>
+              <br>
+            </div>
+            
+            <div class="product-meta product-meta-button">
+              <div class="btn-wrapper">
+                <button class="boxed-btn btn-rounded" type="submit" name="add">
+                  {{ 'products.product.add_to_cart' | t }}
+                </button>
+                
+              </div>
+<!--               <div class="btn-wrapper">
+              	{{ form | payment_button }}
+              </div> -->
+               
+              
+            </div>
+          </div>
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Prodcut details area end -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $('select').on('change', '', function (e) {
+    var optionSelected = $(this).find("option:selected");
+	$('#price').html(optionSelected.attr('data-price'));
+    $('#sku').html(optionSelected.attr('data-sku'));
+  });
+});
+</script>

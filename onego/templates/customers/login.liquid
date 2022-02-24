@@ -1,0 +1,136 @@
+<div class="breadcrumb-area breadcrumb-style-1" style="background-image: url({{ '18.jpeg' | asset_url }});">
+  <div class="container">
+    <div class="row custom-gutter">
+      <div class="col-lg-12">
+        <div class="breadcrumb-inner text-center">
+          <h1 class="page-title">Sign In</h1>
+          <!-- <ul class="page-list">
+<li><a href="#">Home</a></li>
+<li>Shop</li>
+</ul> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="sign-up-area sign-in-area margin-bottom-120 mobile-mb-50 tab-mb-100">
+    <div class="container">
+        <div class="row custom-gutter justify-content-center">
+            <div class="col-xl-5 col-lg-6 col-md-7 col-12">
+                <div class="sign-up-inner">
+                    <!-- <div class="section-title-area ">
+                        <div class="section-title section-title-2">
+                            <div class="icon">
+                                <img src="assets/title.svg" alt="Bloom">
+                            </div>
+                            <div class="title-text">
+                                <h2 class="title">Sign in</h2>
+                            </div>
+                        </div>
+                    </div> -->
+                  	<div id="login">
+                  	{% form 'customer_login', novalidate: 'novalidate', class: 'contact-form-box' %}
+                        {%- if form.errors -%}
+                          <div class="form-message form-message--error">
+                            <h2 class="h3 form-message__title " tabindex="-1" data-form-status>{{ 'contact.form.error_heading' | t }}</h2>
+                            {{ form.errors | default_errors }}
+                          </div>
+                        {%- endif -%}
+                  		<label for="CustomerEmail">{{ 'customer.login.email' | t }}</label>
+                        <input
+                        type="email"
+                        name="customer[email]"
+                        id="CustomerEmail"
+                        autocomplete="email"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        placeholder="Email address*"
+                        {%- if form.errors contains 'form' -%}
+                          class="input--error"
+                          aria-invalid="true"
+                        {%- endif -%}
+                        >
+                  
+                  		{% if form.password_needed %}
+                          <label for="CustomerPassword">{{ 'customer.login.password' | t }}</label>
+                          <input
+                            type="password"
+                            value=""
+                            name="customer[password]"
+                            id="CustomerPassword"
+                            placeholder="Password*"
+                            {%- if form.errors contains 'form' -%}
+                              class="input--error"
+                              aria-invalid="true"
+                            {%- endif -%}
+                          >
+                        {% endif %}
+                        <!-- <a href="#">Forgot password</a> -->
+                        <div class="btn-wrapper">
+                            <div class="col-12">
+                                <div class="row justify-content-between align-items-center">
+                                    <button class="boxed-btn btn-rounded" type="submit" value="{{ 'customer.login.sign_in' | t }}">Sign in</button>
+                                  	{% if form.password_needed %}
+                                  	  <a class="btn-forgot" href="#recover">Forgot password</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                    {% endform %}
+                  	
+                  </div>
+                  <div id="recover" style="display:none">
+                  
+                  <div class="title-text">
+                                <h2 class="title">Forgot password</h2>
+                            </div>
+                  	{% form 'recover_customer_password', novalidate: 'novalidate', class: 'contact-form-box' %}
+                        {%- if form.errors -%}
+                          <div class="form-message form-message--error">
+                            <h2 class="h3 form-message__title " tabindex="-1" data-form-status>{{ 'contact.form.error_heading' | t }}</h2>
+                            {{ form.errors | default_errors }}
+                          </div>
+                        {%- endif -%}
+                        <input
+                       type="email"
+                       value=""
+                       name="email"
+                       id="RecoverEmail"
+                       placeholder="Recover Email*"
+                       class="input-full{% if form.errors %} input--error{% endif %}"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       {% if form.errors %}
+                       aria-invalid="true"
+                       aria-describedby="RecoverEmail-email-error"
+                       {%- endif -%}
+                       >
+                        <!-- <a href="#">Forgot password</a> -->
+                        <div class="btn-wrapper">
+                            <div class="col-12">
+                                <div class="row justify-content-between align-items-center">
+                                    <button class="boxed-btn btn-rounded" type="submit" value="{{ 'customer.login.sign_in' | t }}">{{ 'customer.recover_password.submit' | t }}</button>
+                                  	
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                    {% endform %}
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function(){
+  $(".btn-forgot").click(function(){
+    $('#login').hide();
+    $('#recover').show();
+  });
+});
+</script>

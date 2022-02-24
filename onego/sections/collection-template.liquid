@@ -1,0 +1,134 @@
+<!-- Breadcrumb area start -->
+<div class="breadcrumb-area breadcrumb-style-1" style="background-image: url({{ '18.jpeg' | asset_url }});" data-aos="fade-up" data-aos-duration="1500">
+  <div class="container">
+    <div class="row custom-gutter">
+      <div class="col-lg-12">
+        <div class="breadcrumb-inner text-center">
+          <h1 class="page-title">{{ collection.title }}</h1>
+          <ul class="page-list">
+            <li><a href="/">Home</a></li>
+            <li>Shop</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Breadcrumb area end -->
+
+<!-- Product item area start -->
+<div class="bloom-product-area margin-bottom-120 mobile-mb-50 tab-mb-80">
+  <div class="container">
+    <div class="row custom-gutter">
+      <div class="col-md-12">
+        <!-- shop-options -->
+        <div class="shop-options clearfix wow fadeInUp">
+          <div class="short-by pull-left">
+            <form id="form-select">
+              <select id="sort-by" name="sort_by" class="nice-select">
+                <option value="best-selling">
+                  Best selling
+                </option>
+
+
+                <option value="price-ascending">
+                  Price, low to high
+                </option>
+
+                <option value="price-descending" selected>
+                  Price, high to low
+                </option>
+
+              </select>
+<!--               <select id="sort-by" class="nice-select" name="sort_by">
+                {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
+
+                {% for option in collection.sort_options %}
+                  <option value="{{ option.value }}" {% if option.value == sort_by %}selected="selected"{% endif %}>
+                    {{ option.name }}
+                  </option>
+                {% endfor %}
+              </select> -->
+              
+            </form>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <script>
+            $(document).ready(function(){
+              $("#sort-by").change(function(){
+                $("#form-select").submit();
+              });
+              var url=window.location.href;
+			  var arr=url.split('?')[1];
+              if(arr == undefined){
+                $("#form-select").submit();
+              }
+              
+            });
+            </script>
+          </div>
+          <div class="showing-product-number pull-left wow fadeInUp">
+            <span>{{ 'collections.general.items_with_count' | t: count: collection.products_count }}</span>
+          </div>
+<!--           <div class="product-search pull-right wow fadeInUp">
+            <form action="#" class="form-input-box">
+              <input type="text" placeholder="Search products">
+              <button type="submit"><i class="ti-search"></i></button>
+            </form>
+          </div> -->
+        </div>
+      </div>
+      {% paginate collection.products by 15 %}
+      <div class="col-xl-12">
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 order-lg-2">
+            <div class="shop-grid-list-view-tab-content">
+              <div class="shop-grid-view-tab-content-inner">
+                <div class="row custom-gutter">
+                  {% for product in collection.products %}
+                  	<!-- product-item -->
+                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12" data-aos="fade-up" data-aos-duration="1500">
+                      <div class="product-item">
+                        <div class="product-image">
+                          <a href="{{ product.url | within: collection }}"><img src="{{ product.featured_media | img_url: 'master'}}" alt="{{ product.featured_media.alt }}"></a>
+                          <div class="product-badge text-center">
+<!--                             <ul>
+                              <li class="sale-badge">Sale</li>
+                            </ul> -->
+                          </div>
+                          <div class="product-action">
+                            <ul>
+<!--                               <li><a class="add-to-cart" href="#">Add to cart</a></li> -->
+                              <li class="details-link"><a href="{{ product.url | within: collection }}">Details</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="product-item-brief">
+                          <h2 class="product-title"><a href="{{ product.url | within: collection }}">{{ product.title }}</a></h2>
+                          
+                          {% assign current_variant = product.selected_or_first_available_variant %}
+                          {% if current_variant.compare_at_price > current_variant.price %}
+                            <del>{{ current_variant.compare_at_price | money }}</del>
+                          {% endif %}
+                          <span class="product-price">{{ current_variant.price | money }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                  <div class="col-md-12">
+                    <div class="bloom-pagination text-center margin-top-50 mobile-mt-30 tab-mt-30">
+                      {%- if paginate.pages > 1 -%}
+                        {% include 'pagination', paginate: paginate %}
+                      {%- endif -%}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endpaginate %}
+    </div>
+  </div>
+</div>
+<!-- Product item area end -->

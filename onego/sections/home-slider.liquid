@@ -1,0 +1,91 @@
+<div class="slider-area slider-style-1 slider-style-2-- slider-style-5 margin-bottom-115 mobile-mb-50 tab-mb-80">
+  <div class="slider-inner">
+    <div class="slider-one-active- slider-two-active">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'slide' %}
+            <div class="slide-item">
+            <div class="slide-content">
+              <h1 class="slide-title-1 slide-title-1-bg slide-title-1-bg-1 animated" data-wow-duration=".5s" data-wow-delay=".5s" style="background-image: url({{ block.settings.image | image_url: width: 2048 }});">{{ block.settings.subtitle }}</h1>
+              <h2 class="slide-title-2 animated" data-wow-duration="1s" data-wow-delay="1s">{{ block.settings.title }}</h2>
+              <div class="animated" data-wow-duration="1.5s" data-wow-delay="1.5s">
+                <p>{{ block.settings.description }}</p>
+              </div>
+              <div class="btn-wrapper animated" data-wow-duration="2s" data-wow-delay="2s">
+                <a class="boxed-btn btn-rounded" href="{{ block.settings.link }}">Explore now</a>
+              </div>
+
+            </div>
+            <div class="slide-image">
+              <img src="{{ block.settings.image | image_url: width: master }}" alt="">
+            </div>
+          </div>
+        {% endcase %}
+      {% endfor %}
+
+    </div>
+<!--     <div class="slider-two-pagination">
+      <span class="count"></span>
+      <span class="total"></span>
+    </div> -->
+    <!-- <div class="slider-three-pagination-2">
+<span class="count"></span>
+<span class="total"></span>
+</div> -->
+
+    <!-- slider-sticky-icon -->
+    <div class="slider-sticky-icon">
+      <ul>
+        <li><a href="#" target="_blank">Facebook</a></li>
+        <li><a href="#" target="_blank">Instagram</a></li>
+        <li><a href="#" target="_blank">Twitter</a></li>
+        <li><a href="#" target="_blank">Linkedin</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Slider",
+    "settings": [],
+	"blocks": [
+     {
+       "name": "Slide",
+       "type": "slide",
+       "settings": [
+		 {
+           "type": "text",
+           "id": "title",
+           "label": "Title"
+         },
+		 {
+           "type": "text",
+           "id": "subtitle",
+           "label": "Sub Title"
+         },
+		 {
+           "type": "textarea",
+           "id": "description",
+           "label": "Description"
+         },
+         {
+           "type": "image_picker",
+           "id": "image",
+           "label": "Image"
+         },
+		 {
+           "type": "url",
+           "id": "link",
+           "label": "Link"
+         }
+       ]
+     }
+   ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

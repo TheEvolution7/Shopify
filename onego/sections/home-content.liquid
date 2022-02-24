@@ -1,0 +1,66 @@
+<div class="custom-content-area  sidebar-sticky-icon-area  margin-bottom-118 mobile-mb-50 tab-mb-70">
+        
+
+  <div class="container">
+    <div class="row custom-gutter">
+      <div class="col-xl-6 col-lg-6 col-md-12">
+        <div class="section-title-area">
+          <div class="section-title section-title-2" data-aos="fade-up" data-aos-duration="1500">
+            <div class="icon">
+              <img src="{{ 'title.svg' | asset_url }}" alt="Bloom">
+            </div>
+            <div class="title-text">
+              <h2 class="title">{{ section.settings.title }}</h2>
+            </div>
+          </div>
+        </div>
+        <div class="custom-content-inner pr-50" data-aos="fade-up" data-aos-duration="1500">
+          <p>{{ section.settings.description }}</p>
+          <div class="btn-wrapper margin-top-30">
+            <a class="boxed-btn btn-rounded" href="{{ section.settings.link }}">Explore now</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-5 offset-xl-1 col-lg-6 col-md-12">
+        <div class="custom-content-image text-right mobile-mt-50 tab-mt-50">
+          <div class="img-shape" data-aos="fade-up" data-aos-duration="1500">
+            <img src="{{ section.settings.image | image_url: width: master }}" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Content",
+    "settings": [
+		{
+           "type": "text",
+           "id": "title",
+           "label": "Title"
+         },
+		 {
+           "type": "textarea",
+           "id": "description",
+           "label": "Description"
+         },
+         {
+           "type": "image_picker",
+           "id": "image",
+           "label": "Image"
+         },
+		 {
+           "type": "url",
+           "id": "link",
+           "label": "Link"
+         }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

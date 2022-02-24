@@ -1,0 +1,26 @@
+{{ '//code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css' | stylesheet_tag }}
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" defer="defer"></script>
+
+<div style="width:300px; clear:both;">
+  <p>
+    <label for="date">Pick a delivery date:</label>
+    <input id="date" type="text" name="attributes[date]" value="{{ cart.attributes.date }}" />
+<!--     <span style="display:block" class="instructions"> We do not deliver during the week-end.</span> -->
+  </p>
+</div>
+
+<script>
+  window.onload = function() {
+      if (window.jQuery) {
+        let $ = window.jQuery;
+
+        $(function() {
+          $("#date").datepicker({
+          minDate: +1,
+          maxDate: '+2M',
+          //beforeShowDay: $.datepicker.noWeekends
+        });
+      });
+    }
+  }
+</script>
