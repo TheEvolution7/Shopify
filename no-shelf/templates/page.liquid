@@ -1,0 +1,26 @@
+  <section class="page__title p-relative d-flex align-items-center" data-background="{{ 'page-title-1.jpg' | asset_url }}">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="page__title-inner text-center">
+            <h1>{{ page.title }}</h1>
+            <div class="page__title-breadcrumb">                                 
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center">
+                  <li class="breadcrumb-item"><a href="{{ routes.root_url }}">Home</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">{{ page.title }}</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+ <section class="error__area pt-60 pb-100">
+    <div class="container">
+      <div class="col-xl-12">
+       	{{ page.content }}
+      </div>
+    </div>
+  </section>

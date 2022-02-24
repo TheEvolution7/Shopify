@@ -1,0 +1,108 @@
+ <main>
+
+
+        <!-- page title area start -->
+   	<section class="page__title p-relative d-flex align-items-center" data-background="{{ section.settings.image | img_url: '1000x' }}">
+        <div class="container">
+          <div class="row">
+            <div class="col-xl-12">
+              <div class="page__title-inner text-center">
+                <h1>{{ section.settings.title }}</h1>
+                <div class="page__title-breadcrumb">                                 
+                  <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                      <li class="breadcrumb-item"><a href="{{ routes.root_url }}">Home</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">{{ section.settings.title }}</li>
+                    </ol>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  	</section>
+        <!-- page title area end -->
+
+        <!-- Cart Area Strat-->
+        <section class="cart-area pt-100 pb-100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                         <form action="{{ routes.cart_url }}" method="post" novalidate class="cart">
+                            <div class="table-content table-responsive">
+                                <table class="table table-mobile">
+                                    <thead>
+                                        <tr>
+                                            <th class="product-thumbnail">Images</th>
+                                            <th class="cart-product-name">Product</th>
+                                            <th class="product-price">Unit Price</th>
+                                            <th class="product-quantity">Quantity</th>
+                                            <th class="product-subtotal">Total</th>
+                                            <th class="product-remove">Remove</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                      
+                                       {%- for item in cart.items -%}
+                                        <tr>
+                                            <td data-label="Image" class="product-thumbnail"><a href="{{ item.url }}"><img src="{{ item | img_url: '300x' }}" alt=""></a></td>
+                                            <td data-label="Product" class="product-name"><a href="product-details.html">{{ item.product.title }}</a></td>
+                                            <td data-label="Unit Price" class="product-price"><span class="amount">{{ item.original_price | money }}</span></td>
+                                            <td data-label="Quantity" class="product-quantity">
+                                                <div class="cart-plus-minus"><input type="text"  id="updates_large_{{ item.key }}" type="number"  name="updates[]" value="{{ item.quantity }}" value="2"></div>
+                                            </td>
+                                            <td data-label="Total" class="product-subtotal"><span class="amount">{{ item.original_line_price | money }}</span></td>
+                                            <td data-label="Remove" class="product-remove"><a href="/cart/change?line={{ forloop.index }}&amp;quantity=0"><i class="fa fa-times"></i></a></td>
+                                        </tr>
+                                       {%- endfor -%}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="coupon-all">
+                                        <div class="coupon2">
+                                            <button class="os-btn os-btn-black"  name="update"  type="submit">Update cart</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 ml-auto">
+                                    <div class="cart-page-total">
+                                        <h2>Cart totals</h2>
+                                        <ul class="mb-20">
+                                            <li>Subtotal <span>{{ cart.total_price | money_with_currency }}</span></li>
+                                            <li>Total <span>{{ cart.total_price | money_with_currency }}</span></li>
+                                        </ul>
+                                        <button type="submit" name="checkout" class="os-btn">Proceed to checkout</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+   		
+        <!-- Cart Area End-->
+    </main>
+
+{% schema %}
+  {
+    "name": "Cart Banner",
+    "settings": [
+	{
+         "type": "image_picker",
+         "id": "image",
+         "label": "Banner"
+     },
+	 {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Cart"
+    }
+]
+  }
+{% endschema %}

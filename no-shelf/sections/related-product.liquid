@@ -1,0 +1,168 @@
+{%- capture relatedProducts -%}
+
+{% if section.settings.show_related_products == true %}
+
+{% case section.settings.grid %}
+  {% when 3 %}{%- assign grid_ds = 'large-up--one-third' -%}
+  {% when 4 %}{%- assign grid_ds = 'large-up--one-quarter' -%}
+  {% when 5 %}{%- assign grid_ds = 'large--one-quarter widescreen--one-fifth' -%}
+  {% when 6 %}{%- assign grid_ds = 'large--one-fifth widescreen--one-sixth' -%}
+  {% when 7 %}{%- assign grid_ds = 'large--one-fifth widescreen--one-seventh' -%}
+{% endcase %}
+
+{% case section.settings.tablet-grid %}
+  {% when 2 %}{%- assign grid_tb = 'medium--one-half' -%}
+  {% when 3 %}{%- assign grid_tb = 'medium--one-third' -%}
+  {% when 4 %}{%- assign grid_tb = 'medium--one-quarter' -%}
+  {% when 5 %}{%- assign grid_tb = 'medium--one-fifth' -%}
+{% endcase %}
+
+{% case section.settings.mobile-grid %}
+  {% when 1 %}{%- assign grid_mb = 'small--one-whole' -%}
+  {% when 2 %}{%- assign grid_mb = 'small--one-half' -%}
+  {% when 3 %}{%- assign grid_mb = 'small--one-third' -%}
+{% endcase %}
+     
+       <section class="related__product pb-60">
+                <div class="container">
+                    <div class="row">
+		            <div class="col-12">
+                       <div class="section__title-wrapper text-center mb-55">
+		                <!--Section Title 2 Start-->
+                      {% unless section.settings.related_title == blank %}
+                       <div class="section__title mb-10">
+                                    <h2>{{ section.settings.related_title | escape }}</h2>
+                                </div>
+                                <div class="section__sub-title">
+                                    <p>Mirum est notare quam littera gothica quam nunc putamus parum claram!</p>
+                                </div>
+                      {% endunless %}
+                      </div>
+	</div>	    
+     </div>
+             
+     
+    {% assign number_of_related_products_per_row = section.settings.related_grid_num %}
+	{% assign number_of_rows = section.settings.related_total_product_to_show | plus:1 %}
+	
+	{% assign same_vendor = false %}
+	{% assign same_type = false %}
+	
+	{% assign exclusions = 'frontpage,all' | split: ',' %}
+	
+	{% if product.metafields.c_f['Related Products'] %}
+	{% assign collection = collections[product.metafields.c_f['Related Products']] %}
+	{% endif %}
+	
+	{% assign found_a_collection = false %}
+    {% if collection and collection.all_products_count > 1 %}
+        {% unless exclusions contains collection.handle %}
+        {% assign found_a_collection = true %}
+        {% endunless %}
+      {% endif %}
+      {% unless found_a_collection %}
+        {% for c in product.collections limit: number_of_rows %}
+          {% unless exclusions contains c.handle or c.all_products_count < 2 %}
+          {% assign found_a_collection = true %}
+          {% assign collection = c %}
+          {% break %}
+          {% endunless %}
+        {% endfor %}
+      {% endunless %}
+
+	{% if found_a_collection %}
+      {% assign current_product = product %}
+      {%- capture related_items -%}
+            <div class="row">
+            {% for product in collection.products limit : number_of_rows %}
+              {% unless product.handle == current_product.handle %}
+                  {% unless same_vendor and current_product.vendor != product.vendor %}
+                      {% unless same_type and current_product.type != product.type %}
+             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">{% include 'product-card-list', grid_image_width: image_size %}</div>
+                      {% endunless %}
+                  {% endunless %}
+              {% endunless %}
+            {% endfor %}
+           </div>
+      {%- endcapture -%}
+
+      {% assign related_items = related_items | trim %}
+
+      {% unless related_items == blank %}
+    	{{ related_items }}
+      {% endunless %}  
+	{% endif %} 
+         </div>
+</section>
+{% endif %}
+{%- endcapture -%}
+{{ relatedProducts | strip_newlines | remove: "  " | remove: "	" }}
+
+{% schema %}
+  {
+    "name": "Related Products",
+    "settings": [
+		{
+        "type": "checkbox",
+        "id": "show_related_products",
+        "label": "Show related products",
+        "default": true
+      },
+	 {
+        "type": "checkbox",
+        "id": "related_products_autoplay",
+        "label": "Carousel Autoplay",
+        "default": true
+      },
+ 	 {
+        "id": "related_title",
+        "type": "text",
+        "label": "Section Title",
+        "default": "Related Products"
+      },
+ 	  {
+        "id": "related_sub_title",
+        "type": "text",
+        "label": "Section Sub title",
+        "default": "You can stop autoplay, increase/decrease aniamtion speed and number of grid to show and products from store admin."
+      },
+      {
+        "type": "paragraph",
+        "content": "Products Per Row"
+      },
+      {
+        "type": "range",
+        "id": "grid",
+        "label": "Desktop",
+        "default": 4,
+        "min": 2,
+        "max": 7,
+        "step": 1
+      },
+      {
+        "type": "range",
+        "id": "tablet-grid",
+        "label": "Tablet",
+        "default": 3,
+        "min": 2,
+        "max": 5,
+        "step": 1
+      },
+      {
+        "type": "range",
+        "id": "mobile-grid",
+        "label": "Mobile",
+        "default": 2,
+        "min": 1,
+        "max": 3,
+        "step": 1
+      },
+      {
+        "type": "text",
+        "id": "related_total_product_to_show",
+        "label": "Number of Product to Show",
+        "default": "8"        
+      }
+	]
+  }
+{% endschema %}

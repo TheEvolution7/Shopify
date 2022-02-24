@@ -1,0 +1,30 @@
+   		<main>
+          {% section 'register-banner' %}
+            <section class="login-area pt-100 pb-100">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 offset-lg-2">
+                            <div class="basic-login">
+                                <h3 class="text-center mb-60">{{ 'customer.register.title' | t }}</h3>
+                                {%- assign formId = 'RegisterForm' -%}
+                              	{% form 'create_customer', id: formId, novalidate: 'novalidate' %}
+                                {% include 'form-status', form: form, form_id: formId %}
+                                    <label for="name">{{ 'customer.register.first_name' | t }} <span>**</span></label>
+                               		<input type="text" name="customer[first_name]" id="{{ formId }}-FirstName" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} placeholder="{{ 'customer.register.first_name' | t }}">
+                              		<label>{{ 'customer.register.last_name' | t }} <span>**</span></label>
+                                    <input type="text" name="customer[last_name]" id="{{ formId }}-LastName" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} placeholder="{{ 'customer.register.last_name' | t }}">
+                           			<label>{{ 'customer.register.email' | t }} <span>**</span></label>
+                                    <input type="email" name="customer[email]" id="{{ formId }}-email" {% if form.email %} value="{{ form.email }}"{% endif %} placeholder="{{ 'customer.register.email' | t }}">
+                              		<label>{{ 'customer.register.password' | t }} <span>**</span></label>
+		                            <input type="password" name="customer[password]"   id="{{ formId }}-password"  placeholder="{{ 'customer.register.password' | t }}">
+                                    <div class="mt-10"></div>
+                                    <button class="os-btn w-100">{{ 'customer.register.submit' | t }}</button>
+                                    <div class="or-divide"><span>or</span></div>
+                                    <a href="/account/login" class="os-btn os-btn-black w-100">login Now</a>
+                                 {% endform %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>  
+        </main>

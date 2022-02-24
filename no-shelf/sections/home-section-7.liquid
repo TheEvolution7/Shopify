@@ -1,0 +1,63 @@
+<section class="client__area pt-15 pb-140">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="client__slider owl-carousel text-center">
+                  {%for block in section.blocks %}
+                    <div class="client__thumb">
+                        <a href="{{ block.settings.link }}"><img src="{{ block.settings.image | img_url: '300x' }}" alt="{{ block.settings.image.alt }}"></a>
+                    </div>
+                  {% endfor %}  
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+  "name": "Client Logo",  
+  "max_blocks": 10,
+  "settings": [
+  ],
+  "blocks": [
+    {
+      "type": "logo_image",
+      "name": "Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Logo list",
+      "category": "Image",
+      "blocks": [
+        {
+          "type": "logo_image"
+        },
+        {
+          "type": "logo_image"
+        },
+        {
+          "type": "logo_image"
+        },
+        {
+          "type": "logo_image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

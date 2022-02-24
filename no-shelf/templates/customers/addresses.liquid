@@ -1,0 +1,259 @@
+ <main>
+
+
+            <!-- page title area start -->
+              <section class="page__title p-relative d-flex align-items-center" data-background="{{ 'page-title-1.jpg' | asset_url }}">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="page__title-inner text-center">
+                                <h1>Address</h1>
+                                <div class="page__title-breadcrumb">                                 
+                                    <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb justify-content-center">
+                                        <li class="breadcrumb-item"><a href="{{ routes.root_url }}">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page"> Address</li>
+                                    </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- page title area end -->
+            <section class="account-section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 d-flex flex-wrap">
+                            <h2 class="text-uppercase mr-30">Shipping Address</h2>
+                            <a class="os-btn os-btn-black" href="javascript:;" data-toggle="modal" data-target="#modal-add">Add address</a>
+                        </div>
+                       {% for address in customer.addresses %}
+                        <div class="col-lg-6">
+                            <div class="box-address">
+                                <h3>Addres {{ forloop.index }}</h3>
+                                <div class="content">
+                                    <table class="table">
+                                        <tbody>
+                                        
+                                          <tr>
+                                            <td>First Name</td>
+                                            <td>{{ address.first_name }}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Last Name</td>
+                                            <td>{{ address.last_name }}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Phone Number</td>
+                                            <td>{{ address.phone }}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Company</td>
+                                            <td>{{ address.company }}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Address</td>
+                                            <td>{{ address.address1 }}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>City</td>
+                                            <td>{{ address.city }}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Country</td>
+                                            <td>{{ address.country }}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>ZIP/Postal Code</td>
+                                            <td>{{ address.zip }}</td>
+                                          </tr>
+                                        
+                                         
+                                          
+    
+                                        </tbody>
+                                      </table>
+                                     
+                                      <div class="row">
+                                        <div class="col-12 d-flex justify-content-between">
+                                            <a class="os-btn os-btn-black" href="javascript:;" data-toggle="modal" data-target="#modal-edit{{ address.id }}">Edit</a>
+                                          </div>
+                                      </div>
+                                        
+                                </div>
+                            </div>
+                        </div>
+                       {% endfor %}  
+                    </div>
+                </div>
+            </section>
+            
+        </main>
+<div class="modal fade" id="modal-add" tabindex="-1" role="dialog" aria-labelledby="modal-addTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-e" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" id="modal-addTitle">New address </h2>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                     {% form 'customer_address', customer.new_address %}
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6">
+                                <div class="contact__input">
+                                    <label>First Name <span class="required">*</span></label>
+                                     <input type="text" id="AddressFirstNameNew" name="address[first_name]" value="{{ form.first_name }}">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6">
+                                <div class="contact__input">
+                                    <label>Last Name <span class="required">*</span></label>
+                                     <input type="text" id="AddressLastNameNew" name="address[last_name]" value="{{ form.last_name }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6"">
+                                <div class="contact__input">
+                                    <label>Phone Number <span class="required">*</span></label>
+                                     <input type="tel" id="AddressPhoneNew" name="address[phone]" value="{{ form.phone }}">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6"">
+                                <div class="contact__input">
+                                    <label>Company<span class="required">*</span></label>
+                                    <input type="text" id="AddressCompanyNew" name="address[company]" value="{{ form.company }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12"">
+                                <div class="contact__input">
+                                    <label>Address <span class="required">*</span></label>
+                                     <input type="text" id="AddressAddress1New" name="address[address1]" value="{{ form.address1 }}">
+                                </div>
+                            </div>
+                        </div>
+                                                                                                                                     <div class="row">
+                  		<div class="col-12">
+                                <div class="contact__input">
+                                    <label>Country<span class="required">*</span></label>
+                                     <select id="AddressCountryNew" name="address[country]" data-default="{{ form.country }}" class="select">{{ all_country_option_tags }}</select>
+                                </div>
+                            </div>
+                  </div>
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-4">
+                                <div class="contact__input">
+                                    <label>City<span class="required">*</span></label>
+                                      <input type="text" id="AddressCityNew" name="address[city]" value="{{ form.city }}">
+                                </div>
+                            </div>
+                            
+                            <div class="col-xl-4 col-lg-4">
+                                <div class="contact__input">
+                                    <label>ZIP/Postal Code<span class="required">*</span></label>
+                                     <input type="text" id="AddressZipNew" name="address[zip]" value="{{ form.zip }}" autocapitalize="characters">
+                                </div>
+                            </div>
+                        </div>
+                           {{ form.set_as_default_checkbox }}
+                  		<label for="address_default_address_{{ form.id }}">{{ 'customer.addresses.set_default' | t }}</label>
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <button type="submit" class="os-btn os-btn-black">Add</button>
+                            </div>
+                        </div>
+                                                                                
+                     {% endform %}
+                </div>
+              </div>
+            </div>
+          </div>
+          {% for address in customer.addresses %}
+          <div class="modal fade" id="modal-edit{{ address.id }}" tabindex="{{ address.id }}" role="dialog" aria-labelledby="modal-editTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-e" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" id="modal-editTitle">Edit address </h2>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    {% form 'customer_address', address %}
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6">
+                                <div class="contact__input">
+                                    <label>First Name <span class="required">*</span></label>
+                                    <input type="text" id="AddressFirstNameNew" name="address[first_name]" value="{{ form.first_name }}">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6">
+                                <div class="contact__input">
+                                    <label>Last Name <span class="required">*</span></label>
+                                     <input type="text" id="AddressLastNameNew" name="address[last_name]" value="{{ form.last_name }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6"">
+                                <div class="contact__input">
+                                    <label>Phone Number <span class="required">*</span></label>
+                                    <input type="text" id="AddressPhoneNew" name="address[phone]" value="{{ form.phone }}">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6"">
+                                <div class="contact__input">
+                                    <label>Company<span class="required">*</span></label>
+                                     <input type="text" id="AddressCompanyNew" name="address[company]" value="{{ form.company }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="contact__input">
+                                    <label>Address <span class="required">*</span></label>
+                                     <input type="text" id="AddressAddress1New" name="address[address1]" value="{{ form.address1 }}">
+                                </div>
+                            </div>
+                        </div>
+                 		 <div class="row">
+                  		<div class="col-12">
+                                <div class="contact__input">
+                                    <label>Country<span class="required">*</span></label>
+                                     <select id="AddressCountryNew" name="address[country]" data-default="{{ form.country }}" class="select">{{ all_country_option_tags }}</select>
+                                </div>
+                            </div>
+                  </div>
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-4">
+                                <div class="contact__input">
+                                    <label>City<span class="required">*</span></label>
+                                     <input type="text" id="AddressCityNew" name="address[city]" value="{{ form.city }}">
+                                </div>
+                            </div>
+                            
+                            <div class="col-xl-4 col-lg-4">
+                                <div class="contact__input">
+                                    <label>ZIP/Postal Code<span class="required">*</span></label>
+                                     <input type="text" id="AddressZipNew" name="address[zip]" value="{{ form.zip }}" autocapitalize="characters">
+                                </div>
+                            </div>
+                        </div>
+                  
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <button type="submit" class="os-btn os-btn-black">Add</button>
+                            </div>
+                        </div>
+                   {% endform %}
+                </div>
+              </div>
+            </div>
+          </div>
+  {% endfor %}

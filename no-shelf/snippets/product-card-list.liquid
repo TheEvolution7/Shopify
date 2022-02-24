@@ -1,0 +1,29 @@
+{% form 'product', product %}
+  <div class="product__wrapper mb-60">
+    <div class="product__thumb">
+      <a href="{{ product.url | within: collection }}" class="w-img">
+        <img src="{{ product.featured_media | img_url: '500x' }}" alt="{{ product.featured_media.alt }}">
+        <img class="product__thumb-2" src="{{ product.media[1] | img_url: '500x' }}" alt="{{ product.media[1].alt }}">
+      </a>
+ 	{% if product.type != empty %}
+      <div class="product__sale">
+       
+        <span class="new">{{product.type}}</span>
+      </div>
+     {% endif %}
+    </div>
+    <div class="product__content p-relative">
+      <div class="product__content-inner">
+        <h4><a href="{{ product.url | within: collection }}">{{ product.title }}</a></h4>
+        <div class="product__price transition-3">
+          <span>{{ product.price | money }}</span>
+          <span class="old-price">{{ product.compare_at_price | money }}</span>
+        </div>
+      </div>
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+      <div class="add-cart p-absolute transition-3">
+        <button type="submit">+ Add to Cart</button>
+      </div>
+    </div>
+  </div>
+{% endform %}

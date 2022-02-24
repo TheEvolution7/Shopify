@@ -1,0 +1,43 @@
+ <section class="subscribe__area pb-100">
+                <div class="container">
+                    <div class="subscribe__inner pt-95">
+                        <div class="row">
+                            <div class="col-xl-8 offset-xl-2 col-lg-8 offset-lg-2">
+                                <div class="subscribe__content text-center">
+                                    <h2>{{ section.settings.title }}</h2>
+                                    	{{ section.settings.description }}
+                                    <div class="subscribe__form">
+                                       {% form 'customer', id: formId, novalidate: 'novalidate' %}
+                                       		<input type="hidden" name="contact[tags]" value="newsletter">
+											<input type="email" name="contact[email]" id="Email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.email_placeholder' | t }}">
+                                            <button class="os-btn os-btn-2 os-btn-3">{{ 'general.newsletter_form.submit' | t }}</button>
+                                       {%- endform -%}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+{% schema %}
+  {
+    "name": "Subscribe",
+    "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Get Discount Info"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Subscribe to the Outstock mailing list to receive updates on new arrivals, special offers and other discount information.</p>"
+        }
+		]
+  }
+{% endschema %}
+
+
+

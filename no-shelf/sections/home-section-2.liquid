@@ -1,0 +1,61 @@
+<div class="banner__area">
+        <div class="container">
+            <div class="banner__inner p-relative mt--95">
+                <div class="row">
+                  {% for block in section.blocks %}
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="banner__item mb-30 p-relative">
+                            <div class="banner__thumb fix">
+                                <a href="{{ block.settings.link }}" class="w-img"><img src="{{ block.settings.image | img_url: '1000x' }}" alt="{{ block.settings.image.alt }}"></a>
+                            </div>
+                            <div class="banner__content p-absolute transition-3">
+                                <h5><a href="{{ block.settings.link }}">{{ block.settings.title }}</a></h5>
+                                <a href="{{ block.settings.link }}" class="link-btn">{{ block.settings.button }}</a>
+                            </div>
+                        </div>
+                    </div>
+                   {% endfor %} 
+                </div>
+            </div>
+        </div>
+    </div>
+{% schema %}
+{
+  "name": "Section Home 2",
+  "max_blocks": 3,
+  "settings": [
+  ],
+  "blocks": [
+    {
+      "type": "content",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Title"
+        },
+		{
+          "type": "text",
+          "id": "button",
+          "label": "Title Button",
+          "default": "Discover now"
+        },
+		{
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+          
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

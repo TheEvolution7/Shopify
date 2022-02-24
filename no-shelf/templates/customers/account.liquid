@@ -1,0 +1,235 @@
+  <main>
+            <!-- page title area start -->
+            <section class="page__title p-relative d-flex align-items-center" data-background="{{ 'page-title-1.jpg' | asset_url }}">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="page__title-inner text-center">
+                                <h1>Account</h1>
+                                <div class="page__title-breadcrumb">                                 
+                                    <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb justify-content-center">
+                                        <li class="breadcrumb-item"><a href="{{ routes.root_url }}">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page"> Account</li>
+                                    </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- page title area end -->
+            <section class="account-section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 d-flex flex-wrap">
+                            <h2 class="text-uppercase mr-30">My account</h2>
+                            <a class="os-btn os-btn-black" href="javascript:;" data-toggle="modal" data-target="#modal-edit-pass">Change Password</a>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="box-address">
+                                <h3>1. Infomation</h3>
+                                <div class="content">
+                                    <table class="table">
+                                        <tbody>
+                                          <tr>
+                                            <td>First Name</td>
+                                            <td>{{ customer.first_name }}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Last Name</td>
+                                            <td>{{ customer.last_name }}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Email</td>
+                                            <td>{{ customer.email }}</td>
+                                          </tr>
+                                        
+                                        </tbody>
+                                      </table>
+                                      <a class="os-btn os-btn-black" href="javascript:;" data-toggle="modal" data-target="#modal-edit">Edit</a>
+                                </div>
+                            </div>
+                        </div>
+                      {% if customer.addresses != empty %}
+                        <div class="col-lg-6">
+                            <div class="box-address">
+                                <h3>2. Shipping address</h3>
+                                <div class="content">
+                                    <table class="table">
+                                      
+                                        <tbody>
+                                          {% for address in customer.addresses %}
+                                          <tr>
+                                            <td>First Name</td>
+                                            <td>{{ address.first_name }}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Last Name</td>
+                                            <td>{{ address.last_name }}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Phone Number</td>
+                                            <td>{{ address.phone }}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Company</td>
+                                            <td>{{ address.company }}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Address</td>
+                                            <td>{{ address.address1 }}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>City</td>
+                                            <td>{{ address.city }}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Country</td>
+                                            <td>{{ address.country }}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>ZIP/Postal Code</td>
+                                            <td>{{ address.zip }}</td>
+                                          </tr>
+                                         {% endfor  %}
+                                          
+    
+                                        </tbody>
+                                      </table>
+                                      <div class="row">
+                                        <div class="col-12 d-flex justify-content-between">
+                                            <a class="os-btn os-btn-black" href="javascript:;" data-toggle="modal" data-target="#modal-edit">Edit</a>
+                                            <a class="os-btn os-btn-black" href="#">View all</a>
+                                          </div>
+                                      </div>
+                                      
+                                      
+                                </div>
+                            </div>
+                        </div>
+                      {% else %}
+                      <div class="col-lg-6">
+                        <div class="box-address">
+                          <h3>2. Shipping address</h3>
+                          <div class="content">
+                      	 <a class="os-btn os-btn-black" href="/account/addresses">Add Address</a>
+                          </div>
+                        </div>
+                      </div>
+                      {% endif %}
+                    </div>
+                </div>
+            </section>
+            <!-- Cart Area Strat-->
+            <section class="cart-area pb-100">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h3 class="mb-40">Order</h3>
+                            <div class="table-content table-responsive">
+                                <table class="table table-mobile">
+                                    <thead>
+                                        <tr>
+                                            <th class="product-thumbnail">Order</th>
+                                            <th class="cart-product-name">Date</th>
+                                            <th class="product-price">Payment status</th>
+                                            <th class="product-quantity">Fullfillment Status</th>
+                                            <th class="product-subtotal">Total</th>
+                                            <th class="product-remove"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                       {% for order in customer.orders %}
+                                        <tr>
+                                          	<td data-label="Order" class="product-thumbnail">{{ order.name }}</td>
+                                            <td  data-label="Date" class="product-name">{{ order.created_at | time_tag: format: 'date' }}</td>
+                                            <td data-label="Payment status" class="product-price"><span class="amount">{{ order.financial_status_label }}</span></td>
+                                            <td data-label="Fullfillment Status" class="product-subtotal"><span class="amount">{{ order.fulfillment_status_label }}</span></td>
+                                            <td data-label="Total" class="product-status">{{ order.total_price | money }}</td>
+                                            <td data-label="" class="product-od-view"><a href="{{ order.customer_url }}">View</a></td>
+                                        </tr>
+                                       {% endfor %} 
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Cart Area End-->
+        </main>
+		<div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="modal-editTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-e" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" id="modal-editTitle">Edit infomation </h2>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                     {% form 'customer', customer %}
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="contact__input">
+                                    <label>First Name <span class="required">*</span></label>
+                                    <input type="text" id="CustomerFirstName_{{ customer.id }}" name="customer[first_name]" value="{{ customer.first_name }}">
+                                </div>
+                            </div>
+                          <div class="col-12">
+                                <div class="contact__input">
+                                    <label>Last Name <span class="required">*</span></label>
+                                      <input type="text" id="CustomerLastName_{{ customer.id }}" name="customer[last_name]" value="{{ customer.last_name }}">
+                                </div>
+                            </div>
+                           <div class="col-12">
+                                <div class="contact__input">
+                                    <label>Email <span class="required">*</span></label>
+                                    <input type="email" id="CustomerEmail_{{ customer.id }}" name="customer[email]" value="{{ customer.email }}">
+                                </div>
+                            </div>
+                        </div>
+                    <div class="row">
+                            <div class="col-xl-12">
+                                <button type="submit" class="os-btn os-btn-black">Save changes</button>
+                            </div>
+                        </div> 
+                     {% endform %}
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        <div class="modal fade" id="modal-edit-pass" tabindex="-1" role="dialog" aria-labelledby="modal-edit-passTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" id="modal-edit-passTitle">Change Password </h2>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    {% form 'customer', customer %}
+                        <div class="row">
+                           
+                            <div class="col-12"">
+                                <div class="contact__input">
+                                    <label>New Password <span class="required">*</span></label>
+                                    <input type="password" name="customer[password]" id="CustomerPassword_{{ customer.id }}" value="{{ customer.password }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <button type="submit" class="os-btn os-btn-black">Save changes</button>
+                            </div>
+                        </div>
+                     {% endform %}
+                </div>
+              </div>
+            </div>
+          </div>

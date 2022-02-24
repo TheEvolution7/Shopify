@@ -1,0 +1,52 @@
+{%- if cart.item_count > 0 -%}
+<form action="/cart" method="post">
+  <ul class="mini-cart">
+   {% for item in cart.items %}
+    <li>
+      <div class="cart-img f-left">
+        <a href="{{ item.url }}">
+          <img src="{{ item | img_url: '100x' }}" alt="{{ item.title | escape }}" />
+        </a>
+      </div>
+      <div class="cart-content f-left text-left">
+        <h5>
+          <a href="{{ item.url }}">{{ item.product.title }} </a>
+        </h5>
+        <div class="cart-price">
+          <span class="ammount">{{ item.quantity }} <i class="fal fa-times"></i></span>
+          <span class="price">{{ item.price | money }}</span>
+        </div>
+      </div>
+      <div class="del-icon f-right mt-30">
+        <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0">
+          <i class="fal fa-times"></i>
+        </a>
+      </div>
+    </li>
+   {% endfor %}
+    <li>
+      <div class="total-price">
+        <span class="f-left">{{ 'cart.label.total' | t }} : </span>
+        <span class="f-right">{{ cart.total_price | money }}</span>
+      </div>
+    </li>
+    <li>
+      <div class="checkout-link">
+        <a href="{{ routes.cart_url }}" class="os-btn">{{ 'products.product.view_cart' | t }}</a>
+        <button type="submit"  name="checkout" class="os-btn os-btn-black w-100">Checkout</button>
+      </div>
+    </li>
+  </ul>
+</form>
+{%- else -%}
+<ul class="mini-cart">
+   <li>
+        <span class="f-left">The cart is empty.</span>
+   </li>
+   <li>
+      <div class="checkout-link">
+        <a href="/collections/all" class="os-btn">Start Shopping</a>
+      </div>
+   </li>
+</ul>
+{%- endif -%}

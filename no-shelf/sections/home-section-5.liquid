@@ -1,0 +1,113 @@
+ <!-- sale off area start -->
+ <section class="sale__area pb-55">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-12">
+          <div class="section__title-wrapper text-center mb-55">
+            <div class="section__title mb-10">
+              <h2>{{ section.settings.heading }}</h2>
+            </div>
+            <div class="section__sub-title">
+              {{ section.settings.text }}
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="sale__area-slider-2 owl-carousel">
+               {%- for product in collections[section.settings.collection].products limit:section.settings.products_tab_count -%}
+              <div class="sale__item">
+                 {% form 'product', product %}
+                <div class="product__wrapper mb-60">
+                  <div class="product__thumb">
+                    <a href="{{ product.url }}" class="w-img">
+                      <img src="{{ product.featured_media | img_url: '500x' }}" alt="{{ product.featured_media.alt }}">
+                      <img class="product__thumb-2"  src="{{ product.media[1] | img_url: '500x' }}" alt="{{ product.media[1].alt }}">
+                    </a>
+                  </div>
+                  <div class="product__content p-relative">
+                    <div class="product__content-inner">
+                      <h4><a href="{{ product.url }}">{{ product.title }}</a></h4>
+                      <div class="product__price transition-3">
+                        <span>{{ product.price | money }}</span>
+                        <span class="old-price">{{ compare_at_price | money }}</span>
+                      </div>
+                    </div>
+                    <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                    <div class="add-cart p-absolute transition-3">
+                       <button type="submit">+ Add to Cart</button>
+                    </div>
+                  </div>
+                </div>
+                {% endform %}
+                
+                
+                {% form 'product', product %}
+                <div class="product__wrapper mb-60">
+                  <div class="product__thumb">
+                    <a href="{{ product.url }}" class="w-img">
+                       <img src="{{ product.featured_media | img_url: '500x' }}" alt="{{ product.featured_media.alt }}">
+                      <img class="product__thumb-2"  src="{{ product.media[1] | img_url: '500x' }}" alt="{{ product.media[1].alt }}">
+                    </a>
+                  </div>
+                  <div class="product__content p-relative">
+                    <div class="product__content-inner">
+                      <h4><a href="{{ product.url }}">{{ product.title }}</a></h4>
+                      <div class="product__price transition-3">
+                        <span>{{ product.price | money }}</span>
+                        <span class="old-price">{{ compare_at_price | money }}</span>
+                      </div>
+                    </div>
+                    <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                    <div class="add-cart p-absolute transition-3">
+                       <button type="submit">+ Add to Cart</button>
+                    </div>
+                  </div>
+                </div>
+                {% endform %}
+              </div>
+              {%- endfor -%}	
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+<!-- sale off area end -->
+
+<!-- client slider area start -->
+
+{% schema %}
+{
+"name": "Trending Products",
+"class": "index-section",
+  "settings": [
+	{
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Sale Off"
+    },
+	{
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+	  "default": "<p>Mirum est notare quam littera gothica quam nunc putamus parum claram!</p>"
+    },
+    {
+      "id": "collection",
+      "type": "collection",
+      "label": "Collection"
+    },
+	{
+      "type": "text",
+      "id": "products_tab_count",
+      "label": "No of products to show",
+      "default": "8"
+    }
+  ]
+
+}
+{% endschema %}

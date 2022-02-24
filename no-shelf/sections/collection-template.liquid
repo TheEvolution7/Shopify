@@ -1,0 +1,169 @@
+{%- assign limit = 12 -%}
+
+{% paginate collection.products by limit %}
+            <!-- shop area start -->
+            <section class="shop__area pt-100 pb-100">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xxl-2 col-xl-3 col-lg-3 col-md-4">
+                            {% include 'collection-sidebar' %}
+                        </div>
+                        <div class="col-xxl-10 col-xl-9 col-lg-9 col-md-8">
+                            <div class="shop__content-area">
+                                <div class="shop__header d-sm-flex justify-content-between align-items-center mb-40">
+                                    <div class="shop__header-left">
+                                        <div class="show-text">
+                                            <span>Showing {{ paginate.current_offset | plus: 1 }}-{% if paginate.next %}{{ paginate.current_offset | plus: paginate.page_size }}{% else %}{{ paginate.items }}{% endif %} of {{ paginate.items }} results</span>
+                                        </div>
+                                    </div>
+                                    <div class="shop__header-right d-flex align-items-center justify-content-between justify-content-sm-end">
+                                        <div class="sort-wrapper pr-25 p-relative">
+                                            <select name="SortBy" id="SortBy">
+                                                {% for option in collection.sort_options %}
+                                          			<option value="{{ option.value }}" {% if option.value == collection.sort_by %}selected{% endif %}>{{ option.name }}</option>
+                                          		{% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-content" id="pills-tabContent">
+                                    <div class="tab-pane fade show active" id="pills-grid" role="tabpanel" aria-labelledby="pills-grid-tab">
+                                        <div class="row custom-row-10">
+                                          {% for product in collection.products %}
+                                            <div class="col-xxl-5-12 col-xl-3 col-lg-4 col-md-6 col-sm-6 custom-col-10">
+                                                 {% include 'product-card-list', product: product %}
+                                            </div>
+                                          {% endfor %}
+                                        </div>
+                                    </div>
+                                  
+                                </div>
+                                <div class="row mt-40">
+                                    <div class="col-xl-12">
+                                        <div class="shop-pagination-wrapper d-md-flex justify-content-between align-items-center">
+                                            <div class="basic-pagination">
+                                                {%- if paginate.pages > 1 -%}
+              									 {% include 'pagination', paginate: paginate %}
+              									{%- endif -%}
+                                            </div>
+                                            <div class="shop__header-left">
+                                                <div class="show-text bottom">
+                                                    <span>Showing {{ paginate.current_offset | plus: 1 }}-{% if paginate.next %}{{ paginate.current_offset | plus: paginate.page_size }}{% else %}{{ paginate.items }}{% endif %} of {{ paginate.items }} results</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+{% endpaginate %}
+<script>
+// Save existing sort parameters
+Shopify.queryParams = {};
+if(location.search.length) {
+    for(var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+    aKeyValue = aCouples[i].split('=');
+        if (aKeyValue.length > 1) {
+            Shopify.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
+        }
+    }
+}
+
+// Add existing sort parameters to current URL
+document.querySelector('#SortBy').addEventListener('change', function(e) {
+    var value = e.currentTarget.value;
+    Shopify.queryParams.sort_by = value;
+    location.search = new URLSearchParams(Shopify.queryParams).toString();
+});
+</script>
+
+{% schema %}
+  {
+    "name": "Collection pages",
+    "settings": [
+    	],
+	"blocks": [
+      {
+        "type": "categories",
+        "name": "Categories",
+        "limit": 1,
+        "settings": [
+         	{ 
+              "type":"text",
+              "id":"title",
+              "label":"Categories",
+              "default":"Categories"
+          	},
+            {
+              "type": "link_list",
+              "id": "side_categories",
+              "label": "Select Categories",
+              "default": "main-menu"
+            }
+        ]
+      },
+	  {
+        "type": "filter_by",
+        "name": "Filter By",
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Filter By Title",
+				"default": "Filter By Title",
+                "info": "i.e 'Filter by Size, Filter by Brands'"
+            },
+            {
+                "type": "textarea",
+                "id": "filter_tags",
+                "label": "Add Filter tags",
+                "info": "Separate by a comma, i.e \"Tag1, Tag2, Tag3\"."
+            } 
+      	]
+     },
+ 	{
+        "type": "filter_by_price",
+        "name": "Filter By Price",
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Filter By Title",
+				"default": "Filter By Price",
+                "info": "i.e 'Filter by Price'"
+            },
+            {
+                "type": "textarea",
+                "id": "filter_tags",
+                "label": "Add Filter tags",
+                "info": "Separate by a comma, i.e \"Tag1, Tag2, Tag3\"."
+            } 
+      	]
+     },
+	{
+        "type": "by_color",
+        "name": "Filter by Colors",
+        "limit": 1,
+        "settings": [
+         	{ 
+              "type":"text",
+              "id":"title",
+              "label":"Filter by section title",
+              "default":"Filter by Color"
+          	},
+            {
+             "type": "textarea",
+             "id": "filter_tags",
+             "label": "Add Filter tags",
+             "info": "Separate by a comma, i.e \"Black, Red, Blue\". Filter will not work untill you don't assign the same TAG NAME to relavant products.  Custom color name should be predefined in 'Custom Colors' section."
+           }                     
+       ]
+     }
+	]
+  }
+{% endschema %}
+
+       

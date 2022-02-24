@@ -1,0 +1,64 @@
+<section class="slider__area p-relative">
+        <div class="slider-active">
+          	{% for block in section.blocks %}
+            	<div class="single-slider slider__height d-flex align-items-center" data-background="{{ block.settings.image | img_url: '1000x' }}">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-8 col-sm-10 col-12">
+                            <div class="slider__content">
+                                <h2 data-animation="fadeInUp" data-delay=".2s">{{ block.settings.title }}</h2>
+                                <p data-animation="fadeInUp" data-delay=".4s">{{ block.settings.description }} </p>
+                                <a href="{{ block.settings.link }}" class="os-btn os-btn-2" data-animation="fadeInUp" data-delay=".6s">{{ block.settings.button }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        	{% endfor %}
+        </div>
+    </section>
+{% schema %}
+{
+  "name": "Section Home 1",
+  "max_blocks": 10,
+  "settings": [
+  ],
+  "blocks": [
+    {
+      "type": "content",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Title"
+        },
+		{
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+		  "default": "<p>As rich and unique as the coffee beans it is intended for, this little scoop will make your morning ritual a special occasion every day.</p>"
+        },
+		{
+          "type": "text",
+          "id": "button",
+          "label": "Title Button",
+          "default": "Discover now"
+        },
+		{
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+          
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,235 @@
+   		<header>
+            <div id="header-sticky" class="header__area grey-bg">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+                            <div class="logo">
+                                <a href="{{ routes.root_url }}"><img src="{{ section.settings.logo | img_url: '500x' }}" alt="{{ section.settings.logo.alt | default: shop.name }}"></a>
+                            </div>
+                        </div>
+                        <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8">
+                            <div class="header__right p-relative d-flex justify-content-between align-items-center">
+                                <div class="main-menu d-none d-lg-block">
+                                    <nav>
+                                        <ul>
+                                          {% for link in linklists.main-menu.links %}
+                                            <li {% if link.links == 'colletions/all' %}class="mega-menu has-dropdown"{% endif %} {%- if link.links != blank -%}class="mega-menu has-dropdown"{% endif %}><a href="{{ link.url }}">{{ link.title }}</a>
+                                           {%- if link.links != blank -%}
+                                                <ul class="submenu transition-3">
+                                                   {%- for child_link in link.links -%}
+                                                    <li class="has-dropdown">
+                                                        <a href="{{ child_link.url }}">{{ child_link.title }}</a>
+                                                       {%- if child_link.links != blank -%}
+                                                        <ul>
+                                                          {%- for grandchild_link in child_link.links -%}
+                                                            <li><a href="{{ grandchild_link.url }}">{{ grandchild_link.title }}</a></li>
+                                                           {%- endfor -%} 
+                                                        </ul>
+                                                      {%- endif -%}
+                                                    </li>
+                                                   {%- endfor -%}
+                                                </ul>
+                                            {%- endif -%}
+                                              </li>
+                                           {% endfor %}
+                                        </ul>
+                                     
+                                    </nav>
+                                </div>
+                                <div class="mobile-menu-btn d-lg-none">
+                                    <a href="javascript:void(0);" class="mobile-menu-toggle"><i class="fas fa-bars"></i></a>
+                                </div>
+                                <div class="header__action">
+                                    <ul>
+                                        <li><a href="javascript:;" class="search-toggle"><i class="ion-ios-search-strong"></i>Search</a></li>
+                                        <li><a href="javascript:void(0);" class="cart"><i class="ion-bag"></i> Cart <span>({{ cart.item_count }})</span></a>
+                                             {% include 'cart-popup' %}
+                                        </li>
+                                        <li> <a href="javascript:void(0);"><i class="far fa-bars"></i></a>
+                                            <ul class="extra-info">
+                                                <li>
+                                                    <div class="my-account">
+                                                        <div class="extra-title">
+                                                            <h5>My Account</h5>
+                                                        </div>
+                                                        <ul>
+                                                              {%- if customer -%}
+                                                                <li>
+                                                                  <a href="/account">{{ customer.email }}</a>
+                                                                </li>
+                                                                <li>
+                                                                  {{ 'Logout' | customer_logout_link }}
+                                                                </li>
+                                                              {%- else -%}
+                                                                <li>
+                                                                  {{ 'Login' | customer_login_link }}
+                                                                </li>
+                                                                <li>
+                                                                  {{ 'Create account' | customer_register_link }}
+                                                                </li>
+                                                              {%- endif -%}
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+<!-- scroll up area start -->
+        <div class="scroll-up" id="scroll" style="display: none;">
+            <a href="javascript:void(0);"><i class="fas fa-level-up-alt"></i></a>
+        </div>
+        <!-- scroll up area end -->
+
+        <!-- search area start -->
+        <section class="header__search white-bg transition-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="header__search-inner text-center">
+                            <form action="{{ routes.search_url }}" method="get" role="search">
+                                <div class="header__search-btn">
+                                    <a href="javascript:void(0);" class="header__search-btn-close"><i class="fal fa-times"></i></a>
+                                </div>
+                                <div class="header__search-header">
+                                    <h3>Search</h3>
+                                </div>
+                                <div class="header__search-input p-relative">
+                                   	<input type="text" name="q" placeholder="{{ 'general.search.placeholder' | t }}"/>
+                                    <button type="submit"><i class="far fa-search"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="body-overlay transition-3"></div>
+        <!-- search area end -->
+
+        <!-- extra info area start -->
+        <section class="extra__info transition-3">
+            <div class="extra__info-inner">
+                <div class="extra__info-close text-right">
+                    <a href="javascript:void(0);" class="extra__info-close-btn"><i class="fal fa-times"></i></a>
+                </div>
+                <!-- side-mobile-menu start -->
+                <nav class="side-mobile-menu d-block d-lg-none">
+                    <ul id="mobile-menu-active">
+                      	 {% for link in linklists.main-menu.links %}
+                      <li {% if link.active %}class="active"{% endif %}  {%- if link.links != blank -%}class="mega-menu has-dropdown"{% endif %}><a href="{{ link.url }}">{{ link.title }}</a>
+                        {%- if link.links != blank -%}
+                        <ul class="submenu transition-3">
+                          {%- for child_link in link.links -%}
+                          <li class="has-dropdown">
+                            <a href="{{ child_link.url }}">{{ child_link.title }}</a>
+                            {%- if child_link.links != blank -%}
+                            <ul>
+                              {%- for grandchild_link in child_link.links -%}
+                              <li><a href="{{ grandchild_link.url }}">{{ grandchild_link.title }}</a></li>
+                              {%- endfor -%} 
+                            </ul>
+                            {%- endif -%}
+                          </li>
+                          {%- endfor -%}
+                        </ul>
+                        {%- endif -%}
+                      </li>
+                      {% endfor %}
+                    </ul>
+                </nav>
+                <!-- side-mobile-menu end -->
+            </div>
+        </section>
+        <div class="body-overlay transition-3"></div>
+        <!-- extra info area end -->
+{% schema %}
+{
+  "name": {
+    "cs": "Záhlaví",
+    "da": "Overskrift",
+    "de": "Titel",
+    "en": "Header",
+    "es": "Encabezado",
+    "fi": "Ylätunniste",
+    "fr": "En-tête",
+    "it": "Header",
+    "ja": "ヘッダー",
+    "ko": "헤더",
+    "nb": "Header",
+    "nl": "Koptekst",
+    "pl": "Nagłówek",
+    "pt-BR": "Cabeçalho",
+    "pt-PT": "Cabeçalho",
+    "sv": "Rubrik",
+    "th": "ส่วนหัว",
+    "tr": "Üstbilgi",
+    "vi": "Đầu trang",
+    "zh-CN": "标头",
+    "zh-TW": "標頭"
+  },
+  "settings": [ 
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": {
+        "cs": "Obrázek loga",
+        "da": "Logobillede",
+        "de": "Logo-Foto",
+        "en": "Logo image",
+        "es": "Logo",
+        "fi": "Logokuva",
+        "fr": "Image du logo",
+        "it": "Immagine del logo",
+        "ja": "ロゴ画像",
+        "ko": "로고 이미지",
+        "nb": "Logobilde",
+        "nl": "Afbeelding van logo",
+        "pl": "Obraz logo",
+        "pt-BR": "Imagem do logotipo",
+        "pt-PT": "Imagem do logótipo",
+        "sv": "Logobild",
+        "th": "รูปภาพโลโก้",
+        "tr": "Logo görseli",
+        "vi": "Hình ảnh logo",
+        "zh-CN": "logo 图片",
+        "zh-TW": "標誌圖片"
+      }
+    },
+    {
+      "type": "link_list",
+      "id": "main_linklist",
+      "label": {
+        "cs": "Nabídka",
+        "da": "Menu",
+        "de": "Menü",
+        "en": "Menu",
+        "es": "Menú",
+        "fi": "Valikko",
+        "fr": "Menu",
+        "it": "Menu",
+        "ja": "メニュー",
+        "ko": "메뉴",
+        "nb": "Meny",
+        "nl": "Menu",
+        "pl": "Menu",
+        "pt-BR": "Menu",
+        "pt-PT": "Menu",
+        "sv": "Meny",
+        "th": "เมนู",
+        "tr": "Menü",
+        "vi": "Menu",
+        "zh-CN": "菜单",
+        "zh-TW": "選單"
+      },
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

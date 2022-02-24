@@ -1,0 +1,162 @@
+							<div class="shop__sidebar">
+                                {% for block in section.blocks %}
+                      	  		{% if block.type == 'categories' %}
+                                	<div class="sidebar__widget mb-55">
+                                    <div class="sidebar__widget-title mb-25">
+                                        <h3>{{block.settings.title}}</h3>
+                                    </div>
+                                    <div class="sidebar__widget-content">
+                                        <div class="categories">
+                                            <div id="accordion">
+                                              {% for link in linklists[block.settings.side_categories].links %}
+                                                <div class="card">
+                                                    <div class="card-header white-bg" id="{{ forloop.index}}">
+                                                    <h5 class="mb-0">
+                                                        <button class="shop-accordion-btn collapsed" data-toggle="collapse" data-target="#collapse{{ forloop.index}}" aria-expanded="{% if forloop.first %}true{% endif%}" aria-controls="collapse{{ forloop.index}}">
+                                                           {{ link.title }}
+                                                        </button>
+                                                    </h5>
+                                                    </div>
+                                                
+                                                    <div id="collapse{{ forloop.index}}" class="collapse {% if forloop.first %}show{% endif%}" aria-labelledby="{{ forloop.index}}" data-parent="#accordion">
+                                                    <div class="card-body">
+                                                        <div class="categories__list">
+                                                           {%- if link.links != blank -%}
+                                                            <ul>
+                                                               {%- for child_link in link.links -%}
+                                                                <li><a href="{{ child_link.url }}">{{ child_link.title }}</a></li>
+                                                               {% endfor %}
+                                                            </ul>
+                                                          {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                              {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              	{% endif  %}
+                              
+                      	  		{% if block.type == 'filter_by_price' %}
+                                <div class="sidebar__widget mb-55">
+                              
+                                    <div class="sidebar__widget-title mb-30">
+                                        <h3>{{block.settings.title}}</h3>
+                                        
+                                    </div>
+                                    <div class="sidebar__widget-content box-price">
+                                        <ul class="box-choose-size">
+                                      {% assign tags = block.settings.filter_tags | split: ',' %}
+                                      {% for filter_t in tags %}
+                                      {% assign tag = filter_t | strip %}
+                                      {% assign tag_value = tag | handleize %}
+                                      {% assign filtertag = forloop.index | minus:1 %}
+                                      {% assign filtertagid = 2 | times : filtertag %}
+                                      {% if collection.tags contains tag %}
+                                            <li>
+                                                <input type="checkbox" value="{{ tag_value }}" id="{{block.id}}-{{ filtertagid }}" {% if current_tags contains tag %}checked{% endif %}>
+                                                <label class="check-box-size" for="{{block.id}}-{{ filtertagid }}" title="{{tag}}">                                                   
+                                                   {{tag}}
+                                                </label> 
+                                            </li>
+                                      {% endif %}
+          							  {% endfor %}      
+                                        </ul>
+                                    </div>
+                                </div>
+                              {% endif  %}
+                              {% if block.type == 'filter_by' %}
+                                <div class="sidebar__widget mb-55">
+                                    <div class="sidebar__widget-title mb-30">
+                                        <h3>{{block.settings.title}}</h3>
+                                    </div>
+                                    <div class="sidebar__widget-content">
+                                        <div class="size">
+                                            <ul class="">
+                                            {% assign tags = block.settings.filter_tags | split: ',' %}
+                                            {% for filter_t in tags %}
+                                            {% assign tag = filter_t | strip %}
+                                            {% assign tag_value = tag | handleize %}
+                                            {% assign filtertag = forloop.index | minus:1 %}
+                                            {% assign filtertagid = 2 | times : filtertag %}
+                                            {% if collection.tags contains tag %}
+                                                <li>
+                                                    <input class="styled-checkbox" type="checkbox" value="{{ tag_value }}" name="check-size" id="check-size-{{forloop.index}}" {% if current_tags contains tag %}checked{% endif %}>
+                                                    <label for="check-size-{{forloop.index}}" title="{{tag}}">                                                   
+                                                        {{tag}}
+                                                    </label>
+                                                    
+                                                </li>
+                                            {% endif %}
+          							  		{% endfor %}      
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                              {% endif  %} 
+                               {% if block.type == 'by_color' %}
+                                <div class="sidebar__widget mb-60">
+                                    <div class="sidebar__widget-title mb-20">
+                                        <h3>Choose Color</h3>
+                                    </div>
+                                    <div class="sidebar__widget-content">
+                                        <div class="color__pick">
+                                            <style>
+                                                
+                                            </style>
+                                            <form action="#">
+                                                <ul class="box-check-color">
+                                                   {% assign tags = block.settings.filter_tags | split: ',' %}
+                                                    {% for filter_t in tags %}
+                                                    {% assign tag = filter_t | strip %}
+                                                    {% assign tag_value = tag | handleize %}
+                                                    {% assign filtertag = forloop.index | minus:1 %}
+                                                    {% assign filtertagid = 2 | times : filtertag %}
+                                                    {% if collection.tags contains tag %}
+                                                    <li>
+                                                        <input type="checkbox" name="check-color"  value="{{ tag_value }}" id="check-color-{{ forloop.index }}" {% if current_tags contains tag %}checked{% endif %}>
+                                                        <label for="check-color-{{ forloop.index }}" class="check-color-label {{tag}}" style="background: {{tag}};"></label>
+                                                    </li>
+                                                   {% endif %}
+          							  				{% endfor %} 
+                                                </ul>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                              {% endif  %} 
+                                {% endfor %}
+                            </div>
+<script>
+  var checkboxes = document.querySelectorAll("input[type=checkbox]");
+  let enabledSettings = []
+  
+  checkboxes.forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+      enabledSettings = 
+        Array.from(checkboxes)
+        .filter(i => i.checked)
+        .map(i => i.value)
+		var newTags = [];
+          enabledSettings.forEach((collFilter) => {
+            newTags.push(collFilter);
+          });
+      if (newTags.length) {
+          var query = newTags.join('+');
+          window.location.href = '/collections/{{ collection.handle }}/' + query;
+        }
+        else {
+          {% if collection.handle %}
+          window.location.href = '/collections/{{ collection.handle }}';
+          {% elsif collection.products.first.type == collection.title %}
+          window.location.href = '{{ collection.title | url_for_type }}';
+          {% elsif collection.products.first.vendor == collection.title %}
+          window.location.href = '{{ collection.title | url_for_vendor }}';
+          {% endif %}
+        }
+    })
+  });
+  
+</script>

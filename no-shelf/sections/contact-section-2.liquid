@@ -1,0 +1,159 @@
+ <!-- contact area start -->
+            <section class="contact__area pb-100 pt-95">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6">
+                            <div class="contact__info">
+                                <h3>{{ section.settings.title }}</h3>
+                                <ul class="mb-55">
+                                    <li class="d-flex mb-35">
+                                        <div class="contact__info-icon mr-20">
+                                            <i class="fal fa-map-marker-alt"></i>
+                                        </div>
+                                        <div class="contact__info-content">
+                                            <h6>Address:</h6>
+                                            <span>{{ section.settings.address }}</span>
+                                        </div>
+                                    </li>
+                                    <li class="d-flex mb-35">
+                                        <div class="contact__info-icon mr-20">
+                                            <i class="fal fa-envelope-open-text"></i>
+                                        </div>
+                                        <div class="contact__info-content">
+                                            <h6>Email:</h6>
+                                            <span><a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a></span>
+                                        </div>
+                                    </li>
+                                    <li class="d-flex mb-35">
+                                        <div class="contact__info-icon mr-20">
+                                            <i class="fal fa-phone-alt"></i>
+                                        </div>
+                                        <div class="contact__info-content">
+                                            <h6>Number Phone:</h6>
+                                            <span>{{ section.settings.phone }}</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                                 {{ section.settings.description }}
+                              {%- assign socials = "Facebook Twitter Pinterest Instagram Tumblr Snapchat YouTube Vimeo" | split: ' ' -%}
+                                <div class="contact__social">
+                                    <ul>
+                                        {%- for social in socials -%}
+                                         {%- assign social_link = social | prepend: 'social_' | append: '_link' | downcase -%}
+                                         {%- assign icon_link = social | prepend: 'icon-' | downcase -%}
+                                         {%- if settings[social_link] != blank -%}
+                                        	 <li><a href="{{ settings[social_link] | escape }}">{%- include icon_link -%}</a></li>
+                                      	{%- endif -%}
+            							{%- endfor -%}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6">
+                            <div class="contact__form">
+                                <h3>{{ page.title }}</h3>
+                               {%- assign formId = 'ContactForm' -%}
+                                {% form 'contact', id: formId %}
+                                    <div class="row">
+                                        <div class="col-xl-6 col-lg-6">
+                                            <div class="contact__input">
+                                                <label>Name <span class="required">*</span></label>
+                                                <input type="text" id="{{ formId }}-name" name="contact[{{ 'contact.form.name' | t }}]" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6">
+                                            <div class="contact__input">
+                                                <label>Email <span class="required">*</span></label>
+                                                <input type="email" id="{{ formId }}-email" name="contact[email]" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-12">
+                                            <div class="contact__input">
+                                                <label>Phone <span class="required">*</span></label>
+                                                <input type="text" id="{{ formId }}-phone" name="contact[{{ 'contact.form.phone' | t }}]" value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-12">
+                                            <div class="contact__input">
+                                                <label>Message</label>
+                                               <textarea rows="10" id="{{ formId }}-message" name="contact[{{ 'contact.form.message' | t }}]">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-12">
+                                            <div class="contact__submit">
+                                                <button type="submit" class="os-btn os-btn-black">Send Message</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endform %}
+                                <p class="ajax-response"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- contact area end -->
+
+            <!-- contact map area start -->
+            <section class="contact__map">
+                <div class="container-fluid p-0">
+                    <div class="row no-gutters">
+                        <div class="col-xl-12">
+                            <div class="contact__map-wrapper p-relative">
+                                <iframe src="{{ section.settings.map }}"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- contact map area end -->
+
+{% schema %}
+  {
+    "name": "Contact Section 2",
+    "settings": [
+	{
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Find us here."
+    },
+	{
+      "type": "text",
+      "id": "address",
+      "label": "Address",
+      "default": "1234 Heaven Stress, Beverly Hill, Melbourne, USA."
+    },
+	{		
+      "type": "text",
+      "id": "phone",
+      "label": "phone",
+      "default": "+5078305756"
+    },
+	{
+      "type": "text",
+      "id": "email",
+      "label": "email",
+      "default": "Talk about your brand"
+    },
+	{
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+	  "default": "<p>Outstock is a premium Templates theme with advanced admin module. It’s extremely customizable, easy to use and fully responsive and retina ready. Vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.</p>"
+    },
+	{
+      "type": "text",
+      "id": "map",
+      "label": "Link Map",
+      "default": "https://maps.google.com/maps?hl=en&q=Dhaka+()&ie=UTF8&t=&z=10&iwloc=B&output=embed"
+    }
+]
+  }
+{% endschema %}

@@ -1,0 +1,10 @@
+<ul>
+  {% for part in paginate.parts %}
+  {% if part.is_link %}
+  <li>{{ part.title | link_to: part.url }}</li>
+  {% else %}
+ <li class="active"><a>{{ part.title}}</a></li>
+  {% endif %}
+  {% endfor %}     
+  <li><a href="{{ paginate.next.url }}"><i class="fa fa-angle-double-right"></i></a></li>
+</ul>

@@ -1,0 +1,47 @@
+ <main>      
+  		{% section 'login-banner' %}
+        <!-- login Area Strat-->
+        <section class="login-area pt-100 pb-100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2">
+                        <div class="basic-login" id="page-login">
+                            <h3 class="text-center mb-60">Login From Here</h3>
+                           {% form 'customer_login', novalidate: 'novalidate' %}
+                                <label for="name">{{ 'customer.login.email' | t }}<span>**</span></label>
+                               	<input type="email" name="customer[email]"  placeholder="{{ 'customer.login.email' | t }}" id="CustomerEmail" required>
+                                <label for="pass">{{ 'customer.login.password' | t }} <span>**</span></label>
+                                <input type="password" name="customer[password]" id="customerPassword"  placeholder="{{ 'customer.login.password' | t }}" required>
+                                <div class="login-action mb-20 fix">
+                                    <span class="log-rem f-left">
+                                        <input id="remember" type="checkbox" checked/>
+                                        <label for="remember">Remember me!</label>
+                                    </span>
+                                  {% if form.password_needed %}
+                                    <span class="forgot-login f-right">
+                                        <a href="javascript:;" id="move-to-lost">{{ 'customer.login.forgot_password' | t }}</a>
+                                    </span>
+                                 {% endif %}
+                                </div>
+                          		 <div class="mt-10"></div>
+                                <button type="submit" class="os-btn w-100">{{ 'customer.login.sign_in' | t }}</button>
+                                <div class="or-divide"><span>or</span></div>
+                                <a href="/account/register" class="os-btn os-btn-black w-100">{{ 'layout.customer.create_account' | t }}</a>
+                            {% endform %}
+                        </div>
+                        <div class="basic-login" id="page-lost-password">
+                            <h3 class="text-center mb-60">Forgot Password</h3>
+                            {% form 'recover_customer_password' %}
+                                <label for="name">{{ 'customer.recover_password.email' | t }} <span>**</span></label>
+                            	<input type="email" value="" name="email" id="RecoverEmail" placeholder="{{ 'customer.recover_password.email' | t }}" required>
+		                         <button type="submit" class="os-btn w-100">Submit</button>
+                          		 <div class="or-divide"><span>or</span></div>
+                                <a href="javascript:;" class="os-btn os-btn-black w-100" id="back-login">Back to Login</a>
+                            {% endform %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- login Area End-->
+    </main>

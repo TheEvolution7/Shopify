@@ -1,0 +1,41 @@
+	<div class="banner__area-2 pb-60">
+      <div class="container-fluid">
+        <div class="row no-gutters">
+         {%- for product in collections[section.settings.collection].products limit:2 -%}
+         
+          <div class="col-xl-6 col-lg-6">
+            <div class="banner__item-2 banner-right p-relative mb-30 pr-15">
+              <div class="banner__thumb fix">
+                <a href="{{product.url }}" class="w-img"><img src="{{ product.featured_media | img_url: '500x' }}" alt="{{ product.featured_media.alt }}"></a>
+              </div>
+              <div class="banner__content-2 p-absolute transition-3">
+                <span>Products Essentials</span>
+                 <h4><a href="{{product.url }}">{{ product.title }}</a></h4>
+                {{ product.description }}
+                {% form 'product', product %}
+                 <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+               	<button  type="submit" class="os-btn os-btn-2">buy now / <span>{{ product.price | money }}</span></button>
+                {% endform %}
+              </div>
+            </div>
+          </div>
+         
+         {%- endfor -%}       
+        </div>
+      </div>
+    </div>
+
+{% schema %}
+{
+"name": "Banner Products",
+"class": "index-section",
+  "settings": [
+    {
+      "id": "collection",
+      "type": "collection",
+      "label": "Collection"
+    }
+  ]
+
+}
+{% endschema %}
