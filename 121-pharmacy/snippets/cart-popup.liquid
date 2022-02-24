@@ -1,0 +1,49 @@
+<!-- Utilize Cart Menu Start -->
+<div id="ltn__utilize-cart-menu" class="ltn__utilize ltn__utilize-cart-menu">
+  <div class="ltn__utilize-menu-inner ltn__scrollbar">
+    <div class="ltn__utilize-menu-head">
+      <span class="ltn__utilize-menu-title">Cart</span>
+      <button class="ltn__utilize-close">×</button>
+    </div>
+    {% if cart.item_count > 0 %} 
+      
+        <div class="mini-cart-product-area ltn__scrollbar">
+         {% for item in cart.items %} 
+          <div class="mini-cart-item clearfix">
+            <div class="mini-cart-img">
+              <a href="{{ item.url }}"><img src="{{ item | img_url: 'large' }}" alt="{{ item.product.title }}"></a>
+              <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0"><span class="mini-cart-item-delete"><i class="icon-cancel"></i></span></a>
+            </div>
+            <div class="mini-cart-info">
+              <h6><a href="{{ item.url }}">{{ item.product.title }}</a></h6>
+              <span class="mini-cart-quantity">{{ item.quantity }} x {{ item.price | money }}</span>
+            </div>
+          </div>
+		 {% endfor %} 
+        </div>
+        <div class="mini-cart-footer">
+          <div class="mini-cart-sub-total">
+            <h5>Subtotal: <span>{{ cart.total_price | money_with_currency }}</span></h5>
+          </div>
+          <form action="{{ routes.cart_url }}" method="post">
+          <div class="btn-wrapper">
+            <a href="{{ routes.cart_url }}" class="theme-btn-1 btn btn-effect-1">View Cart</a>
+            <button type="submit" class="theme-btn-2 btn btn-effect-2" name="checkout">Checkout</button>
+          </div>
+            </form>
+          {{ text_cart }}
+        </div>
+      
+    {% else %} 
+	  <div class="mini-cart-product-area ltn__scrollbar">
+          <p>{{ 'cart.general.empty' | t }}</p>
+      </div>
+    	<div class="mini-cart-footer">
+          <div class="btn-wrapper">
+            <a href="{{ routes.all_products_collection_url }}" class="theme-btn-1 btn btn-effect-1">{{ 'cart.general.continue_shopping' | t }}</a>
+          </div>
+        </div>
+    {% endif %} 
+  </div>
+</div>
+<!-- Utilize Cart Menu End -->

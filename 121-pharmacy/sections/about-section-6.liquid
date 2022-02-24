@@ -1,0 +1,39 @@
+{% if section.settings.show_section %}
+  <div class="ltn__video-popup-area ltn__video-popup-margin" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="ltn__video-bg-img ltn__video-popup-height-600 bg-overlay-black-10-- bg-image" data-bs-bg="{{ section.settings.image | img_url : 'master' }}">
+            <a class="ltn__video-icon-2 ltn__video-icon-2-border border-radius-no" href="{{ section.settings.link }}" data-rel="lightcase:myCollection">
+              <i class="fa fa-play"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Video",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },	
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "link",
+          "label": "Link Youtube",
+		  "default": "https://www.youtube.com/embed/Cr4LFOgRGeo"
+        }
+	]
+  }
+{% endschema %}

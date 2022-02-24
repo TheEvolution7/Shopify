@@ -1,0 +1,312 @@
+<div class="ltn__shop-details-area pb-85">
+  <div class="container">
+    <div class="ltn__shop-details-inner mb-60">
+      <div class="row">
+       
+        	
+          <div class="col-md-6">
+            <div class="ltn__shop-details-img-gallery">
+              <div class="ltn__shop-details-large-img">
+               {%- for media in product.media -%}
+                <div class="single-large-img">
+                  <a href="{{ media | img_url: 'master' }}" data-rel="lightcase:myCollection" class="thumb-pro">
+                    <img src="{{ media | img_url: 'master' }}" alt="{{ media.alt | default : product.title }}">
+                  </a>
+                </div>
+               {%- endfor -%} 
+              </div>
+              <div class="ltn__shop-details-small-img slick-arrow-2">
+               {%- for media in product.media -%} 
+                <div class="single-small-img">
+                  <img src="{{ media | img_url: 'grande' }}" alt="{{ media.alt | default : product.title }}">
+                </div>
+               {%- endfor -%}  
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5 offset-md-1">
+             
+            	<div class="modal-product-info shop-details-info pl-0">
+              <div class="product-ratting">
+                <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+              </div>
+              <h3>{{ product.title }}</h3>
+              <div class="product-price">
+                <span>{{ product.price | money }}</span>
+                <del>{{ product.compare_at_price | money }}</del>
+              </div>
+              <div class="ltn__product-details-menu-2">
+                <ul>
+                  <li>
+                   <input type="text" name="quantity" value="1" min="1">
+                  </li>
+                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id  }}">	
+                  <li>
+                    <a href="#" class="theme-btn-1 btn btn-effect-1" title="Add to Cart"
+                       data-bs-toggle="modal" data-bs-target="#step-quest">
+                      <i class="fas fa-shopping-cart"></i>
+                      <span>ADD TO CART</span>
+                    </a>
+<!--                     <button type="submit" class="theme-btn-1 btn btn-effect-1" title="Add to Cart">
+                      <i class="fas fa-shopping-cart"></i>
+                      <span>
+                        {%- if product.available -%}
+                        	Add to Cart
+                        {%- else -%}
+                        	Sold Out
+                        {%- endif -%}
+                      </span>
+                    </button> -->
+                  </li>
+                </ul>
+              </div>
+<!--               <div class="ltn__product-details-menu-3">
+                <ul>
+                  <li>
+                    <a href="#" class="" title="Wishlist" data-bs-toggle="modal"
+                       data-bs-target="#liton_wishlist_modal">
+                      <i class="far fa-heart"></i>
+                      <span>Add to Wishlist</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" class="" title="Compare" data-bs-toggle="modal"
+                       data-bs-target="#quick_view_modal">
+                      <i class="fas fa-exchange-alt"></i>
+                      <span>Compare</span>
+                    </a>
+                  </li>
+                </ul>
+              </div> -->
+              <hr>
+              <div class="ltn__social-media">
+                <ul>
+                  <li>Share:</li>
+                  {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product.image %}
+                </ul>
+              </div>
+              <hr>
+              <div class="ltn__safe-checkout">
+                <h5>{{ section.settings.title }}</h5>
+                <img src="{{ section.settings.image | img_url : 'large' }}" alt="{{ section.settings.title }}">
+              </div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+    <!-- Shop Tab Start -->
+    <div class="ltn__shop-details-tab-inner ltn__shop-details-tab-inner-2">
+      <div class="ltn__shop-details-tab-menu">
+        <div class="nav">
+          <a class="active show" data-bs-toggle="tab" href="#liton_tab_details_1_1">Description</a>
+          <a data-bs-toggle="tab" href="#liton_tab_details_1_2" class="">Reviews</a>
+        </div>
+      </div>
+      <div class="tab-content">
+        <div class="tab-pane fade active show" id="liton_tab_details_1_1">
+          <div class="ltn__shop-details-tab-content-inner">
+           	  {{ product.description }}
+          </div>
+        </div>
+        <div class="tab-pane fade" id="liton_tab_details_1_2">
+          <div class="ltn__shop-details-tab-content-inner">
+            <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+        </div>
+      </div>
+    </div>
+    <!-- Shop Tab End -->
+  </div>
+</div>
+</div>
+
+<div class="modal modal-quest fade" id="step-quest" tabindex="-1">
+            <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Just a few questions from our Pharmacist before you checkout to make sure this medicine is safe for you.</h5>
+                        <span class="id-pro">
+                            <p>GPhC No. 2084549</p>
+                            <img src="img/brand-logo/6.png" alt="">
+                        </span>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-product-item">
+                            {% form 'product', product, id: 'shopify-product-form' %}
+                          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id  }}">	
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-content">
+                                            <label for="">How old is the intended user?</label>
+                                            <div class="input-item input-item-select ltn__custom-icon"> 
+                                                <select name="customquestions[14]" id="options_14_dropdown" class="input-data" required>
+                                                    <option value="">Please Select</option>
+                                                    <option value="9">Under 12 months</option>
+                                                    <option value="10">1-3 years</option>
+                                                    <option value="11">3-6 years</option>
+                                                    <option value="12">7-12 years</option>
+                                                    <option value="13">12-18 years</option>
+                                                    <option value="81">Adult (18 +)</option>
+                                                    <option value="89">Elderly (65 +)</option>
+                                                </select>
+                                            </div>
+                                            <label for="">Please describe why you are purchasing this product
+                                                <span>(Please describe typical symptoms even if you are not currently suffering from them)</span></label>
+                                            <div class="input-item input-item-textarea ltn__custom-icon">
+                                                
+                                                <textarea name="message" placeholder="Enter message" required class="input-data"></textarea>
+                                            </div>
+                                            <label for="">How long have the symptoms been present?</label>
+                                            <div class="input-item input-item-select ltn__custom-icon"> 
+                                                <select name="customquestions[5]" id="options_5_dropdown" class="input-data" required>
+                                                    <option value="">Please Select</option>
+                                                    <option value="14">1-3 Days</option>
+                                                    <option value="15">4-7 Days</option>
+                                                    <option value="16">2- 3 Weeks</option>
+                                                    <option value="17">More than 3 weeks</option>
+                                                    <option value="18">On and off for weeks/months</option>
+                                                    <option value="19">N/A Buying in advance</option>
+                                                </select>
+                                            </div>
+                                            <label for="">Is the intended user taking any medication, or do they have any medical conditions or allergies?</label>
+                                            <div class="input-item input-item-select ltn__custom-icon"> 
+                                                <select name="customquestions[5]" id="options_6_dropdown" class="input-data" required>
+                                                    <option value="">Please Select</option>
+                                                    <option value="yes">Yes</option>
+                                                    <option value="no">No</option>
+                                                </select>
+                                            </div>
+                                            <label for="">Please list the medication or details of condition</span></label>
+                                            <div class="input-item input-item-textarea ltn__custom-icon">
+                                                <textarea name="details" placeholder="Enter details " required class="input-data"></textarea>
+                                            </div>
+                                        </div>
+                                        
+
+                                        <div class="list-btn-cart">
+                                            <ul>
+                                                <li>
+                                                    <div class="cart-plus-minus">
+                                                      <input type="number" id="Quantity-{{ section.id }}"
+                    name="quantity" value="1" min="1" pattern="[0-9]*"
+                    class="cart-plus-minus-box" data-quantity-input
+                  >
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                  <button type="submit" class="theme-btn-1 btn btn-effect-1" title="Add to Cart" product-id="{{product.title}}" id="toggle-button">
+                      <i class="fas fa-shopping-cart"></i>
+                      <span>
+                        {%- if product.available -%}
+                        	Add to Cart
+                        {%- else -%}
+                        	Sold Out
+                        {%- endif -%}
+                      </span>
+                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endform %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<script>
+  	document.getElementById('toggle-button').addEventListener('click', (e)=>{
+    e.preventDefault();
+  	const matches = document.querySelectorAll(".input-data");
+    var str = '';
+    matches.forEach(function(item) {
+      if(str == ''){
+        if(item.options){
+           	str = str + item.options[item.selectedIndex].value;
+        }
+        if(item.value){
+          str = str + item.value;
+        }
+      }else{
+      	if(item.options){
+           	str = str + ', ' + item.options[item.selectedIndex].value;
+        }
+        
+        if(item.value){
+          str = str + item.value;
+        }
+      }
+    });
+      
+      newProducts = {
+        id: document.querySelector('#toggle-button').getAttribute ('product-id'),
+        data: str 
+      };
+      
+      products = [];
+      
+      var getProducts = JSON.parse(localStorage.getItem("products"));
+      
+      if(Object.keys(getProducts).length > 0){
+        for (let i = 0; i < Object.keys(getProducts).length; i++) {
+          if(JSON.stringify(getProducts[i]) != JSON.stringify(newProducts)){
+            products.push(newProducts);
+          }else{
+            products.push(getProducts[i]);
+          }
+          
+        }
+      }
+      
+      localStorage.setItem("products", JSON.stringify(products));
+      document.getElementById("shopify-product-form").submit();
+  });
+  
+  
+</script>
+
+{% schema %}
+{
+  "name": {
+    "cs": "Stránky produktů",
+    "da": "Produktsider",
+    "de": "Produktseiten",
+    "en": "Product pages",
+    "es": "Páginas de productos",
+    "fi": "Tuotesivut",
+    "fr": "Pages de produits",
+    "it": "Pagine di prodotto",
+    "ja": "商品ページ",
+    "ko": "제품 페이지",
+    "nb": "Produktsider",
+    "nl": "Productpagina's",
+    "pl": "Strony produktu",
+    "pt-BR": "Páginas de produtos",
+    "pt-PT": "Páginas de produtos",
+    "sv": "Produktsidor",
+    "th": "หน้าสินค้า",
+    "tr": "Ürün sayfaları",
+    "vi": "Trang sản phẩm",
+    "zh-CN": "产品页面",
+    "zh-TW": "產品頁面"
+  },
+  "settings": [
+  	{
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+  	  "default" : "Guaranteed Safe Checkout"
+    }, 
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }  
+  ]
+}
+{% endschema %}

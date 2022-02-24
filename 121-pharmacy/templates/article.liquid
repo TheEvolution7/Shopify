@@ -1,0 +1,185 @@
+{% section 'breadcrumb' %}
+<div class="ltn__page-details-area ltn__blog-details-area mb-120">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="ltn__blog-details-wrap">
+          <div class="ltn__page-details-inner ltn__blog-details-inner">
+            <div class="ltn__blog-meta">
+              <ul>
+                <li class="ltn__blog-category">
+                  <a href="/blog/news">News</a>
+                </li>
+              </ul>
+            </div>
+            <h2 class="ltn__blog-title">{{ article.title }}</h2>
+            <div class="ltn__blog-meta">
+              <ul>
+                <li class="ltn__blog-author">
+                  <a href="#"><img src="{{ 'user_icon_150670.png' | asset_url }}" alt="#">By: {{ article.author }}</a>
+                </li>
+                <li class="ltn__blog-date">
+                  <i class="far fa-calendar-alt"></i>{{ article.published_at | time_tag: format: 'date' }}
+                </li>
+              </ul>
+            </div>
+            {{ article.content }}
+
+          </div>
+          <!-- blog-tags-social-media -->
+          <div class="ltn__blog-tags-social-media mt-80 row">
+            <div class="ltn__tagcloud-widget col-lg-8">
+              <h4>Releted Tags</h4>
+              <ul>
+                {% for tag in article.tags %}
+                	<li><a href="/blogs/news/tagged/{{ tag | handle }}">{{ tag }}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="ltn__social-media text-right text-end col-lg-4">
+              <h4>Social Share</h4>
+              <ul>
+                {% include 'social-sharing', share_title: article.title, share_permalink: article.url, share_image: article.image %}
+              </ul>
+            </div>
+          </div>
+          <hr>
+          <!-- prev-next-btn -->
+          <div class="ltn__prev-next-btn row mb-50">
+            
+            {% if blog.previous_article %}
+              <div class="blog-prev col-lg-6">
+                <h6>Prev Post</h6>
+                <h3 class="ltn__blog-title"><a href="{{ blog.previous_article.url }}">{{ blog.previous_article.title }}</a></h3>
+              </div>
+            {% endif %}
+            {% if blog.next_article %}
+              <div class="blog-prev blog-next text-right text-end col-lg-6">
+                <h6>Next Post</h6>
+                <h3 class="ltn__blog-title"><a href="{{ blog.next_article.url }}">{{ blog.next_article.title }}</a></h3>
+              </div>
+            {% endif %}
+          </div>
+          <hr>
+          <!-- related-post -->
+          <div class="related-post-area mb-50">
+            <h4 class="title-2">Related Post</h4>
+            <div class="row">
+              {%- for recent in blog.articles limit : 2 -%}
+                {%- if recent.id != article.id -%}
+                  <div class="col-md-6">
+                    <!-- Blog Item -->
+                    <div class="ltn__blog-item ltn__blog-item-6">
+                      <div class="ltn__blog-img">
+                        <a href="{{ recent.url }}"><img src="{{ recent.image | img_url : 'large' }}" alt="{{ recent.image.alt | default: recent.title }}"></a>
+                      </div>
+                      <div class="ltn__blog-brief">
+                        <div class="ltn__blog-meta">
+                          <ul>
+                            <li class="ltn__blog-date ltn__secondary-color">
+                              <i class="far fa-calendar-alt"></i>{{ recent.published_at | time_tag: format: 'date' }}
+                            </li>
+                          </ul>
+                        </div>
+                        <h3 class="ltn__blog-title"><a href="{{ recent.url }}">{{ recent.title }}</a></h3>
+                        {{ article.excerpt }}
+                      </div>
+                    </div>
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+              
+            </div>
+          </div>
+          
+          {% if number_of_comments > 0 %}
+          <!-- comment-area -->
+          	<div class="ltn__comment-area mb-50">
+            <div class="ltn-author-introducing clearfix">
+              <div class="author-img">
+                <img src="{{ 'user_icon_150670.png' | asset_url }}" alt="Author Image">
+              </div>
+              <div class="author-info">
+                <h6>Written by</h6>
+                <h2>Rosalina D. William</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation is enougn for today.</p>
+              </div>
+            </div>
+            <h4 class="title-2">{{ 'blogs.comments.comments_with_count' | t: count: number_of_comments }}</h4>
+            <div class="ltn__comment-inner">
+              <ul>
+                {% comment %}
+                If a comment was just submitted with no blank field, show it.
+                {% endcomment %}
+                {% if comment.status == 'pending' %}
+                <li id="{{ comment.id }}">
+                  {% include 'comment', comment: comment %}
+                </li>
+                {% endif %}
+
+                {% for comment in article.comments %}
+                <li id="{{ comment.id }}">
+                  {% include 'comment', comment: comment %}
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+          {% endif %}
+          <hr>
+          <!-- comment-reply -->
+          <div class="ltn__comment-reply-area ltn__form-box mb-60---">
+            <h4 class="title-2">{{ 'blogs.comments.title' | t }}</h4>
+            {% form 'new_comment', article %}
+             {%- assign formId = 'CommentForm' -%}
+              {%- assign post_message = 'blogs.comments.success' -%}
+              {%- if blog.moderated? and comment.status == 'pending' -%}
+                {%- assign post_message = 'blogs.comments.success_moderated' -%}
+              {%- elsif comment.status == 'unapproved' or comment.status == 'spam' -%}
+                {%- assign post_message = 'blogs.comments.unapproved' -%}
+              {%- endif -%}
+              <div class="input-item input-item-name ltn__custom-icon">
+                <input type="text" name="comment[author]" id="{{ formId }}-author"  value="{{ form.author }}" placeholder="{{ 'blogs.comments.name' | t }}" required>
+              </div>
+              <div class="input-item input-item-email ltn__custom-icon">
+                <input type="email" name="comment[email]" value="{{ form.email }}" id="{{ formId }}-email" placeholder="{{ 'blogs.comments.email' | t }}"  required>
+              </div>
+              <div class="input-item input-item-textarea ltn__custom-icon">
+                <textarea name="comment[body]" id="{{ formId }}-body" placeholder="{{ 'blogs.comments.message' | t }}">{{ form.body }}</textarea>
+              </div>
+              {% if blog.moderated? %}
+                  <p class="fine-print">{{ 'blogs.comments.moderated' | t }}</p>
+              {% endif %}
+              <div class="btn-wrapper">
+                <button class="btn theme-btn-1 btn-effect-1 text-uppercase" type="submit"><i class="far fa-comments"></i>{{ 'blogs.comments.post' | t }}</button>
+              </div>
+            {% endform %}
+          </div>
+          
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <aside class="sidebar-area blog-sidebar ltn__right-sidebar">
+          <!-- Author Widget -->
+          <div class="widget ltn__author-widget">
+            <div class="ltn__author-widget-inner text-center">
+              <img src="{{ 'user_icon_150670.png' | asset_url }}" alt="Image">
+              <h5>{{ article.author }}</h5>
+            </div>
+          </div>
+          <!-- Search Widget -->
+          <div class="widget ltn__search-widget">
+            <h4 class="ltn__widget-title ltn__widget-title-border-2">Search Objects</h4>
+            <form action="{{ routes.search_url }}" method="get" role="search">
+              <input type="text" id="keyword" name="q" placeholder="{{ 'general.search.placeholder' | t }}" value="{{ search.terms | escape }}">
+              <input type="hidden" name="type" value="article" aria-hidden="true" />
+              <input type="hidden" name="options[prefix]" value="last" aria-hidden="true" />
+              <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+          </div>
+          {% section 'product-article' %}
+        </aside>
+      </div>
+    </div>
+  </div>
+</div>

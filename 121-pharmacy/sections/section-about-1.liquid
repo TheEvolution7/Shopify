@@ -1,0 +1,143 @@
+{% if section.settings.show_section %}
+<div class="ltn__about-us-area pb-30" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 align-self-center">
+        <div class="about-us-img-wrap about-img-left">
+          <img src="{{ section.settings.logo | img_url : 'grande' }}" alt="{{ section.settings.title }}">
+        </div>
+      </div>
+      <div class="col-lg-6 align-self-center">
+        <div class="about-us-info-wrap">
+          <div class="section-title-area ltn__section-title-2--- mb-30">
+            <h6 class="section-subtitle section-subtitle-2 ltn__secondary-color d-none">{{ section.settings.text }}</h6>
+            <h1 class="section-title">{{ section.settings.title }}</h1>
+            {{ section.settings.subtitle }}
+          </div>
+          <ul class="ltn__list-item-1 ltn__list-item-1-before--- clearfix">
+           {% for block in section.blocks  %}
+            	<li><i class="fas fa-check-square"></i>{{ block.settings.title }}</li>
+            {% endfor %}
+          </ul>
+          <div class="about-author-info-2 border-top mt-30 pt-20">
+            <ul>
+              <li>
+                <div class="about-author-info-2-brief  d-flex">
+                  <div class="author-img">
+                    <img src="{{ section.settings.image | img_url : 'large' }}" alt="{{ section.settings.title_2 }}">
+                  </div>
+                  <div class="author-name-designation">
+                    <h4 class="mb-0">{{ section.settings.title_2 }}</h4>
+                    <small>{{ section.settings.subtitle_2 }}</small>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="about-author-info-2-contact  d-flex">
+                  <div class="about-contact-icon d-flex align-self-center mr-10">
+                    <i class="icon-call"></i>
+                  </div>
+                  <div class="about-author-info-2-contact-info">
+                    <small>{{ section.settings.title_3 }}</small>
+                    <h6 class="mb-0">{{ section.settings.phone }}</h6>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section About",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },	
+		{
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Image"
+        },
+		{
+			"type" : "header",
+			"content" : "Content"
+		},
+		{
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+		  "default": "About Us"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default": "Your faithful partners Medical Goods"
+        },
+		{
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "Subtitle",
+		  "default": "<p>Houzez allow you to design unlimited panels and real estate custom forms to capture leads and keep record of all information</p>"
+        },
+		{
+			"type" : "header",
+			"content" : "Medical Specialist"
+		},
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "title_2",
+          "label": "Name",
+		  "default": "Jerry Henson"
+        },
+		{
+          "type": "text",
+          "id": "subtitle_2",
+          "label": "Subtitle",
+		  "default": "Medical Specialist"
+        },
+		{
+			"type" : "header",
+			"content" : "Support"
+		},
+		{
+          "type": "text",
+          "id": "title_3",
+          "label": "Title",
+		  "default": "Get Support"
+        },
+		{
+          "type": "text",
+          "id": "phone",
+          "label": "Phone",
+		  "default": "01234 930500"
+        }
+	],
+	"blocks": [
+    {
+      "type": "content",
+      "name": "content",
+      "settings": [
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

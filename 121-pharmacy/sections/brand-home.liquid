@@ -1,0 +1,41 @@
+{% if section.settings.show_section %}
+  <div class="ltn__brand-logo-area ltn__brand-logo-1 pt-0" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row ltn__brand-logo-active">
+        {% for block in section.blocks  %} 
+          <div class="col-lg-12">
+            <div class="ltn__brand-logo-item">
+              <img src="{{ block.settings.logo | img_url : 'large' }}" alt="{{ block.settings.logo.alt }}">
+            </div>
+          </div>
+        {% endfor  %} 
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Brand",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        }	
+	],
+	"blocks": [
+    {
+      "type": "logo",
+      "name": "logo",
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

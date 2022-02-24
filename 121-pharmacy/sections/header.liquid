@@ -1,0 +1,335 @@
+
+<header class="ltn__header-area ltn__header-5 ltn__header-logo-and-mobile-menu-in-mobile--- ltn__header-logo-and-mobile-menu--- ltn__header-transparent gradient-color-4---" data-section-id="{{ section.id }}">
+  <!-- ltn__header-top-area start -->
+<!--   <div class="ltn__header-top-area border-bottom top-area-color-white---">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-7">
+          <div class="ltn__top-bar-menu">
+            <ul>
+              <li><a href="tel:{{ section.settings.phone }}"><i class="icon-phone-call"></i> {{ section.settings.phone }}</a></li>
+              <li><a href="#"><i class="icon-placeholder"></i> {{ section.settings.address }}</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="top-bar-right text-end">
+            <div class="ltn__top-bar-menu">
+              <ul>
+                <li>
+                  <div class="ltn__drop-menu ltn__currency-menu ltn__language-menu">
+
+                  </div>
+                </li>
+                <li>
+                   {%- if section.settings.show_social_icons -%}
+                  	<div class="ltn__social-media">
+                    <ul>
+                      {%- assign socials = "Facebook Twitter Pinterest Instagram Tumblr Snapchat YouTube Vimeo" | split: ' ' -%}
+                      {%- for social in socials -%}
+                        {%- assign social_link = social | prepend: 'social_' | append: '_link' | downcase -%}
+                        {%- assign icon_link = social | prepend: 'icon-' | downcase -%}
+                        {%- if settings[social_link] != blank -%}
+                          <li><a href="{{ settings[social_link] | escape }}">{%- include icon_link -%}</a></li>
+                        {%- endif -%}
+                      {%- endfor -%}  
+                    </ul>
+                  </div>
+                   {%- endif -%}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <!-- ltn__header-top-area end -->
+  <!-- ltn__header-middle-area start -->
+  <div class="ltn__header-middle-area">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="site-logo-wrap">
+                    <div class="site-logo">
+                        <a href="{{ routes.root_url }}"><img src="{{ section.settings.logo | img_url: 'large' }}" alt="{{ section.settings.logo.alt | default: shop.name }}"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <!-- header-options -->
+                <div class="col ltn__header-options ltn__header-options-2">
+                    <!-- header-search-1 -->
+                    <div class="header-search-wrap">
+                        <div class="header-search-1">
+                            <div class="search-icon">
+                                <i class="icon-search for-search-show"></i>
+                                <i class="icon-cancel  for-search-close"></i>
+                            </div>
+                        </div>
+                        <div class="header-search-1-form">
+                            <form class="gl-d-searchbox" method="GET" action="{{ routes.search_url }}">
+                                <input type="text" class="gl-d-searchbox-input" id="gl-d-searchbox-input" placeholder="{{translation.product.search }}" name="q" value="{{result.term}}" autocapitalize="off" autocomplete="off" autocorrect="off">
+                                <button type="submit" class="gl-d-close-btn"><span><i class="icon-search"></i></span></button>
+                              </form>
+                        </div>
+                    </div>
+                    <!-- user-menu -->
+                  
+                    <div class="ltn__drop-menu user-menu">
+                        <ul>
+                            <li>
+                              {%- if customer -%}
+                              	<a href="/account"><i class="icon-user"></i></a>
+                              {%- else -%}
+                                 <a href="#"><i class="icon-user"></i></a>
+                                  <ul>
+                                    <li><a href="/account/login">Sign in</a></li>
+                                    <li><a href="/account/register">Register</a></li>
+                                  </ul>
+                              {%- endif -%}   
+                          </li>
+                        </ul>
+                    </div>
+                    <!-- mini-cart -->
+                    <div class="mini-cart-icon">
+                         <a href="#ltn__utilize-cart-menu" class="ltn__utilize-toggle">
+                            <i class="icon-shopping-cart"></i>
+                            <sup>{{ cart.item_count }}</sup>
+                        </a>
+                    </div>
+                    <!-- mini-cart -->
+                    <!-- Mobile Menu Button -->
+                    <div class="mobile-menu-toggle d-xl-none">
+                        <a href="#ltn__utilize-mobile-menu" class="ltn__utilize-toggle">
+                            <svg viewBox="0 0 800 600">
+                                <path
+                                    d="M300,220 C300,220 520,220 540,220 C740,220 640,540 520,420 C440,340 300,200 300,200"
+                                    id="top"></path>
+                                <path d="M300,320 L540,320" id="middle"></path>
+                                <path
+                                    d="M300,210 C300,210 520,210 540,210 C740,210 640,530 520,410 C440,330 300,190 300,190"
+                                    id="bottom"
+                                    transform="translate(480, 320) scale(1, -1) translate(-480, -318) ">
+                                </path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ltn__header-middle-area end -->
+<!-- header-bottom-area start -->
+  <div class="header-bottom-area ltn__border-top ltn__header-sticky ltn__sticky-bg-white d-none d-lg-block">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 header-menu-column justify-content-center">
+          <div class="sticky-logo">
+            <div class="site-logo">
+              <a href="{{ routes.root_url }}"><img src="{{ section.settings.logo | img_url: 'large' }}" alt="{{ section.settings.logo.alt | default: shop.name }}"></a>
+            </div>
+          </div>
+          <div class="header-menu header-menu-2">
+            <nav>
+              <div class="ltn__main-menu">
+                <ul>
+                  {% for link in linklists[section.settings.main_linklist].links %}  
+                  	<li  class="{%- if link.links != blank -%} menu-icon{%- endif -%}"><a href="{{ link.url }}">{{ link.title }}</a>
+                      {%- if link.links != blank -%}
+                        <ul>
+                          {% for child_link in link.links %}
+                          	<li><a href="{{ child_link.url }}">{{ child_link.title | escape }}</a></li>
+                          {% endfor %}
+                       </ul>
+                      {%- endif -%}
+                  	</li>
+                  {% endfor %}  
+                   
+                </ul>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <style>
+    .list-el {
+    	list-style: none;
+      	padding-left: 0;
+      	display: flex;
+      	width: 100%;
+      	justify-content: space-between;
+      	margin-bottom: 0;
+         border-top: 1px solid var(--border-color-1);
+         padding: 8px 0
+         
+    }
+    .list-el li {
+    	margin-top: 0;
+      font-size: 14px
+    }
+    .list-el li i {
+    	margin-right: 8px
+    }
+    @media( max-width: 991.82px ) {
+      .bottom-menu {
+      	display: none
+      }
+    }
+  </style>
+  <div class="bottom-menu">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <ul class="list-el">
+            {% for block in section.blocks  %} 
+            	<li><a href="{{ block.settings.url }}">{{ block.settings.icon }}{{ block.settings.title }}</a></li>
+            {% endfor  %} 
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ltn__header-middle-area end -->
+</header>
+{% include 'cart-popup',text_cart : section.settings.text %}
+{% include 'header-mobile', mobile_linklist : section.settings.main_linklist,logo_mobile :  section.settings.logo,show_social_icons : section.settings.show_social_icons %}
+{% schema %}
+{
+  "name": {
+    "cs": "Záhlaví",
+    "da": "Overskrift",
+    "de": "Titel",
+    "en": "Header",
+    "es": "Encabezado",
+    "fi": "Ylätunniste",
+    "fr": "En-tête",
+    "it": "Header",
+    "ja": "ヘッダー",
+    "ko": "헤더",
+    "nb": "Header",
+    "nl": "Koptekst",
+    "pl": "Nagłówek",
+    "pt-BR": "Cabeçalho",
+    "pt-PT": "Cabeçalho",
+    "sv": "Rubrik",
+    "th": "ส่วนหัว",
+    "tr": "Üstbilgi",
+    "vi": "Đầu trang",
+    "zh-CN": "标头",
+    "zh-TW": "標頭"
+  },
+  "settings": [
+	{
+      "type": "checkbox",
+      "id": "show_social_icons",
+      "label": "Show social icons",
+      "default": true
+    },
+	{
+		"type" : "text",
+		"id" : "phone",
+		"label" : "Phone",
+		"default" : "01234 930500"
+	},
+	{
+		"type" : "text",
+		"id" : "address",
+		"label" : "Adress",
+		"default" : "1 Caxton Park, Bedford, MK41 0TY"
+	},
+	{
+      "type": "image_picker",
+      "id": "logo",
+      "label": {
+        "cs": "Obrázek loga",
+        "da": "Logobillede",
+        "de": "Logo-Foto",
+        "en": "Logo image",
+        "es": "Logo",
+        "fi": "Logokuva",
+        "fr": "Image du logo",
+        "it": "Immagine del logo",
+        "ja": "ロゴ画像",
+        "ko": "로고 이미지",
+        "nb": "Logobilde",
+        "nl": "Afbeelding van logo",
+        "pl": "Obraz logo",
+        "pt-BR": "Imagem do logotipo",
+        "pt-PT": "Imagem do logótipo",
+        "sv": "Logobild",
+        "th": "รูปภาพโลโก้",
+        "tr": "Logo görseli",
+        "vi": "Hình ảnh logo",
+        "zh-CN": "logo 图片",
+        "zh-TW": "標誌圖片"
+      }
+    },
+    {
+      "type": "link_list",
+      "id": "main_linklist",
+      "label": {
+        "cs": "Nabídka",
+        "da": "Menu",
+        "de": "Menü",
+        "en": "Menu",
+        "es": "Menú",
+        "fi": "Valikko",
+        "fr": "Menu",
+        "it": "Menu",
+        "ja": "メニュー",
+        "ko": "메뉴",
+        "nb": "Meny",
+        "nl": "Menu",
+        "pl": "Menu",
+        "pt-BR": "Menu",
+        "pt-PT": "Menu",
+        "sv": "Meny",
+        "th": "เมนู",
+        "tr": "Menü",
+        "vi": "Menu",
+        "zh-CN": "菜单",
+        "zh-TW": "選單"
+      },
+      "default": "main-menu"
+    
+    },
+	{
+      "type": "header",
+      "content": "Content Cart"
+    },
+	{
+		"type" : "richtext",
+		"id" : "text",
+		"label" : "Text",
+		"default" : "<p>Free Shipping on All Orders Over $100!</p>"
+	}
+  ],
+  "blocks": [
+    {
+      "type": "icon",
+      "name": "icon",
+      "settings": [
+		{
+          "type": "text",
+          "id": "icon",
+          "label": "Class Icon"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

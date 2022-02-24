@@ -1,0 +1,58 @@
+<div class="ltn__feature-area section-bg-1 mt-30 mt-md-50 pt-30 pb-30 mt--65---">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+          <div class="ltn__feature-item-box-wrap ltn__feature-item-box-wrap-2 ltn__border--- section-bg-1">
+            {% for block in section.blocks  %}
+            <div class="ltn__feature-item ltn__feature-item-8">
+              <div class="ltn__feature-icon">
+                <img src="{{ block.settings.image | img_url : 'grande' }}" alt="{{ block.settings.image.alt | default: block.settings.title }}">
+              </div>
+              <div class="ltn__feature-info">
+                <h4>{{ block.settings.title }}</h4>
+                {{ block.settings.subtitle }}
+              </div>
+            </div>
+            {% endfor  %}
+          </div>	
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Section Icon",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        }	
+	],
+	"blocks": [
+    {
+      "type": "banner",
+      "name": "banner",
+	  "limit" : 4,
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title" 
+        },
+		{
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "SubTitle" 
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

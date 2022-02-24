@@ -1,0 +1,81 @@
+{% if section.settings.show_section %}
+  <div class="ltn__call-to-action-area section-bg-1 pt-120 pb-120" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="brand-icon">
+            <div class="row justify-content-center">
+              {% for block in section.blocks  %}
+                <div class="col-6 col-md-4">
+                  <a href="{{ block.settings.url }}" class="img-thumb-b"><img src="{{ block.settings.image | img_url : 'grande' }}" alt="{{ block.settings.image.alt }}"></a>
+                </div>
+              {% endfor  %}
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="section-title-area ltn__section-title-2 text-center">
+            <h2 class="section-title">{{ section.settings.title }}</h2>
+          </div>
+          <div class="btn-wrapper text-center">
+            <a href="{{ section.settings.url }}" class="btn theme-btn-1 btn-effect-1 text-uppercase">{{ section.settings.button }}</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Sign Up",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+			"type" : "header",
+			"content" : "Content"
+		},
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default": "Sign Up for our NHS Prescription Service"
+        },
+		{
+          "type": "text",
+          "id": "button",
+          "label": "Button",
+		  "default": "Book Now"
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        }
+	],
+	"blocks": [
+    {
+      "type": "image",
+      "name": "image",
+	  "limit" : 3,
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

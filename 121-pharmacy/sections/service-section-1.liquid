@@ -1,0 +1,81 @@
+{% if section.settings.show_section %}
+  <div class="ltn__about-us-area pb-40" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5 align-self-center">
+          <div class="about-us-img-wrap ltn__img-shape-left  about-img-left">
+            <img src="{{ section.settings.image | img_url : 'grande' }}" alt="{{ section.settings.title }}">
+          </div>
+        </div>
+        <div class="col-lg-7 align-self-center">
+          <div class="about-us-info-wrap">
+            <div class="section-title-area ltn__section-title-2--- mb-20">
+              <h6 class="section-subtitle section-subtitle-2 ltn__secondary-color">{{ section.settings.text }}</h6>
+              <h1 class="section-title">{{ section.settings.title }}</h1>
+              {{ section.settings.subtitle }}
+            </div>
+            <div class="about-us-info-wrap-inner about-us-info-devide---">
+              {{ section.settings.content }}
+            </div>
+            <div class="btn-wrapper animated">
+              <a href="{{ section.settings.url }}" class="theme-btn-1 btn btn-effect-1 text-uppercase">{{ section.settings.button }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+{
+  "name": "Section About Us",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_section",
+      "label": "Show section",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+	{
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default": "About Us"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Your faithful partners <br> Medical Goods"
+    },
+	{
+      "type": "richtext",
+      "id": "subtitle",
+      "label": "SubTitle",
+      "default": "<p>Over 39,000 people work for us in more than 70 countries all over the This breadth of global coverage, combined with specialist services</p>"
+    },
+	{
+      "type": "richtext",
+      "id": "content",
+      "label": "Content",
+      "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>"
+    },
+	{
+      "type": "text",
+      "id": "button",
+      "label": "Button",
+      "default": "About Us"
+    },
+	{
+      "type": "url",
+      "id": "url",
+      "label": "Url"
+    }
+]
+}
+{% endschema %}

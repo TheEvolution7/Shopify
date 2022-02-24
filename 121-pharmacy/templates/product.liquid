@@ -1,0 +1,16 @@
+{%- if product.type == 'GSC_HIDDEN_PRODUCT' -%}{%- break -%}{%- endif -%}
+{% comment %}
+  The contents of the product.liquid template can be found in /sections/product-template.liquid
+{% endcomment %}
+<!-- {% section 'breadcrumb' %} -->
+<style>
+  .pd-banner {
+    padding-top: 50px;
+  }
+  
+</style>
+<div class="pd-banner"></div>
+{% section 'product-template' %}
+
+
+

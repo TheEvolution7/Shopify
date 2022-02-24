@@ -1,0 +1,49 @@
+{% if section.settings.show_section %}
+  <div class="ltn__banner-area mt-120---" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row ltn__custom-gutter--- justify-content-center">
+       {% for block in section.blocks  %}
+        <div class="col-lg-4 col-sm-6">
+          <div class="ltn__banner-item">
+            <div class="ltn__banner-img">
+              <a href="{{ block.settings.url }}"><img src="{{ block.settings.image | img_url : 'grande' }}" alt="{{ block.settings.image.alt }}"></a>
+            </div>
+          </div>
+        </div>
+       {% endfor %} 
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Banner",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        }	
+	],
+	"blocks": [
+    {
+      "type": "banner",
+      "name": "banner",
+	  "limit" : 3,
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

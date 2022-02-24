@@ -1,0 +1,94 @@
+{% if section.settings.show_section %}
+  <div class="ltn__call-to-action-area section-bg-1 bg-image pt-40 pb-40" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="call-to-action-inner text-color-white--- text-center---">
+            <div class="section-title-area ltn__section-title-2--- text-center---">
+              <h6 class="ltn__secondary-color">{{ section.settings.text }}</h6>
+              <h1 class="section-title">{{ section.settings.title }}</h1>
+              {{ section.settings.subtitle }}
+            </div>
+            <div class="ltn__countdown ltn__countdown-3 bg-white--" data-countdown="{{ section.settings.date }}"></div>
+            <div class="btn-wrapper animated">
+              <a href="{{ section.settings.link_1 }}" class="theme-btn-1 btn btn-effect-1 text-uppercase">{{ section.settings.button_1 }}</a>
+              <a href="{{ section.settings.link_2 }}" class="ltn__secondary-color text-decoration-underline">{{ section.settings.button_2 }}</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <img src="{{ section.settings.image | img_url : 'grande' }}" alt="{{ section.settings.title }}">
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Todays Hot Offer",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },	
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+			"type" : "header",
+			"content" : "Content"
+		},
+		{
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+		  "default": "Todays Hot Offer"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default": "Free Covid-19 Vaccine<br>Campaign Ticket"
+        },
+		{
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "Subtitle",
+		  "default": "<p>Cur tantas regiones barbarorum obiit, tot maria transmist <br>summo bono fruitur id est voluptate barbarorum </p>"
+        },
+		{
+          "type": "text",
+          "id": "date",
+          "label": "Date Time",
+		  "default": "2021/12/28"
+        },
+		{
+          "type": "text",
+          "id": "button_1",
+          "label": "Button 1",
+		  "default": "Book Now"
+        },
+		{
+          "type": "url",
+          "id": "link_1",
+          "label": "Link 1"
+        },
+		{
+          "type": "text",
+          "id": "button_2",
+          "label": "Button 2",
+		  "default": "Deal of The Day"
+        },
+		{
+          "type": "url",
+          "id": "link_2",
+          "label": "Link 2"
+        }
+	]
+  }
+{% endschema %}
+

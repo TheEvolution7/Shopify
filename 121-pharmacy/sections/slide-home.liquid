@@ -1,0 +1,121 @@
+
+<div class="ltn__slider-area ltn__slider-3 section-bg-1" data-section-id="{{ section.id }}">
+  <div class="ltn__slide-one-active slick-slide-arrow-1 slick-slide-dots-1">
+    {% for block in section.blocks  %}
+      <div class="ltn__slide-item ltn__slide-item-2 bg-image bg-overlay-white-30" data-bs-bg="{{ block.settings.image | img_url : '1920x' }}">
+        <div class="ltn__slide-item-inner  text-left">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12 align-self-center">
+                <div class="slide-item-info">
+                  <div class="slide-item-info-inner ltn__slide-animation">
+                    <h6 class="slide-sub-title white-color--- animated"><span><i  class="fas fa-syringe"></i></span>{{ block.settings.text }}</h6>
+                    <h1 class="slide-title animated ">{{ block.settings.title }}</h1>
+                    <div class="slide-brief animated">
+                     {{ block.settings.subtitle }}
+                    </div>
+                    <div class="btn-wrapper animated">
+                      <a href="{{ block.settings.url }}" class="theme-btn-1 btn btn-effect-1">{{ block.settings.button }}</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% if section.settings.show_section %}
+  <div class="small-bar">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="ltn__feature-item ltn__feature-item-7">
+            <div class="ltn__feature-icon-title">
+              <div class="ltn__feature-icon">
+                <span><i class="flaticon-secure-shield"></i> </span>
+              </div>
+              <h4 class="animated fadeIn">{{ section.settings.title_1 }}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="ltn__feature-item ltn__feature-item-7">
+            <div class="ltn__feature-icon-title">
+              <div class="ltn__feature-icon">
+                <span><i class="flaticon-package"></i></span>
+              </div>
+              <h4 class="animated fadeIn">{{ section.settings.title_2 }}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Section Slider",
+    "settings": [
+		{
+			"type" : "header",
+			"content" : "Content"
+		},
+		{
+          "type": "text",
+          "id": "title_1",
+          "label": "Title Icon 1",
+		  "default": "We are registered pharmacy"
+        },
+		{
+          "type": "text",
+          "id": "title_2",
+          "label": "Title Icon 2",
+		  "default": "We offer free delivery and disreet packaging"
+        }
+	],
+	"blocks": [
+    {
+      "type": "banner",
+      "name": "banner",
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+		{
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "SubTitle"
+        },
+		{
+          "type": "text",
+          "id": "button",
+          "label": "Button",
+		  "default": "Shop Now"
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

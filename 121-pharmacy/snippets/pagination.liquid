@@ -1,0 +1,23 @@
+<ul>
+  {%- if paginate.previous-%}
+  <li><a href="{{ paginate.previous.url }}" disabled><i class="fas fa-angle-double-left"></i></a></li>
+  {% else %}
+  <li><a disabled="disabled"><i class="fas fa-angle-double-left"></i></a></li>
+  {% endif %}
+  {%- for part in paginate.parts -%}
+  {%- if part.is_link -%}
+  <li><a href="{{ part.url }}">{{ part.title }}</a></li>
+  {%- else -%}
+  {%- if part.title == paginate.current_page -%}
+  <li class="active"><a >{{ part.title }}</a></li>
+  {%- else -%}
+  <li><a>{{ part.title }}</a></li>
+  {%- endif -%}
+  {%- endif -%}
+  {%- endfor -%}
+  {%- if paginate.next -%}
+  <li><a href="{{ paginate.next.url }}"><i class="fas fa-angle-double-right"></i></a></li>   
+  {% else %}
+  <li><a disabled="disabled"><i class="fas fa-angle-double-right"></i></a></li>
+  {% endif %}
+</ul>

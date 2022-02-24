@@ -1,0 +1,55 @@
+{% if section.settings.show_section %}
+  <div class="ltn__contact-address-area mb-40" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row">
+        {% for block in section.blocks  %}
+          <div class="col-lg-4">
+            <div class="ltn__contact-address-item ltn__contact-address-item-3 box-shadow">
+              <div class="ltn__contact-address-icon">
+                  <img src="{{ block.settings.image | img_url : 'large' }}" alt="{{ block.settings.title }}">
+              </div>
+              <h3>{{ block.settings.title }}</h3>
+              {{ block.settings.subtitle }}
+            </div>
+          </div>
+        {% endfor  %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Contact",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        }
+	],
+	"blocks": [
+    {
+      "type": "content",
+      "name": "content",
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+		{
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "SubTitle"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

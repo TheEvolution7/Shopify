@@ -1,0 +1,65 @@
+{% if section.settings.show_section %}
+  <div class="widget ltn__top-rated-product-widget" data-section-id="{{ section.id }}">
+    <h4 class="ltn__widget-title ltn__widget-title-border-2">{{ section.settings.title }}</h4>
+    <ul>
+      {% for block in section.blocks %}
+      {% assign product = block.settings.product %}
+      	<li>
+        <div class="top-rated-product-item clearfix">
+          <div class="top-rated-product-img">
+            <a href="{{ product.url }}"><img src="{{ product.featured_image | img_url: 'large' }}" alt="{{ product.featured_image.alt | default:  product.title }}"></a>
+          </div>
+          <div class="top-rated-product-info">
+            <div class="product-ratting">
+              <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+            </div>
+            <h6><a href="{{ product.url }}">{{ product.title }}</a></h6>
+            <div class="product-price">
+              <span>{{ product.price | money }}</span>
+        	  <del>{{ product.compare_at_price | money }}</del>
+            </div>
+          </div>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Top Rated Product",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "header",
+          "content": "Content"
+    	},
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Top Rated Product"
+        }  	
+	],
+	"blocks": [
+    {
+      "type": "product",
+      "name": "product",
+	  "limit" : 4,
+      "settings": [
+		{
+          "type": "product",
+          "id": "product",
+          "label": "Product" 
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}
+

@@ -1,0 +1,196 @@
+<div class="ltn__prescription-area pb-100">
+  <div class="container">
+    <div class="section-title-area ltn__section-title-2 text-center">
+      <h2 class="section-title">{{ section.settings.title }}</h2>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="ltn__form-box contact-form-box box-shadow white-bg">
+          <p style="text-align: center;"><span style="font-size:14px;">"{{ section.settings.text }}" <strong><a  href="{{ section.settings.url }}"><strong>Link here</strong></a><strong>.</strong></strong></span>
+          </p>
+          {%- assign formId = 'Prescription' -%}
+          {% form 'contact', id: formId %}
+            {%- if form.posted_successfully? -%}
+              <p>{{ 'contact.form.post_success' | t }}</p>
+            {%- endif -%}
+          	<input type="hidden" name="contact[tags]" value="Prescription Form">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="input-item input-item-name ltn__custom-icon">
+                  <select id="{{ formId }}-registering" name="contact[registering]" required>
+                    <option value="-1"> Registering* (Please Select) </option>
+                    <option value="Myself"> Myself </option>
+                    <option value="Someone Else"> Someone Else </option>
+                  </select>
+
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-item input-item-name ltn__custom-icon">
+                  <select id="{{ formId }}-title" name="contact[title]" required>
+                    <option value="-1"> Title* (Please Select) </option>
+                    <option value="Mr"> Mr </option>
+                    <option value="Mrs"> Mrs </option>
+                    <option value="Miss"> Miss </option>
+                    <option value="Ms"> Ms </option>
+                    <option value="Prof"> Prof </option>
+                    <option value="Dr"> Dr </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-item input-item-name ltn__custom-icon">
+                  <input type="text" id="{{ formId }}-first-name" name="contact[first-name]" placeholder="Enter your first name*" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-item input-item-name ltn__custom-icon">
+                  <input type="text" id="{{ formId }}-last-name" name="contact[last-name]" placeholder="Enter your last name*"
+                         required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-item input-item-date ltn__custom-icon">
+                  <input type="date" id="{{ formId }}-birthday" name="contact[birthday]"  placeholder="Date of Birth*">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-item input-item-phone ltn__custom-icon">
+                  <input type="text" id="{{ formId }}-phone" name="contact[phone]"   placeholder="Enter phone number">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-item input-item-email ltn__custom-icon">
+                  <input type="email" id="{{ formId }}-email" name="contact[email]"  placeholder="Enter email address">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-item input-item-address ltn__custom-icon">
+                  <input type="text" id="{{ formId }}-address" name="contact[address]"  placeholder="Enter your address">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-item input-item-town ltn__custom-icon">
+                  <input type="text" id="{{ formId }}-town" name="contact[town]"  placeholder="Enter your town/city">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-item input-item-code ltn__custom-icon">
+                  <input type="text" id="{{ formId }}-code" name="contact[code]"  placeholder="Enter post code">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-item input-item-nhs-number ltn__custom-icon">
+                  <input type="text" id="{{ formId }}-nhs-number" name="contact[nhs-number]" placeholder="Enter NHS Number (optional)">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-item input-item-name ltn__custom-icon">
+                  <select name="contact[exemption]"  id="{{ formId }}-exemption">
+                    <option value="-1"> Exemption Status </option>
+                    <option value="PAYING Patient (NOT EXEMPT)"> PAYING Patient (NOT EXEMPT)
+                    </option>
+                    <option value="A. Under 16 years of age"> A. Under 16 years of age
+                    </option>
+                    <option value="B. Full-time Students aged 16, 17 or 18"> B. Full-time
+                      Students aged 16, 17 or 18 </option>
+                    <option value="C. 60 years of age or over "> C. 60 years of age or over
+                    </option>
+                    <option value="D. Maternity Exemption "> D. Maternity Exemption
+                    </option>
+                    <option value="E. Medical Exemption"> E. Medical Exemption </option>
+                    <option value="F. Prescription Pre-payment Certificate (PPC) "> F.
+                      Prescription Pre-payment Certificate (PPC) </option>
+                    <option value="G. War Pension Exemption"> G. War Pension Exemption
+                    </option>
+                    <option value="L. HC2 Charges Certificate"> L. HC2 Charges Certificate
+                    </option>
+                    <option value="X. Free-of-charge contraceptives"> X. Free-of-charge
+                      contraceptives </option>
+                    <option value="H. Income Support (IS) "> H. Income Support (IS)
+                    </option>
+                    <option
+                            value="or Income-related Employment and Support Allowance (ESA)"> or
+                      Income-related Employment and Support Allowance (ESA) </option>
+                    <option
+                            value="K. Income-based Jobseeker’s Allowance (JSA) or Universal Credit (UC)">
+                      K. Income-based Jobseeker’s Allowance (JSA) or Universal Credit (UC)
+                    </option>
+                    <option value="M. NHS Tax Credit Exemption"> M. NHS Tax Credit Exemption
+                    </option>
+                    <option
+                            value="S. Pension Credit (Guarantee Credit) paid on its own, or Pension Credit (Guarantee Credit with Savings Credit)">
+                      S. Pension Credit (Guarantee Credit) paid on its own, or Pension
+                      Credit (Guarantee Credit with Savings Credit) </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-item input-item-name ltn__custom-icon">
+                  <select name="contact[ordering]" id="{{ formId }}-ordering">
+                    <option value="-1">Ordering* (Please Select) </option>
+                    <option  value="I would like 121Pharmacy to set up a repeat schedule and order with my consent.">
+                      I would like 121Pharmacy to set up a repeat schedule and order with
+                      my consent. </option>
+                    <option  value="I would like to order myself (contacting 121Pharmacy or the surgery directly)">
+                      I would like to order myself (contacting 121Pharmacy or the surgery
+                      directly) </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-item input-item-name ltn__custom-icon">
+                  <select name="contact[request]"  id="{{ formId }}-request">
+                    <option value="-1">Would you like to make a repeat request now?*
+                    </option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+            <p class="text-center"><label class="input-info-save mb-0"><input type="checkbox" name="agree" required> I understand what NHS Electronic Prescription Service Nomination is (please see further information below).</label>
+            </p>
+            <p class="text-center"><label class="input-info-save mb-0"><input type="checkbox"  name="agree" required> I would like to use 121Pharmacy as my nominated pharmacy allowing them to dispense/deliver my prescriptions via the NHS Electronic Prescription Service.</label>
+            </p>
+            <p style="text-align: center;"><span style="font-size:12px;">Further information on NHS Electronic Prescriptions can be found <strong><a  href="https://www.nhs.uk/using-the-nhs/nhs-services/pharmacies/electronic-prescription-service/"><strong>here</strong></a><strong>.</strong></strong></span>
+            </p>
+            <p style="text-align: center;"><strong><span style="font-size:12px;">If you would like to contact the pharmacy team for further information</span></strong><strong><span style="font-size:12px;"> please .&nbsp;</span></strong><strong><span style="font-size:12px;"><a href="tel:01234930500"><strong>Call 01234 930500</strong></a></span></strong></p>
+            <p style="text-align: center;"><strong><span style="font-size:12px;"><strong>or&nbsp;<a href="mailto:support@121pharmacy.co.uk">Email&nbsp;&nbsp;Support@121Pharmacy.co.uk</a></strong></span></strong>
+            </p>
+            <div class="btn-wrapper mt-0 text-center">
+              <button class="btn theme-btn-1 btn-effect-1 text-uppercase" type="submit">Submit</button>
+            </div>
+            <p class="form-messege mb-0 mt-20"></p>
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Section Prescription Form",
+    "settings": [
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default": "Sign Up for our NHS Prescription Service"
+        },
+		{
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+		  "default": "NHS Prescriptions"
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        }
+	]
+  }
+{% endschema %}
+

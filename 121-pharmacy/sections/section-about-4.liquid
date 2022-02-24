@@ -1,0 +1,55 @@
+{% if section.settings.show_section %}
+  <div class="ltn__counterup-area section-bg-1 bg-image pt-40 pb-0" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row">
+       {% for block in section.blocks  %}
+        <div class="col-md-3 col-sm-6 align-self-center">
+          <div class="ltn__counterup-item text-center">
+            <div class="counter-icon">
+              {{ block.settings.icon }}
+            </div>
+            <h1>{{ block.settings.title }}</h1>
+            <h6>{{ block.settings.subtitle }}</h6>
+          </div>
+        </div>
+       {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Icon",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        }		
+	],
+	"blocks": [
+    {
+      "type": "content",
+      "name": "content",
+      "settings": [
+		{
+          "type": "text",
+          "id": "icon",
+          "label": "Class icon"
+        },
+		{
+          "type": "html",
+          "id": "title",
+          "label": "Title"
+        },
+		{
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

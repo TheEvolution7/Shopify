@@ -1,0 +1,182 @@
+
+        {% section 'breadcrumb' %}
+<!-- SHOPING CART AREA START -->
+
+<div class="liton__shoping-cart-area">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="mt-20">
+          <h4>Cart Item</h4>
+        </div>
+           <form action="{{ routes.cart_url }}" method="post">
+          {% if cart.item_count > 0 %}
+          <div class="cart-list">
+            {%- for item in cart.items -%}
+              <div class="cart-item">
+                <div class="row">
+                  <div class="col-4 col-md-3">
+                    <div class="img-pro">
+                       <a href="{{ item.url }}"><img src="{{ item | img_url: 'large' }}" alt="{{ item.product.title }}"></a>
+
+                    </div>
+                  </div>
+                  <div class="col-8 col-md-9 d-flex">
+                    <div class="content">
+                      <h2><a href="{{ item.url }}">{{ item.product.title }}</a></h2>
+                      <p>{{ item.variant.title }}</p>
+                      <div class="qty-btn">
+                        <div class="cart-plus-minus">
+                           <input type="text" id="{{ item.key }}" name="updates[]" value="{{ item.quantity }}" value="1" class="cart-plus-minus-box" min="1" max="100">
+                        </div>
+                      </div>
+                      <div class="price-text">
+                        {{ item.original_line_price | money }}
+                      </div>
+                      <a class="del-btn" href="/cart/change?line={{ forloop.index }}&amp;quantity=0"><i class="fas fa-trash"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+          {% else %}
+          <div class="cart-list">
+            <h5 style="text-align:center;">{{ 'cart.general.empty' | t }}</h5>
+          </div>
+          {% endif %}
+
+
+          <div class="box-group-btn">
+
+            <button type="button" onclick="window.location.href='{{ routes.all_products_collection_url }}'" class="btn theme-btn-2 btn-effect-2">Countinue Shopping</button>
+            <button type="submit" name="update" class="btn theme-btn-1 btn-effect-1">Update Cart</button>
+
+          </div>
+        </div>
+
+
+        <div class="col-lg-4">
+          <div class="shoping-cart-total mt-20">
+            <h4>Cart Totals</h4>
+
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td>{{ 'cart.general.subtotal' | t }}</td>
+                    <td>{{ cart.total_price | money_with_currency }}</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td> {%- capture taxes_shipping_checkout -%}
+                      {%- if shop.taxes_included and shop.shipping_policy.body != blank -%}
+                      {{ 'cart.general.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                      {%- elsif shop.taxes_included -%}
+                      {{ 'cart.general.taxes_included_but_shipping_at_checkout' | t }}
+                      {%- elsif shop.shipping_policy.body != blank -%}
+                      {{ 'cart.general.taxes_and_shipping_policy_at_checkout_html' | t: link: shop.shipping_policy.url }}
+                      {%- else -%}
+                      {{ 'cart.general.taxes_and_shipping_at_checkout' | t }}
+                      {%- endif -%}
+                      {%- endcapture -%}
+                      {{ taxes_shipping_checkout }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>{{ 'cart.label.total' | t }}</strong></td>
+                    <td><strong>{{ cart.total_price | money_with_currency }}</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="btn-wrapper mt-3">
+                <div class="docapp-coupon-input"></div>
+                <button type="submit" name="checkout" style="width: 100%" class="theme-btn-1 btn btn-effect-1">Proceed to checkout</button>
+                 <input name="note" id="result" type="hidden">
+              </div>
+           
+          </form>
+          <div class="btn-wrapper mt-3">
+          	<h4>Accepted Cart</h4>
+            <style>
+              .list-accept {
+              	display: flex;
+                list-style: none;
+                padding-left: 0;
+                flex-wrap: wrap;
+                margin: 0 -10px
+              }
+              .list-accept li {
+              	position: relative;
+                margin: 0 10px;
+                padding-bottom: 74px;
+                flex: 0 0 74px;
+                width: 74px;
+                margin-bottom: 20px
+                
+                
+              }
+              .list-accept li img {
+              	position: absolute;
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                top: 0;
+                left: 0
+              }
+            </style>
+            
+            <ul class="list-accept">
+              	<li>
+              		<img src="{{ 'visa.png' | asset_url }}" alt="Copy of Lorem ipsum">
+              	</li>
+              <li>
+              		<img src="{{ 'american-express.png' | asset_url }}" alt="Copy of Lorem ipsum">
+              	</li>
+              <li>
+              		<img src="{{ 'mastercard.png' | asset_url }}" alt="Copy of Lorem ipsum">
+              	</li>
+               <li>
+              		<img src="{{ 'jcb.png' | asset_url }}" alt="Copy of Lorem ipsum">
+              	</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+			 <div class="globo_widget_5219"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  
+          
+         
+
+<script>
+str = '';
+var getProducts = JSON.parse(localStorage.getItem("products"));
+  console.log(getProducts);
+for (let i = 0; i < Object.keys(getProducts).length; i++) {
+  if(str == ''){
+    str = getProducts[i].id + ': '+ getProducts[i].data ;
+  }else{
+    str = str + ', ' + getProducts[i].id + ': '+ getProducts[i].data ;
+  }
+  
+  if(i < Object.keys(getProducts).length - 1){
+    str = ' ';
+  }
+}
+	document.getElementById("result").innerHTML = str;
+</script>
+<!-- SHOPING CART AREA END -->
+
+
+
+
+
+<script id="docapp-discount-speedup">
+(() => { if (!document.documentElement.innerHTML.includes('\\/shop' + '\\/js' + '\\/discount-on-cart-pro.min.js') || window.discountOnCartProAppLoaded) return; let script = document.createElement('script'); script.src = "https://d9fvwtvqz2fm1.cloudfront.net/shop/js/discount-on-cart-pro.min.js?shop=121-pharmacy-us-demo.myshopify.com"; document.getElementById('docapp-discount-speedup').after(script); })();
+</script>

@@ -1,0 +1,85 @@
+{% if section.settings.show_section %}
+  <div class="ltn__service-area section-bg-1 pt-40 pb-40" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="section-title-area ltn__section-title-2--- text-center">
+            <h6 class="section-subtitle section-subtitle-2 ltn__secondary-color">{{ section.settings.text }}</h6>
+            <h1 class="section-title">{{ section.settings.title }}</h1>
+          </div>
+        </div>
+      </div>
+      <div class="row  justify-content-center">
+        {% for block in section.blocks %}
+          <div class="col-lg-4 col-sm-6 col-12 d-flex">
+            <div class="ltn__feature-item ltn__feature-item-6 text-center bg-white  box-shadow-1">
+              <div class="ltn__feature-icon">
+                <span>{{ block.settings.icon }}</span>
+              </div>
+              <div class="ltn__feature-info">
+                <h3><a href="{{ block.settings.url }}">{{ block.settings.title }}</a></h3>
+                {{ block.settings.subtitle }}
+              </div>
+            </div>
+          </div>
+        {%- endfor -%} 
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Services",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+		  "default": "Our Services"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default": "Our Core Services"
+        }
+	],
+	"blocks": [
+    {
+      "type": "service",
+      "name": "Service",
+      "settings": [
+		{
+          "type": "html",
+          "id": "icon",
+          "label": "Icon"
+        },
+       	{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default": "Medical Accessories"
+        },
+		{
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "SubTitle",
+		  "default": "<p>over 1 million+ homes for sale available on the website, we can match you with a house you will want to call home.</p>"
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}
+

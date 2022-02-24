@@ -1,0 +1,179 @@
+{% if section.settings.show_section %}
+  <div class="ltn__faq-area mb-100">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="ltn__faq-inner ltn__faq-inner-2">
+            <div id="accordion_2">
+              {% for block in section.blocks  %}
+                <div class="card">
+                  <h6 class="{% if forloop.index == 2 %}collapsed{% endif %} ltn__card-title" data-bs-toggle="collapse"
+                      data-bs-target="#faq-item-2-{{ forloop.index }}" aria-expanded="{% if forloop.index == 2 %}true{% else %}false{% endif %}">
+                    {{ block.settings.title }}
+                  </h6>
+                  <div id="faq-item-2-{{ forloop.index }}" class="collapse {% if forloop.index == 2 %}show{% endif %}" data-bs-parent="#accordion_2">
+                    <div class="card-body">
+                      {% if block.settings.show_video %}
+                      <div class="ltn__video-img alignleft">
+                        <img src="{{ block.settings.image | img_url : 'grande' }}" alt="{{ block.settings.title }}">
+                        <a class="ltn__video-icon-2 ltn__video-icon-2-small ltn__video-icon-2-border----"
+                           href="{{ block.settings.link }}"
+                           data-rel="lightcase:myCollection">
+                          <i class="fa fa-play"></i>
+                        </a>
+                      </div>
+                      {% endif %}
+                      {{ block.settings.subtitle }}
+                    </div>
+                  </div>
+                </div>
+              {% endfor %} 
+            </div>
+            <div class="need-support text-center mt-100">
+              <h2>{{ section.settings.title_contact }}</h2>
+              <div class="btn-wrapper mb-30">
+                <a href="{{ section.settings.url }}" class="theme-btn-1 btn">{{ section.settings.button }}</a>
+              </div>
+              <h3><i class="fas fa-phone"></i> {{ section.settings.phone }}</h3>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <aside class="sidebar-area ltn__right-sidebar">
+            <!-- Newsletter Widget -->
+            <div class="widget ltn__search-widget ltn__newsletter-widget">                            
+              <h6 class="ltn__widget-sub-title">{{ section.settings.text }}</h6>
+              <h4 class="ltn__widget-title">{{ section.settings.title }}</h4>
+              {%- assign formId = 'Newsletter' -%}
+              {% form 'customer', id: formId %}
+                {%- if form.posted_successfully? -%}
+                	<p>{{ 'general.newsletter_form.confirmation' | t }}</p>
+                {%- endif -%}
+                <input type="hidden" name="contact[tags]" value="newsletter">
+                <input type="text" id="{{ formId }}-email" name="contact[email]" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"  placeholder="{{ 'general.newsletter_form.email_placeholder' | t }}*" aria-label="{{ 'general.newsletter_form.email_placeholder' | t }}" required>
+                <button type="submit"><i class="fas fa-location-arrow"></i></button>
+               {% endform %}
+              <div class="ltn__newsletter-bg-icon">
+                <i class="fas fa-envelope-open-text"></i>
+              </div>
+            </div>
+            <!-- Banner Widget -->
+            <div class="widget ltn__banner-widget">
+              <a href="{{ section.settings.link }}"><img src="{{ section.settings.image | img_url : 'grande' }}" alt="{{ section.settings.title }}"></a>
+            </div>
+
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Some Questions",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+			"type" : "header",
+			"content" : "subscribe"
+		},
+		{
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+		  "default": "// subscribe"
+        },	
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default": "Get Newsletter"
+        },	
+		{
+			"type" : "header",
+			"content" : "Banner"
+		},
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Banner"
+        },
+		{
+          "type": "url",
+          "id": "link",
+          "label": "Link Banner"
+        },
+		{
+			"type" : "header",
+			"content" : "Contact"
+		},
+		{
+          "type": "text",
+          "id": "title_contact",
+          "label": "Title",
+		  "default": "Still need help? Reach out to support 24/7:"
+        },
+		{
+          "type": "text",
+          "id": "button",
+          "label": "Button",
+		  "default": "Contact Us"
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        },
+		{
+          "type": "text",
+          "id": "phone",
+          "label": "Phone",
+		  "default": "+0123-456-789"
+        }		
+	],
+	"blocks": [
+    {
+      "type": "content",
+      "name": "content",
+      "settings": [
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+		{
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "SubTitle",
+		  "default": "<p>Lorem ipsum dolor sit ame it, consectetur adipisicing elit, sed do eiusmod te mp or incididunt ut labore.</p>"
+        },
+		{
+          "type": "checkbox",
+          "id": "show_video",
+          "label": "Show video",
+          "default": false
+        },
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "link",
+          "label": "Link Youtube",
+		  "default": "https://www.youtube.com/embed/Cr4LFOgRGeo?autoplay=1&amp;showinfo=0"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}
+
+
+

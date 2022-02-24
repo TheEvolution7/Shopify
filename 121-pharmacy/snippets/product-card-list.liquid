@@ -1,0 +1,32 @@
+<div class="col-xl-4 col-sm-6 col-6">
+  <div class="ltn__product-item ltn__product-item-3 text-center">
+    <div class="product-img">
+      <a href="{{ product.url }}"><img src="{{ product.featured_image | img_url: 'large' }}" alt="{{ product.title }}"></a>
+     {% if  product.metafields.my_fields.badge %}
+      <div class="product-badge">
+        <ul>
+          <li class="sale-badge">{{  product.metafields.my_fields.badge }}</li>
+        </ul>
+      </div>
+     {% endif %}
+      <div class="product-hover-action">
+        <form method="post" action="/cart/add" id="product_form_{{ product.id }}">
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id  }}">	
+          <ul class="action-list text-center tooltip-layout">
+            <li class="single-action addto-cart"><a type="submit" name="add" {%- if product.available -%}onclick="document.getElementById('product_form_{{ product.id }}').submit();"{%- endif -%} aria-label="{%- unless product.available -%}Sold Out{%- endunless -%}" {%- unless product.available -%}disabled{%- endunless -%}><i class="fas fa-shopping-bag"></i></a></li>
+          </ul>
+        </form>
+      </div>
+    </div>
+    <div class="product-info">
+      <div class="product-ratting">
+        <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+      </div>
+      <h2 class="product-title"><a href="{{ product.url }}">{{ product.title }}</a></h2>
+      <div class="product-price">
+        <span>{{ product.price | money }}</span>
+        <del>{{ product.compare_at_price | money }}</del>
+      </div>
+    </div>
+  </div>
+</div>

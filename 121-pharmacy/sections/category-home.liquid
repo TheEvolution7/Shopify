@@ -1,0 +1,58 @@
+{% if section.settings.show_section %}
+  <div class="ltn__category-area section-bg-1-- pt-30" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row ltn__category-slider-active-six slick-arrow-1 border-bottom">
+       {% for block in section.blocks  %} 
+        <div class="col-12">
+          <div class="ltn__category-item ltn__category-item-6 text-center">
+            <div class="ltn__category-item-img">
+              <a href="{{ block.settings.url }}">
+                {{ block.settings.icon }}
+              </a>
+            </div>
+            <div class="ltn__category-item-name">
+              <h6><a href="{{ block.settings.url }}">{{ block.settings.title }}</a></h6>
+            </div>
+          </div>
+        </div>
+       {% endfor  %} 
+      </div>
+    </div>
+  </div>
+{% endif  %}
+{% schema %}
+  {
+    "name": "Section Icon",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        }	
+	],
+	"blocks": [
+    {
+      "type": "icon",
+      "name": "icon",
+      "settings": [
+		{
+          "type": "text",
+          "id": "icon",
+          "label": "Class Icon"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

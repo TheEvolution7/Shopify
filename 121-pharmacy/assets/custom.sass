@@ -1,0 +1,331 @@
+.ltn__header-transparent
+  position: absolute
+  background-color: rgba(225, 225, 225, .3)
+.ltn__slide-item-2
+  height: 70vh
+  padding-top: 250px
+.ltn__breadcrumb-area
+  padding-top: 250px
+  padding-bottom: 50px
+  position: relative
+  &::before
+    position: absolute
+    width: 100%
+    height: 100%
+    content: ''
+    top: 0
+    left: 0
+    background: rgba(#F2F6F7, 0.4)
+
+.ltn__header-options-2 .header-search-1, .ltn__header-options-2 .ltn__drop-menu > ul > li > a, .ltn__header-options-2 .mini-cart-icon a
+  background: unset
+  border: 1px solid var(--border-color-1)
+.footer-logo
+  .site-logo
+    min-width: 150px
+    max-width: 250px
+.footer-top-area
+  border-top: 2px solid #fff
+.loading-container
+  display: flex
+  align-items: center
+  justify-content: center
+  background: #fff
+  position: fixed
+  width: 100%
+  height: 100%
+  z-index: 22147483647
+  svg 
+    padding: 35px
+    width: 100%
+    height: 100%
+    max-width: 800px
+    overflow: unset
+    .icon-logo_1 
+      .sv-1
+        stroke-width: 2px
+        stroke: #00AD50
+.about-img-left
+  svg 
+    overflow: unset
+.product-brand
+  font-size: 14px
+  color: rgba(#071c1f, 0.6)
+  margin-bottom: 5px
+  @media screen and ( max-width: 575.82px )
+    font-size: 13px
+  a 
+    &:hover
+      color: #00AD50
+.product-img
+  position: relative
+  padding-bottom: 100%
+  img 
+    padding: 20%
+    width: 100%
+    height: 100%
+    position: absolute
+    top: 0
+    left: 0
+    object-fit: contain
+  &::before
+    display: none
+  > a
+    // position: relative
+    &::after
+      position: absolute
+      content: ""
+      left: 0
+      top: 0
+      width: 100%
+      height: 100%
+      // display: none
+      visibility: visible
+      background-color: rgba(0,0,0,0.02)
+.ltn__product-item-2 .product-img img
+  background: transparent
+.brand-icon
+  margin-bottom: 65px
+  .img-thumb-b
+    display: block
+    position: relative
+    padding-bottom: 60%
+    margin-bottom: 15px
+    img 
+      position: absolute
+      width: 100%
+      height: 100%
+      object-fit: contain
+      top: 0
+      left: 0
+    &::before,&::after
+      content: ""
+      position: absolute
+      width: 100%
+      height: 100%
+      right: 0
+      left: 0
+      bottom: 0
+      top: 0
+      visibility: hidden
+      transition: all .4s
+      z-index: 9
+    &:hover
+      &::before
+        background: rgba(255,255,255,.3)
+        visibility: visible
+        width: 0
+        right: 50%
+        left: 50%
+      &::after
+        height: 0
+        top: 50%
+        bottom: 50%
+        background: rgba(255,255,255,.3)
+        visibility: visible
+.small-bar
+  padding: 20px 0 0
+  background: linear-gradient(33deg, rgb(0,173,80),rgb(115,189,71),rgb(189,207,83) )
+  .ltn__feature-item-7
+    background-color: transparent
+    padding: 10px 15px
+    margin-bottom: 20px
+    box-shadow: none
+    border: 2px solid #f2f2f2
+    .ltn__feature-icon-title
+      margin-bottom: 0
+      display: flex
+      align-items: center
+      h4 
+        margin-bottom: 0
+        color: #fff
+    .ltn__feature-icon
+      width: 45px
+      height: 45px
+      font-size: 40px
+      color: #fff
+.ltn__logo-right-menu-option 
+  .site-logo-wrap
+    @media screen and ( max-width: 767px )
+      margin-top: 0
+.site-logo-wrap 
+  justify-content: center
+  width: 100%
+  @media screen and ( max-width: 991.82px )
+    justify-content: flex-start
+  @media screen and ( max-width: 767px )
+    margin: 0
+    
+.modal-product-img
+  position: relative
+  padding-bottom: 100%
+  &::after
+    position: absolute
+    content: ""
+    left: 0
+    top: 0
+    width: 100%
+    height: 100%
+    // display: none
+    visibility: visible
+    background-color: rgba(0,0,0,0.02)
+  img 
+    position: absolute
+    width: 100%
+    padding: 20%
+    height: 100%
+    object-fit: contain
+.ltn__top-bar-menu 
+  > ul 
+    > li
+      @media screen and ( max-width: 991.82px )
+        font-size: 13px
+.ltn__header-5 
+  .ltn__header-options
+    @media screen and ( max-width: 991.82px )
+      margin-left: 0
+.ltn__utilize-menu 
+  > ul 
+    > li
+      @media screen and ( max-width: 991.82px )
+        margin-top: 0
+.ltn__utilize-buttons
+  @media screen and ( max-width: 991.82px )
+    margin: 20px 0
+.btn
+  @media screen and ( max-width: 575.82px )
+    padding: 10px 10px
+.ltn__utilize
+  @media screen and ( max-width: 575.82px )
+    padding: 20px 10px 20px 20px
+.ltn__utilize-menu-inner
+  @media screen and ( max-width: 575.82px )
+    padding-right: 10px
+.preloader
+  z-index: 999999
+
+.modal-product-info 
+  h3
+    margin-bottom: 20px
+  .product-price
+    color: var(--ltn__heading-color)
+    margin-bottom: 20px
+
+.thumb-pro
+  position: relative
+  width: 100%
+  height: 100%
+  display: block
+  overflow: hidden
+  padding-bottom: 60%
+  img
+    position: absolute
+    width: 100%
+    height: 100%
+    top: 0
+    left: 0
+    object-fit: contain
+    background-color: #fff
+
+
+.ltn__product-details-menu-2 
+  ul
+    display: flex
+    align-items: center
+    li
+      input[type="text"]
+        height: 61px
+        margin-bottom: unset
+        width: 80px
+        padding: 0 15px
+
+.shoping-cart-table 
+  .table
+    &>:not(caption)>*>*
+      border: unset
+    tbody
+      border: unset
+    tr
+      display: table-row
+    td
+      padding: 20px
+      &.cart-product-remove
+        padding: 15px 5px
+      &.cart-product-info
+        h4
+          margin-bottom: unset
+        span
+          font-size: 14px
+
+.shoping-cart-total
+  max-width: unset
+  .btn-wrapper
+    input
+      margin-bottom: 15px
+
+.cart-plus-minus
+  width: 100px
+  height: 50px
+  line-height: 45px
+
+.box-group-btn
+  position: relative
+  width: 100%
+  display: flex
+  flex-wrap: wrap
+  justify-content: space-between
+  align-items: center
+  padding: 30px 0
+  border-top: 1px solid #dee2e6
+  border-bottom: 1px solid #dee2e6
+
+.modal-quest
+  .modal-dialog
+    max-width: 650px
+  .modal-product-item
+    label
+      margin-bottom: 10px
+      color: var(--ltn__heading-color)
+      font-weight: 600
+      display: flex
+      flex-direction: column
+      font-size: 16px
+      span
+        font-size: 14px
+        color: var(--ltn__heading-color)
+        opacity: 0.6
+  .modal-header
+    display: flex
+    flex-direction: column
+    h5 
+      margin-bottom: 10px
+    .id-pro
+      display: flex
+      width: 100%
+      align-items: center
+      p 
+        margin-bottom: 0
+        font-size: 14px
+        margin-right: 10px
+      img 
+        max-width: 150px
+        width: 100%
+        height: 40px
+        object-fit: contain
+        object-position: left
+.list-btn-cart
+  ul 
+    list-style: none
+    display: flex
+    align-items: center 
+    padding-left: 0
+    .cart-plus-minus
+      margin: 15px 0
+      margin-right: 20px
+
+.dec.qtybutton, 
+.inc.qtybutton
+  cursor: pointer
+.form-content
+  max-height: 450px
+  overflow: scroll
