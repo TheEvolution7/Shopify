@@ -1,0 +1,101 @@
+ <section class="contact-section" style="background-color: #1c1c1c;">
+            <div class="parallax-container js-text-parallax">
+                <div class="fx-wrap fx-section-1" data-x="200">
+                    <h3 class="fx-target">CONTACT</h3>
+                </div>
+            </div>
+            <div class="auto-container">
+                <div class="row clearfix">
+                    <div class="col-lg-5 col-md-12 col-sm-12 info-column">
+                        <div class="contact-info-box">
+                            <div class="sec-title style-two">
+                                <p>{{ section.settings.title }}</p>
+                                <h2>{{ section.settings.heading }}</h2>
+                            </div>
+                            <div class="text">
+                               {{ section.settings.content }}
+                            </div>
+                            <ul class="info-list clearfix">
+                                <li><i class="far fa-phone"></i><a href="tel:{{ section.settings.phone }}">{{ section.settings.phone }}</a></li>
+                                <li><i class="far fa-envelope-open"></i><a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a></li>
+                            </ul>
+                            <ul class="social-links clearfix">
+                              {%- assign socials = "Facebook Twitter Pinterest Instagram Tumblr Snapchat YouTube Vimeo" | split: ' ' -%}
+                              {%- for social in socials -%}
+                              	{%- assign social_link = social | prepend: 'social_' | append: '_link' | downcase -%}
+                              	{%- assign icon_link = social | prepend: 'icon-' | downcase -%}
+                              	{%- if settings[social_link] != blank -%}
+                              		<li><a href="{{ settings[social_link] | escape }}">{%- include icon_link -%}</a></li>
+                              	{%- endif -%}
+                              {%- endfor -%}      
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-12 col-sm-12 form-column">
+                        <div class="form-inner"> 
+                              {%- assign formId = 'ContactForm' -%}
+                              {% form 'contact', id: formId, class: 'default-form' %}
+                                <div class="row clearfix">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                        <label>Your Name</label>
+                                       	<input type="text" name="contact[{{ 'contact.form.name' | t }}]" placeholder="Full Name" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}" required>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                        <label>Your Email Address</label>
+                                      <input type="email" placeholder="Email Address" name="contact[email]" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" required>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                        <label>Your Phone</label>
+                                      <input type="text" name="contact[{{ 'contact.form.phone' | t }}]"  placeholder="Your Phone" value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}" required>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                        <label>Write A Message</label>
+                                      <textarea rows="10" name="contact[{{ 'contact.form.message' | t }}]"  placeholder="Your Message ...">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group message-btn">
+                                        <button class="theme-btn-two" type="submit" name="submit-form">{{ 'contact.form.submit' | t }}</button>
+                                    </div>
+                                </div>
+                             {% endform %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+{% schema %}
+  {
+    "name": "Section Contact Form",
+    "settings": [
+	{
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Contact Us"
+    },
+	{
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Meet with us for consultation"
+    },
+	{	
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was</p>"
+    },
+	{
+      "type": "text",
+      "id": "phone",
+      "label": "Phone",
+      "default": "507-721-9081"
+    },
+	{
+      "type": "text",
+      "id": "email",
+      "label": "Email",
+      "default": "support@honeygoldbotanicals.com"
+    }
+]
+  }
+{% endschema %}

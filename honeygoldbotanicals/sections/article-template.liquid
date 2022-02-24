@@ -1,0 +1,113 @@
+ <!--Page Title-->
+        <section class="page-title centred" style="background-image: url('{{ section.settings.image | img_url : '1920x' }}');">
+            <div class="auto-container">
+                <div class="content-box">
+                    <div class="title">
+                        <h1 class="title-fix" >{{ section.settings.title }}</h1>
+                    </div>
+                    <ul class="bread-crumb clearfix">
+                        <li><a href="{{ routes.root_url }}">Home</a></li>
+                        <li class="see">{{ section.settings.title }}</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!--End Page Title-->
+
+        <!-- sidebar-page-container -->
+        <section class="sidebar-page-container" style="background-color: #1c1c1c;">
+            <div class="auto-container">
+                <div class="row clearfix">
+                    <div class="col-lg-8 col-md-12 col-sm-12 content-side">
+                        <div class="blog-details-content">
+                            <div class="news-block-one">
+                                <div class="inner-box">
+                                    <figure class="image-box wow animated fadeInUp" data-wow-duration="3s"><img src="{{ article.image | img_url: '500x' }}" alt="{{ article.image.alt | default: article.title }}"></figure>
+                                    <div class="lower-content wow animated fadeInUp" data-wow-duration="3s">
+                                       <h2>{{ article.title }}</h2>
+                                       	{{ article.content }} 
+                                        <div class="post-share wow animated fadeInUp" data-wow-duration="3s">
+  											{% include 'social-sharing', share_title: article.title, share_permalink: article.url, share_image: article.image %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side">
+                        <div class="blog-sidebar">
+                            <div class="bg-color"></div>
+                            <div class="sidebar-widget category-widget">
+                                <div class="widget-title wow animated fadeInUp" data-wow-duration="3s">
+                                    <h3>Tags</h3>
+                                </div>
+                                <div class="widget-content wow fadeInUp animated" data-wow-duration="3s">
+                                    <ul class="category-list clearfix">
+                                    {%- for tag in article.tags -%}
+                                        <li> <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>{% unless forloop.last %}<br> {% endunless %}</li>
+                                    {%- endfor -%}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="sidebar-widget post-widget">
+                                <div class="widget-title wow animated fadeInUp" data-wow-duration="3s">
+                                    <h3>Recent News</h3>
+                                </div>
+                                <div class="post-inner">
+                                  {%- for recent in blog.articles limit : 4 -%}
+                                    {%- if recent.id != article.id -%}
+                                      <div class="post wow fadeInUp animated" data-wow-duration="3s">
+                                          <figure class="post-thumb"><a href="{{ recent.url }}"><img src="{{ recent.image | img_url : '500x' }}" alt="{{ recent.image.alt | default: recent.title }}"></a></figure>
+                                          <h5><a href="{{ recent.url }}">{{ recent.title }}</a></h5>
+                                          <span class="post-date">{{ recent.published_at | time_tag: format: 'date' }}</span>
+                                      </div>
+                                    {%- endif  -%}
+                                  {%- endfor -%} 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- sidebar-page-container end -->
+{% schema %}
+{
+  "name": {
+    "cs": "Příspěvky",
+    "da": "Opslag",
+    "de": "Posts",
+    "en": "Posts",
+    "es": "Publicaciones",
+    "fi": "Julkaisut",
+    "fr": "Articles",
+    "it": "Articoli",
+    "ja": "投稿",
+    "ko": "게시물",
+    "nb": "Innlegg",
+    "nl": "Berichten",
+    "pl": "Posty",
+    "pt-BR": "Posts",
+    "pt-PT": "Publicações",
+    "sv": "Inlägg",
+    "th": "โพสต์",
+    "tr": "Gönderiler",
+    "vi": "Bài viết",
+    "zh-CN": "文章",
+    "zh-TW": "貼文"
+  },
+  "settings": [
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Blog Details"
+    	},
+ 		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Banner"
+        }
+  ]
+}
+{% endschema %}

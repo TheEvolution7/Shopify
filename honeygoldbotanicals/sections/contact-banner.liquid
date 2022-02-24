@@ -1,0 +1,32 @@
+ <section class="page-title centred" style="background-image: url('{{ section.settings.image | img_url : '1920x' }}');">
+            <div class="auto-container">
+                <div class="content-box">
+                    <div class="title">
+                        <h1 class="title-fix">{{ section.settings.title }}</h1>
+                    </div>
+                    <ul class="bread-crumb clearfix">
+                        <li><a href="{{ routes.root_url }}">Home</a></li>
+                        <li class="see">{{ section.settings.title }}</li>
+                    </ul>
+                </div>
+            </div>
+        </section>	
+{% schema %}
+  {
+    "name": "Section Contact Banner",
+    "settings": [
+	{
+         "type": "image_picker",
+         "id": "image",
+         "label": "Banner"
+     },
+	 {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Contact Us"
+    }
+]
+  }
+{% endschema %}
+

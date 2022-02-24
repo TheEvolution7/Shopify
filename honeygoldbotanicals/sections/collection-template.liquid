@@ -1,0 +1,264 @@
+ <!--Page Title-->
+        <section class="page-title centred" style="background-image: url('{{ section.settings.image | img_url: '1920x' }}');">
+            <div class="auto-container">
+                <div class="content-box">
+                    <div class="title">
+                        <h1 class="title-fix">{{ collection.title }}</h1>
+                    </div>
+                    <ul class="bread-crumb clearfix">
+                        <li><a href="{{ routes.root_url }}">Home</a></li>
+                        <li class="see">{{ collection.title }}</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!--End Page Title-->
+{%- assign limit = section.settings.products_count -%}
+{% paginate collection.products by limit %}
+        <!-- shop-page-section -->
+        <section class="shop-page-section shop-page-section-1" style="background-color: #1c1c1c;">
+            <div class="parallax-container js-text-parallax">
+                <div class="fx-wrap fx-section-1" data-x="200">
+                    <h3 class="fx-target">{{ collection.title }}</h3>
+                </div>
+            </div>
+            <div class="auto-container">
+                <div class="inner-container">
+                    <div class="row clearfix">
+                        <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side">
+                            <div class="shop-sidebar">
+                                <p>Fillter</p>
+                            {% for block in section.blocks %}
+<!--                                 <div class="sidebar-widget price-filter wow fadeInUp animated" data-wow-duration="3s">
+                                    <div class="widget-title">
+                                        <h4>filter by price</h4>
+                                    </div>
+                                  <form action="#">
+                                    <div class="range-slider clearfix">
+                                        <div class="clearfix">
+                                            <p>Range:</p>
+                                            <div class="title"></div>
+                                            <div class="input"><input type="text" class="property-amount" name="field-name" readonly></div>
+                                        </div>
+                                        <div class="price-range-slider"></div>
+                                    </div>
+                                  </form>
+                                </div>  -->
+                              {% if block.type == 'categories' %}
+                                <div class="sidebar-widget category-widget wow fadeInUp animated" data-wow-duration="3s">
+                                    <div class="widget-title">
+                                        <h4>{{block.settings.title}}</h4>
+                                    </div>
+                                    <div class="widget-content">
+                                        <ul class="category-list clearfix">
+                                          {% for link in linklists[block.settings.side_categories].links %}
+                                            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                                          {% endfor %}  
+                                        </ul>
+                                    </div>
+                                </div>
+                              {% endif %} 
+                              {% if block.type == 'filter_by' %}
+                                 <div class="sidebar-widget category-widget wow fadeInUp animated" data-wow-duration="3s">
+                                      <div class="widget-title">
+                                          <h4>{{block.settings.title}}</h4>
+                                      </div>
+                                      <div class="widget-content">
+                                        <form action="#">
+                                          <ul class="category-list clearfix">
+                                              {% assign tags = block.settings.filter_tags | split: ',' %}
+                                              {% for filter_t in tags %}
+                                              {% assign tag = filter_t | strip %}
+                                              {% assign tag_value = tag | handleize %}
+                                              {% assign filtertag = forloop.index | minus:1 %}
+                                              {% assign filtertagid = 2 | times : filtertag %}
+                                              {% if collection.tags contains tag %}
+<!-- 		                                		<li>
+                                                  <input type="checkbox" value="{{ tag_value }}"  id="{{block.id}}-{{ filtertagid }}" {% if current_tags contains tag %}checked{% endif %} class="coll-filter"/>
+                                                  <label for="{{block.id}}-{{ filtertagid }}" class="color" title="{{tag}}">{{tag}}</label>
+                                            </li> -->
+                                            <li class="custom-check-box">
+                                                  <div class="custom-controls-stacked">
+                                                      <label class="custom-control material-checkbox" for="{{block.id}}-{{ filtertagid }}" title="{{tag}}">
+                                                          <input type="checkbox" value="{{ tag_value }}"  id="{{block.id}}-{{ filtertagid }}" {% if current_tags contains tag %}checked{% endif %} class="material-control-input">
+                                                          <span class="material-control-indicator"></span>
+                                                          <span class="description">{{tag}}</span>
+                                                      </label>
+                                                  </div>
+                                              </li>
+                                              {% endif %}
+                                              {% endfor %} 
+<!--                                              <li class="custom-check-box">
+                                                  <div class="custom-controls-stacked">
+                                                      <label class="custom-control material-checkbox">
+                                                          <input type="checkbox" value="{{ tag_value }}"  id="{{block.id}}-{{ filtertagid }}" {% if current_tags contains tag %}checked{% endif %} class="material-control-input">
+                                                          <span class="material-control-indicator"></span>
+                                                          <span class="description">S</span>
+                                                      </label>
+                                                  </div>
+                                              </li>
+
+                                              <li class="custom-check-box">
+                                                  <div class="custom-controls-stacked">
+                                                      <label class="custom-control material-checkbox">
+                                                          <input type="hidden" checked="" name="id" value="39650626109628">
+                                                          <input type="radio" class="material-control-input" checked="" name="id-pro" value="39650626109628">
+                                                          <span class="material-control-indicator"></span>
+                                                          <span class="description">M</span>
+                                                      </label>
+                                                  </div>
+                                              </li> -->
+                                          </ul>
+                                        </form>
+                                      </div>
+                                  </div>
+                              {% endif %} 
+                            {% endfor %}  
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-md-12 col-sm-12 content-side">
+                            <div class="our-shop">
+                                <div class="item-shorting clearfix">
+                                    <div class="text pull-left">
+                                        <p>Showing {{ paginate.current_offset | plus: 1 }}-{% if paginate.next %}{{ paginate.current_offset | plus: paginate.page_size }}{% else %}{{ paginate.items }}{% endif %} of {{ paginate.items }} results</p>
+                                    </div>
+                                    <div class="short-box pull-right">
+                                        <div class="select-box">
+                                          <select name="SortBy" id="SortBy" class="wide sort-by">
+                                            {% for option in collection.sort_options %}
+                                            	<option value="{{ option.value }}" {% if option.value == collection.sort_by %}selected{% endif %}>{{ option.name }}</option>
+                                            {% endfor %}
+                  						</select>
+                                        </div>
+                                    </div>
+                                </div>
+                              <div class="row">
+                              {% for product in collection.products %}
+                                	{% include 'product-card-list', product: product %}
+                              {% endfor %}  
+                                          </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pagination-wrapper centred">
+                    	{%- if paginate.pages > 1 -%}
+              				{% include 'pagination', paginate: paginate %}
+              			{%- endif -%}
+                	</div>
+                  <style>
+                    .content-box.__1 {
+                    	padding-top: 50px
+                    }
+                    .content-box.__1 h2 {
+                        font-size: 26px;
+                        font-weight: 600;
+                        margin: 15px 0;
+                        color: #f9b707;
+                    }
+                    .content-box.__1 a {
+                    	color: #f9b707;
+                    }
+                  </style>
+                  <div class="auto-container">
+                    <div style="padding:30px 0px;" class="content-box __1">
+                       {{ collection.description }} 
+                    </div>
+                  </div>
+                </div>
+                
+            </div>
+          
+        </section>
+
+        <!-- shop-page-section end -->
+<script>
+  var checkboxes = document.querySelectorAll("input[type=checkbox]");
+  let enabledSettings = []
+  
+  checkboxes.forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+      enabledSettings = 
+        Array.from(checkboxes)
+        .filter(i => i.checked)
+        .map(i => i.value)
+		var newTags = [];
+          enabledSettings.forEach((collFilter) => {
+            newTags.push(collFilter);
+          });
+      if (newTags.length) {
+          var query = newTags.join('+');
+          window.location.href = '/collections/{{ collection.handle }}/' + query;
+        }
+        else {
+          {% if collection.handle %}
+          window.location.href = '/collections/{{ collection.handle }}';
+          {% elsif collection.products.first.type == collection.title %}
+          window.location.href = '{{ collection.title | url_for_type }}';
+          {% elsif collection.products.first.vendor == collection.title %}
+          window.location.href = '{{ collection.title | url_for_vendor }}';
+          {% endif %}
+        }
+    })
+  });
+  
+</script>
+
+{% endpaginate %}
+{% schema %}
+  {
+    "name": "Collection pages",
+    "settings": [
+			{
+             "type": "image_picker",
+             "id": "image",
+             "label": "Banner"
+       		},
+            {
+              "type": "text",
+              "id": "products_count",
+              "label": "No of products to show",
+              "default": "6"
+            }
+    	],
+	"blocks": [
+      {
+        "type": "categories",
+        "name": "Categories",
+        "limit": 1,
+        "settings": [
+         	{ 
+              "type":"text",
+              "id":"title",
+              "label":"Categories",
+              "default":"Categories"
+          	},
+            {
+              "type": "link_list",
+              "id": "side_categories",
+              "label": "Select Categories",
+              "default": "main-menu"
+            }
+        ]
+      },
+	  {
+        "type": "filter_by",
+        "name": "Filter By",
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Filter By Title",
+				"default": "Filter By Title",
+                "info": "i.e 'Filter by Size, Filter by Brands'"
+            },
+            {
+                "type": "textarea",
+                "id": "filter_tags",
+                "label": "Add Filter tags",
+                "info": "Separate by a comma, i.e \"Tag1, Tag2, Tag3\"."
+            } 
+      	]
+     }
+	]
+  }
+{% endschema %}

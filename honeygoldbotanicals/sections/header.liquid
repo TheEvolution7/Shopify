@@ -1,0 +1,282 @@
+
+{%- assign socials = "Facebook Twitter Pinterest Instagram Tumblr Snapchat YouTube Vimeo" | split: ' ' -%}
+<div class="top-header">
+  <div class="auto-container">
+    <p>{{ section.settings.top_header }}</p>
+  </div>
+</div>
+<header class="main-header style-one">       
+    <!-- header-lower -->
+    <div class="header-lower">
+        <div class="outer-box">
+            <div class="logo-box">
+                <figure class="logo"><a href="{{ routes.root_url }}"><img src="{{ section.settings.logo | img_url: '300x300' }}" alt="{{ section.settings.logo.alt | default: shop.name }}"></a></figure>
+            </div>
+            <div class="menu-area">
+                <!--Mobile Navigation Toggler-->
+                <div class="mobile-nav-toggler">
+                    <i class="icon-bar"></i>
+                    <i class="icon-bar"></i>
+                    <i class="icon-bar"></i>
+                </div>
+                <nav class="main-menu navbar-expand-md navbar-light">
+                    <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
+                        <ul class="navigation clearfix">
+                         {%- for link in linklists.main-menu.links -%}
+                            <li class={%- if link.links != blank -%}"dropdown"{% endif %} ><a href="{{ link.url }}">{{ link.title }}</a>
+                                <ul>
+                                  {%- for child_link in link.links -%}
+                                    <li><a href="{{ child_link.url }}">{{ child_link.title }}</a></li>
+                                  {%- endfor -%}
+                                </ul>
+                            </li>
+                       	{%- endfor -%}
+                        </ul>
+                    </div>
+                </nav>
+                <ul class="menu-right-content clearfix">
+                    <li class="search-box-outer">
+                        <div class="dropdown">
+                            <button class="search-box-btn" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% include 'icon-search' %}</button>
+                            <div class="dropdown-menu search-panel" aria-labelledby="dropdownMenu3">
+                                <div class="form-container">
+                                    <form action="{{ routes.search_url }}" method="get" role="search">
+                                        <div class="form-group">
+                                          	<input type="search" name="q" value="" placeholder="{{ 'general.search.placeholder' | t }}" />
+                                            <button type="submit" class="search-btn"><span class="fas fa-search"></span></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="cart-btn">
+                        <a href="{{ routes.cart_url }}">{% include 'icon-cart' %}<span>{{ cart.item_count }}</span></a>
+                    </li>
+                 {%- if customer -%}
+                   <li class="user-btn">
+                        <a href="/account">{% include 'icon-login' %}{{ customer.email }}</a>
+                   </li>
+                  	<li class="user-btn">
+                       {{ 'Log out' | customer_logout_link }}
+                  </li>
+                 {%- else -%}
+                    <li class="user-btn">
+                        <a href="/account/login">{% include 'icon-login' %}</a>
+                    </li>
+                 {%- endif -%}
+                </ul>
+            </div>
+            <div class="nav-right-content">
+                <ul class="social-links clearfix">
+                  {%- for social in socials -%}
+                     {%- assign social_link = social | prepend: 'social_' | append: '_link' | downcase -%}
+                  	 {%- assign icon_link = social | prepend: 'icon-' | downcase -%}
+                     {%- if settings[social_link] != blank -%}
+                        <li><a href="{{ settings[social_link] | escape }}">{%- include icon_link -%}</a></li>
+                   	 {%- endif -%}
+                  {%- endfor -%}           
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!--sticky Header-->
+    <div class="sticky-header">
+        <div class="outer-box">
+            <div class="logo-box">
+                <figure class="logo"><a href="{{ routes.root_url }}"><img src="{{ section.settings.logo | img_url: '300x300' }}" alt="{{ section.settings.logo.alt | default: shop.name }}"></a></figure>
+            </div>
+            <div class="menu-area">
+                <nav class="main-menu clearfix">
+                    <!--Keep This Empty / Menu will come through Javascript-->
+                </nav>
+                <ul class="menu-right-content clearfix">
+                    <li class="search-box-outer">
+                        <div class="dropdown">
+                            <button class="search-box-btn" type="button" id="dropdownMenu4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% include 'icon-search' %}</button>
+                            <div class="dropdown-menu search-panel" aria-labelledby="dropdownMenu3">
+                                <div class="form-container">
+                                    <form action="{{ routes.search_url }}" method="get" role="search">
+                                        <div class="form-group">
+                                          	<input type="search" name="q" value="" placeholder="{{ 'general.search.placeholder' | t }}" />
+                                            <button type="submit" class="search-btn"><span class="fas fa-search"></span></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                   <li class="cart-btn">
+                        <a href="{{ routes.cart_url }}">{% include 'icon-cart' %}<span>{{ cart.item_count }}</span></a>
+                    </li>
+                  {%- if customer -%}
+                   <li class="user-btn">
+                        <a href="/account">{% include 'icon-login' %}{{ customer.email }}</a>
+                    </li>
+                  <li class="user-btn">
+                       {{ 'Log out' | customer_logout_link }}
+                  </li>
+                  {%- else -%}
+                    <li class="user-btn">
+                        <a href="/account/login">{% include 'icon-login' %}</a>
+                    </li>
+                  {%- endif -%}
+                </ul>
+            </div>
+            <div class="nav-right-content">
+                <ul class="social-links clearfix">
+                  {%- for social in socials -%}
+                    {%- assign social_link = social | prepend: 'social_' | append: '_link' | downcase -%}
+                    {%- assign icon_link = social | prepend: 'icon-' | downcase -%}
+                    {%- if settings[social_link] != blank -%}
+                       <li><a href="{{ settings[social_link] | escape }}">{%- include icon_link -%}</a></li>
+                   	{%- endif -%}
+                  {%- endfor -%}   
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+ <!-- Mobile Menu  -->
+        <div class="mobile-menu">
+            <div class="menu-backdrop"></div>
+            <div class="close-btn"><i class="fas fa-times"></i></div>
+            <nav class="menu-box">
+                <div class="nav-logo"><a href="{{ routes.root_url }}"><img src="{{ section.settings.logo | img_url: '300x300' }}" alt="{{ section.settings.logo.alt | default: shop.name }}" title="{{ section.settings.logo.alt | default: shop.name }}"></a></div>
+                <div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--></div>
+                <div class="contact-info">
+                    <h4>{{ section.settings.title }}</h4>
+                    <ul>
+                        <li><a href="tel:{{ section.settings.phone }}">{{ section.settings.phone }}</a></li>
+                        <li><a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a></li>
+                    </ul> 
+                </div>
+                <div class="social-links">
+                    <ul class="clearfix">
+                      {%- for social in socials -%}
+                         {%- assign social_link = social | prepend: 'social_' | append: '_link' | downcase -%}
+                      	 {%- assign icon_link = social | prepend: 'icon-' | downcase -%}
+                         {%- if settings[social_link] != blank -%}
+                            <li><a href="{{ settings[social_link] | escape }}">{%- include icon_link -%}</a></li>
+                         {%- endif -%}
+                      {%- endfor -%}
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <!-- End Mobile Menu -->
+{% schema %}
+{
+  "name": {
+    "cs": "Záhlaví",
+    "da": "Overskrift",
+    "de": "Titel",
+    "en": "Header",
+    "es": "Encabezado",
+    "fi": "Ylätunniste",
+    "fr": "En-tête",
+    "it": "Header",
+    "ja": "ヘッダー",
+    "ko": "헤더",
+    "nb": "Header",
+    "nl": "Koptekst",
+    "pl": "Nagłówek",
+    "pt-BR": "Cabeçalho",
+    "pt-PT": "Cabeçalho",
+    "sv": "Rubrik",
+    "th": "ส่วนหัว",
+    "tr": "Üstbilgi",
+    "vi": "Đầu trang",
+    "zh-CN": "标头",
+    "zh-TW": "標頭"
+  },
+  "settings": [
+  	{
+      "type": "text",
+      "id": "top_header",
+      "label": "Top header",
+	  "default": "free shipping for all orders over $75"
+      
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": {
+        "cs": "Obrázek loga",
+        "da": "Logobillede",
+        "de": "Logo-Foto",
+        "en": "Logo image",
+        "es": "Logo",
+        "fi": "Logokuva",
+        "fr": "Image du logo",
+        "it": "Immagine del logo",
+        "ja": "ロゴ画像",
+        "ko": "로고 이미지",
+        "nb": "Logobilde",
+        "nl": "Afbeelding van logo",
+        "pl": "Obraz logo",
+        "pt-BR": "Imagem do logotipo",
+        "pt-PT": "Imagem do logótipo",
+        "sv": "Logobild",
+        "th": "รูปภาพโลโก้",
+        "tr": "Logo görseli",
+        "vi": "Hình ảnh logo",
+        "zh-CN": "logo 图片",
+        "zh-TW": "標誌圖片"
+      }
+    },
+    {
+      "type": "link_list",
+      "id": "main_linklist",
+      "label": {
+        "cs": "Nabídka",
+        "da": "Menu",
+        "de": "Menü",
+        "en": "Menu",
+        "es": "Menú",
+        "fi": "Valikko",
+        "fr": "Menu",
+        "it": "Menu",
+        "ja": "メニュー",
+        "ko": "메뉴",
+        "nb": "Meny",
+        "nl": "Menu",
+        "pl": "Menu",
+        "pt-BR": "Menu",
+        "pt-PT": "Menu",
+        "sv": "Meny",
+        "th": "เมนู",
+        "tr": "Menü",
+        "vi": "Menu",
+        "zh-CN": "菜单",
+        "zh-TW": "選單"
+      },
+      "default": "main-menu"
+    },
+    {
+      "type": "header",
+      "content": "Contact Info"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+	  "default": "Contact Info"
+      
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone",
+      "default": "507-721-9081"
+    },
+	{
+      "type": "text",
+      "id": "email",
+      "label": "Email",
+      "default": "support@honeygoldbotanicals.com"
+    }
+  ]
+}
+{% endschema %}

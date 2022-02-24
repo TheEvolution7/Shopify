@@ -1,0 +1,76 @@
+
+  <!--Page Title-->
+        <section class="page-title centred" style="background-image: url('{{ '35.jpg' | asset_url }}');">
+            <div class="auto-container">
+                <div class="content-box">
+                    <div class="title">
+                        <h1 class="title-fix">{{ 'customer.register.title' | t }}</h1>
+                    </div>
+                    <ul class="bread-crumb clearfix">
+                        <li><a href="{{ routes.root_url }}">Home</a></li>
+                        <li class="see">{{ 'customer.register.title' | t }}</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!--End Page Title-->
+
+
+        <!---Page-section -->
+        <section class="Sign-up" style="background-color: #1c1c1c;">
+            <div class="parallax-container js-text-parallax">
+                <div class="fx-wrap fx-section-se" data-x="200">
+                    <h3 class="fx-target">{{ 'customer.register.title' | t }}</h3>
+                </div>
+            </div>
+            <div class="auto-container">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 content-column">
+                            <div class="content_block_3">
+                                <div class="content-box">
+                                    <div class="sec-title billing_title">
+                                        <h2> {{ 'customer.register.title' | t }}</h2>
+                                    </div>
+                                   {%- assign formId = 'RegisterForm' -%}
+                              	   {% form 'create_customer', id: formId,class : 'billing_details_form', novalidate: 'novalidate' %}
+                                        <div class="row">
+                                            <div class="col-xl-6">
+                                                <div class="billing_input_box">
+                                                   <input type="text" name="customer[first_name]" id="{{ formId }}-FirstName" placeholder="{{ 'customer.register.first_name' | t }}" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} required>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6">
+                                                <div class="billing_input_box">
+                                                   <input type="text" name="customer[last_name]" id="{{ formId }}-LastName"  placeholder="{{ 'customer.register.last_name' | t }}"  {% if form.last_name %}value="{{ form.last_name }}"{% endif %} required>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-12">
+                                                <div class="billing_input_box">
+                                                   <input type="email" name="customer[email]" id="{{ formId }}-email"  placeholder="{{ 'customer.register.email' | t }}"  {% if form.email %} value="{{ form.email }}"{% endif %} required>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-12">
+                                                <div class="billing_input_box">                                  
+                                                  	<input type="password" name="customer[password]"  placeholder="{{ 'customer.register.password' | t }}"  id="{{ formId }}-password" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-xl-12">
+                                            <div class="place_order_btn">
+                                              <a><button class="theme-btn-one" type="submit">{{ 'customer.register.submit' | t }}</button></a>
+                                            </div>
+                                          </div>
+                                        </div>
+                                  {% endform %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+    <!-- End -Page-->

@@ -1,0 +1,28 @@
+<!--Page Title-->
+        <section class="page-title centred" style="background-image: url('{{ '35.jpg' | asset_url }}');">
+            <div class="auto-container">
+                <div class="content-box">
+                    <div class="title">
+                        <h1>{{ 'general.404.title' | t }}</h1>
+                    </div>
+                    <ul class="bread-crumb clearfix">
+                        <li><a href="{{ routes.root_url }}">Home</a></li>
+                        <li>{{ 'general.404.title' | t }}</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!--End Page Title-->
+
+
+        <!-- error-section -->
+        <section class="error-section centred" style="background-color: #1c1c1c;">
+            <div class="auto-container">
+                <div class="inner-box">
+                    <h1>404</h1>
+                    <h2>{{ 'general.404.subtext' | t }}</h2>
+                    <a href="{{ routes.root_url }}" class="theme-btn-two">Go Back Home</a>
+                </div>
+            </div>
+        </section>
+        <!-- error-section end -->

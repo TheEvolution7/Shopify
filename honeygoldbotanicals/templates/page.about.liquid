@@ -1,0 +1,54 @@
+		<!--Page Title-->
+        <section class="page-title centred" style="background-image: url('{{ '19406392.jpg' | asset_url }}');">
+            <div class="auto-container">
+                <div class="content-box">
+                    <div class="title">
+                        <h1 class="title-fix">{{ page.title }}</h1>
+                    </div>
+                    <ul class="bread-crumb clearfix">
+                        <li><a href="{{ routes.root_url }}">Home</a></li>
+                        <li class="see">{{ page.title }}</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!--End Page Title-->
+        <!-- feature page -->
+        <section class="feature-section centred about-section-bg" style="background-color: #1c1c1c;">
+            <div class="auto-container">
+                <div class="sec-title light-p centred wow fadeInUp animated" data-wow-duration="3s" style="visibility: visible; animation-duration: 3s; animation-name: fadeInUp;">
+                    <h2>Best features</h2>
+                </div>
+                <div class="row justify-content-center clearfix">
+                    <div class="col-lg-5 col-md-6 col-sm-12">
+                        <div class="row">
+                           {% section 'best-features-logo' %}
+                      	</div>
+                    </div>
+                    <div class="offset-lg-1 col-lg-6 col-md-6 col-sm-12 d-flex align-items-center feature-block wow fadeInUp animated" data-wow-duration="3s" style="visibility: visible; animation-duration: 3s; animation-name: fadeInUp;">
+                           {% section 'best-features-title' %}
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- feature page end -->
+
+        <!-- about-section -->
+        {% section 'section-about-1' %}
+        <!-- about-section end -->
+
+        <!-- about-section -->
+        {% section 'section-about-2' %}
+        <!-- about-section end -->
+
+        <!-- about-style-two -->
+        {% section 'section-about-3' %}
+        <!-- about-style-two end -->
+
+        <!-- about-section -->
+        {% section 'section-about-4' %}
+        <!-- about-section end -->
+
+        <!-- about-section -->
+       {% section 'section-about-5' %}
+        <!-- about-section end -->

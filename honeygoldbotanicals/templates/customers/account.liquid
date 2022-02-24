@@ -1,0 +1,218 @@
+ <!--Page Title-->
+        <section class="page-title centred" style="background-image: url('{{ '35.jpg' | asset_url }}');">
+            <div class="auto-container">
+                <div class="content-box">
+                    <div class="title">
+                        <h1 class="title-fix">{{ page_title }}</h1>
+                    </div>
+                    <ul class="bread-crumb clearfix">
+                        <li><a href="{{ routes.root_url }}">Home</a></li>
+                        <li class="see">{{ page_title }}</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!--End Page Title-->
+        <!---Page-section -->
+        <section class="account" style="background-color: #1c1c1c;">
+            <div class="auto-container">
+                <div class="sec-title d-flex flex-wrap wow fadeInUp animated" data-wow-duration="3s">
+                    <h2>My Account</h2>
+                    <button class="theme-btn-two" data-toggle="modal" data-target="#modal-edit-pass-{{ customer.id }}">Change password</button>
+                </div>
+                <div class="row">
+                     <div class="col-lg-6">
+                       
+                        <div class="box-address">
+                            <h3 class="mb-10">1. Infomation</h3>
+                            <table>
+                                <tbody>
+                                  <tr>
+                                    <td>First Name</td>
+                                    <td>{{ customer.first_name }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Last Name</td>
+                                    <td>{{ customer.last_name }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Email</td>
+                                    <td>{{ customer.email }}</td>
+                                  </tr>
+                                </tbody>
+                              <div class="col-12 d-flex justify-content-between">
+                                <button class="theme-btn-one" data-toggle="modal" data-target="#modal-edit-{{ customer.id }}">Edit</button>
+                            </div>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                     
+                        <div class="box-address">
+                            <h3 class="mb-10">2. Shipping address</h3>
+                           {% if customer.addresses != empty %}
+                              <table>
+                                  <tbody>
+                                  {% for address in customer.addresses %}
+                                   {% if address == customer.default_address %}
+                                    <tr>
+                                      <td>First Name</td>
+                                      <td>{{ address.first_name }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Last Name</td>
+                                      <td>{{ address.last_name }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Phone Number</td>
+                                      <td>{{ address.phone }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Company</td>
+                                      <td>{{ address.company }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Address 1</td>
+                                      <td>{{ address.address1 }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>City</td>
+                                      <td>{{ address.city }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Country</td>
+                                      <td>{{ address.country }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>ZIP/Postal Code</td>
+                                      <td>{{ address.zip }}</td>
+                                    </tr>
+                                   {% endif  %}
+                                 {% endfor  %}
+                                  </tbody>
+                              </table>
+                              <div class="row">
+                                  <div class="col-12 d-flex justify-content-between">
+                                      <a href="/account/addresses">
+                                          <button class="theme-btn-one">View all</button>    
+                                      </a>
+                                  </div>
+                              </div>
+                           {% else %}
+                             <p>Delivery address is empty</p>
+                      		{% endif %}
+                        </div>
+                    </div>
+                   
+                    <div class="col-12">
+                        <div class="table-content box-order">
+                            <h3>{{ 'customer.orders.title' | t }}</h3>
+                          {% if customer.orders.size != 0 %}
+                            <table class="table table-mobile">
+                                <thead>
+                                    <tr>
+                                        <th>{{ 'customer.orders.order_number' | t }}</th>
+                                        <th>{{ 'customer.orders.date' | t }}</th>
+                                        <th>{{ 'customer.orders.payment_status' | t }}</th>
+                                        <th>{{ 'customer.orders.fulfillment_status' | t }}</th>
+                                        <th>{{ 'customer.orders.total' | t }}</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   {% for order in customer.orders %}
+                                    <tr>
+                                        <td data-label="Order">{{ order.name }}</td>
+                                        <td data-label="Date">{{ order.created_at | time_tag: format: 'date' }}</td>
+                                        <td data-label="Payment status">{{ order.financial_status_label }}</td>
+                                        <td data-label="Fullfillment status">{{ order.fulfillment_status_label }}</td>
+                                        <td data-label="Total">{{ order.total_price | money }}</td>
+                                        <td>
+                                            <a href="{{ order.customer_url }}">View</a>
+                                        </td>
+                                    </tr>
+                                   {% endfor %}
+                                </tbody>
+                            </table>
+                          {% else %}
+                           	<p>{{ 'customer.orders.none' | t }}</p>
+                          {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="modal-edit-pass-{{ customer.id }}" tabindex="{{ customer.id }}" role="dialog" aria-labelledby="modal-edit-passTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h2 class="modal-title" id="exampleModalLongTitle">Change Password</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                       {% form 'customer', customer %}
+                          <div class="modal-body">
+                              <div class="row">
+                                      <div class="col-md-12">
+                                          <div class="mb-30">
+                                              <label>New Password<span>*</span></label>
+                                              <input type="password" name="customer[password]" id="CustomerPassword_{{ customer.id }}">
+                                          </div>
+                                      </div>
+                                      <div class="col-md-12">
+                                          <div class="mb-30">
+                                              <label>Password confirm<span>*</span></label>
+                                              <input type="password" value="" name="customer[password_confirmation]" id="CustomerPassword2_{{ customer.id }}">
+                                          </div>
+                                      </div>
+                                  </div>
+                          </div>
+                          <div class="modal-footer">
+                              <button type="submit" class="theme-btn-two">Save changes</button>
+                          </div>
+                       {% endform %}
+                    </div>
+                </div>
+            </div>
+        </section>
+ 		<div class="modal fade" id="modal-edit-{{ customer.id }}" tabindex="{{ customer.id }}" role="dialog" aria-labelledby="modal-editTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h2 class="modal-title" id="exampleModalLongTitle">Edit Infomation</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                       {% form 'customer', customer %}
+                        <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-30">
+                                            <label>First Name <span>*</span></label>
+                                           	<input type="text" name="customer[first_name]" value="{{ customer.first_name }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-30">
+                                            <label>Last Name <span>*</span></label>
+                                            <input type="text" name="customer[last_name]" value="{{ customer.last_name }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="mb-30">
+                                            <label>Email <span>*</span></label>
+                                           <input type="email" name="customer[email]" value="{{ customer.email }}">
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="theme-btn-two">Save changes</button>
+                        </div>
+                   	{% endform %}
+                    </div>
+                </div>
+            </div>
+        <!-- End -Page-->

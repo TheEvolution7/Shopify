@@ -1,0 +1,18 @@
+		<div class="col-lg-4 col-md-6 col-sm-12 shop-block">
+            <div class="shop-block-one wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
+              <div class="inner-box">
+                <figure class="image-box"><a href="{{ product.url }}">{% unless product.featured_media == null %}<img src="{{ product.featured_media | img_url: '300x', scale: 2 }}" alt="{{ product.featured_media.alt }}">{% endunless %}</a></figure>
+                <div class="lower-content">
+                  <ul class="rating clearfix">
+                    <li><i class="fas fa-star"></i></li>
+                    <li><i class="fas fa-star"></i></li>
+                    <li><i class="fas fa-star"></i></li>
+                    <li><i class="fas fa-star"></i></li>
+                    <li><i class="fas fa-star-half"></i></li>
+                  </ul>
+                  <h5><a href="{{ product.url }}">{{ product.title }}</a></h5>
+                  <span class="price">{{ product.price | money }}</span>
+                </div>
+              </div>
+            </div>
+          </div>

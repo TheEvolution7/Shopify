@@ -1,0 +1,215 @@
+   <!--Page Title-->
+        <section class="page-title centred" style="background-image: url('{{ section.settings.image | img_url : '1920x' }}');">
+            <div class="auto-container">
+                <div class="content-box">
+                    <div class="title">
+                        <h1 class="title-fix">CBD Products & Apparel</h1>
+                    </div>
+                    <ul class="bread-crumb clearfix">
+                        <li><a href="{{ routes.root_url }}" style="z-index: 99;">Home</a></li>
+                        <li class="see" style="z-index: 99;">{{ page_title }}</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!--End Page Title-->
+
+
+        <!-- shop-section -->
+        <section class="search-grid">
+            <div class="parallax-container js-text-parallax">
+                <div class="fx-wrap fx-section-se" data-x="200">
+                    <h3 class="fx-target">{{ page_title }}</h3>
+                </div>
+            </div>
+            <div class="auto-container">
+                <div class="row clearfix">
+                   {% if section.settings.display_type == 'all' %}
+                      {% for collection in collections %}
+                  		{% if forloop.index != 3 %}
+                        	{% include 'collection-list-item', collection: collection %}
+                   		{% endif %}
+                      {% endfor %}
+                   {%- else %}
+                      {% for block in section.blocks %}
+                       {%- assign collection = collections[block.settings.collection] -%}
+                            {% include 'collection-list-item', collection: collection %}
+                      {% endfor %}
+                  {% endif %}
+                </div>
+            </div>
+        </section>
+        <!-- shop-section end -->
+{% schema %}
+{
+  "name": {
+    "cs": "Stránka se seznamem kolekcí",
+    "da": "Siden Kollektionsliste",
+    "de": "Kategorien-Liste Seite",
+    "en": "Collections list page",
+    "es": "Lista de colecciones",
+    "fi": "Kokoelmaluettelosivu",
+    "fr": "Liste des collections",
+    "it": "Elenco collezioni",
+    "ja": "コレクションリストのページ",
+    "ko": "컬렉션 목록 페이지",
+    "nb": "Samlingsliste-side",
+    "nl": "Pagina Collectielijst",
+    "pl": "Strona listy kolekcji",
+    "pt-BR": "Lista de coleções",
+    "pt-PT": "Página da lista de coleções",
+    "sv": "Kollektionslistsida",
+    "th": "หน้ารายการคอลเลกชัน",
+    "tr": "Koleksiyonlar listesi sayfası",
+    "vi": "Trang danh sách bộ sưu tập",
+    "zh-CN": "产品系列列表页面",
+    "zh-TW": "商品系列清單頁面"
+  },
+  "settings": [
+	{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Banner"
+    },
+	{
+      "type": "radio",
+      "id": "display_type",
+      "label": {
+        "cs": "Vyberte kolekce, které chcete zobrazit",
+        "da": "Vælg de kollektioner, der skal vises",
+        "de": "Kategorien auswählen, die angezeigt werden sollen",
+        "en": "Select collections to show",
+        "es": "Selecciona colecciones para mostrar",
+        "fi": "Valitse näytettävät kokoelmat",
+        "fr": "Sélectionner les collections à afficher",
+        "it": "Seleziona le collezioni da mostrare",
+        "ja": "表示するコレクションを選択する",
+        "ko": "표시할 컬렉션 선택",
+        "nb": "Velg samlinger som skal vises",
+        "nl": "Collecties selecteren om weer te geven",
+        "pl": "Wybierz kolekcje do pokazania",
+        "pt-BR": "Selecione coleções para exibir",
+        "pt-PT": "Selecionar coleções para mostrar",
+        "sv": "Välj kollektioner som ska visas",
+        "th": "เลือกคอลเลกชันที่จะแสดง",
+        "tr": "Gösterilecek koleksiyonları seçin",
+        "vi": "Chọn bộ sưu tập muốn hiển thị",
+        "zh-CN": "选择要显示的产品系列",
+        "zh-TW": "選取欲顯示的商品系列"
+      },
+      "default": "all",
+      "options": [
+        {
+          "value": "all",
+          "label": {
+            "cs": "Všechny",
+            "da": "Alle",
+            "de": "Alle",
+            "en": "All",
+            "es": "Todos",
+            "fi": "Kaikki",
+            "fr": "Toutes",
+            "it": "Tutte",
+            "ja": "すべて",
+            "ko": "모두",
+            "nb": "Alle",
+            "nl": "Alle",
+            "pl": "Wszystkie",
+            "pt-BR": "Tudo",
+            "pt-PT": "Tudo",
+            "sv": "Alla",
+            "th": "ทั้งหมด",
+            "tr": "Tümü",
+            "vi": "Tất cả",
+            "zh-CN": "所有",
+            "zh-TW": "全部"
+          }
+        },
+        {
+          "value": "selected",
+          "label": {
+            "cs": "Vybrané",
+            "da": "Valgt",
+            "de": "Ausgewählt",
+            "en": "Selected",
+            "es": "Seleccionadas",
+            "fi": "Valittu",
+            "fr": "Sélection",
+            "it": "Selezionato",
+            "ja": "選択済み",
+            "ko": "선택됨",
+            "nb": "Valgt",
+            "nl": "Geselecteerd",
+            "pl": "Wybrane",
+            "pt-BR": "Selecionado",
+            "pt-PT": "Selecionado",
+            "sv": "Valt",
+            "th": "เลือกแล้ว",
+            "tr": "Seçildi",
+            "vi": "Đã chọn",
+            "zh-CN": "已选",
+            "zh-TW": "已選取"
+          }
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": {
+        "cs": "Kolekce",
+        "da": "Kollektion",
+        "de": "Kategorie",
+        "en": "Collection",
+        "es": "Colección",
+        "fi": "Kokoelma",
+        "fr": "Collection",
+        "it": "Collezione",
+        "ja": "コレクション",
+        "ko": "컬렉션",
+        "nb": "Samling",
+        "nl": "Collectie",
+        "pl": "Kolekcja",
+        "pt-BR": "Coleção",
+        "pt-PT": "Coleção",
+        "sv": "Produktserie",
+        "th": "คอลเลกชัน",
+        "tr": "Koleksiyon",
+        "vi": "Bộ sưu tập",
+        "zh-CN": "收藏",
+        "zh-TW": "商品系列"
+      },
+      "settings": [
+        {
+          "label": {
+            "cs": "Kolekce",
+            "da": "Kollektion",
+            "de": "Kategorie",
+            "en": "Collection",
+            "es": "Colección",
+            "fi": "Kokoelma",
+            "fr": "Collection",
+            "it": "Collezione",
+            "ja": "コレクション",
+            "ko": "컬렉션",
+            "nb": "Samling",
+            "nl": "Collectie",
+            "pl": "Kolekcja",
+            "pt-BR": "Coleção",
+            "pt-PT": "Coleção",
+            "sv": "Produktserie",
+            "th": "คอลเลกชัน",
+            "tr": "Koleksiyon",
+            "vi": "Bộ sưu tập",
+            "zh-CN": "收藏",
+            "zh-TW": "商品系列"
+          },
+          "id": "collection",
+          "type": "collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,37 @@
+{% comment %}
+    Renders a product card using "List" style
+
+    Accepts:
+    - product: {Object} Product Liquid object (required)
+    - show_vendor: {Boolean} Show the product's vendor depending on the section setting (optional)
+
+    Usage:
+    {% include 'product-card-list', product: product %}
+{% endcomment %}
+{%- liquid
+  if product.title
+    assign compare_at_price = product.compare_at_price
+    assign price = product.price
+    assign available = product.available
+    assign variant = product.variants.first
+  else
+    assign compare_at_price = 1999
+    assign price = 1999
+    assign available = true
+  endif
+
+  assign money_price = price | money
+-%}
+<div class="col-lg-4 col-md-6 col-sm-12 shop-block">
+  <div class="shop-block-one">
+    <div class="inner-box wow fadeInUp animated" data-wow-duration="4s">
+      <figure class="image-box"><a href="{{ product.url }}"><img src="{{ product.featured_image | img_url: '500x' }}" alt="{{ product.featured_image.alt | default: product.title }}"></a></figure>
+      <div class="lower-content">
+        <h5><a href="{{ product.url }}">{{ product.title }}</a></h5>
+        {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: true, product: product %}
+        <span><del>{{ compare_at_price | money }}</del></span>
+        <span class="price">{{ money_price }}</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,65 @@
+<section class="shop-section centred">
+            <div class="parallax-container js-text-parallax">
+                <div class="fx-wrap fx-section-1" data-x="-200">
+                    <h3 class="fx-target">popular </h3>
+                </div>
+                <div class="fx-wrap fx-section-2" data-x="200">
+                    <h3 class="fx-target">product</h3>
+                </div>
+            </div>
+            <div class="auto-container">
+                <div class="sec-title centred wow fadeInUp" data-wow-duration="3s">
+                    <p>{{ section.settings.title }}</p>
+                    <h2>{{ section.settings.heading }}</h2>
+                </div>
+                <div class="four-item-carousel owl-carousel owl-theme owl-dots-none owl-stage-none owl-loaded owl-drag wow fadeInUp" data-wow-duration="3s">
+                {%- for product in collections[section.settings.collection].products limit:section.settings.products_count -%}
+                  	<div class="shop-block-one">
+                        <div class="inner-box">
+                            <figure class="image-box"><a href="{{ product.url}}"><img src="{{ product.featured_media | img_url: '300x', scale: 2 }}" alt="{{ product.featured_media.alt | default : product.title }}"></a></figure>
+                            <div class="lower-content">
+                                <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                                <h5><a href="{{ product.url }}">{{ product.title }}</a></h5>
+                                <span class="price">{{ product.price | money }}</span>
+                            </div>
+                        </div>
+                    </div>
+               	{%- endfor -%}     
+                </div>     
+            </div>
+
+        </section>
+{% schema %}
+  {
+    "name": "Section Home 5",
+    "settings": [
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Visit Our Store"
+    	},
+		{
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+		  "default" : "popular product" 
+    	},
+		{
+		  "type" : "header",
+		  "content": "Collection Product"
+		},
+		{
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+		{
+          "type": "text",
+          "id": "products_count",
+          "label": "No of products to show",
+          "default": "3"
+     	}
+		]
+  }
+{% endschema %}

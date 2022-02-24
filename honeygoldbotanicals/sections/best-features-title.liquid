@@ -1,0 +1,26 @@
+<ul class="list-content-features">
+  {%- for block in section.blocks -%}
+  	<li>{{ block.settings.text }}</li>
+  {%- endfor  -%}
+</ul>
+{% schema %}
+  {
+    "name": "Section Best features 2",
+    "settings": [
+	
+		],
+"blocks": [
+    {
+      "type": "content",
+      "name": "Content",
+      "settings": [
+  		{
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+    	}
+      ]
+    }
+  ]
+  }
+{% endschema %}

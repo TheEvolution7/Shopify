@@ -1,0 +1,72 @@
+   		<section class="testimonial-section alternat-3">
+            <div class="parallax-container js-text-parallax">
+                <div class="fx-wrap fx-section-tes" data-x="200">
+                    <h3 class="fx-target">{{ section.settings.title }}</h3>
+                </div>
+            </div>
+            <div class="auto-container">
+                <div class="sec-title sec-testi style-two wow fadeInUp animated" data-wow-duration="6s">
+                    <p></p>
+                    <h2>{{ section.settings.title }}</h2>
+                </div>
+                <div class="testimonial-inner">
+                    <div class="single-item-carousel owl-carousel owl-theme owl-nav-none">
+                     {%- for block in section.blocks -%}
+                        <div class="testimonial-block-one wow fadeInUp animated" data-wow-duration="6s">
+                            <div class="inner-box">
+                                <div class="text">
+                                    <p><img src="{{ 'arrow-1.png' | asset_url }}" alt="">{{ block.settings.text }}</p>
+                                </div>
+                                <div class="author-info">
+                                    <figure class="author-thumb"><img src="{{ block.settings.image | img_url : '300x' }}" alt="{{ block.settings.title }}"></figure>
+                                    <h4>{{ block.settings.title }}</h4>
+                                    <span class="designation">{{ block.settings.role }}</span>
+                                </div>
+                            </div>
+                        </div>
+                     {%- endfor -%}  
+                    </div>
+                </div>
+            </div>
+        </section>
+{% schema %}
+  {
+    "name": "Section Our Mission 5",
+    "settings": [
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+ 		  "default" : "Testimonials"
+    	}
+		],
+"blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+		{
+            "type": "text",
+            "id": "text",
+            "label": "Description"   
+        }, 
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Name"
+    	},
+		{
+          "type": "text",
+          "id": "role",
+          "label": "Role"
+    	}
+      ]
+    }
+  ]
+  }
+{% endschema %}

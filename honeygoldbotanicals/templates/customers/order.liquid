@@ -1,0 +1,240 @@
+
+        <!--Page Title-->
+        <section class="page-title centred" style="background-image: url('{{ '35.jpg' | asset_url }}');">
+            <div class="auto-container">
+                <div class="content-box">
+                    <div class="title">
+                        <h1 class="title-fix">{{ page_title }}</h1>
+                    </div>
+                    <ul class="bread-crumb clearfix">
+                        <li><a href="{{ routes.root_url }}">Home</a></li>
+                        <li class="see">{{ page_title }}</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!--End Page Title-->
+
+
+        <!---Page-section -->
+        <section class="order account cart-section" style="background-color: #1c1c1c;">
+            <div class="auto-container">
+                <div class="sec-title d-flex flex-wrap wow fadeInUp animated" data-wow-duration="3s">
+                    <div>
+                        <h2>{{ 'customer.order.title' | t: name: order.name }}</h2>
+                         {%- assign order_date = order.created_at | time_tag: format: "date_at_time" -%}
+      					<p>{{ 'customer.order.date_html' | t: date: order_date }}</p>
+                    </div>
+                    <a href="/account">
+                        <button class="theme-btn-one">Back</button>
+                    </a>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="box-address">
+                            <h3 class="mb-10">1. Billing Address</h3>
+                            <table>
+                                <tbody>
+                           
+                                  <tr>
+                                    <td>First Name</td>
+                                    <td>{{ order.billing_address.first_name }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Last Name</td>
+                                    <td>{{ order.billing_address.last_name }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Phone Number</td>
+                                    <td>{{ order.billing_address.phone }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Company</td>
+                                    <td>{{ order.billing_address.company }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Address 1</td>
+                                    <td>{{ order.billing_address.address1 }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>City</td>
+                                    <td>{{ order.billing_address.city }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Country</td>
+                                    <td>{{ order.billing_address.country }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>ZIP/Postal Code</td>
+                                    <td>{{ order.billing_address.zip }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>{{ 'customer.order.payment_status' | t }}:</td><td>{{ order.financial_status_label }}</td>
+                                  </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="box-address">
+                            <h3 class="mb-10">2. Shipping address</h3>
+                            <table>
+                                <tbody>
+                                   <tr>
+                                    <td>First Name</td>
+                                    <td>{{ order.shipping_address.first_name }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Last Name</td>
+                                    <td>{{ order.shipping_address.last_name }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Phone Number</td>
+                                    <td>{{ order.billing_address.phone }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Company</td>
+                                    <td>{{ order.shipping_address.company }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Address 1</td>
+                                    <td>{{ order.shipping_address.address1 }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>City</td>
+                                    <td>{{ order.shipping_address.city }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Country</td>
+                                    <td>{{ order.shipping_address.country }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>ZIP/Postal Code</td>
+                                    <td>{{ order.shipping_address.zip }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>{{ 'customer.order.fulfillment_status' | t }}:</td><td>{{ order.fulfillment_status_label }}</td>
+                                  </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="cart-table-box mt-5">
+                            <table class="cart-table">
+ <thead>
+          <tr>
+            <th></th>
+            <th>{{ 'customer.order.product' | t }}</th>
+            <th>{{ 'customer.order.price' | t }}</th>
+            <th>{{ 'customer.order.quantity' | t }}</th>
+            <th>{{ 'customer.order.total' | t }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for line_item in order.line_items -%}
+            <tr id="{{ line_item.key }}">
+              <td>
+                 <a href="shop-details.html">
+                    <img src=" {{ line_item.image | img_url : '200x' }}" alt="">
+                 </a>
+              </td>
+              <td>
+                   <div class="cart-title">
+                       {{ line_item.title | link_to: line_item.product.url }}
+                   </div>   
+              </td>
+              <td>
+                <dl>
+                  {%- if line_item.original_price != line_item.final_price -%}
+                    <dt>
+                      <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+                    </dt>
+                    <dd>
+                      <s>{{ line_item.original_price | money }}</s>
+                    </dd>
+                    <dt>
+                      <span class="visually-hidden">{{ 'products.product.sale_price' | t }}</span>
+                    </dt>
+                    <dd>
+                      <span class="order-discount">{{ line_item.final_price | money }}</span>
+                    </dd>
+                  {%- else -%}
+                    <dt>
+                      <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+                    </dt>
+                    <dd>
+                      {{ line_item.original_price | money }}
+                    </dd>
+                  {%- endif -%}
+
+                  {%- if line_item.unit_price_measurement -%}
+                    <dt>
+                      <span class="visually-hidden visually-hidden--inline">{{ 'products.product.unit_price_label' | t }}</span>
+                    </dt>
+                    <dd>
+                      <span class="price-unit-price">
+                        {%- capture unit_price_separator -%}
+                          <span aria-hidden="true">/</span><span class="visually-hidden">{{ 'general.accessibility.unit_price_separator' | t }}&nbsp;</span>
+                        {%- endcapture -%}
+                        {%- capture unit_price_base_unit -%}
+                          {%- if line_item.unit_price_measurement.reference_value != 1 -%}
+                            {{- line_item.unit_price_measurement.reference_value -}}
+                          {%- endif -%}
+                          {{ line_item.unit_price_measurement.reference_unit }}
+                        {%- endcapture -%}
+
+                        <span data-unit-price>{{ line_item.unit_price | money }}</span>{{- unit_price_separator -}}{{- unit_price_base_unit -}}
+                      </span>
+                    </dd>
+                  {%- endif -%}
+                </dl>
+              </td>
+              <td>{{ line_item.quantity }}</td>
+              <td>
+                {%- if line_item.original_line_price != line_item.final_line_price -%}
+                  <dl>
+                    <dt>
+                      <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+                    </dt>
+                    <dd>
+                      <s>{{ line_item.original_line_price | money }}</s>
+                    </dd>
+                    <dt>
+                      <span class="visually-hidden">{{ 'products.product.sale_price' | t }}</span>
+                    </dt>
+                    <dd>
+                      <span class="order-discount">{{ line_item.final_line_price | money }}</span>
+                    </dd>
+                  </dl>
+                {%- else -%}
+                  {{ line_item.original_line_price | money }}
+                {%- endif -%}
+              </td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix coupon-box">
+                    <div class="col-lg-4 col-md-5 ml-auto">
+                        <div class="total-box wow fadeInUp animated" data-wow-duration="3s">
+                            <h4>Cart-totals</h4>
+                            <ul>
+                              {%- for shipping_method in order.shipping_methods -%}
+                              	<li>{{ 'customer.order.shipping' | t }} ({{ shipping_method.title }})<span>{{ shipping_method.price | money }}</span> </li>
+                              {%- endfor -%}
+                              {%- for tax_line in order.tax_lines -%}
+                                <li>{{ 'customer.order.tax' | t }} ({{ tax_line.title }} {{ tax_line.rate | times: 100 }}%)<span>{{ tax_line.price | money }}</span> </li>
+                              {%- endfor -%}
+                                <li>{{ 'customer.order.total' | t }}<span>{{ order.total_price | money_with_currency }}</span> </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End -Page-->

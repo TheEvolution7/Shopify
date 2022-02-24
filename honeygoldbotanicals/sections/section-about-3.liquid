@@ -1,0 +1,94 @@
+<section class="about-style-two about-section-bg sec-pad-2 border-bottom">
+  <div class="auto-container">
+    <div class="row clearfix">
+      <div class="col-lg-6 col-md-12 col-sm-12 image-column order-1 order-lg-0">
+        <div class="image_block_2">
+          <div class="image-box wow fadeInUp animated" data-wow-duration="8s">
+            <figure class="image image-1"><img src="{{ section.settings.image_1 | img_url : '400x' }}" alt="{{ section.settings.image_1.alt }}"></figure>
+            <figure class="image image-2"><img src="{{ section.settings.image_2 | img_url : '400x' }}" alt="{{ section.settings.image_2.alt }}"></figure>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12 col-sm-12 content-column order-0 order-lg-1">
+        <div class="content_block_3">
+          <div class="content-box no-margin">
+            <div class="sec-title style-two wow fadeInUp animated" data-wow-duration="8s">
+              <h2 class="mb-4">{{ section.settings.title }}</h2>
+              {{ section.settings.text }}
+            </div>
+            <div class="tabs-box wow fadeInUp animated" data-wow-duration="6s">
+              <div class="tab-btn-box">
+                <ul class="tab-btns tab-buttons clearfix">
+                  {%- for block in section.blocks -%}
+                  <li class="tab-btn  {% if forloop.first %} active-btn {% endif %}" data-tab="#tab-{{ forloop.index }}"><h5>{{ block.settings.title }}</h5></li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+              <div class="tabs-content">
+                {%- for block in section.blocks -%}
+                <div class="tab {% if forloop.first %} active-tab {% endif %}" id="tab-{{ forloop.index }}">
+                  <div class="inner-box">
+                    <div class="inner wow fadeInUp animated" data-wow-duration="3s">
+                      <div class="text">
+                        <li>{{ block.settings.text }}</li>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {%- endfor -%} 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> 
+</section>
+{% schema %}
+  {
+    "name": "Section About 3",
+    "settings": [
+		{
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Image 1"
+        },
+		{
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Image 2"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+ 		  "default" : "No Compromise on Our Values"
+    	},
+		{
+            "type": "richtext",
+            "id": "text",
+            "label": "Text",   
+			"default" : "<p>Matt and Chloe are some of the most empathetic individuals devoted to the advocacy of CBD throughout the country. Their aspirations have set in stone certain values that everyone at Honey Gold Botanicals lives up to.</p>"
+        }  
+		],
+"blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+	  "limit": 3, 
+      "settings": [
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+    	},
+        {
+            "type": "text",
+            "id": "text",
+            "label": "Text"   
+        }  
+      ]
+    }
+  ]
+  }
+{% endschema %}

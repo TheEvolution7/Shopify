@@ -1,0 +1,85 @@
+<!--Page Title-->
+        <section class="page-title centred" style="background-image: url('{{ section.settings.image_bg | img_url : '1920x' }}');">
+            <div class="auto-container">
+                <div class="content-box">
+                    <div class="title">
+                        <h1 class="title-fix">Helpful Insights On CBD</h1>
+                    </div>
+                    <ul class="bread-crumb clearfix">
+                        <li><a href="{{ routes.root_url }}">Home</a></li>
+                        <li class="see">Blog</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!--End Page Title-->
+
+{% paginate blog.articles by 6 %}
+        <!-- news-section -->
+        <section class="blog-grid" style="background-color: #1c1c1c;">
+            <div class="parallax-container js-text-parallax">
+                <div class="fx-wrap fx-section-1" data-x="200">
+                    <h3 class="fx-target">{{ page_title }}</h3>
+                </div>
+            </div>
+            <div class="auto-container">
+                <div class="row clearfix">
+                  {%- for article in blog.articles -%}
+                    <div class="col-lg-4 col-md-6 col-sm-12 news-block">
+                        <div class="news-block-one wow fadeInUp animated animated" data-wow-delay="00ms" data-wow-duration="1500ms">
+                            <div class="inner-box">
+                                <figure class="image-box"><a href="{{ article.url }}">{{ article | img_url: '300x', scale: 2 | img_tag: article.title }}</a></figure>
+                                <div class="lower-content">
+                                    <h5><a href="{{ article.url }}">{{ article.title }}</a></h5>
+                                    <div class="link"><a href="{{ article.url }}">read more</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 {%- endfor -%}
+                </div>
+                <div class="pagination-wrapper centred">
+                    {%- if paginate.pages > 1 -%}
+  						{% include 'pagination', paginate: paginate %}
+					{%- endif -%}
+                </div>
+            </div>
+        </section>
+
+
+{% endpaginate %}
+        <!-- news-section end -->
+{% schema %}
+{
+  "name": {
+    "cs": "Stránky blogu",
+    "da": "Blogsider",
+    "de": "Blogseiten",
+    "en": "Blog pages",
+    "es": "Páginas del blog",
+    "fi": "Blogisivut",
+    "fr": "Pages du blog",
+    "it": "Pagine del blog",
+    "ja": "ブログページ",
+    "ko": "블로그 페이지",
+    "nb": "Bloggsider",
+    "nl": "Blogpagina's",
+    "pl": "Strony blogu",
+    "pt-BR": "Páginas do blog",
+    "pt-PT": "Páginas do blogue",
+    "sv": "Bloggsidor",
+    "th": "หน้าบล็อก",
+    "tr": "Blog sayfaları",
+    "vi": "Trang blog",
+    "zh-CN": "博客页面",
+    "zh-TW": "部落格頁面"
+  },
+  "settings": [
+	{
+      "type": "image_picker",
+      "id": "image_bg",
+      "label": "Image Background"
+    }     
+  ]
+}
+{% endschema %}

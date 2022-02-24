@@ -1,0 +1,173 @@
+ <!--Page Title-->
+        <section class="page-title centred" style="background-image: url('{{ section.settings.image | img_url : '1920x' }}');">
+            <div class="auto-container">
+                <div class="content-box">
+                    <div class="title">
+                        <h2 class="title-fix">Product Detail</h2>
+                    </div>
+                    <ul class="bread-crumb clearfix">
+                        <li><a href="{{ routes.root_url }}">Home</a></li>
+                        <li class="see">Product Detail</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!--End Page Title-->
+         <!-- shop-details -->
+	{% form 'product', product %}
+        <section class="shop-details border-bottom" style="background-color: #1c1c1c;">
+            <div class="auto-container">
+                <div class="product-details-content">
+                    <div class="row clearfix">
+                        <div class="col-lg-7 col-md-12 col-sm-12 image-column ">
+                            <div class="slider-inner">
+                                <div class="bxslider ">
+                                 {%- for media in product.media -%}
+                                    <div class="slider-content">
+                                        <div class="slider-pager">
+                                            <ul class="thumb-box">
+                                             {%- for media in product.media -%}
+                                                <li>
+                                                    <a {% if forloop.first %} class="active" {% endif %} data-slide-index="{{ forloop.index0 }}" href="javascript:;"><figure> <img src="{{ media | img_url: "300x" }}" alt="{{ media.alt | default : product.title }}"></figure></a>
+                                                </li>
+                                             {%- endfor -%}
+                                            </ul>
+                                        </div>
+                                      
+                                        <div class="product-image">
+                                            <figure class="image">
+                                                <a href="{{ media | img_url: '600x' }}" class="lightbox-image" data-fancybox="gallery"> <img src="{{ media | img_url: '1000x' }}" alt="{{ media.alt | default : product.title }}" ></a>
+                                             {% if product.type != empty %}
+                                              	<span class="new">{{ product.type }}</span>
+                                             {% endif  %}
+                                            </figure>
+                                           
+                                        </div> 
+                                    </div>
+                                {%- endfor -%}  
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-md-12 col-sm-12 content-column">
+                            <div class="product-details wow fadeInUp animated" data-wow-duration="3s">
+                                <h1>{{ product.title }}</h1>
+                              
+                                <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                               {% for variant in product.variants %}
+                                	<h3 id="price-{{ variant.id }}">{{ variant.price | money }}</h3>
+                               {% endfor %}
+                                 {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: true, product: product %}
+                               {% if product.has_only_default_variant %}	
+                            	<input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                              {% else %}
+                                <div class="size-box">
+                                    <h3>Size</h3>
+                                      <ul class="select-inner">
+                                        {% for variant in product.variants %}
+                                          <li class="custom-check-box">
+                                              <div class="custom-controls-stacked">
+                                                  <label class="custom-control material-checkbox">
+                                                      <input type="hidden" checked="" name="id" value="{{ variant.id }}">
+                                                      <input type="radio" class="material-control-input" checked="" name="id-pro" value="{{ variant.id }}">
+                                                      <span class="material-control-indicator"></span>
+                                                      <span class="description">{{ variant.title }}</span>
+                                                  </label>
+                                              </div>
+                                          </li>
+                                        {% endfor %}
+                                      </ul>
+                                  {% endif %}
+                                </div>
+                                <div class="addto-cart-box"> 
+                                    <ul class="clearfix">
+                                        <li class="item-quantity">
+                                          <input class="quantity-spinner form-control" type="text" name="quantity" value="1" min="1">
+                                      	</li>
+                                        <li>
+                                          <button type="submit" class="theme-btn-two" {% unless product.available %} disabled="disabled"{% endunless %}>  
+                                            {%- if product.available -%}
+                                              Add to Cart
+                                            {%- else -%}
+                                              Sold Out
+                                            {%- endif -%}
+                                          </button>
+                                      </li>
+                                    </ul>
+                                </div>
+                              <div class="product-discription">
+                              <div class="tabs-box  wow fadeInUp animated" data-wow-duration="3s"  >
+                                  <div class="tab-btn-box">
+                                      <ul class="tab-btns tab-buttons clearfix">
+                                          <li class="tab-btn active-btn" data-tab="#tab-1">Description</li>
+                                      </ul>
+          <!--                            <ul class="tab-btns tab-buttons clearfix">
+                                          <li class="tab-btn" data-tab="#tab-2">Review</li>
+                                      </ul> -->
+                                  </div>
+                                  <div class="tabs-content">
+                                      <div class="tab active-tab" id="tab-1">
+                                          <div class="content-box">
+                                              {{ product.description }}
+                                          </div>
+                                      </div>
+          <!--                            <div class="tab" id="tab-2">
+                                          <div class="content-box">
+                                              <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+                                          </div>
+                                      </div> -->
+                                  </div>
+                              </div>
+                          </div>
+                            </div>
+                          
+                        </div>
+                    </div>
+                  <div class="row clearfix">
+                <div class="col-12">
+                  {% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: false, product: product %}
+                  </div>
+              </div>
+                </div>
+              
+              
+                
+            </div>
+        </section>
+        <!-- shop-details end -->
+	{% endform %}
+
+
+{% schema %}
+{
+  "name": {
+    "cs": "Stránky produktů",
+    "da": "Produktsider",
+    "de": "Produktseiten",
+    "en": "Product pages",
+    "es": "Páginas de productos",
+    "fi": "Tuotesivut",
+    "fr": "Pages de produits",
+    "it": "Pagine di prodotto",
+    "ja": "商品ページ",
+    "ko": "제품 페이지",
+    "nb": "Produktsider",
+    "nl": "Productpagina's",
+    "pl": "Strony produktu",
+    "pt-BR": "Páginas de produtos",
+    "pt-PT": "Páginas de produtos",
+    "sv": "Produktsidor",
+    "th": "หน้าสินค้า",
+    "tr": "Ürün sayfaları",
+    "vi": "Trang sản phẩm",
+    "zh-CN": "产品页面",
+    "zh-TW": "產品頁面"
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Banner"
+    }  
+  ]
+}
+{% endschema %}

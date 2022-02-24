@@ -1,0 +1,38 @@
+// .view_more {
+//     display: inline-flex;
+//     flex-direction: column;
+//     cursor: pointer;
+//     --dur: 0.4s;
+//     --ease: cubic-bezier(0.61, 0.01, 0.13, 1.02);
+//     span {
+//         font-family: l;
+//         font-size: 30px;
+//         line-height: normal;
+//         margin-bottom: 4px;
+//     }
+//     i {
+//         img {
+//             width: 70px;
+//             @include transform(rotate(90deg));
+//             @include transition(var(--dur) var(--ease));
+//         }
+//     }
+//     &:hover {
+//         i {
+//             img {
+//                 @include transform(rotate(135deg));
+//                 @include transition(var(--dur) var(--ease));
+//             }
+//         }
+//     }
+//     @include mobile {
+//         span {
+//             font-size: 20px;
+//         }
+//         i {
+//             img {
+//                 width: 44px;
+//             }
+//         }
+//     }
+// }

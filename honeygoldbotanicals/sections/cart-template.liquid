@@ -1,0 +1,160 @@
+<!--Page Title-->
+        <section class="page-title centred" style="background-image: url('{{ section.settings.image | img_url : '1920x' }}');">
+            <div class="auto-container">
+                <div class="content-box">
+                    <div class="title">
+                        <h1 class="title-fix">{{ section.settings.title }}</h1>
+                    </div>
+                    <ul class="bread-crumb clearfix">
+                        <li><a href="{{ routes.root_url }}">Home</a></li>
+                        <li class="see">{{ section.settings.title }}</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!--End Page Title-->
+
+
+        <!-- Cart-Page-section -->
+        <section class="cart-section" style="background-color: #1c1c1c;">
+          {% if cart.item_count == 0 %}
+          <div class="auto-container">
+           <div class="row">
+             <div class="col-12">
+          			<p>The cart is empty</p>
+             </div>
+          </div>
+          </div>
+          {% else %}
+           <form action="{{ routes.cart_url }}" method="post">
+            	<div class="auto-container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="cart-table-box">
+                            <table class="cart-table">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Quantiny</th>
+                                        <th>Total</th>
+                                        <th>Remove</th>
+                                    </tr>
+                                    
+                                </thead>
+                                <tbody>
+                                    {%- for item in cart.items -%}
+                                    	<tr>
+                                        <td>
+                                            <div class="cart-thumb">
+                                                <a href="{{ item.url }}">
+                                                    <img src="{{ item | img_url: '500x' }}" alt="">
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="cart-title">
+                                                <h6><a href="{{ item.url }}">{{ item.product.title }}</a></h6>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {{ item.original_price | money }}
+                                        </td>
+                                        <td>
+                                            <li class="item-quantity">
+                                              <input class="quantity-spinner" type="text" id="{{ item.key }}" name="updates[]" value="{{ item.quantity }}">
+                                            </li>
+                                        </td>
+                                        <td>
+                                            <span>{{ item.original_line_price | money }}</span>
+                                        </td>
+                                        <td>
+                                            <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0"><div class="card-remove"></div></a>
+                                        </td>
+                                    </tr>
+                                    {%- endfor  -%}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix coupon-box">
+                    <div class="col-lg-6 col-md-12 col-sm-12 ">
+<!--                         <div class="coupon-input">
+                            <input type="text" value placeholder="Enter Coupon Code">
+                            <button class="theme-btn-one" type="submit">apply coupon</button>
+                        </div> -->
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <ul class="total-box wow fadeInUp animated" data-wow-duration="3s">
+                            <li><span>Subtotal</span> {{ cart.total_price | money_with_currency }}</li>
+                            <li><span>Total</span> {{ cart.total_price | money_with_currency }}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 wow fadeInUp animated" data-wow-duration="3s">
+                        <div class="button-box-one">
+                            <a href="{{ routes.root_url }}">
+                                <button class="theme-btn-back" type="button" onclick="window.location.href='{{ routes.root_url }}'">back</i></button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 wow fadeInUp animated" data-wow-duration="3s">
+                        <div class="button-box-two">
+                            <a href="#">
+                                <button class="theme-btn-up" type="submit" name="update">update</i></button>
+                            </a>
+                            <a href="#">
+                                <button class="theme-btn-check" name="checkout" type="submit">checkout</i></button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			</form>
+		{% endif %}
+        </section>
+        <!-- End Cart-Page -->
+{% schema %}
+{
+  "name": {
+    "cs": "Stránka košíku",
+    "da": "Side med indkøbskurv",
+    "de": "Warenkorb-Seite",
+    "en": "Cart page",
+    "es": "Página del carrito",
+    "fi": "Ostoskorisivu",
+    "fr": "Page du panier",
+    "it": "Pagina del carrello",
+    "ja": "カートページ",
+    "ko": "카트 페이지",
+    "nb": "Handlekurvside",
+    "nl": "Winkelwagenpagina",
+    "pl": "Strona koszyka",
+    "pt-BR": "Página do carrinho",
+    "pt-PT": "Página do carrinho",
+    "sv": "Varukorgssida",
+    "th": "หน้าตะกร้าสินค้า",
+    "tr": "Sepet sayfası",
+    "vi": "Trang giỏ hàng",
+    "zh-CN": "购物车页面",
+    "zh-TW": "購物車頁面"
+  },
+  "settings": [
+	 {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Shopping Cart"
+    },
+	{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+    }
+   
+  ]
+}
+{% endschema %}

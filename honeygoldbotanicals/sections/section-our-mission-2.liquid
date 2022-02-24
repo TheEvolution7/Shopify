@@ -1,0 +1,101 @@
+      
+        <section class="about-style-two about-style-two-bg sec-pad-2 border-bottom">
+            <div class="parallax-container js-text-parallax">
+                <div class="fx-wrap fx-section-ou" data-x="200">
+                    <h3 class="fx-target">{{ page.title }}</h3>
+                </div>
+            </div>
+            <div class="auto-container">
+                <div class="row clearfix">
+                    <div class="col-lg-6 col-md-12 col-sm-12 image-column">
+                        <div class="image_block_2">
+                            <div class="image-box wow fadeInUp animated" data-wow-duration="8s">
+                                <figure class="image image-1"><img src="{{ section.settings.image_1 | img_url : '400x' }}" alt="{{ section.settings.image_1.alt }}"></figure>
+                                <figure class="image image-2"><img src="{{ section.settings.image_2 | img_url : '400x' }}" alt="{{ section.settings.image_2.alt }}"></figure>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12 content-column">
+                        <div class="content_block_3">
+                            <div class="content-box">
+                                <div class="sec-title style-two wow fadeInUp animated" data-wow-duration="8s">
+                                    <p></p>
+                                    <h2>{{ section.settings.title }}</h2>
+                                </div>
+                                <div class="tabs-box wow fadeInUp animated" data-wow-duration="6s">
+                                    <div class="tab-btn-box">
+                                        <ul class="tab-btns tab-buttons clearfix">
+                                          {%- for block in section.blocks -%}
+                                            <li class="tab-btn  {% if forloop.first %} active-btn {% endif %}" data-tab="#tab-{{ forloop.index }}"><h5>{{ block.settings.title }}</h5></li>
+                                          {%- endfor -%}
+                                        </ul>
+                                    </div>
+                                    <div class="tabs-content">
+                                      {%- for block in section.blocks -%}
+                                        <div class="tab   {% if forloop.first %} active-tab {% endif %}" id="tab-{{ forloop.index }}">
+                                            <div class="inner-box">
+                                                <div class="inner wow fadeInUp animated" data-wow-duration="3s">
+                                                    <div class="text">
+                                                        {{ block.settings.text }}
+                                                    </div>
+                                                </div>
+                                                <div class="btn-box"><a href="{{ block.settings.link }}" class="theme-btn-two">learn more</a></div>
+                                            </div>
+                                        </div>
+                                      {%- endfor -%}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+{% schema %}
+  {
+    "name": "Section Our Mission 2",
+    "settings": [
+		{
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Image 1"
+        },
+		{
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Image 2"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+ 		  "default" : "years of since we provide honey successfully"
+    	}
+		],
+"blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+	  "limit": 3, 
+      "settings": [
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+    	},
+        {
+            "type": "richtext",
+            "id": "text",
+            "label": "Text"   
+        },   
+		{
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Optional"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

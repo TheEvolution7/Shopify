@@ -1,0 +1,58 @@
+<section class="chooseus-section">
+            <div class="parallax-container js-text-parallax">
+                <div class="fx-wrap" data-x="200">
+                    <h3 class="fx-target">{{ section.settings.title }}</h3>
+                </div>
+            </div>
+            <div class="auto-container">
+                <div class="row clearfix">
+                    <div class="col-lg-7 col-md-12 col-sm-12 content-column">
+                        <div class="content_block_2">
+                            <div class="content-box">
+                                <div class="sec-title wow fadeInUp" data-wow-duration="3s">
+                                    <h2>{{ section.settings.title }}</h2>
+                                </div>
+                                <div class="text wow fadeInUp " data-wow-delay="00ms" data-wow-duration="1500ms">
+                                   	{{ section.settings.text}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-12 col-sm-12 image-column">
+                        <div class="image-box wow fadeInUp" data-wow-duration="3s">
+                            <figure class="image image-1"><img src="{{ section.settings.image_1 | img_url : '300x' }}" alt="{{ section.settings.image-1.alt }}"></figure>
+                            <figure class="image image-2 float-bob-y"><img src="{{ section.settings.image_2 | img_url : '300x' }}" alt="{{ section.settings.image-2.alt }}"></figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+{% schema %}
+  {
+    "name": "Section Home 3",
+    "settings": [
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "OUR MISSION"
+    	},
+		{
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+		  "default" : " <p>At Honey Gold Botanicals, we genuinely believe the incredible effects of CBD. In addition to providing some of the safest, purest, and most effective products in the hemp industry, it is our mission to engage and inform CBD consumers about the natural and therapeutic benefits of this wonderful hemp based compound.</p>"
+    	}, 
+		{
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Image 1"
+        },
+		{
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Image 2"
+        }
+		]
+  }
+{% endschema %}

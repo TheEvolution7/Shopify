@@ -1,0 +1,102 @@
+{%- capture relatedProducts -%}
+
+{% if section.settings.show_related_products == true %}
+     <section class="related-product centred">
+            <div class="auto-container wow fadeInUp animated" data-wow-duration="3s">
+                <div class="sec-title style-two centred">
+                    <h2>{{ section.settings.related_title }}</h2>
+                </div>
+               
+    {% assign number_of_related_products_per_row = section.settings.related_grid_num %}
+	{% assign number_of_rows = section.settings.related_total_product_to_show | plus:1 %}
+	
+	{% assign same_vendor = false %}
+	{% assign same_type = false %}
+	
+	{% assign exclusions = 'frontpage,all' | split: ',' %}
+	
+	{% if product.metafields.c_f['Related Products'] %}
+	{% assign collection = collections[product.metafields.c_f['Related Products']] %}
+	{% endif %}
+	
+	{% assign found_a_collection = false %}
+    {% if collection and collection.all_products_count > 1 %}
+        {% unless exclusions contains collection.handle %}
+        {% assign found_a_collection = true %}
+        {% endunless %}
+      {% endif %}
+      {% unless found_a_collection %}
+        {% for c in product.collections limit: number_of_rows %}
+          {% unless exclusions contains c.handle or c.all_products_count < 2 %}
+          {% assign found_a_collection = true %}
+          {% assign collection = c %}
+          {% break %}
+          {% endunless %}
+        {% endfor %}
+      {% endunless %}
+	
+	{% if found_a_collection %}
+      {% assign current_product = product %}
+      {%- capture related_items -%}
+          <div class="row clearfix"  id="{{ section.id }}"> 
+            {% for product in collection.products limit : number_of_rows %}
+              {% unless product.handle == current_product.handle %}
+                  {% unless same_vendor and current_product.vendor != product.vendor %}
+                      {% unless same_type and current_product.type != product.type %}
+             			<div class="col-lg-3 col-md-6 col-sm-12 shop-block">
+                          <div class="shop-block-one">
+                              <div class="inner-box wow fadeInUp animated" data-wow-duration="4s">
+                                  <figure class="image-box"><a href="{{ product.url }}"><img src="{{ product.featured_image | img_url: '500x' }}" alt="{{ product.featured_image.alt | default : product.title }}"></a></figure>
+                                  <div class="lower-content">
+                                      <h5><a href="{{ product.url }}">{{ product.title }}</a></h5>
+                                      <span class="price">{{ product.price |  money }}</span>
+                                  </div>
+                              </div>
+                          </div>
+                    	</div>
+                      {% endunless %}
+                  {% endunless %}
+              {% endunless %}
+            {% endfor %}
+      {%- endcapture -%}
+            {% assign related_items = related_items | trim %}
+      		{% unless related_items == blank %}
+    			<div id="products-{{ section.id }}">{{ related_items }}</div>
+      		{% endunless %}  
+	{% endif %} 
+      </div>
+            </div>
+        </section>
+{% endif %}
+{%- endcapture -%}
+{{ relatedProducts | strip_newlines | remove: "  " | remove: "	" }}
+
+{% schema %}
+  {
+    "name": "Related Products",
+    "settings": [
+	{
+        "type": "checkbox",
+        "id": "show_related_products",
+        "label": "Show related products",
+        "default": true
+     },
+ 	 {
+        "id": "related_title",
+        "type": "text",
+        "label": "Section Title",
+        "default": "YOU MAY ALSO LIKE"
+      },
+      {
+        "type": "paragraph",
+        "content": "Products Per Row"
+      },
+      {
+        "type": "text",
+        "id": "related_total_product_to_show",
+        "label": "Number of Product to Show",
+        "default": "4"        
+      }
+	]
+  }
+{% endschema %}

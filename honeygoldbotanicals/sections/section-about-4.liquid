@@ -1,0 +1,61 @@
+<section class=" about-section-bg " style=" background: #1c1c1c;">
+            <div class="parallax-container js-text-parallax">
+                <div class="fx-wrap fx-section-1" data-x="-200" id="js-text-parallax-2">
+                    <h3 class="fx-target">{{ section.settings.heading }}</h3>
+                </div>
+            </div>
+            <div class="auto-container">
+                <div class="row align-items-center clearfix">
+                  
+                    <div class="col-lg-6 col-md-12 col-sm-12 content-column">
+                        <div class="content_block_1">
+                            <div class="content-box">
+                                <div class="sec-title wow fadeInUp" data-wow-duration="3s">
+                                    <h2> {{ section.settings.title }}</h2>
+                                </div>
+                                <div class="text wow fadeInUp" data-wow-delay="00ms" data-wow-duration="1500ms">
+                                     {{ section.settings.text }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12 image-column">
+                        <div class="image_block_1">
+                            <div class="image-box wow fadeInUp">
+                                <figure class="image"><img src="{{ section.settings.image | img_url : '500x' }}" alt="{{ section.settings.image.alt }}"></figure>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+{% schema %}
+  {
+    "name": "Section About 4",
+    "settings": [
+		{
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+		  "default" : "Commitment"
+    	},
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Commitment and Execution"
+    	},
+		{
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+		  "default" : " <p>A belief alone does not create something as unique as Honey Gold Botanicals, and Matt and Chloe realize this. Once they had decided to become advocates for CBD, they covered all their bases before giving the public Honey Gold Botanicals. Matt and Chloe have traveled all over the country to gain a deeper understanding of CBD. After visiting some of the largest indoor and outdoor hemp growing setups and labs and meeting renowned experts on CBD, they were ready to put that knowledge and experience into something practical. Their journey marked its first of many milestones in 2019 when Honey Gold Botanicals LLC came into being.</p>"
+    	}
+		]
+  }
+{% endschema %}

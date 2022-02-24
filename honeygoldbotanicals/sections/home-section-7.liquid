@@ -1,0 +1,46 @@
+		<section class="cta-section centred ct-index " style="background-color: white;">
+          <div class="parallax-container js-text-parallax">
+            <div class="fx-wrap fx-section-ct" data-x="-200">
+              <h3 class="fx-target">{{ section.settings.title_bg }}</h3>
+            </div>
+          </div>
+          <div class="auto-container">
+            <div class="inner-box wow fadeInUp" data-wow-duration="3s">
+              <p>{{ section.settings.title }}</p>
+              <h2>{{ section.settings.heading }}</h2>
+              <a href="{{ section.settings.link }}" class="theme-btn-one">contact us</a>
+            </div>
+          </div>
+        </section>
+{% schema %}
+  {
+    "name": "Section Home 7",
+    "settings": [
+		{
+          "type": "text",
+          "id": "title_bg",
+          "label": "Title Background",
+		  "default" : "contact"
+    	},
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Get Our Product"
+    	},
+		{
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default" : "Want to our new product please <br />contact us now"
+    	},
+		{
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Optional"
+        }
+		]
+  }
+{% endschema %}
+

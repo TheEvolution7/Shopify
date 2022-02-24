@@ -1,0 +1,34 @@
+
+<!--Page Title-->
+{% section 'section-search' %}
+<!--End Page Title-->
+
+<!-- search-section -->
+<section class="search-grid" style="background-color: #1c1c1c;">
+      <div class="auto-container">
+        <div class="sec-title centred wow fadeInUp" data-wow-duration="3s">
+          <h2>Product</h2>
+        </div>
+        <div class="row clearfix">
+       {% for item in search.results %}
+  		{% if item.object_type == 'product' %}
+          {% include 'product-search', product: item %}
+        {% endif %}
+   	   {% endfor %}
+        </div>
+      </div>
+  	
+      <div class="auto-container">
+        <div class="sec-title centred wow fadeInUp" data-wow-duration="3s">
+          <h2>News</h2>
+        </div>
+        <div class="row clearfix">
+         {% for item in search.results %} 
+          {% if item.object_type == 'article' %}
+           	{% include 'article-search', article: item %}
+          {% endif %}
+        {% endfor %}
+        </div>
+      </div>
+</section>
+<!-- search-section end -->

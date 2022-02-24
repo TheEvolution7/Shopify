@@ -1,0 +1,67 @@
+		<section class="news-section" style="background-image: url('{{ 'marijuana-green-leaf-plant-copy-space-black-background.jpeg' | asset_url }}');">
+            <div class="auto-container">
+                <div class="sec-title centred wow fadeInUp" data-wow-duration="3s">
+                    <h2>{{ section.settings.title }}</h2>
+                </div>
+              {%- assign blog = blogs[section.settings.blog] -%}
+              {%- if blog.articles_count > 0 -%}  
+                <div class="three-item-carousel owl-carousel owl-theme owl-nav-none wow fadeInUp" data-wow-duration="3s">
+                   {%- for article in blog.articles limit: section.settings.post_limit -%}
+                  	<div class="news-block-one">
+                        <div class="inner-box">
+                            <figure class="image-box">
+                              <a href="{{ article.url }}"> 
+                              	{%- if article.image -%}
+            						{{ article | img_url: '300x', scale: 2 | img_tag: article.title }}
+          						{%- endif -%}
+                              </a>
+                          </figure>
+                            <div class="lower-content">
+                                <h5><a href="{{ article.url }}">{{ article.title }}</a></h5>
+                                <div class="link"><a href="{{ article.url }}">read more</a></div>
+                            </div>
+                        </div>
+                    </div> 
+                  {%- endfor -%}
+                </div>
+              {%- endif -%}
+            </div>
+        </section>
+{% schema %}
+{
+  "name": "Section Home 6",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Blogs"
+    },
+    {
+      "id": "blog",
+      "type": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "range",
+      "id": "post_limit",
+      "label": "Posts",
+      "min": 3,
+      "max": 12,
+      "step": 3,
+      "default": 3
+    }  
+  ],
+  "presets": [
+    {
+      "name": "Blog posts",
+      "category": "Blog",
+      "settings": {
+        "blog": "News",
+        "post_limit": 3
+      }
+    }
+  ]
+}
+{% endschema %}
