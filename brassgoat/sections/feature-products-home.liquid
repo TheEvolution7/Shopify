@@ -1,0 +1,150 @@
+{% if section.settings.show_section %}
+  <div class="bloom-product-area margin-bottom-115 mobile-mb-50 tab-mb-80" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row custom-gutter">
+        <div class="col-md-12">
+          <div class="section-title-area text-center mobile-text-left">
+            <div class="section-title section-title-2 wow fadeIn">
+              <div class="title-text">
+                <h2 class="title">{{ section.settings.title }}</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="product-area-inner">
+        <div class="row custom-gutter">
+          <div class="col-md-12 wow fadeIn">
+            <div class="product-carousel-one owl-arrow-style-1">
+              {% if section.settings.display_type == 'all' %}
+              {% assign product_list = collections.all.products %}
+                {% for product in product_list limit : section.settings.products_count %}
+                  {% include 'product-card-list', product: product %}
+                {% endfor %} 
+              {% else %}
+              {% for block in section.blocks %}
+                {% assign product = block.settings.product %}
+                    {% include 'product-card-list', product: product %}
+                {% endfor %} 
+              {% endif %} 
+            </div> 
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 wow fadeIn">
+          <div class="btn-wrapper margin-top-30 text-center">
+            <a class="boxed-btn btn-rounded" href="{{ section.settings.url }}">{{ section.settings.button }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Feature Products",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Feature Products"
+        },
+		{
+          "type": "text",
+          "id": "button",
+          "label": "Button",
+		  "default": "Learn More"
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        },
+		{
+          "type": "header",
+          "content": "Select Product"
+    	},
+		{
+          "type": "radio",
+          "id": "display_type",
+          "label": "Select Show Product",
+          "default": "all",
+          "options": [
+            {
+              "value": "all",
+              "label": {
+                "cs": "Všechny",
+                "da": "Alle",
+                "de": "Alle",
+                "en": "All",
+                "es": "Todos",
+                "fi": "Kaikki",
+                "fr": "Toutes",
+                "it": "Tutte",
+                "ja": "すべて",
+                "ko": "모두",
+                "nb": "Alle",
+                "nl": "Alle",
+                "pl": "Wszystkie",
+                "pt-BR": "Tudo",
+                "pt-PT": "Tudo",
+                "sv": "Alla",
+                "th": "ทั้งหมด",
+                "tr": "Tümü",
+                "vi": "Tất cả",
+                "zh-CN": "所有",
+                "zh-TW": "全部"
+              }
+            },
+            {
+              "value": "selected",
+              "label": {
+                "cs": "Vybrané",
+                "da": "Valgt",
+                "de": "Ausgewählt",
+                "en": "Selected",
+                "es": "Seleccionadas",
+                "fi": "Valittu",
+                "fr": "Sélection",
+                "it": "Selezionato",
+                "ja": "選択済み",
+                "ko": "선택됨",
+                "nb": "Valgt",
+                "nl": "Geselecteerd",
+                "pl": "Wybrane",
+                "pt-BR": "Selecionado",
+                "pt-PT": "Selecionado",
+                "sv": "Valt",
+                "th": "เลือกแล้ว",
+                "tr": "Seçildi",
+                "vi": "Đã chọn",
+                "zh-CN": "已选",
+                "zh-TW": "已選取"
+              }
+            }
+        ]
+    	}
+	],
+	"blocks": [
+    {
+      "type": "product",
+      "name": "product",
+      "settings": [
+		{
+          "type": "product",
+          "id": "product",
+          "label": "Product" 
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

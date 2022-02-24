@@ -1,0 +1,27 @@
+{% section 'breadcrumb' %}
+<div class="sign-up-area sign-in-area margin-bottom-120 mobile-mb-50 tab-mb-100">
+  <div class="container">
+    <div class="row custom-gutter justify-content-center">
+      <div class="col-xl-5 col-lg-6 col-md-7 col-12">
+        <div class="sign-up-inner">
+            {% form 'customer_login', class: 'contact-form-box', novalidate: 'novalidate' %}
+              <label>{{ 'customer.login.email' | t }}*</label>
+              <input type="email" name="customer[email]" required>
+              <label>{{ 'customer.login.password' | t }}*</label>
+              <input type="password" name="customer[password]" placeholder="---">
+              <!-- <a href="#">Forgot password</a> -->
+              <div class="btn-wrapper">
+                <div class="col-12">
+                  <div class="row justify-content-between align-items-center">
+                    <button class="boxed-btn btn-rounded" type="submit">{{ 'customer.login.sign_in' | t }}</button>
+                    <a href="https://brassgoat.com/pages/password-recovery">Forgot password</a>
+                  </div>
+                  
+                </div>
+              </div>
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

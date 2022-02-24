@@ -1,0 +1,68 @@
+<div class="why-shop-from-us-area accordion-style-one margin-bottom-120 mobile-mb-20 tab-mb-40" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="row custom-gutter justify-content-center">
+      <div class="col-lg-8">
+        <div class="why-shop-from-us-inner">
+          <div id="accordion_1">
+            <!-- card -->
+            {% for block in section.blocks  %}
+              <div class="card">
+                <h6 data-toggle="collapse" data-target="#faq-item-1-{{ forloop.index }}" aria-expanded="{% if forloop.index == 1 %}true{% else %}false{% endif %}">
+                  <span>0{{ forloop.index }}.</span> 
+                  {{ block.settings.title }}
+                </h6>
+                <div id="faq-item-1-{{ forloop.index }}" class="collapse {% if forloop.index == 1 %}show{% endif %}" data-parent="#accordion_1">
+                  <div class="card-body">
+                    {{ block.settings.subtitle }}
+                    {% if block.settings.show_iframe %}
+                    	{{ block.settings.iframe }}
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% endfor  %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Section FAQ",
+    "settings": [
+
+	],
+	"blocks": [
+    {
+      "type": "content",
+      "name": "content",
+      "settings": [
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+		  
+        },
+		{
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "SubTitle"
+        },
+		{
+          "type": "checkbox",
+          "id": "show_iframe",
+          "label": "Show iframe Youtube",
+          "default": false
+        },
+		{
+          "type": "html",
+          "id": "iframe",
+          "label": "Iframe"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}
+

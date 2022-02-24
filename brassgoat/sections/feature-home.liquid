@@ -1,0 +1,72 @@
+{% if section.settings.show_section %}
+  <div class="feature-section margin-bottom-100 mobile-mb-50 tab-mb-80" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <div class="section-title section-title-2 wow fadeIn">
+            <div class="title-text">
+              <h2 class="title">{{ section.settings.title }}</h2>
+            </div>
+          </div>
+        </div>
+        {% for block in section.blocks  %}
+          <div class="col-md-4 wow fadeIn">
+            <div class="box-feature">
+              <div class="icon">
+                <img src="{{ block.settings.image | img_url : 'master' }}" alt="{{ block.settings.image.alt | default : block.settings.title }}">
+              </div>
+              <div class="content">
+                <h4>{{ block.settings.title }}</h4>
+                {{ block.settings.subtitle }}
+                
+              </div>
+            </div>
+          </div>
+        {% endfor  %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Features",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Our Features"
+        }
+	],
+	"blocks": [
+    {
+      "type": "content",
+      "name": "content",
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+		  
+        },
+		{
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "SubTitle"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

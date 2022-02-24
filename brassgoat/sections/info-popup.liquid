@@ -1,0 +1,73 @@
+<div class="popup-item info-popup" data-section-id="{{ section.id }}">
+  <div class="popup-item-inner">
+    <button class="popup-close-btn info-popup-content_close">X</button>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="popup-inner-img">
+          <div class="popup-inner-img-inner">
+            <ul>
+              {% for block in section.blocks  %}
+              	<li><img src="{{ block.settings.image | img_url : 'large' }}" alt="{{ block.settings.image.alt }}"></li>
+              {% endfor  %} 
+            </ul>
+          </div>
+        </div>
+        <div class="popup-inner-content text-center">
+          <div class="section-title-area text-center">
+            <div class="section-title section-title-2">
+              <div class="title-text">
+                <h2 class="title">{{ section.settings.title }}</h2>
+              </div>
+            </div>
+          </div>
+          <address>{{ section.settings.text }}</address>
+          <div class="social_share">
+            <ul>
+              {%- assign socials = "Facebook Twitter Pinterest Instagram Tumblr Snapchat YouTube Vimeo" | split: ' ' -%}
+              {%- for social in socials -%}
+                {%- assign social_link = social | prepend: 'social_' | append: '_link' | downcase -%}
+                {%- assign icon_link = social | prepend: 'icon-' | downcase -%}
+                {%- if settings[social_link] != blank -%}
+                  <li><a href="{{ settings[social_link] | escape }}" target="_blank">{%- include icon_link -%}</a></li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Section Info Popup",
+    "settings": [
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default": "Contact us"
+        },
+		{
+          "type": "html",
+          "id": "text",
+          "label": "Text",
+		  "default": "+12345678912 <br> 3, Avenue Saint Andrews, California <br> admin@magwellmounts.com"
+        }
+	],
+	"blocks": [
+    {
+      "type": "image",
+      "name": "image",
+	  "limit" : 3,
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

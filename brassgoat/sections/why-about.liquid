@@ -1,0 +1,84 @@
+{% if section.settings.show_section %}
+  <div class="why-shop-from-us-area accordion-style-one margin-bottom-115 mobile-mb-20 tab-mb-70" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row custom-gutter">
+        <div class="col-lg-6">
+          <div class="why-shop-from-us-img text-center mobile-mb-50 tab-mb-50">
+            <img src="{{ section.settings.image | img_url : 'master' }}" alt="{{ section.settings.image.alt | default : section.settings.title }}">
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="why-shop-from-us-inner">
+            <div class="section-title-area ">
+              <div class="section-title section-title-2">
+
+                <div class="title-text">
+                  <h2 class="title">{{ section.settings.title }}</h2>
+                </div>
+              </div>
+            </div>
+            <div id="accordion_1">
+              <!-- card -->
+              {% for block in section.blocks  %}
+                <div class="card">
+                  <h6 data-toggle="collapse" data-target="#faq-item-1-{{ forloop.index }}" aria-expanded="{% if forloop.index == 1 %}true{% else %}false{% endif %}">
+                    <span>0{{ forloop.index }}.</span> 
+                    {{ block.settings.title }}
+                  </h6>
+                  <div id="faq-item-1-{{ forloop.index }}" class="collapse {% if forloop.index == 1 %}show{% endif %}" data-parent="#accordion_1">
+                    <div class="card-body">
+                      {{ block.settings.subtitle }}
+                    </div>
+                  </div>
+                </div>
+              {% endfor  %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Why",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Why the name Brass Goat?"
+        }
+	],
+	"blocks": [
+    {
+      "type": "content",
+      "name": "content",
+      "settings": [
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+		  
+        },
+		{
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "SubTitle"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

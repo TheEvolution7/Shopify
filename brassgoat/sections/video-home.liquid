@@ -1,0 +1,81 @@
+{% if section.settings.show_section %}
+  <div class="video-section margin-bottom-100 mobile-mb-50 tab-mb-80" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <div class="section-title section-title-2 wow fadeIn">
+            <div class="title-text">
+              <h2 class="title">{{ section.settings.title }}</h2>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="box-video">
+            <div class="row no-gutters ">
+              <div class="col-lg-8 wow fadeIn">
+                <div class="vid-container">
+                 	<iframe id="vid_frame" width="560" height="315" src="https://www.youtube.com/embed/{{ section.blocks[0].settings.code }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+              </div>
+              <div class="col-lg-4 wow fadeIn">
+                <div class="vid-list-container">
+                  <div class="slider-video">
+                   {% for block in section.blocks  %}
+                    <div class="item  {% if forloop.index == 1 %}active{% endif %}">
+                      <a href="javascript:void();"
+                         onClick="document.getElementById('vid_frame').src='https://www.youtube.com/embed/{{ block.settings.code }}'">
+                        <div class="thumb-video">
+                          <span class="vid-thumb"><img width=72 src="https://img.youtube.com/vi/{{ block.settings.code }}/default.jpg"/></span>
+                        </div>
+                        <div class="desc">{{ block.settings.title }}</div>
+                      </a>
+                    </div>
+                   {% endfor  %} 
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Youtube",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Watch Brass Goat in Action"
+        }
+	],
+	"blocks": [
+    {
+      "type": "content",
+      "name": "content",
+      "settings": [
+		{
+          "type": "text",
+          "id": "code",
+          "label": "Code Youtube",
+		  "default" : "qIK46NVu0hc"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

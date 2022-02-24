@@ -1,0 +1,109 @@
+{% if section.settings.show_section %}
+  {% assign product = section.settings.product %}
+  <div class="product-detail-section margin-bottom-100 mobile-mb-50 tab-mb-80" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 wow fadeIn">
+          <div class="slider-for-pro">
+            {%- for media in product.media -%} 
+              <div class="item">
+                <div class="box-img">
+                  <img src="{{ media | img_url: 'grande' }}" alt="{{ media.alt | default : product.title }}">
+                  <div class="decs">
+                    {{ product.metafields.my_fields.image_title }}
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}  
+          </div>
+          <div class="slider-nav-pro">
+            {%- for media in product.media -%} 
+              <div class="item">
+                <div class="box-img">
+                  <img src="{{ media | img_url: 'large' }}" alt="{{ media.alt | default : product.title }}">
+                </div>
+              </div>
+            {%- endfor -%}  
+          </div>
+        </div>
+        <div class="col-md-6 d-flex align-items-center">  
+            <div>
+              <div class="content-detail wow fadeIn">
+                <h2>{{ product.title }}</h2>
+                
+                <!-- Shopper Approved - sections/product-home -->
+                <div class="star_container {{product.id}}"> </div>
+                <!-- END Shopper Approved - sections/product-home -->
+                
+                <div class="price">
+                  <div class="old-price"><del id="old-price-box">{{ product.selected_or_first_available_variant.compare_at_price | money }}</del></div>
+                  <div class="now-price" id="new-price-box">{{ product.selected_or_first_available_variant.price | money }}</div>
+                </div>
+                <div class="desc">
+                  <p>{{ product.content | truncatewords: 7 }}</p>
+                  
+                </div>
+				<a href="{{ product.url }}">See Product Details</a>
+              </div>
+             {% form 'product', product  %}
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id  }}">	
+              <div class="option-select wow fadeIn">
+                            <h4>Options:</h4>
+                            <ul>
+                               {% for variant in product.variants %}
+                                  <li>
+                                      <input type="radio" name="id" id="o-{{ forloop.index }}" value="{{ variant.id }}" {% if forloop.index == 1  %}checked{% endif %}>
+                                      <label data-old-price="{{ variant.compare_at_price | money }}" data-new-price="{{ variant.price | money }}" data-slide="{{ forloop.index }}" for="o-{{ forloop.index }}">{{ variant.title }}</label>
+                                  </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+              <div class="quantity wow fadeIn">
+                <h4>Quantity:</h4>
+
+                <div class="btn-full-pro">
+                  <div class="product-meta-type">
+                    <div class="cart-plus-minus">   
+                      <input type="text" class="cart-plus-minus-box" step="1" min="1" name="quantity"  value="1">
+                    </div>
+                  </div>
+                  <div class="btn-wrapper">
+                    <button class="boxed-btn btn-rounded" type="submit" {% unless product.available  %} disabled="disabled"{% endunless %}>{%- if product.available -%}Add to cart{%- else -%}Sold Out{%- endif -%}</button>
+                  </div>
+                </div>
+                <div class="buy-now-btn">
+                  <div class="btn-wrapper">
+                      {{ form | payment_button }}
+                  </div>
+                </div>
+
+              </div>
+              {% endform %}
+            </div>
+
+          </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Products",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "product",
+          "id": "product",
+          "label": "Product" 
+        }
+	]
+  }
+
+{% endschema %}
+
+

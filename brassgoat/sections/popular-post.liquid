@@ -1,0 +1,44 @@
+<div class="widget widget_popular_post" data-section-id="{{ section.id }}">
+  <div class="widget-title-area">
+    <h4 class="widget-title">{{ section.settings.title }}</h4>
+  </div>
+  {% for block in section.blocks %}
+  {% assign article = block.settings.article %}
+    <div class="popular-post-item clearfix">
+      <div class="popular-post-img">
+        <a href="{{ article.url }}"><img src="{{ article.image | img_url: 'large' }}" alt="{{ article.title | escape }}"></a>
+      </div>
+      <div class="popular-post-content">
+        <h5><a href="{{ article.url }}">{{ article.title }}</a></h5>
+      </div>
+    </div>
+  {% endfor %}
+  
+</div>
+{% schema %}
+  {
+    "name": "Section Popular post",
+    "settings": [
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Most popular articles"
+        }
+	],
+	"blocks": [
+    {
+      "type": "post",
+      "name": "post",
+      "settings": [
+        {
+          "id": "article",
+          "type": "article",
+          "label": "Blog"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}
+

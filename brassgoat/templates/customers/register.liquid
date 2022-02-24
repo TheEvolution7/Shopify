@@ -1,0 +1,25 @@
+{% section 'breadcrumb' %}
+<div class="sign-up-area margin-bottom-120 mobile-mb-50 tab-mb-100">
+  <div class="container">
+    <div class="row custom-gutter justify-content-center">
+      <div class="col-xl-5 col-lg-6 col-md-7 col-12">
+        <div class="sign-up-inner">
+          {% form 'create_customer', class : 'contact-form-box' %}
+            <label>{{ 'customer.register.first_name' | t }}*</label>
+            <input type="text" name="customer[first_name]" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} required>
+            <label>{{ 'customer.register.last_name' | t }}*</label>
+            <input type="text"  name="customer[last_name]" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} required>
+            <label>{{ 'customer.register.email' | t }}*</label>
+            <input type="email" name="customer[email]" id="{{ formId }}-email" required>
+            <label for="regpassword" class="form-label mt-15">{{ 'customer.register.password' | t }} *</label>
+            <input type="password" name="customer[password]" required>
+            <div class="btn-wrapper">
+              <button class="boxed-btn btn-rounded" type="submit">{{ 'customer.register.submit' | t }}</button>
+            </div>
+          {% endform %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

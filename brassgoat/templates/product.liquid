@@ -1,0 +1,195 @@
+
+<div class="product-detail-section __1 padding-top-10 margin-bottom-100 mobile-mb-50 tab-mb-80">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 wow fadeIn">
+        <div class="slider-for-pro">
+          {%- for media in product.media -%} 
+            <div class="item">
+              <div class="box-img">
+                <img src="{{ media | img_url: 'grande' }}" alt="{{ media.alt | default : product.title }}">
+                <div class="decs">
+                  {{ product.metafields.my_fields.image_title }}
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}  
+        </div>
+        <div class="slider-nav-pro">
+          {%- for media in product.media -%} 
+            <div class="item">
+              <div class="box-img">
+                <img src="{{ media | img_url: 'large' }}" alt="{{ media.alt | default : product.title }}">
+              </div>
+            </div>
+          {%- endfor -%}  
+        </div>
+      </div>
+      <div class="col-md-6 d-flex">  
+          <div>
+            <div class="content-detail wow fadeIn">
+              <h1 class="product-head">{{ product.title }}</h1>
+              
+              <!-- Shopper Approved - templates/product -->
+              <div class="reg" id="product_just_stars"></div>
+              <!-- END Shopper Approved - templates/product -->
+              
+              {% comment %}<span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>{% endcomment %}
+              <div class="price">
+                <div class="old-price"><del id="old-price-box">{{ product.selected_or_first_available_variant.compare_at_price | money }}</del></div>
+                  <div class="now-price" id="new-price-box">{{ product.selected_or_first_available_variant.price | money }}</div>
+              </div>
+              <div class="desc">
+                <p>{{ product.content | truncatewords: 20 }}</p>
+              </div>
+              
+            </div>
+           {% form 'product', product  %}
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id  }}">	
+             
+              <div class="option-select wow fadeIn">
+                {% unless product.has_only_default_variant %}
+                            <h4>Options:</h4>
+                            <ul>
+                               {% for variant in product.variants %}
+                                  <li>
+                                      <input type="radio" name="id" id="o-{{ forloop.index }}" value="{{ variant.id }}" {% if forloop.index == 1  %}checked{% endif %}>
+                                      <label data-old-price="{{ variant.compare_at_price | money }}" data-new-price="{{ variant.price | money }}" data-slide="{{ forloop.index }}" for="o-{{ forloop.index }}">{{ variant.title }}</label>
+                                  </li>
+                                {% endfor %}
+                            </ul>
+                {% endunless  %}
+                        </div>
+             
+            <div class="quantity wow fadeIn">
+              <h4>Quantity:</h4>
+              
+              <div class="btn-full-pro">
+                <div class="product-meta-type">
+                  <div class="cart-plus-minus">   
+                    <input type="text" class="cart-plus-minus-box" step="1" min="1" name="quantity"  value="1">
+                  </div>
+                </div>
+                <div class="btn-wrapper">
+                  <button class="boxed-btn btn-rounded" type="submit" {% unless product.available  %} disabled="disabled"{% endunless %}>{%- if product.available -%}Add to cart{%- else -%}Sold Out{%- endif -%}</button>
+                </div>
+              </div>
+              <div class="buy-now-btn">
+                <div class="btn-wrapper">
+                  {{ form | payment_button }}
+                </div>
+              </div>
+
+            </div>
+			{% endform %}
+          </div>
+		
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="why-shop-from-us-inner margin-top-40">
+          <div id="accordion_1">
+            <!-- card -->
+            <div class="card">
+              <h6 class="collapsed" data-toggle="collapse" data-target="#pro-item-1-1" aria-expanded="false"> 
+                Product Description
+              </h6>
+              <div id="pro-item-1-1" class="collapse" data-parent="#accordion_1">
+                <div class="card-body">
+                  <div class="c-accordion__inner">
+                    <h6><strong style="color: #000000; font-family: Armata; font-size: 1.4em;"></strong></h6>
+                    {{ product.content }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- card -->
+            <div class="card">
+              <h6 class="collapsed" data-toggle="collapse" data-target="#pro-item-1-2" aria-expanded="false">
+                Product Details
+              </h6>
+              <div id="pro-item-1-2" class="collapse" data-parent="#accordion_1">
+                <div class="card-body">
+                  <div class="c-accordion__inner">
+
+                    <ul class="view-more">
+                      <li class="detail-item"><strong>Variant:</strong> <span class="variant_selected">{{ product.selected_or_first_available_variant.title  }}</span></li>
+                      <li class="detail-item"><strong>SKU:</strong> <span class="variant_sku">{{ product.selected_or_first_available_variant.sku  }}</span></li>
+
+
+
+                      <li class="detail-item"><strong>Weight:</strong> <span class="variant_weight">{{ product.metafields.my_fields.weight }}</span></li>
+
+
+                      <li class="detail-item"><strong>Product Type:</strong> <a href="/collections/types?q={{ product.type }}" title="Accessory">{{ product.type }}</a></li>
+
+
+                      <li class="detail-item"><strong>Brand:</strong> <a href="/collections/vendors?q={{ product.vendor }}" title="Magwell Mounts">{{ product.vendor }}</a></li>
+
+
+                    </ul>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- card -->
+            {% comment %}
+            <div class="card">
+              <h6 class="collapsed" data-toggle="collapse" data-target="#pro-item-1-3" aria-expanded="false">
+                Reviews
+              </h6>
+              <div id="pro-item-1-3" class="collapse" data-parent="#accordion_1">
+                <div class="card-body">
+					<div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+                </div>
+              </div>
+            </div>
+            {% endcomment %}
+            
+            <!-- Shopper Approved - templates/product -->
+            <div class="card">
+              <h6 class="collapsed sa-reviews-h6" data-toggle="collapse" data-target="#pro-item-1-3" aria-expanded="false">
+                Reviews
+              </h6>
+              <div id="pro-item-1-3" class="collapse" data-parent="#accordion_1">
+                <div class="card-body">
+					<script type="text/javascript"> var sa_products_count = 3; var sa_date_format = "F j, Y"; var sa_product = "{{product.id}}"; (function(w,d,t,f,o,s,a){ o = "shopperapproved"; if (!w[o]) { w[o] = function() { (w[o].arg = w[o].arg || []).push(arguments) }; s=d.createElement(t), a=d.getElementsByTagName(t)[0];s.async=1;s.src=f;a.parentNode.insertBefore(s,a)} })(window,document,"script","//shopperapproved.com/product/33360/"+sa_product+".js"); </script> <div id="shopper_review_page"><div id="review_header"></div><div id="product_page"></div><div id="review_image"><a href="https://shopperapproved.com/reviews/brassgoat.com/" onclick="var nonwin=navigator.appName!="Microsoft Internet Explorer"?"yes":"no"; var certheight=screen.availHeight-90; window.open(this.href,"shopperapproved","location="+nonwin+",scrollbars=yes,width=620,height="+certheight+",menubar=no,toolbar=no"); return false;" target="_blank" rel="nofollow"></a></div></div>
+                </div>
+              </div>
+            </div>
+            <script>
+              var jumHtml='';
+              var saJump = setInterval(function(){ //interval that fires until the element exists
+                  if(document.querySelectorAll('.sa_jump_to_reviews')!=undefined  &&  document.querySelectorAll('.sa_jump_to_reviews')!=null  &&  document.querySelectorAll('.sa_jump_to_reviews').length > 0){
+                      jumHtml = document.querySelectorAll('.sa_jump_to_reviews')[0].innerHTML; //Grab the contents of the current element
+                      document.querySelectorAll('#product_just_stars > .ind_cnt ')[0].innerHTML=('<span class=\"saReviewsJump\" style=\"cursor:pointer;\">'+jumHtml+'</span>'); //create a new element that does not have the default functionality
+                      clearInterval(saJump); //clear the interval so that it does not continue to fire
+                  }
+              },500);
+              setTimeout(function(){
+                  jQuery('.saReviewsJump').click(function () { //Create functionality that happens when the new element is clicked
+                    if(!jQuery('#pro-item-1-3').hasClass('show')){
+                    	jQuery('.sa-reviews-h6').click();
+                    }
+                    jQuery('body,html').animate({ scrollTop: jQuery('#pro-item-1-3').offset().top - 200 }, 200) //Scroll to the reviews
+                  });
+              },6000); //wait 4 seconds to fire so that the JQuery has loaded and element has already been replaced
+           </script>
+            <!-- END Shopper Approved - templates/product -->
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% section 'featured-product' %}
+<style>
+  .shopify-payment-button__button--unbranded {
+    background-color : #f7ec15;
+    color : #282728;
+    
+  }
+</style>

@@ -1,0 +1,75 @@
+{% if section.settings.show_section %}
+  <div class="count-section margin-bottom-100 mobile-mb-50 tab-mb-80" style="background-image: url({{ section.settings.bg | img_url : '1920x' }});" data-section-id="{{ section.id }}">
+          <div class="container">
+              <div class="row">
+                  <div class="col-12">
+                      <ul class="counter-section">
+                         {% for block in section.blocks  %}
+                          <li>
+                              <div class="number-item">
+                                <h2><span class="value">{{ block.settings.number }}</span> {{ block.settings.unit }}</h2>
+                                  <h6>{{ block.settings.title }}</h6>
+                              </div>
+                          </li>
+                         {% endfor  %}  
+                      </ul>
+                  </div>
+              </div>
+
+          </div>
+
+      </div>
+      <div class="img-bottom wow fadeIn">
+          <img src="{{ section.settings.image | img_url : 'master' }}" alt="{{ section.settings.image.alt }}">
+      </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Count",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "image_picker",
+          "id": "bg",
+          "label": "Background"
+        },
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+	],
+	"blocks": [
+    {
+      "type": "content",
+      "name": "number",
+	  "limit" : 4,
+      "settings": [
+		{
+          "type": "number",
+          "id": "number",
+          "label": "Number"
+		  
+        },
+		{
+          "type": "text",
+          "id": "unit",
+          "label": "Unit"
+		  
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "SubTitle",
+		  "default" : "Lorem ipsum"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

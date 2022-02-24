@@ -1,0 +1,166 @@
+
+<div class="breadcrumb-area breadcrumb-style-1" style="background-image: url({{ section.settings.bg | img_url : 'master' }});" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="row custom-gutter">
+      <div class="col-lg-12">
+        <div class="breadcrumb-inner text-center">
+          <h1 class="page-title">{{ page_title }}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="contact-us-area">
+  <div class="container">
+    <div class="row custom-gutter">
+      <div class="col-lg-6">
+        <div class="contact-us-info margin-bottom-120 mobile-mb-50 tab-mb-40">
+          <div class="section-title-area section-title-width ">
+            <div class="section-title section-title-2">
+
+              <div class="title-text">
+                <h2 class="title">{{ section.settings.title }}</h2>
+              </div>
+            </div>
+            {{ section.settings.subtitle }}
+          </div>
+          <div class="contact-address">
+            <ul>
+              <li>{{ section.settings.phone }}</li>
+              <li>{{ section.settings.address }}</li>
+              <li>{{ section.settings.email }}</li>
+            </ul>
+          </div>
+          <div class="social_share">
+            <ul>
+              {%- assign socials = "Facebook Twitter Pinterest Instagram Tumblr Snapchat YouTube Vimeo" | split: ' ' -%}
+              {%- for social in socials -%}
+                {%- assign social_link = social | prepend: 'social_' | append: '_link' | downcase -%}
+                {%- assign icon_link = social | prepend: 'icon-' | downcase -%}
+                {%- if settings[social_link] != blank -%}
+                	<li><a href="{{ settings[social_link] | escape }}" target="_blank">{%- include icon_link -%}</a></li>
+                {%- endif -%}
+              {%- endfor -%}   
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="google-map-area mobile-mb-50 tab-mb-80 ">
+
+          <div class="google-map-inner">
+            {{ section.settings.map }}
+          </div>
+
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="contact-form-area margin-bottom-115 mobile-mb-50 tab-mb-80">
+          <div class="section-title-area  section-title-width">
+            <div class="section-title section-title-2">
+
+              <div class="title-text">
+                <h2 class="title">{{ section.settings.title_2 }}</h2>
+              </div>
+            </div>
+            {{ section.settings.subtitle_2 }}
+          </div>
+          {%- assign  formId = 'ContactForm' -%}
+          {% form 'contact', id: formId, class : 'contact-form-box' %} 
+            {%- if form.posted_successfully? -%}
+            	<p>{{ 'contact.form.post_success' | t }}</p>
+            {%- endif -%}
+            <div class="row">
+              <div class="col-lg-6">
+                <label>First name*</label>
+                <input type="text" id="{{ formId }}-first-name" name="contact[first_name]"  placeholder="Rumaisa" required>
+              </div>
+              <div class="col-lg-6">
+                <label>Last name*</label>
+                <input type="text" id="{{ formId }}-first-name" name="contact[last_name]"  placeholder="Adam" required>
+              </div>
+              <div class="col-lg-12">
+                <label>Email address*</label>
+                <input type="text"  id="{{ formId }}-email" name="contact[email]"  placeholder="hello@gmail.com" required>
+                <label>Insert message</label>
+                <textarea  id="{{ formId }}-message" placeholder="" name="contact[{{ 'contact.form.message' | t }}]"></textarea>
+                <div class="btn-wrapper">
+                  <button class="boxed-btn btn-rounded" type="submit">Send message</button>
+                </div>
+                <p class="form-messege mb-0"></p>
+              </div>
+            </div>
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Section services",
+    "settings": [
+		{
+          "type": "image_picker",
+          "id": "bg",
+          "label": "Background"
+        },
+		{
+          "type": "header",
+          "content": "Contact info"
+		},
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Let’s get in touch"
+        },
+        {
+          "type" : "text",
+          "id" : "phone",
+          "label" : "Phone",
+          "default" : "+123456789"
+        },
+        {
+          "type" : "text",
+          "id" : "address",
+          "label" : "Address",
+          "default" : "3, Avenue Saint Andrews, California"
+        },
+        {
+          "type" : "text",
+          "id" : "email",
+          "label" : "Email",
+          "default" : "admin@magwellmounts.com"
+        },
+		{
+          "type" : "html",
+          "id" : "map",
+          "label" : "Map"
+        },
+		{
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "SubTitle",
+		  "default" : "<p>We take our commitment to our users very seriously. Ig you need help with your user account, purchases, have questions about how to use the platform or are experiencing troubles and technical difficulties, please do not hesitate to contact us and someone will revert back in the next 48 hours working days.</p>"
+        },
+		{
+          "type": "header",
+          "content": "Contact support"
+		},
+		{
+          "type": "text",
+          "id": "title_2",
+          "label": "Title",
+		  "default" : "Contact support"
+        },
+		{
+          "type": "richtext",
+          "id": "subtitle_2",
+          "label": "SubTitle",
+		  "default" : "<p>We understand that you may have questions that are not answered FAQ section. Please visit out help center for unanswered questions or send us your queries.</p>"
+        }
+	]
+	
+  }
+{% endschema %}

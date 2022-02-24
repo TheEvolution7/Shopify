@@ -1,0 +1,106 @@
+{% section 'breadcrumb' %}
+<div class="cart-area margin-bottom-120  mobile-mb-50 tab-mb-80">
+  <div class="container">
+    <div class="row custom-gutter">
+      <!-- shoping-cart-tab-info -->
+      <div class="col-xl-12">
+        <div class="shoping-cart-tab-info">
+          <div class="shopping-cart-info">
+            <div class="row">
+              <div class="col-xl-12">
+                <form action="{{ routes.cart_url }}" method="post">
+                  <div class="shoping-cart-inner">
+                    <div class="shoping-cart-inner-table">
+                      {% if cart.item_count > 0 %}
+
+                      <div class="table-content table-responsive mb-50">
+                        <table class="text-center">
+                          <tbody>
+                            {%- for item in cart.items -%}
+                            <tr>
+                              <td data-label="Remove" class="cart-product-remove">
+                                <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0"><i class="ti-trash"></i></a>
+                              </td>
+                              <td data-label="Image" class="cart-product-thumbnail">
+                                <a href="{{ item.url }}"><img src="{{ item | img_url: 'large' }}" alt="{{ item.product.title }}"></a>
+                              </td>
+                              <td data-label="Title" class="cart-product-title">
+                                <h6><a href="{{ item.url }}">{{ item.product.title }}</a></h6>
+                                <span>{{ item.variant.title }}</span>
+                              </td>
+                              <td data-label="Number" class="cart-product-multifly">x</td>
+                              <td data-label="Quantity" class="cart-product-quantity">
+                                <div class="product-meta-type">
+                                  <div class="cart-plus-minus">
+                                    <input type="text" id="{{ item.key }}" name="updates[]" value="{{ item.quantity }}" value="1" class="cart-plus-minus-box">
+                                  </div>
+                                </div>
+                              </td>
+                              <td data-label="Total" class="cart-product-subtotal">{{ item.original_line_price | money }}</td>
+                            </tr>
+                            {%- endfor -%}
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <div class="shoppint-cart-total">
+                        <div class="row">
+                          <div class="col-xl-6">
+							<div class="btn-wrapper">
+                            	<button class="boxed-btn btn-rounded" type="submit" name="update">Update Cart</button>
+							</div>						
+                          </div>
+                          <div class="col-xl-6 desktop-text-right">
+                            <div class="shopping-cart-total-inner">
+                              <div class=" table-responsive mb-50">
+                                <table class="text-right">
+                                  <tbody>
+                                     <tr>
+                                        <td></td>
+                                        <td class="save-from-coupon"> {%- capture taxes_shipping_checkout -%}
+                                        {%- if shop.taxes_included and shop.shipping_policy.body != blank -%}
+                                          {{ 'cart.general.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                                        {%- elsif shop.taxes_included -%}
+                                          {{ 'cart.general.taxes_included_but_shipping_at_checkout' | t }}
+                                        {%- elsif shop.shipping_policy.body != blank -%}
+                                          {{ 'cart.general.taxes_and_shipping_policy_at_checkout_html' | t: link: shop.shipping_policy.url }}
+                                        {%- else -%}
+                                          {{ 'cart.general.taxes_and_shipping_at_checkout' | t }}
+                                        {%- endif -%}
+                                      {%- endcapture -%}
+                                      <div class="cart__shipping rte">{{ taxes_shipping_checkout }}</div></td>
+                                      </tr>
+                                    <tr>
+                                     
+                                      <td class="cart-total-title">{{ 'cart.label.total' | t }}:</td>
+                                      <td class="cart-total-price">{{ cart.total_price | money_with_currency }}</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="shopping-cart-btn margin-top-60 mobile-mt-10 tab-mt-50">
+                          <div class="btn-wrapper desktop-text-right">
+
+                            <a href="{{ routes.all_products_collection_url }}" class="boxed-btn btn-rounded btn-opacity-6">Continue shopping</a>
+                            <button class="boxed-btn btn-rounded" type="submit" name="checkout">Shipping method</button>
+                          </div>
+                        </div>
+                      </div>
+
+                      {% else %}
+                      <p style="text-align:center;">{{ 'cart.general.empty' | t }}</p>
+                      {% endif %} 
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

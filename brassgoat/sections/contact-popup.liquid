@@ -1,0 +1,54 @@
+<div class="popup-item message-popup" data-section-id="{{ section.id }}">
+  <div class="popup-item-inner">
+    <button class="popup-close-btn message-popup-content_close">X</button>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="message-popup-img">
+          <img src="{{ section.settings.image | img_url : 'large' }}" alt="{{ section.settings.image.alt | default : section.settings.title  }}">
+        </div>
+        <div class="popup-inner-content">
+          <div class="section-title-area ">
+            <div class="section-title section-title-2">
+              <div class="title-text">
+                <h2 class="title">{{ section.settings.title }}</h2>
+              </div>
+            </div>
+          </div>
+          {%- assign  formId = 'contact-form' -%}
+          {% form 'contact', id: formId, class : 'message-popup-form' %} 
+            {%- if form.posted_successfully? -%}
+            	<p>{{ 'contact.form.post_success' | t }}</p>
+            {%- endif -%}
+              <label>Full name*</label>
+              <input type="text" id="{{ formId }}-name" name="contact[{{ 'contact.form.name' | t }}]"  required>
+              <label>Email address*</label>
+              <input type="email"  id="{{ formId }}-email" name="contact[email]"  required>
+              <label>Insert message</label>
+              <textarea  id="{{ formId }}-message" name="contact[{{ 'contact.form.message' | t }}]"></textarea>
+              <div class="btn-wrapper">
+                <button class="boxed-btn btn-rounded" type="submit">Send message</button>
+              </div>
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Section Message Popup",
+    "settings": [
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default": "Send a message"
+        },
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+	]
+  }
+{% endschema %}

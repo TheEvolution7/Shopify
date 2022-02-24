@@ -1,0 +1,51 @@
+<div class="blog-details-area margin-top-40  margin-bottom-115 mobile-mb-50 tab-mb-80">
+  <div class="container">
+    <div class="row custom-gutter">
+      <div class="col-lg-12">
+        <h1 class="blog-details-title">{{ article.title }}</h1>
+        <div class="blog-item-content">
+          <ul class="post-meta">
+            <li class="post-date">{{ article.published_at | time_tag: format: 'date' }}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-7 col-md-12">
+        <div class="blog-details-inner">
+          <div class="blog-details-content margin-bottom-100">
+            <img src="{{ article.image | img_url : '1024x' }}" alt="{{ article.image.alt | default : article.title }}">
+            {{ article.content }}
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5 col-md-12">
+        <aside class="sidebar-area sidebar-right">
+          <!-- category-widget -->
+          <div class="widget widget_nav_menu category-widget">
+            <h4 class="widget-title">Tags</h4>
+            <ul>
+              {%- for tag in article.tags -%}
+              	<li>
+                    <a href="{{ blog.url }}/tagged/{{ tag | handle }}">
+                    <img src="{{ 'arrow-right-black.svg' | asset_url }}" alt="Arrow">  {{ tag }}
+                  </a>
+                </li>
+              {%- endfor -%}
+              
+              
+              {% for article in blogs.news.articles %}
+                {% if article.tags contains 'Goodfellow' %}
+                    {{article.tags}}
+                    {% break %}
+                {% endif %}
+            {% endfor %}
+              
+              
+            </ul>
+          </div>
+          <!-- widget_popular_post -->
+          {% section 'popular-post' %}
+        </aside>
+      </div>
+    </div>
+  </div>
+</div>

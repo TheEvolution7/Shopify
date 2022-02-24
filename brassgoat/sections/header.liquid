@@ -1,0 +1,155 @@
+<!-- Navbar area start -->
+<div class="nav-style-01-wrap" data-section-id="{{ section.id }}">
+  <nav class="navbar navbar-area navbar-expand-lg nav-style-01 nav-style-0 nav-white-logo nav-style-7-color {% if request.page_type == 'index' or request.page_type == '404' %}nav-absolute{% else %}subpage-menu{% endif %}">
+    <div id='aph_bar_wrapper_584021'></div>
+    <div class="container-fluid nav-container">
+      <div class="responsive-mobile-menu">
+        <div class="logo-wrapper mobile-logo">
+          <a href="{{ routes.root_url }}" class="logo">
+            <img src="{{ section.settings.logo | img_url: 'medium' }}" alt="{{ section.settings.logo.alt | default: shop.name }}">
+          </a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bloom_main_menu"   aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon">
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+          </span>
+        </button>
+      </div>
+      <div class="logo-wrapper desktop-logo">
+        <a href="{{ routes.root_url }}" class="logo">
+          <img src="{{ section.settings.logo | img_url: 'medium' }}" alt="{{ section.settings.logo.alt | default: shop.name }}">
+        </a>
+      </div>
+      <div class="collapse navbar-collapse" id="bloom_main_menu">
+        <ul class="navbar-nav">
+          {% for link in linklists[section.settings.main_linklist].links %}  
+            <li class="{%- if link.active -%}current-menu-item {% endif %} {%- if link.links != blank -%} menu-item-has-children{% endif %}">
+              <a href="{{ link.url }}">{{ link.title }}</a>
+              {%- if link.links != blank -%}
+                <ul class="sub-menu">
+                  {% for child_link in link.links %}
+                    <li  class="{%- if child_link.active -%}current-menu-item{% endif %}"><a href="{{ child_link.url }}">{{ child_link.title | escape }}</a></li>
+                  {% endfor %}   
+                </ul>
+              {% endif %}
+            </li>
+          {% endfor %}  
+        </ul>
+      </div>
+      <div class="nav-right-content">
+        <ul>
+          <li class="mini-cart-icon">
+            <span class="mini-cart-icon header-navbar-active">
+              <a href="#">{% include 'icon-cart' %}</a>
+              <sup>{{ cart.item_count }}</sup>
+            </span>
+          </li>
+          <li class="search" id="search">
+            {% include 'icon-search' %}
+          </li>
+          <li class="user-menu" >
+            {%- if customer -%}
+            	<a href="/account"><img src="{{ 'account.png'| asset_url }}" alt="User"><span>Account</span></a>
+            {%- else -%}
+            	<a href="#"><img src="{{ 'account.png'| asset_url }}" alt="User"><span>Account</span></a>
+                  <ul>
+                    <li><a href="/account/register">Sign up</a></li>
+                    <li><a href="/account/login">Sign in</a></li>
+                  </ul>
+            {%- endif -%}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+<!-- Navbar area end -->
+
+  
+
+{% schema %}
+{
+  "name": {
+    "cs": "Záhlaví",
+    "da": "Overskrift",
+    "de": "Titel",
+    "en": "Header",
+    "es": "Encabezado",
+    "fi": "Ylätunniste",
+    "fr": "En-tête",
+    "it": "Header",
+    "ja": "ヘッダー",
+    "ko": "헤더",
+    "nb": "Header",
+    "nl": "Koptekst",
+    "pl": "Nagłówek",
+    "pt-BR": "Cabeçalho",
+    "pt-PT": "Cabeçalho",
+    "sv": "Rubrik",
+    "th": "ส่วนหัว",
+    "tr": "Üstbilgi",
+    "vi": "Đầu trang",
+    "zh-CN": "标头",
+    "zh-TW": "標頭"
+  },
+  "settings": [
+	{
+      "type": "image_picker",
+      "id": "logo",
+      "label": {
+        "cs": "Obrázek loga",
+        "da": "Logobillede",
+        "de": "Logo-Foto",
+        "en": "Logo image",
+        "es": "Logo",
+        "fi": "Logokuva",
+        "fr": "Image du logo",
+        "it": "Immagine del logo",
+        "ja": "ロゴ画像",
+        "ko": "로고 이미지",
+        "nb": "Logobilde",
+        "nl": "Afbeelding van logo",
+        "pl": "Obraz logo",
+        "pt-BR": "Imagem do logotipo",
+        "pt-PT": "Imagem do logótipo",
+        "sv": "Logobild",
+        "th": "รูปภาพโลโก้",
+        "tr": "Logo görseli",
+        "vi": "Hình ảnh logo",
+        "zh-CN": "logo 图片",
+        "zh-TW": "標誌圖片"
+      }
+    },
+    {
+      "type": "link_list",
+      "id": "main_linklist",
+      "label": {
+        "cs": "Nabídka",
+        "da": "Menu",
+        "de": "Menü",
+        "en": "Menu",
+        "es": "Menú",
+        "fi": "Valikko",
+        "fr": "Menu",
+        "it": "Menu",
+        "ja": "メニュー",
+        "ko": "메뉴",
+        "nb": "Meny",
+        "nl": "Menu",
+        "pl": "Menu",
+        "pt-BR": "Menu",
+        "pt-PT": "Menu",
+        "sv": "Meny",
+        "th": "เมนู",
+        "tr": "Menü",
+        "vi": "Menu",
+        "zh-CN": "菜单",
+        "zh-TW": "選單"
+      },
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,31 @@
+<ul>
+  {%- if paginate.previous -%}
+    <li class="arrow-icon">
+      <a href="{{ paginate.previous.url }}"><img src="{{ 'arrow-left-black.svg' | asset_url }}" alt="Arrow"></a>
+    </li>
+  {%- else -%}
+    <li class="arrow-icon">
+      <a href="#" disabled="disabled"><img src="{{ 'arrow-left-black.svg' | asset_url }}" alt="Arrow"></a>
+    </li>
+  {%- endif  -%}
+  {%- for part in paginate.parts -%}
+    {%- if part.is_link -%}
+      <li><a href="{{ part.url }}">{{ part.title }}</a></li>
+    {%- else -%}
+      {%- if part.title == paginate.current_page -%}
+          <li class="active"><a href="#" disabled="disabled">{{ part.title }}</a></li>
+      {%- else -%}
+          <li><a href="#" disabled="disabled">{{ part.title }}</a></li>
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- if paginate.next -%}
+    <li class="arrow-icon">
+      <a href="{{ paginate.next.url }}"><img src="{{ 'arrow-right-black.svg' | asset_url }}" alt="Arrow"></a>
+    </li>
+  {%- else -%}
+    <li class="arrow-icon">
+      <a href="#" disabled="disabled"><img src="{{ 'arrow-right-black.svg' | asset_url }}" alt="Arrow"></a>
+    </li>
+  {%- endif  -%}
+</ul>

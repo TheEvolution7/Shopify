@@ -1,0 +1,70 @@
+<div class="mini-cart-wrapper">
+  <div class="sidebar-nav-icon">
+    <button class="mini-cart-close"><img src="{{ 'arrow-left-black.svg' | asset_url }}" alt="Arrow Image"></button>
+  </div>
+  <div class="mini-cart-inner scrollbar-primary">
+    <ul>
+      <li>
+        <div class="section-title-area ">
+          <div class="section-title section-title-2 wow fadeIn">
+            <div class="title-text">
+              <h2 class="title">My orders</h2>
+            </div>
+          </div>
+        </div>
+      </li>
+      {% if cart.item_count > 0 %} 
+      <form action="{{ routes.cart_url }}" method="post" id="checkout-cart">
+        {% for item in cart.items %} 
+        <li>
+          <div class="cart-item">
+            <div class="cart-item-inner">
+              <div class="product-image">
+                <a href="{{ item.url }}"><img src="{{ item | img_url: 'medium' }}" alt="{{ item.product.title }}"></a>
+              </div>
+              <div class="cart-item-brief">
+                <div class="product-order-number">{{ item.quantity }}</div>
+                <div class="product-multiply">x</div>
+                <div class="cart-product-title"><h2 class="product-title"><a href="{{ item.url }}">{{ item.product.title }}</a></h2></div>
+                <div class="product-price">{{ item.price | money }}</div>
+                <div class="product-remove"><a href="/cart/change?line={{ forloop.index }}&amp;quantity=0"><i class="fa fa-trash-o"></i></a></div>
+              </div>
+            </div>
+          </div>
+        </li>
+        {% endfor %} 
+
+
+        <li>
+          <div class="cart-item">
+            <div class="cart-item-inner cart-total cart-btn">
+              <div class="btn-wrapper">
+                <a href="{{ routes.cart_url }}" class="boxed-btn btn-rounded">View basket</a>
+              </div>
+              <div class="btn-wrapper">
+                <input type="hidden" name="checkout">
+                <a class="boxed-btn btn-rounded" href="javascript:;" onclick="document.getElementById('checkout-cart').submit();">Checkout</a>
+              </div>
+            </div>
+          </div>
+        </li>
+      </form>
+      {% else %}
+      <li>
+        <p>{{ 'cart.general.empty' | t }}</p>
+      </li>
+      <li>
+        <div class="cart-item">
+          <div class="cart-item-inner cart-total cart-btn">
+
+
+            <div class="btn-wrapper">
+              <a href="{{ routes.all_products_collection_url }}" class="boxed-btn btn-rounded">{{ 'cart.general.continue_shopping' | t }}</a>
+            </div>
+          </div>
+        </div>
+      </li>
+      {% endif %}
+    </ul> 
+  </div>
+</div>

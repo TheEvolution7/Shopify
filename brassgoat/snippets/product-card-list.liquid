@@ -1,0 +1,35 @@
+{% form 'product', product, id: 'add-cart' %}
+  <div class="product-item text-center">
+    <div class="product-image">
+      <div class="thumb-pro">
+        <a href="{{ product.url }}"><img src="{{ product.featured_image | img_url : 'grande' }}" alt="{{ product.featured_image.alt | default : product.title }}"></a>
+      </div>
+      {% if product.compare_at_price %}
+      <div class="product-badge">
+        <ul>
+          <li class="sale-badge">Sale</li>
+        </ul>
+      </div>
+      {% endif %}
+      <div class="product-action">
+        <ul>
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          <li><button type="submit" name="add">{%- if product.available -%}Add to cart{%- else -%}Sold Out{%- endif -%}</button></li>
+          <li class="details-link"><a href="{{ product.url }}">Details</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="product-item-brief">
+      <h2 class="product-title"><a href="{{ product.url }}">{{ product.title }}</a></h2>
+      
+      <!-- Shopper Approved - snippets/product-card-list -->
+      <div class="star_container {{product.id}}"> </div>
+      <!-- END Shopper Approved - snippets/product-card-list -->
+      
+      <div class="product-price">
+        <del>{{ product.compare_at_price | money }}</del>
+        <span>{{ product.price | money }}</span>
+      </div>
+    </div>
+  </div>
+{% endform %}

@@ -1,0 +1,950 @@
+.desktop-logo
+    max-width: 150px
+body 
+    background-image: url(pattern.png)
+    background-repeat: repeat
+    background-size: 800px
+    background-color: #f6f6f6
+    background-blend-mode: multiply
+.slider-style-2 
+    .slide-item 
+        .slide-content 
+            display: flex
+            flex-direction: column
+            justify-content: center
+            .slide-title-2,.slide-title-1,.slide-title-3
+                color: #fff
+                text-transform: uppercase
+                font-weight: 900
+                font-family: 'Merriweather Sans', sans-serif
+                line-height: 1
+            .slide-title-1
+                margin-bottom: 35px
+                // text-shadow: -5px 5px 1px #848484
+                @media (min-width: 768px) and (max-width: 991px)
+                    margin-bottom: 20px
+                @media screen and ( max-width: 767px )
+                    margin-bottom: 10px
+            .slide-title-3
+                margin-bottom: 20px
+        .slide-image
+            img 
+                width: auto
+                height: auto
+                position: absolute
+                object-fit: contain
+                bottom: 0
+                right: 0
+.slide-content 
+    > *
+        @media screen and ( max-width: 767.82px )
+            opacity: 1!important
+            visibility: visible!important
+            animation-name: unset!important
+.slick-current 
+    .slide-content 
+        > *
+            @media screen and ( max-width: 767.82px )
+                opacity: 1!important
+                visibility: visible!important
+                animation-name: unset!important
+        
+.slide-image
+    > *
+        @media screen and ( min-width: 768px )
+            opacity: 0
+            visibility: hidden
+            transition: all .1s ease
+        
+    @media screen and ( min-width: 768px )
+        .__1
+            transform: translateY(40px)
+        .__2
+            transform: translateX(40px)
+        .__3
+            transform: translateX(40px)
+        .__4
+            transform: translateX(-10px)
+    
+.slick-current
+    .slide-image
+        > *
+            opacity: 1
+            visibility: visible
+        .__1
+            transform: translateY(0px)
+        .__2
+            transform: translateX(0px)
+        .__3
+            transform: translateX(0px)
+        .__4
+            transform: translateX(0px)
+        @for $i from 1 through 10
+            img:nth-child(#{$i})
+                transition-delay: calc( #{$i}s / 2 )
+                transition-duration: calc( #{$i}s / 2 )
+
+.section-title
+    .title-text
+        .title
+            font-weight: 600
+            
+.our-exclusive-services-area
+    .thumb-img
+        @media screen and ( max-width: 767.82px )
+            margin-bottom: 30px
+            
+    .section-title
+        margin-left: -120px
+        padding-right: 20px
+        margin-bottom: 30px
+        text-transform: uppercase
+        @media screen and ( max-width: 991.82px )
+            margin-left: -20px
+        @media screen and ( max-width: 767.82px )
+            margin-left: 0
+            padding-right: 0
+    .custom-content-inner
+        padding-left: 50px
+        @media screen and ( max-width: 991.82px )
+            padding-left: 30px
+        @media screen and ( max-width: 767.82px )
+            padding-left: 10px
+            padding-right: 10px
+.feature-section
+    .section-title 
+        margin-bottom: 25px
+.box-feature
+    text-align: center
+    margin-top: 40px
+    padding: 0 40px
+    @media screen and ( max-width: 991.82px )
+        padding: 0 10px
+        
+    .icon 
+        position: relative
+        padding-bottom: 35%
+        margin-bottom: 35px
+        img 
+            left: 0
+            position: absolute
+            width: 100%
+            height: 100%
+            object-fit: contain
+    .content 
+        h4 
+            margin-bottom: 20px
+        p 
+            font-size: 16px
+        br 
+            display: block
+            margin: 10px 0
+            content: ''
+.count-section
+    position: relative
+    background-color: #474747
+    background-blend-mode: multiply
+    padding: 100px 0 140px
+    background-size: cover
+    @media screen and ( max-width: 767.82px )
+        padding: 60px 0 60px
+    
+    .container 
+        position: relative
+        z-index: 1
+.img-bottom
+    position: relative
+    width: 100%
+    max-width: 1100px
+    padding: 0 30px
+    margin: auto
+    margin-top: -225px
+    @media screen and ( max-width: 991.82px )
+        margin-top: -150px
+    @media screen and ( max-width: 767.82px )
+        margin-top: -80px
+        
+    img 
+        -webkit-filter: drop-shadow(-8px 8px 8px rgba(#000,0.4))
+        filter: drop-shadow(-8px 8px 8px rgba(#000,0.4))
+.counter-section
+    color: #fff
+    display: flex
+    list-style: none
+    flex-wrap: wrap
+    li 
+        flex: 0 0 25%
+        width: 100%
+        display: flex
+        
+        justify-content: center
+        text-align: center
+        border: 1px solid transparent
+        padding: 10px 0 15px 0
+        @media screen and ( max-width: 767.82px )
+            flex: 0 0 50%
+            margin-bottom: 15px
+            
+        &:nth-child(2)
+            border-left-color: #fff
+        &:nth-child(3)
+            border-left-color: #fff
+            @media screen and ( max-width: 767.82px )
+                border-left-color: transparent
+        &:nth-child(4)
+            border-left-color: #fff
+            
+            
+    .number-item
+        h2 
+            color: #fff
+            font-size: 45px
+        h6
+            font-size: 24px
+            color: rgba(#fff,0.7)
+.product-detail-section
+    .box-img
+        position: relative
+        padding-bottom: 90%
+        img 
+            z-index: 1
+            padding: 10px 0
+            position: absolute
+            width: 100%
+            height: 100%
+            object-fit: contain
+            -webkit-filter: drop-shadow(-4px 4px 4px rgba(#000,0.4))
+            filter: drop-shadow(-4px 4px 4px rgba(#000,0.4))
+    .slider-for-pro
+        padding-bottom: 50px
+        .box-img 
+            img 
+                padding: 5%
+                padding-bottom: 0px
+            .decs
+                position: absolute
+                transform: rotate(-90deg)
+                bottom: 20px
+                left: -100px
+                font-size: 250px
+                opacity: 0.2
+                z-index: 0
+                font-family: var(--google-font-2)
+    .slider-nav-pro
+        margin-bottom: 25px
+        .slick-slide
+            cursor: pointer
+            opacity: 0.5
+            transition: all .3s ease
+            &.slick-current,&:hover 
+                opacity: 1
+.btn-full-pro
+    display: flex
+    margin: 0 -20px
+    .product-meta-type,.btn-wrapper
+        flex: 1
+        margin: 0 20px
+    .btn-wrapper
+        .boxed-btn 
+            height: 45px 
+            width: 100%
+            padding: 0
+            margin-bottom: 20px
+            background-color: transparent
+            color: var(--secondary-color-three)
+            border: 1px solid var(--secondary-color-three)
+            &:hover
+                background-color: var(--main-color-one)
+                color: var(--secondary-color-three)
+                border: 1px solid var(--main-color-one)
+.buy-now-btn
+    .boxed-btn
+        padding: 0
+        width: 100%
+        text-align: center
+        height: 45px 
+        
+.product-detail-section 
+    padding: 80px 0 00px
+    &.__1 
+        padding-top: 0
+        margin-top: 30px
+        .box-img 
+            padding-bottom: 80%
+    .option-select
+        ul 
+            list-style: none 
+            padding-left: 0
+            display: flex
+            li 
+                padding: 0 15px
+                @media screen and ( max-width: 991.82px )
+                    padding: 0 10px
+                + li
+                    border-left: 1px solid #646464
+                input 
+                    display: none
+                    &:checked
+                        + label
+                            color: var(--heading-color)
+                            -webkit-text-stroke: 1px var(--heading-color)
+                label
+                    margin-bottom: 0
+                    font-weight: 500
+                    transition: all .3s ease
+                    cursor: pointer
+    .content-detail
+        border-bottom: 1px solid #646464
+        margin-bottom: 30px
+        padding-bottom: 30px
+        @media screen and ( max-width: 991.82px )
+            margin-bottom: 15px
+            padding-bottom: 15px
+        @media screen and ( max-width: 767.82px )
+            margin-bottom: 10px
+            padding-bottom: 10px
+        .desc
+            p
+                margin-bottom: 0
+                display: -webkit-box
+                -webkit-line-clamp: 3
+                -webkit-box-orient: vertical
+                overflow: hidden
+                text-overflow: ellipsis 
+        .price
+            display: flex
+            align-items: center
+            font-size: 30px
+            color: var(--heading-color)
+            margin-bottom: 20px
+            @media screen and ( max-width: 991.82px )
+                font-size: 24px
+
+            .old-price
+                font-size: 26px
+                opacity: 0.4
+                margin-right: 15px
+                @media screen and ( max-width: 991.82px )
+                    font-size: 20px
+        h2 
+            font-size: 50px
+            margin-bottom: 20px
+            @media screen and ( max-width: 991.82px )
+                font-size: 32px
+
+            @media screen and ( max-width: 767.82px )
+                font-size: 26px
+            @media screen and ( max-width: 575.82px )
+                font-size: 24px
+    h4 
+        font-family: var(--body-font)
+        font-weight: 300
+        margin-bottom: 20px
+        @media screen and ( max-width: 991.82px )
+            font-size: 20px
+            margin-bottom: 15px
+.product-meta-type
+    margin-bottom: 20px
+    .cart-plus-minus
+        display: flex
+        overflow: hidden
+        width: 100%
+        justify-content: space-between
+        align-items: center
+        border-radius: 0 30px 0 30px
+        border: 1px solid var(--secondary-color-three)
+        @media screen and ( max-width: 767px )
+            border-radius: 0 15px 0 15px
+            
+        input 
+            margin-bottom: 0
+            padding-left: 0
+            width: 80px
+            text-align: center
+            height: 45px
+            border: unset
+        .qtybutton
+            font-size: 20px
+            font-weight: 500
+            cursor: pointer
+            height: 45px 
+            width: 60px
+            display: flex
+            align-items: center
+            justify-content: center
+            &:hover 
+                background-color: var(--secondary-color-three)
+                color: #fff
+.footer-area
+    background-color: var(--heading-color)
+    color: #fff
+    .about_us_widget 
+        .footer-logo
+            max-width: 180px
+    h4 , address
+        color: #fff
+    address
+        i 
+            width: 30px
+            margin-right: 5px
+            text-align: center
+        ul
+            list-style: none
+            padding-left: 0
+            li 
+                display:  flex
+                align-items: center
+                a
+                    display: flex
+                    align-items: center 
+    .widget 
+        ul 
+            li 
+                a
+                    color: #fff
+    .widget.footer-widget 
+        .social_share ul li a,
+        p
+            color: #fff
+    .footer-top,.copyright-area
+        background-color: var(--heading-color)
+.form-input-box 
+    button[type="submit"]
+        border: 1px solid var(--main-color-one)
+        &:hover
+            border-color: var(--main-color-one)
+.newsletter-widget
+    @media screen and ( max-width: 1199.82px )
+        padding-left: 0
+.back-to-top
+    color: var(--heading-color)
+    &:hover 
+        color: var(--heading-color)
+.floating-icon
+    background-color: var(--heading-color)
+.body-overlay
+    background-color: var(--heading-color)
+    z-index: 10000
+.mini-cart-wrapper
+    background-color: #fff
+.section-title-2 
+    .icon 
+        img
+            background-color: var(--heading-color)
+.cart-item 
+    .product-image
+        position: relative
+        width: 100px
+        height: 100px
+        img 
+            position: absolute
+            width: 100%
+            height: 100%
+            object-fit: contain
+.search-popup 
+    .search-form
+        z-index: 10000
+.box-video
+    display: flex
+    .vid-container
+        position: relative
+        height: 530px
+        border-radius: 0 50px 0 50px
+        overflow: hidden
+        margin: 0
+        margin-right: -4px
+        @media screen and ( max-width: 991.82px )
+            padding-bottom: 60%
+            height: auto
+        @media screen and ( max-width: 767.82px )
+            border-radius: 0 30px 0 30px
+            
+        iframe 
+            position: absolute
+            width: 100%
+            height: 100%
+            object-fit: cover
+    .slider-video 
+        padding:  30px 0
+        position: relative
+        .slick-arrow
+            position: absolute
+            left: 50%
+            transform: translateX(-50%)
+            font-size: 20px
+            color: var(--heading-color)
+        .slick-prev
+            top: 0
+        .slick-next 
+            bottom: -2px  
+.vid-list-container
+    .item 
+        padding: 10px 20px
+        margin-bottom: 0px
+        &.active 
+            background-color: var(--heading-color)
+            a
+                color: #fff
+        a 
+            display: flex
+            align-items: center
+            color: var(--heading-color)
+        .thumb-video 
+            flex: 0 0 120px
+        .vid-thumb
+            padding-bottom: 60%
+            position: relative
+            display: block
+            img
+                position: absolute
+                width: 100%
+                height: 100%
+                object-fit: cover
+        .desc
+            padding: 0 10px
+            font-weight: 500
+            max-width: 300px
+.video-section
+    .section-title
+        margin-bottom: 60px
+.row
+    &.no-gutters 
+        margin-right: 0
+        margin-left: 0
+        > [class*="col-"] 
+            padding-right: 0
+            padding-left: 0
+.product-item
+    .thumb-pro
+        position: relative
+        padding-bottom: 100%
+        &::after
+            position: absolute
+            width: 100%
+            height: 70%
+            bottom: 0
+            left: 0
+            background-color: #C8CAC7
+            content: ''
+            border-radius: 0 30px 0 30px
+            z-index: 0
+            @media screen and ( max-width: 767.82px )
+                border-radius: 0 20px 0 20px
+        img 
+            left: 0
+            padding: 10px 10px 20px
+            position: absolute
+            width: 100%
+            height: 100%
+            object-fit: contain
+            z-index: 1
+    .product-image 
+        width: 100%
+        &::before
+            background-color: var(--heading-color)
+            border-radius: 0 30px 0 30px
+            z-index: 3
+            @media screen and ( max-width: 767.82px )
+                border-radius: 0 20px 0 20px
+        .product-badge
+            z-index: 2
+            ul 
+                li
+                    color: var(--heading-color)
+                    &.sold-out-badge
+                        background-color: var(--heading-color)
+                        color: #fff
+    .product-item-brief 
+        .product-price
+            color: var(--heading-color)
+            font-size: 24px
+            del 
+                font-size: 20px
+.product-action 
+    li 
+        a
+            color: var(--heading-color)
+    .details-link 
+        a
+            color: #fff
+            &:hover 
+                color: var(--heading-color)
+.testimonial-nav-item
+    display: flex
+    align-items: center
+    width: 100%
+    justify-content: center
+    .thumb-img
+        width: 60px
+        height: 60px
+        position: relative
+        border-radius: 50%
+        overflow: hidden
+        margin-right: 10px
+        img
+            width: 100%
+            height: 100%
+            object-fit: cover
+            position: absolute
+    .desc
+        h5 
+            margin-bottom: 0
+.slider-for-testimonial
+    .testimonial-brief
+        background-color: transparent
+        padding:  50px 50px 50px
+        line-height: 2
+        margin: 0
+        @media screen and ( max-width: 767.82px )
+            padding: 30px
+            
+        p 
+           line-height: 2.2
+.slider-nav-testimonial
+    .slick-slide
+        cursor: pointer
+        opacity: 0.5
+        transition: all .3s ease
+        &:hover 
+            opacity: 1
+    .slick-current
+        opacity: 1
+.navbar-area 
+    &.nav-fixed
+        background-color: var(--secondary-color-five);
+    .nav-container 
+        .navbar-collapse 
+            .navbar-nav 
+                li
+                    &.current-menu-item,&:hover 
+                        a
+                            color: var(--main-color-one)
+                            &:before
+                                background-color: var(--main-color-one)
+.preloader-inner
+    background-color: rgba(0,0,0,0.6)
+.btn-wrapper 
+    .boxed-btn
+        font-weight: 800
+.popup-item 
+    .popup-item-inner
+        z-index: 99999
+.popup-close-btn
+    color: var(--heading-color)
+.popup-item-inner 
+    input[type="text"], input[type="email"], input[type="password"], input[type="submit"],textarea
+        border-color: var(--heading-color)
+.social_share li a
+    color: var(--heading-color)
+.navbar-area 
+    .nav-container 
+        .navbar-collapse 
+            .navbar-nav
+                text-align: left
+                padding-left: 50px
+                li
+                    &.menu-item-has-children 
+                        .sub-menu
+                            background-color: var(--heading-color)
+                            color: #ddd
+                            li
+                                a
+                                    color: #ddd 
+.noti-section
+    .thumb-img 
+        position: relative
+        padding-bottom: 50%
+        border-radius: 0 30px 0 30px
+        overflow: hidden
+        display: block
+        width: 100%
+        &.__1 
+            @media screen and ( min-width: 768px )
+                border-radius: 0 50px 0 50px
+        &.__2
+            @media screen and ( min-width: 768px )
+                border-radius: 50px 0px 50px 0px 
+        img 
+            position: absolute
+            width: 100%
+            height: 100%
+            object-fit: cover
+    .box-noti
+        display: flex
+        flex-direction: column
+        margin-bottom: 30px
+        @media screen and ( min-width: 768px )
+            margin-bottom: 0
+        .content 
+            display: flex
+            flex-direction: column
+            flex: 1 0 auto
+            justify-content: space-between
+            padding: 20px 
+            text-align: center
+            p
+                br
+                    display: block
+                    padding: 5px 0
+                    content: ''
+            .btn-wrapper
+                margin-top: 15px
+.navbar-area 
+    .nav-container 
+        .navbar-collapse 
+            .navbar-nav 
+                @media screen and ( max-width: 991.82px )
+                    padding-left: 0
+                li
+                    &.menu-item-has-children 
+                        @media screen and ( max-width: 991.82px )
+                            padding: 0
+                            padding-right: 0
+                        a 
+                            @media screen and ( max-width: 991.82px )
+                                margin: 10px 0
+                        i
+                            @media screen and ( max-width: 991.82px )
+                                z-index: 3
+                                height: 50px
+                                top: -10px
+                                transform: unset
+                                right: 0
+                                width: 50px
+                                display: flex
+                                align-items: center
+                                justify-content: center
+                                background-color: #f2f2f2
+                                color: var(--heading-color)!important
+.subpage-menu
+    background-color: var(--heading-color)
+.short-by 
+    .nice-select
+        padding-left: 10px
+        background-color: transparent
+        border: 1px solid var(--heading-color)
+.nice-select .option:hover
+    color: var(--heading-color)
+.nice-select .option.selected.focus,
+.nice-select .option.focus
+    color: var(--heading-color)
+.nice-select .list:hover .option:not(:hover).focus,
+.nice-select .list:hover .option:not(:hover).selected.focus 
+    color: var(--main-color-one)
+.breadcrumb-area.breadcrumb-style-1 
+    .breadcrumb-inner
+        background-color: rgba(#282728,0.8)
+.breadcrumb-area
+    &::before
+        display: none
+.product-search,.shopping-cart-coupon 
+    .form-input-box 
+        input[type="text"]
+            border-color: var(--heading-color)
+        button[type="submit"]
+            background-color: var(--heading-color)
+            border-color: var(--heading-color)
+            &:hover 
+                background-color: var(--main-color-one)
+                color: var(--heading-color)
+                border-color: var(--main-color-one)
+.product-details-image-gallery
+    @media screen and ( max-width: 991.82px )
+        padding-right: 0
+.product-details-small-img-slider 
+    .single-item 
+        position: relative
+        padding-bottom: 126%
+        overflow: hidden
+        cursor: pointer
+        opacity: 0.5
+        &::after
+            opacity: 0
+            position: absolute
+            width: 100%
+            height: 100%
+            top: 0
+            left: 0
+            content: ''
+            border: 2px solid var(--main-color-one)
+            transition: all .3s ease
+        img 
+            position: absolute
+            width: 100%
+            height: 100%
+            object-fit: contain
+    .slick-current
+        .single-item
+            opacity: 1
+            &::after
+                opacity: 1
+                
+                
+.product-details-large-img-slider
+    .single-item 
+        position: relative
+        padding-bottom: 120%
+        overflow: hidden
+        img 
+            position: absolute
+            width: 100%
+            height: 100%
+            object-fit: cover
+.detail-item
+    a 
+        &:hover 
+            color: var(--main-color-one)
+.my-account-tab-menu 
+    a
+        padding-left: 25px
+        padding-top: 10px
+        padding-bottom: 10px
+        background-color: var(--heading-color)
+        color: #fff
+        &::before
+            background-color: var(--heading-color)
+        &.active , &:hover 
+            background-color: var(--main-color-one)
+            color: var(--heading-color)
+        &:not(.active)
+            &:hover 
+                &::before
+                    opacity: 0
+.my-account-tab-info
+    border: 1px solid var(--heading-color)
+.table-content 
+    .cart-product-title
+        text-align: left
+.cart-product-thumbnail
+    a 
+        position: relative
+        padding-bottom: 100%
+        overflow: hidden
+        display: block
+        @media screen and ( max-width: 767.82px )
+            height: 100px
+            padding-bottom: unset
+        img 
+            left: 0
+            position: absolute
+            width: 100%
+            height: 100%
+            object-fit: contain
+            @media screen and ( max-width: 767.82px )
+                object-position: right
+.shoping-cart-inner-table
+    .table-content
+        .cart-product-title,.cart-product-thumbnail,.cart-product-quantity
+            @media screen and ( max-width: 767.82px )
+                max-width: unset
+                min-width: unset
+        table
+            tr 
+                border-bottom: 1px solid var(--heading-color)
+                @media screen and ( max-width: 767.82px )
+                    border-bottom: 1px solid var(--main-color-one)
+                    td,th
+                        padding: 15px 0
+                        padding-left: 40%
+                        border-bottom: 1px solid #c9c9c9
+                        display: block
+                        text-align: right
+                        position: relative
+                        &:before
+                            content: attr(data-label)
+                            left: 0
+                            width: 40%
+                            text-align: left
+                            position: absolute
+                            font-size: 10px
+                            top: 50%
+                            transform: translateY(-50%)
+                            text-transform: uppercase
+                            font-weight: bold
+                    .cart-product-multifly
+                        display: none
+.cart-product-thumbnail
+    min-width: 100px
+    max-width: 100px
+.cart-product-quantity
+    min-width: 150px
+    max-width: 150px
+    .product-meta-type
+        margin-bottom: 0
+.shoppint-cart-total
+    border: unset
+.datepicker td, .datepicker th
+    color: var(--heading-color)
+.datepicker table tr td.new, .datepicker table tr td.old
+    color: #8b8b8b
+.datepicker table tr td.day.focused, .datepicker table tr td.day:hover
+    color: #fff
+.datepicker table tr td.active.day
+    background: var(--heading-color)
+.contact-form-box 
+    textarea
+        border-color: var(--heading-color)
+.google-map-area
+    background-color: var(--heading-color)
+#map
+    transform: unset
+.breadcrumb-area.breadcrumb-style-3 
+    .breadcrumb-inner
+        border-radius: 0 30px 0 30px
+        &::before
+            border-radius: 0 30px 0 0
+        &::after
+            border-radius: 0 0 0 30px
+        .breadcrumb-shape
+            border-radius: 0 30px 0 30px
+            overflow: hidden
+.why-shop-from-us-img 
+    position: relative
+    padding-bottom: 90%
+    overflow: hidden
+    img 
+        left: 0
+        position: absolute
+        width: 100%
+        height: 100%
+        object-fit: cover
+.why-shop-from-us-inner 
+    .card-body
+        iframe 
+            width: 100%
+.popular-post-img
+    a
+        position: relative
+        padding-bottom: 70%
+        overflow: hidden
+        display: block
+        img 
+            left: 0
+            position: absolute
+            width: 100%
+            height: 100%
+            object-fit: cover
+.bloom-pagination 
+    ul 
+        li
+            a
+                font-weight: 600
+            &:hover , &.active
+                a
+                    color: var(--heading-color)
+.post-meta 
+    li
+        color: var(--paragraph-color)
+.checkbox-item 
+    .checkmark
+        border-color: var(--heading-color)
+        &::after
+            border-color: var(--heading-color)
+.search-popup 
+    .search-form 
+        .submit-btn
+            color: var(--heading-color)
+            &:hover 
+                color: var(--main-color-one)
+
+        

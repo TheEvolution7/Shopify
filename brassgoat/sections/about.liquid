@@ -1,0 +1,85 @@
+{% if section.settings.show_section %}
+  <div class="our-exclusive-services-area sidebar-sticky-icon-area margin-bottom-100 mobile-mb-50 tab-mb-80" data-section-id="{{ section.id }}">
+    <!-- sidebar-sticky -->
+    <div class="floating-icon" id="service_info_item">
+      <div class="floating-icon__is floating-icon-info">
+        <i class="fa fa-phone"></i>
+      </div>
+      <!--floating-icon-is-->
+      <div class="floating-icon__is floating-icon-message">
+        <i class="fa fa-envelope"></i>
+      </div>
+      <!--floating-icon-is-->
+      <div class="floating-icon__is floating-icon-location">
+        <i class="fa fa-info-circle"></i>
+      </div>
+      <!--floating-icon-is-->
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 order-1 order-md-0 wow fadeIn">
+          <div class="thumb-img">
+            <img src="{{ section.settings.image | img_url : 'master' }}" alt="{{ section.settings.image.alt | default : section.settings.title }}">
+          </div>
+        </div>
+        <div class="col-md-6 d-flex align-items-center order-0 order-md-1">
+          <div class="content">
+            <div class="section-title section-title-2 wow fadeIn">
+              <div class="title-text">
+                <h2 class="title">{{ section.settings.title }}</h2>
+              </div>
+            </div>
+            <div class="custom-content-inner wow fadeIn">
+              {{ section.settings.subtitle }}
+              <div class="btn-wrapper margin-top-30">
+                <a class="boxed-btn btn-rounded" href="{{ section.settings.url }}">{{ section.settings.button }}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section services",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "Our Story"
+        },
+		{
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "SubTitle" 
+        },
+		{
+          "type": "text",
+          "id": "button",
+          "label": "Button",
+		  "default": "Contact Us"
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        }
+	]
+	
+  }
+{% endschema %}

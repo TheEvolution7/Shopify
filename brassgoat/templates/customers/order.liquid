@@ -1,0 +1,717 @@
+<div class="breadcrumb-area breadcrumb-style-1" style="background-image: url({{ '10.jpeg' | asset_url }});">
+  <div class="container">
+    <div class="row custom-gutter">
+      <div class="col-lg-12">
+        <div class="breadcrumb-inner text-center">
+          <h1 class="page-title">Welcome! {{ customer.first_name }} {{ customer.last_name }}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="my-account-area margin-bottom-115 mobile-mb-50 tab-mb-80">
+  <div class="container-fluid pr-0">
+    <div class="row custom-gutter">
+      <!-- my-account-details -->
+      <div class="col-xl-2 offset-xl-1 col-md-3 col-sm-12">
+        <div class="my-account-tab-menu">
+          <div class="nav">
+            <a href="/account">My details</a>
+            <a href="/account" class="">Addresses</a>
+            <a class="active show" href="#my_account_1_4" >My orders</a>
+            <a  href="/account/logout/" class="">Logout</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-9 col-md-9 col-sm-12">
+        <div class="my-account-tab-info">
+          <div class="tab-content">
+            <!-- my-account-details-info -->
+            <div class="tab-pane fade active show" id="my_account_1_1">
+              <div class="my-account-details-info">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="section-title-area text-left">
+                      <div class="section-title section-title-2">
+
+                        <div class="title-text">
+                          <h2 class="title">My details</h2>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-12 col-sm-12 col-12">
+                    <div class="my-account-details-info-form">
+                      <template id="kca-default-css">
+                          #kca-forms-container {
+                          padding: 30px 5%;
+                          }
+
+                          #kca-forms-container .kca-forms-wrapper {
+                          margin: auto;
+                          max-width: 700px;
+                          font-size: 0;
+                          }
+
+                          #kca-forms-container .kca-form {
+                          font-size: initial;
+                          }
+
+                          #kca-forms-container .kca-forms-wrapper.kca-forms-wrapper--with-password-form.kca-forms-wrapper--with-info-form .kca-form {
+                          max-width: 350px;
+                          margin: auto;
+                          }
+
+                          #kca-forms-container .kca-forms-wrapper.kca-forms-wrapper--with-password-form.kca-forms-wrapper--with-info-form .kca-form:nth-child(2) {
+                          margin-top: 2.5rem;
+                          }
+
+
+                          .kca-form__title {
+                          font-weight: bold;
+                          margin-bottom: 2rem;
+                          }
+
+                          #kca-forms-container .kca-form__input-group {
+                          margin-bottom: 1rem;
+                          }
+
+                          @media screen and (min-width: 760px) {
+                          #kca-forms-container .kca-forms-wrapper.kca-forms-wrapper--with-password-form.kca-forms-wrapper--with-info-form .kca-form {
+                          display: inline-block;
+                          vertical-align: top;
+                          width: 50%;
+                          padding: 0.3rem;
+                          }
+
+                          #kca-forms-container .kca-forms-wrapper.kca-forms-wrapper--with-password-form.kca-forms-wrapper--with-info-form .kca-form:nth-child(2) {
+                          margin-top: 0;
+                          }
+                          }
+                      </template>
+                      <div id="kca-forms-container" settings="
+                          {
+                              &quot;with_name&quot;: true,
+                              &quot;with_email&quot;: true,
+                              &quot;with_phone&quot;: true,
+                              &quot;with_password&quot;: true,
+                              &quot;with_password_confirmation&quot;: true,
+                          }" errors="{&quot;non_valid_name&quot;:&quot;Name is not valid&quot;,&quot;short_name&quot;:&quot;Name is too short&quot;,&quot;non_valid_email&quot;:&quot;Email is not valid&quot;,&quot;non_valid_password&quot;:&quot;Password is not valid&quot;,&quot;short_password&quot;:&quot;Password is too short&quot;,&quot;non_matched_password&quot;:&quot;Your passwords doesn't match&quot;}" css="">
+                        <div class="kca-wrapper">
+                          <input data-token="" type="hidden" name="token" value="6c694286d1fce871a7bf88751f6f52bc">
+                          <input data-shop="" type="hidden" name="shop" value="brass-goat-new.myshopify.com">
+                          <input data-domain="" type="hidden" name="domain" value="brass-goat-new.myshopify.com">
+                          <input data-id="" type="hidden" name="id" value="5787818557633">
+
+                          <div class="kca-forms-wrapper kca-forms-wrapper--with-password-form kca-forms-wrapper--with-info-form">
+                            <form data-submittable-form="" data-form-type="info-form" class="kca-form kca-form--profile contact-form-box">
+                              <div data-form-content="" class="kca-form__content">
+                                <h2 class="kca-form__title">Update your profile informations</h2>
+
+                                <div class="kca-form__input-group kca-form__input-group--fname">
+                                  <label for="kastor_first_name_885176">First name</label>
+                                  <input id="kastor_first_name_885176" type="text" name="first_name" value="{{ customer.first_name }}" placeholder="John">
+                                </div>
+
+                                <div class="kca-form__input-group kca-form__input-group--lname">
+                                  <label for="kastor_last_name_885176">Last Name</label>
+                                  <input id="kastor_last_name_885176" type="text" name="last_name" value="{{ customer.last_name }}" placeholder="Duff">
+                                </div>
+
+                                <div class="kca-form__input-group kca-form__input-group--email">
+                                  <label for="kastor_email_885176">Email</label>
+                                  <input id="kastor_email_885176" type="email" name="email" value="{{ customer.email }}" placeholder="">
+                                </div>
+
+                                <div class="kca-form__input-group kca-form__input-group--phone">
+                                  <label for="kastor_phone_885176">Phone</label>
+                                  <input id="kastor_phone_885176" type="phone" name="phone" value="" placeholder="211-234-5514">
+                                </div>
+
+                                <div class="kca-form__submit">
+                                  <button class="btn button btn--primary button--primary" type="submit" data-form-submit="">
+                                    Save
+                                  </button>
+                                </div>
+                              </div>
+                              <div data-form-message="" class="kca-form__message"></div>
+                            </form>
+                            <br>
+                            <form data-submittable-form="" data-form-type="pass-form" class="kca-form kca-form--password contact-form-box">
+                              <div data-form-content="" class="kca-form__content">
+                                <h2 class="kca-form__title">Update your password</h2>
+                                <div class="kca-form__input-group  kca-form__input-group--password">
+                                  <label for="kastor_password_885176">Password</label>
+                                  <input id="kastor_password_885176" type="password" name="password" value="">
+                                </div>
+
+                                <div class="kca-form__input-group kca-form__input-group--password-confirmation">
+                                  <label for="kastor_password_confirmation_885176">Password confirmation</label>
+                                  <input id="kastor_password_confirmation_885176" type="password" name="password_confirmation" value="" >
+                                </div>
+
+
+                                <div class="kca-form__submit">
+                                  <button class="btn button btn--primary button--primary" type="submit" data-form-submit="">
+                                    Save
+                                  </button>
+                                </div>
+                              </div>
+                              <div data-form-message="" class="kca-form__message"></div>
+                            </form>
+                            
+                            
+                          </div>
+                        </div>
+                      </div>
+                      <script>
+                        (function () {
+                          const successMessage = "Your profile is now up to date.";
+
+                          const url = decodeURIComponent('https%3A%2F%2F82jfmugfu3.execute-api.us-east-1.amazonaws.com%2Fprod%2Ffront%2Fupdate_customer');
+                          const unknownErrMessage = "Oops, something went wrong. Please try again later.";
+
+                          const FORM_TYPES = {
+                            "PASSWORD": "pass-form",
+                            "INFORMATION": "info-form"
+                          }
+
+                          var defaultCSS = document.getElementById("kca-default-css");
+                          var formsRoot  = document.getElementById('kca-forms-container');
+                          var formsArray = document.querySelectorAll("[data-submittable-form]");
+                          var view       = getViewSettings(formsRoot);
+
+
+                          console.log(view);
+                          publishStyles(defaultCSS.innerHTML);
+                          publishStyles(view.css);
+
+                          function loadjs(url) {
+                            var script = document.createElement("script");
+                            script.type = "text/javascript";
+                            script.src = url;
+                            script.onload = function(){
+                              console.log("Script:" + url + " ,is ready!"); 
+                            };
+                            document.body.appendChild(script);
+                          }
+
+                          loadjs("https://unpkg.com/fastest-validator");
+
+                          function getViewSettings (container) {
+                            function replaceLast(x, y, z){
+                              var a = x.split("");
+                              a[x.lastIndexOf(y)] = z;
+                              return a.join("");
+                            }
+
+                            try {
+                              // Get settigns string from form
+                              var settingsStr = container.attributes.settings.textContent,
+                                  errorsStr   = container.attributes.errors.textContent,
+                                  cssStr      = container.attributes.css.textContent,
+                                  // Strip new lines. 
+                                  settingsStr = settingsStr.replace(/(\r\n|\n|\r)/gm, ""),
+                                  errorsStr   = errorsStr.replace(/(\r\n|\n|\r)/gm, ""),
+                                  cssStr      = cssStr.replace(/(\r\n|\n|\r)/gm, "");
+                              // we need to replace last because the form is not well configured from the server.
+                              var settings        = JSON.parse(replaceLast(settingsStr, ",", ""));
+                              settings.errors = JSON.parse(errorsStr);
+                              settings.css    = cssStr;
+
+                              return settings;
+                            } catch (e) {
+                              console.log(e);
+                              return {};
+                            }
+                          }
+
+                          function publishStyles (cssStr) {
+                            var styleSheet = document.createElement("style")
+                            styleSheet.type = "text/css";
+                            styleSheet.innerText = cssStr;
+                            document.head.appendChild(styleSheet);
+                          }
+
+                          function post(url, body, callback) {
+                            var req = new XMLHttpRequest();
+                            req.open("POST", url, true);
+                            req.setRequestHeader("Content-Type", "application/json");
+                            req.addEventListener("load", function () {
+                              if (req.status < 400) {
+                                var resJson = JSON.parse(req.responseText);
+                                var bodyJson = JSON.parse(resJson.body);
+                                callback(null, bodyJson);
+                              } else {
+                                callback(new Error("Request failed: " + req.statusText));
+                              }
+                            });
+                            req.send(JSON.stringify(body));
+                          }
+
+                          function getPayload (form, viewRules) {
+                            var payload = {
+                              form_type : form.getAttribute('data-form-type'),
+                              domain    : formsRoot.querySelector("[data-domain]").value,
+                              token     : formsRoot.querySelector("[data-token]").value,
+                              shop      : formsRoot.querySelector("[data-shop]").value,
+                              id        : formsRoot.querySelector("[data-id]").value
+                            };
+
+                            if (payload.form_type == FORM_TYPES.PASSWORD) {
+                              if (viewRules.with_password) { 
+                                payload.password = form.password.value;
+                              }
+
+                              if (viewRules.with_password_confirmation) { 
+                                payload.password_confirmation = form.password_confirmation.value;
+                              }
+                            } else if (payload.form_type == FORM_TYPES.INFORMATION) {
+                              if (viewRules.with_name) { 
+                                payload.first_name = form.first_name.value;
+                                payload.last_name = form.last_name.value;
+                              }
+
+                              if (viewRules.with_email) { 
+                                payload.email = form.email.value;
+                              }
+
+                              if (viewRules.with_phone) { 
+                                payload.phone = form.phone.value;
+                              }
+                            }
+
+                            return payload;
+                          }
+
+                          function isFormValid (form, view, customer) {
+                            var form_type = form.getAttribute('data-form-type');
+                            var Validator = new FastestValidator();
+
+                            let errors = view.errors;
+                            let validationSchema = {};
+                            let validationResult = false;
+
+                            if (form_type == FORM_TYPES.INFORMATION) {
+                              if (view.with_name) {
+                                var nameValidation = {
+                                  type: "string",
+                                  min: 2,
+                                  messages: {
+                                    string: errors.non_valid_name,
+                                    stringMin: errors.short_name
+                                  }
+                                };
+
+                                validationSchema.first_name = nameValidation;
+                                validationSchema.last_name = nameValidation;
+                              } else { // Flag en error if data were injected insecurely.
+                                validationSchema.first_name = { type: "forbidden" };
+                                validationSchema.last_name = { type: "forbidden" };
+                              }
+
+                              if (view.with_email) {
+                                validationSchema.email =  {
+                                  type: "email",
+                                  messages: {
+                                    email: errors.non_valid_email
+                                  }
+                                };
+                              } else { // Flag en error if data were injected insecurely.
+                                validationSchema.email = { type: "forbidden" };
+                              }
+
+                              validationResult = Validator.validate(customer, validationSchema);
+                            } else if (form_type == FORM_TYPES.PASSWORD) {
+                              if (view.with_password) {
+                                validationSchema.password =  {
+                                  type: "string",
+                                  min: 5,
+                                  messages: {
+                                    string: errors.non_valid_password,
+                                    stringMin: errors.short_password
+                                  }
+                                };
+                              } else { // Flag en error if data were injected insecurely.
+                                validationSchema.password = { type: "forbidden" };
+                                validationSchema.password_confirmation = { type: "forbidden" };
+                              }
+
+                              validationResult = Validator.validate(customer, validationSchema);
+
+                              if (validationResult === true && view.with_password_confirmation) {
+                                validationResult = 
+                                  customer.password == customer.password_confirmation ? 
+                                  true : 
+                                [
+                                  {
+                                    field: "password_confirmation",
+                                    message: errors.non_matched_password
+                                  }
+                                ];
+                              }
+                            }
+
+                            return validationResult;
+                          }
+
+                          function formSubmitAlways (form) { 
+                            var submit = form.querySelector("[data-form-submit]");
+                            submit.disabled = false;
+                          }
+
+                          function showValidationErrors (form, errors) {
+                            var messageContainer = form.querySelector("[data-form-message]");
+
+                            var errorsHtml = "";
+                            if (Array.isArray(errors) && errors.length > 1) {
+                              var errorsContent = errors.map(function (value, index) {
+                                form[value.field].style.border = "1px solid red";
+                                return "<li>" + value.message + "</li>";
+                              });
+
+                              errorsHtml = "<ul>" + errorsContent.join('') + "</ul>";
+                            } else {
+                              errorsHtml = errors[0].message;
+                              form[errors[0].field].style.border = "1px solid red";
+                            }
+
+                            messageContainer.innerHTML  = errorsHtml;
+                          }
+
+                          function formSubmitSuccess (form, data) {
+                            var messageContainer = form.querySelector("[data-form-message]");
+                            var fieldsContainer  = form.querySelector("[data-form-content]");
+
+                            console.log(data);
+
+                            if (data.isValidForm && data.isSaved) {
+                              messageContainer.innerHTML = successMessage;
+                              fieldsContainer.style.display = "none";
+                            } else if (data.isValidForm && !data.isSaved) {
+                              messageContainer.innerHTML = unknownErrMessage;
+                              // Add an error class to the container  ??
+                            } else {
+                              showValidationErrors(form, data);
+                            }
+                          }
+
+                          function formSubmitError (form, err) {
+                            var messageContainer = form.querySelector("[data-form-message]");
+                            messageContainer.innerHTML = unknownErrMessage;
+                            console.log(err);
+                          }
+
+                          formsArray.forEach(function(form) {
+
+                            var messageContainer = form.querySelector("[data-form-message]");
+                            var fieldsContainer  = form.querySelector("[data-form-content]");
+                            var submit           = form.querySelector("[data-form-submit]");
+
+                            form.addEventListener("submit", function(e) {
+                              e.preventDefault();
+
+                              submit.disabled = true;
+
+                              var payload = getPayload(form, view);
+                              var validationResult = isFormValid(form, view, payload);
+
+                              if (validationResult === true) {
+                                // reset errors
+                                messageContainer.innerHTML = "";
+                                [].forEach.call(form.getElementsByTagName('input'), function(e){
+                                  e.style.border = '';
+                                });
+
+                                // send data
+                                post(url, payload, function (err, res) {
+                                  formSubmitAlways(form);
+                                  if (err) { return formSubmitError (form, err) }
+                                  formSubmitSuccess(form, res);
+                                });
+                              }
+                              else {
+                                showValidationErrors(form, validationResult);
+                                submit.disabled = false;
+                              }
+                            });
+                          });
+                        })()
+                      </script>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- my-address-info -->
+            <div class="tab-pane fade" id="my_account_1_2">
+              <div class="my-account-details-info my-address-info">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="section-title-area text-left">
+                      <div class="section-title section-title-2">
+
+                        <div class="title-text">
+                          <h2 class="title">Addresses</h2>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-12 col-sm-12 col-12">
+                    <div class="my-account-details-info-form">
+                       <div class="btn-wrapper">
+                      <a href="{{ routes.account_addresses_url }}" class="boxed-btn btn-rounded">{{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+           
+            
+            <!-- my-orders-info -->
+            <div class="tab-pane fade" id="my_account_1_4">
+              <div class="my-account-details-info my-orders-info">
+                <div class="row">
+                  <div class="col-xl-12 ">
+                    <div class="section-title-area section-title-width text-center">
+                      <div class="section-title section-title-2">
+
+                        <div class="title-text">
+                          <h2 class="title">My orders</h2>
+                        </div>
+                      </div>
+                     
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="">
+                      <div id="accordion_1">
+                        <!-- card -->
+                        {% if customer.orders.size != 0 %}
+						{% for order in customer.orders %}
+                          <div class="card">
+                            <h6 class="collapsed" data-toggle="collapse" data-target="#cart-item-1-{{ forloop.index }}" aria-expanded="false"> 
+
+                              <b>{{ 'customer.orders.order_number' | t }} {{ forloop.index }}: {{ order.name }}</b> <br><br>
+                              {{ 'customer.orders.date' | t }}: {{ order.created_at | time_tag: format: 'date' }} <br>
+                              {{ 'customer.orders.payment_status' | t }}: {{ order.financial_status_label }} <br> 
+                              {{ 'customer.orders.fulfillment_status' | t }}: {{ order.fulfillment_status_label }}<br> 
+                              {{ 'customer.orders.total' | t }}: {{ order.total_price | money }}
+                            </h6>
+                            <div id="cart-item-1-{{ forloop.index }}" class="collapse" data-parent="#accordion_1">
+                              <div class="card-body">
+                                <div class="shoping-cart-inner-table">
+                                  <div class="table-content table-responsive mb-50"> 
+                                    <table class="text-center">
+                                      <tbody>
+                                        {%- for line_item in order.line_items -%}
+
+                                        <tr id="{{ line_item.key }}">
+                                          <td data-label="Image" class="cart-product-thumbnail">
+                                            <a href="{{ line_item.url }}"><img src="{{ line_item.image | img_url : 'master' }}" alt="{{ line_item.title }}"></a>
+                                          </td>
+                                          <th class="order-table__product" scope="row" data-label="{{ 'customer.order.product' | t }}">
+                                            <div>
+                                              {{ line_item.title | link_to: line_item.product.url }}
+                                              {%- assign property_size = line_item.properties | size -%}
+                                              {% unless line_item.selling_plan_allocation == nil and property_size == 0 %}
+                                              <div class="item-props">
+                                                {% unless line_item.selling_plan_allocation == nil  %}
+                                                <span class="item-props__property">
+                                                  {{ line_item.selling_plan_allocation.selling_plan.name }}
+                                                </span>
+                                                {% endunless %}
+                                                {% if property_size != 0 %}
+                                                {% for property in line_item.properties %}
+                                                {% assign property_first_char = property.first | slice: 0 %}
+                                                {% if property.last != blank and property_first_char != '_' %}
+                                                <span class="item-props__property">
+                                                  {{ property.first }}:&nbsp;
+                                                  {%- if property.last contains '/uploads/' -%}
+                                                  <a href="{{ property.last }}">{{ property.last | split: '/' | last }}</a>
+                                                  {%- else -%}
+                                                  {{ property.last }}
+                                                  {%- endif -%}
+                                                </span>
+                                                {% endif %}
+                                                {% endfor %}
+                                                {% endif %}
+                                              </div>
+                                              {% endunless %}
+                                              {%- if line_item.line_level_discount_allocations != blank -%}
+                                              <ul class="order-discount order-discount--list order-discount--title" aria-label="{{ 'customer.order.discount' | t }}">
+                                                {%- for discount_allocation in line_item.line_level_discount_allocations -%}
+                                                <li class="order-discount__item">
+                                                  {% include 'icon-saletag' %}{{ discount_allocation.discount_application.title }} (-{{ discount_allocation.amount | money }})
+                                                </li>
+                                                {%- endfor -%}
+                                              </ul>
+                                              {%- endif -%}
+                                            </div>
+                                            {%- if line_item.fulfillment -%}
+                                            <div class="note">
+                                              {%- assign created_at = line_item.fulfillment.created_at | time_tag: format: 'date' -%}
+                                              {{ 'customer.order.fulfilled_at_html' | t: date: created_at }}
+                                              <div>
+                                                {%- if line_item.fulfillment.tracking_url -%}
+                                                <a href="{{ line_item.fulfillment.tracking_url }}">
+                                                  {{ 'customer.order.track_shipment' | t }}
+                                                </a>
+                                                {%- endif -%}
+                                                <div>
+                                                  {{ line_item.fulfillment.tracking_company }}
+                                                  {%- if line_item.fulfillment.tracking_number -%} #{{ line_item.fulfillment.tracking_number }} {%- endif -%}
+                                                </div>
+                                              </div>
+                                            </div>
+                                            {%- endif -%}
+                                          </th>
+                                          <td data-label="{{ 'customer.order.price' | t }}">
+                                            <dl>
+                                              {%- if line_item.original_price != line_item.final_price -%}
+                                              <dt>
+                                                <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+                                              </dt>
+                                              <dd>
+                                                <s>{{ line_item.original_price | money }}</s>
+                                              </dd>
+                                              <dt>
+                                                <span class="visually-hidden">{{ 'products.product.sale_price' | t }}</span>
+                                              </dt>
+                                              <dd>
+                                                <span class="order-discount">{{ line_item.final_price | money }}</span>
+                                              </dd>
+                                              {%- else -%}
+                                              <dt>
+                                                <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+                                              </dt>
+                                              <dd>
+                                                {{ line_item.original_price | money }}
+                                              </dd>
+                                              {%- endif -%}
+
+                                              {%- if line_item.unit_price_measurement -%}
+                                              <dt>
+                                                <span class="visually-hidden visually-hidden--inline">{{ 'products.product.unit_price_label' | t }}</span>
+                                              </dt>
+                                              <dd>
+                                                <span class="price-unit-price">
+                                                  {%- capture unit_price_separator -%}
+                                                  <span aria-hidden="true">/</span><span class="visually-hidden">{{ 'general.accessibility.unit_price_separator' | t }}&nbsp;</span>
+                                                  {%- endcapture -%}
+                                                  {%- capture unit_price_base_unit -%}
+                                                  {%- if line_item.unit_price_measurement.reference_value != 1 -%}
+                                                  {{- line_item.unit_price_measurement.reference_value -}}
+                                                  {%- endif -%}
+                                                  {{ line_item.unit_price_measurement.reference_unit }}
+                                                  {%- endcapture -%}
+
+                                                  <span data-unit-price>{{ line_item.unit_price | money }}</span>{{- unit_price_separator -}}{{- unit_price_base_unit -}}
+                                                </span>
+                                              </dd>
+                                              {%- endif -%}
+                                            </dl>
+                                          </td>
+                                          <td  data-label="{{ 'customer.order.quantity' | t }}">{{ line_item.quantity }}</td>
+                                          <td data-label="{{ 'customer.order.total' | t }}">
+                                            {%- if line_item.original_line_price != line_item.final_line_price -%}
+                                            <dl>
+                                              <dt>
+                                                <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+                                              </dt>
+                                              <dd>
+                                                <s>{{ line_item.original_line_price | money }}</s>
+                                              </dd>
+                                              <dt>
+                                                <span class="visually-hidden">{{ 'products.product.sale_price' | t }}</span>
+                                              </dt>
+                                              <dd>
+                                                <span class="order-discount">{{ line_item.final_line_price | money }}</span>
+                                              </dd>
+                                            </dl>
+                                            {%- else -%}
+                                            {{ line_item.original_line_price | money }}
+                                            {%- endif -%}
+                                          </td>
+                                        </tr>
+                                        {%- endfor -%}
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                  <div class="shoppint-cart-total">
+                                    <div class="row">
+                                      <div class="col-xl-6">
+                                      </div>
+                                      <div class="col-xl-6 desktop-text-right">
+                                        <div class="shopping-cart-total-inner">
+                                          <div class=" table-responsive mb-50">
+                                            <table class="text-right">
+                                              <tbody>
+                                                <tr>
+                                                  <td>{{ 'customer.order.subtotal' | t }}:</td>
+                                                  <td>{{ order.line_items_subtotal_price | money }}</td>
+                                                </tr>
+                                                {%- if order.cart_level_discount_applications != blank -%}
+                                                <tr>
+                                                  {%- for discount_application in order.cart_level_discount_applications -%}
+                                                  <th class="small--hide" scope="row" colspan="4">
+                                                    {{ 'customer.order.discount' | t }}
+                                                    <span class="order-discount order-discount--title">
+                                                      {% include 'icon-saletag' %}{{- discount_application.title -}}
+                                                    </span>
+                                                  </th>
+                                                  <td class="text-right" data-label="{{ 'customer.order.discount' | t }}">
+                                                    <div class="order-discount-wrapper">
+                                                      <span class="order-discount order-discount--title text-left medium-up--hide">
+                                                        {% include 'icon-saletag' %}{{- discount_application.title -}}
+                                                      </span>
+                                                      <span class="order-discount">-{{ discount_application.total_allocated_amount | money }}</span>
+                                                    </div>
+                                                  </td>
+                                                  {%- endfor -%}
+                                                </tr>
+                                                {%- endif -%}	
+                                                {%- for shipping_method in order.shipping_methods -%}
+                                                <tr>
+                                                  <td>{{ 'customer.order.shipping' | t }} ({{ shipping_method.title }})</td>
+                                                  <td class="save-from-coupon">{{ shipping_method.price | money }}</td>
+                                                </tr>
+                                                {%- endfor -%}
+                                                {%- for shipping_method in order.shipping_methods -%}
+                                                <tr>
+                                                  <td>{{ 'customer.order.tax' | t }} ({{ tax_line.title }} {{ tax_line.rate | times: 100 }}%)</td>
+                                                  <td class="save-from-coupon">{{ tax_line.price | money }}</td>
+                                                </tr>
+                                                {%- endfor -%}
+                                                <tr>
+                                                  <td class="cart-total-title">{{ 'customer.order.total' | t }}:</td>
+                                                  <td class="cart-total-price">{{ order.total_price | money_with_currency }}</td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div> 
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                         {% endfor %}
+                        </div>
+                        {% else %}
+                        	<p style="text-align: center;">{{ 'customer.orders.none' | t }}</p>
+                        {% endif %} 
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

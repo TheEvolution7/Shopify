@@ -1,0 +1,86 @@
+{% if section.settings.show_section %}
+  <div class="noti-section margin-bottom-50 mobile-mb-40 tab-mb-40" data-section-id="{{ section.id }}">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="section-title-area text-center">
+            <div class="section-title section-title-2 wow fadeIn">
+              <div class="title-text">
+                <h2 class="title">{{ section.settings.title }}</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% for block in section.blocks  %}
+          <div class="col-md-6 d-flex">
+            <div class="box-noti wow fadeIn">
+              <a href="#" class="thumb-img __1">
+                <img src="{{ block.settings.image | img_url : 'grande' }}" alt="{{ block.settings.image.alt | default : block.settings.title }}">
+              </a>
+              <div class="content">
+                <h2><a href="#">{{ block.settings.title }}</a></h2>
+                {{ block.settings.subtitle }}
+                <div class="btn-wrapper">
+                  <a class="boxed-btn btn-rounded" href="{{ block.settings.url }}">{{ block.settings.button }}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor  %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section Magwell Mounts",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "show_section",
+          "label": "Show section",
+          "default": true
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+		  "default" : "More from Magwell Mounts"
+        }
+	],
+	"blocks": [
+    {
+      "type": "content",
+      "name": "content",
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+		{
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+		  
+        },
+		{
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "SubTitle"
+        },
+		{
+          "type": "text",
+          "id": "button",
+          "label": "Button"	
+        },
+		{
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}

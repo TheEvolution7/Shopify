@@ -1,0 +1,26 @@
+{% section 'breadcrumb' %}
+<div class="sign-up-area sign-in-area margin-bottom-120 mobile-mb-50 tab-mb-100">
+  <div class="container">
+    <div class="row custom-gutter justify-content-center">
+      <div class="col-xl-5 col-lg-6 col-md-7 col-12">
+        <div class="sign-up-inner">
+            {% form 'activate_customer_password', class: 'contact-form-box' %}
+              <label>{{ 'customer.activate_account.password' | t }}*</label>
+              <input type="password" value="" name="customer[password]" id="CustomerPassword" placeholder="{{ 'customer.activate_account.password' | t }}">
+              <label>{{ 'customer.activate_account.password_confirm' | t }}*</label>
+              <input type="password" value="" name="customer[password_confirmation]" id="CustomerPasswordConfirmation" placeholder="{{ 'customer.activate_account.password_confirm' | t }}">
+              <!-- <a href="#">Forgot password</a> -->
+              <div class="btn-wrapper">
+                <div class="col-12">
+                  <div class="row justify-content-between align-items-center">
+                    <button class="boxed-btn btn-rounded" type="submit">{{ 'customer.activate_account.submit' | t }}</button>
+                    <div><input type="submit" name="decline" value="{{ 'customer.activate_account.cancel' | t }}"></div>
+                  </div>
+                </div>
+              </div>
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,280 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+<head>{% include 'best-option-initializer' %}
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_button }}">
+
+  <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.shopify.com" crossorigin>
+  <link rel="preconnect" href="https://monorail-edge.shopifysvc.com">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Krub:wght@400;600;700&display=swap" rel="stylesheet">
+
+  {%- if canonical_url != blank  -%}
+    <link rel="canonical" href="{{ canonical_url }}">
+  {%- endif -%}
+
+  {%- if settings.favicon != blank -%}
+    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+  {%- endif -%}
+
+  {%- capture seo_title -%}
+    {%- if request.page_type == 'search' and search.performed == true -%}
+      {{ 'general.search.heading' | t: count: search.results_count }}: {{ 'general.search.results_with_count' | t: terms: search.terms, count: search.results_count }}
+    {%- else -%}
+      {{ page_title }}
+    {%- endif -%}
+    {%- if current_tags -%}
+      {%- assign meta_tags = current_tags | join: ', ' -%} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+    {%- endif -%}
+    {%- if current_page != 1 -%}
+      &ndash; {{ 'general.meta.page' | t: page: current_page }}
+    {%- endif -%}
+    {%- assign escaped_page_title = page_title | escape -%}
+    {%- unless escaped_page_title contains shop.name -%}
+      &ndash; {{ shop.name }}
+    {%- endunless -%}
+  {%- endcapture -%}
+  <title>{{ seo_title | strip }}</title>
+
+  {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+
+  {% include 'social-meta-tags' %}
+  <!-- All CSS plugins Here  -->
+  <link rel="stylesheet" href="{{ 'css-plugins.css' | asset_url }}">
+  <!-- All Icon Fonts Here  -->
+  <link rel="stylesheet" href="{{ 'all-icon-font.css' | asset_url }}">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="{{ 'style.css' | asset_url }}">
+  <!-- responsive Stylesheet -->
+  <link rel="stylesheet" href="{{ 'responsive.css' | asset_url }}">
+  <link rel="stylesheet" href="{{ 'custom.min.css' | asset_url }}">
+  {{ content_for_header }}
+  <style>
+    .shopify-payment-button__button,
+    .kca-form__submit .btn{
+        background-color: var(--main-color-one);
+        color: var(--secondary-color-three);
+        display: inline-block;
+        padding: 12px 30px;
+        text-align: center;
+        -webkit-transition: all 0.3s ease-in;
+        -moz-transition: all 0.3s ease-in;
+        -o-transition: all 0.3s ease-in;
+        transition: all 0.3s ease-in;
+        font-weight: 400;
+        cursor: pointer;
+        padding: 0;
+        width: 100%;
+        text-align: center;
+        height: 45px;
+        font-weight: 800;
+        border-radius: 0 30px 0 30px;
+    }
+    .kca-form__submit {
+    	margin-bottom: 20px
+    }
+    
+    .kca-form__submit .btn {
+    	width: fit-content;
+      	padding: 0 40px
+    }
+    .shopify-payment-button__button:hover,
+    .kca-form__submit .btn:hover{
+    	background-color: var(--secondary-color-three)!important;
+    	color: #fff;
+    }
+    .my-account-details-info-form #kca-forms-container .kca-forms-wrapper {
+    	max-width: 100%;
+    }
+    .my-account-details-info-form #kca-forms-container .kca-forms-wrapper.kca-forms-wrapper--with-password-form.kca-forms-wrapper--with-info-form .kca-form {
+      width: 100%!important;
+      max-width: 100%;
+    }
+    .my-account-details-info-form #kca-forms-container {
+    	padding: 0
+    }
+    input[type=phone],select {
+    	background-color: transparent;
+        border: 1px solid;
+        border-color: var(--secondary-color-three);
+        height: 45px;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        padding-left: 10px;
+        font-size: 16px;
+        color: var(--paragraph-color);
+        width: 100%;
+        margin-bottom: 30px;
+        border-radius: 0;
+    }
+    input[type=phone]:focus,
+    select:focus{
+    	border-color: var(--main-color-one);
+	}
+    .product-detail-section .content-detail a {
+    	font-weight: 600;
+    }
+    .product-detail-section .content-detail a:hover {
+      	text-decoration: underline;
+    }
+    .google-map-inner iframe {
+    	width: 100%
+    }
+  </style>
+  <script src="https://cdn-widgetsrepository.yotpo.com/v1/loader/pb6-fyVuSIfu-Zh81zgtQg" async></script>
+<script async src="https://assets.apphero.co/script_tags/445206_837284.js"></script></head>
+
+<body>
+<!--   <div class="preloader" id="preloader">
+        <div class="preloader-inner">
+            <div class="spinner">
+                <div class="dot1"></div>
+                <div class="dot2"></div>
+            </div>
+        </div>
+    </div> -->
+  <div class="body-overlay" id="body-overlay"></div>
+  {% include 'search-drawer' %}
+  {% section 'header' %}
+  {% include 'cart-popup' %}
+  {% section 'info-popup' %}
+  {% section 'contact-popup' %}
+  {% section 'location-popup' %}
+  {% if request.path == '/challenge' %}
+  	{% include 'challenge' %}
+  {% elsif request.path == '/policies/privacy-policy' %}
+    	 {% section 'breadcrumb' %}       
+          <div class="my-account-area margin-bottom-115 mobile-mb-50 tab-mb-80">
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-xl-8 col-lg-10 col-12">
+                  <div class="rte">
+                    {{ shop.privacy_policy }}
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+     {% elsif request.path == '/policies/terms-of-service' %}
+    	 {% section 'breadcrumb' %}
+       
+      <div class="my-account-area margin-bottom-115 mobile-mb-50 tab-mb-80">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-xl-8 col-lg-10 col-12">
+              <div class="rte">
+                {{ shop.terms_of_service }} 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% elsif request.path == '/policies/shipping-policy' %}
+    	 {% section 'breadcrumb' %}
+        <div class="my-account-area margin-bottom-115 mobile-mb-50 tab-mb-80">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-xl-8 col-lg-10 col-12">
+                <div class="rte">
+                  {{ shop.shipping_policy }}  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    {% elsif request.path == '/policies/refund-policy' %}
+    	 {% section 'breadcrumb' %}
+         
+        <div class="my-account-area margin-bottom-115 mobile-mb-50 tab-mb-80">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-xl-8 col-lg-10 col-12">
+                <div class="rte">
+                  {{ shop.refund_policy }}    
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    {% else %}
+        {{ content_for_layout }}
+    {% endif %}
+  {% section 'footer' %}
+  
+    <!-- back to top area start -->
+    <div class="back-to-top">
+      <span class="back-top"><i class="fa fa-long-arrow-up"></i></span>
+    </div>
+    <!-- back to top area end -->
+
+    <!-- All jQuery Plugins Here -->
+    <script src="{{ 'jquery-plugins.js' | asset_url }}"></script>
+    <!-- main js -->
+    <script src="{{ 'main.js' | asset_url }}"></script>
+    <script>
+    // Save existing sort parameters
+    Shopify.queryParams = {};
+    if(location.search.length) {
+      for(var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+        aKeyValue = aCouples[i].split('=');
+        if (aKeyValue.length > 1) {
+          Shopify.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
+        }
+      }
+    }
+    // Add existing sort parameters to current URL
+    $('.sort-by').on('change', function(e) {
+      var value = e.currentTarget.value;
+      Shopify.queryParams.sort_by = value;
+      location.search = new URLSearchParams(Shopify.queryParams).toString();
+    });
+  </script>
+  <script src="{{ 'google-map-activate.js' | asset_url }}"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUbRHtu3k_fg3jDGk_qAatE5jA4bC_ndE&amp;callback=initMap" async defer></script>
+  
+  <!-- Shopper Approved - layout/theme -->
+  <style>
+    .ind_cnt {
+        display: inline !important;
+        padding-left: 8px !important;
+        font-size: 12px !important;
+        vertical-align: 3px !important;
+    }
+    .merchant_review .comments, .product_review .comments, .merchant_review .sa_response, .product_review .sa_response{
+        line-height: 1.5em !important; 
+    }
+    #merchant_page #sa_sort, #product_page #sa_sort{
+        margin-left: 10px;
+    }
+    #sa_review_paging label{
+        display: inline-block;
+    }
+  </style>
+  {% if Shopify.Checkout.page != "thank_you" %}
+    <script type="text/javascript"> function saLoadScript(src) { var js = window.document.createElement("script"); js.src = src; js.type = "text/javascript"; document.getElementsByTagName("head")[0].appendChild(js); } saLoadScript("//shopperapproved.com/widgets/group2.0/33360.js"); </script>
+  {% endif %}
+  <script type="text/javascript">
+  jQuery( document ).ready(function($) {
+      setTimeout(function(){
+          $(window).resize(function () {
+          initsaJQWidget3();
+          });
+      }, 500);
+  });
+  </script>
+  <!-- END Shopper Approved - layout/theme -->
+  
+</body>
+</html>

@@ -1,0 +1,45 @@
+{% section 'breadcrumb' %}
+{% paginate collection.products by 12 %}
+  <div class="bloom-product-area margin-bottom-120 mobile-mb-50 tab-mb-80">
+    <div class="container">
+      <div class="row custom-gutter">
+        <div class="col-md-12">
+          <!-- shop-options -->
+          <div class="shop-options clearfix">
+            <div class="short-by pull-left">
+              <select name="SortBy" id="SortBy" class="nice-select sort-by">
+                {%- for option in collection.sort_options -%}
+                  <option value="{{ option.value }}" {% if option.value == collection.sort_by %}selected{% endif %}>{{ option.name }}</option>
+                {%- endfor -%} 
+              </select>
+            </div>
+            <div class="showing-product-number pull-left">
+              <span>Showing {{ paginate.current_offset | plus: 1 }}-{% if paginate.next %}{{ paginate.current_offset | plus: paginate.page_size }}{% else %}{{ paginate.items }}{% endif %} of {{ paginate.items }} results</span>
+            </div>
+            <div class="product-search pull-right">
+              <form action="{{ routes.search_url }}" method="get" role="search" class="form-input-box">
+                <input type="text" id="keyword" name="q" placeholder="{{ 'general.search.placeholder' | t }}" value="{{ search.terms | escape }}">
+                <input type="hidden" name="type" value="product" aria-hidden="true" />
+                <input type="hidden" name="options[prefix]" value="last" aria-hidden="true" />
+                <button type="submit">{% include 'icon-search' %}</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- product-item -->
+        {% for product in collection.products %}
+          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6">
+            {% include 'product-card-list', product: product %}
+          </div>
+        {% endfor %}
+        <div class="col-md-12">
+          <div class="bloom-pagination text-center margin-top-100 mobile-mt-50 tab-mt-80">
+            {%- if paginate.pages > 1 -%}
+              {% include 'pagination', paginate: paginate %}
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endpaginate %}

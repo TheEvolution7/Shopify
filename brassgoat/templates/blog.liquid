@@ -1,0 +1,66 @@
+{% section 'breadcrumb' %}
+{% paginate blog.articles by 2 %}
+<div class="blog-area-2  margin-bottom-120 mobile-mb-50 tab-mb-80">
+  <div class="container">
+    <div class="row custom-gutter">
+      <div class="col-lg-7 col-md-12">
+        <div class="blog-inner-2">
+          <!-- blog-item-2 -->
+          {%- for article in blog.articles -%} 
+          	<div class="blog-item-2">
+            <div class="blog-item-2-img">
+              {{ article | img_url: 'grande', scale: 2 | img_tag: article.title }}
+            </div>
+            <div class="blog-item-2-info">
+              <h1 class="blog-item-2-title"><a href="{{ article.url }}">{{ article.title }}</a></h1>
+              <ul class="post-meta">
+                <li class="post-date">{{ article.published_at | time_tag: format: 'date' }}</li>
+              </ul>
+              <div class="blog-item-2-excerpt">
+                {% if article.excerpt != empty %}
+                	{{ article.excerpt }}
+                {% else %}
+                	{{ article.content | truncatewords: 100 }}
+                {% endif %}
+              </div>
+              <div class="btn-wrapper">
+                <a href="{{ article.url }}" class="boxed-btn btn-rounded">Read more</a>
+              </div>
+            </div>
+          </div>
+          {%- endfor -%} 
+        </div>
+        <!-- bloom-pagination start -->
+        <div class="bloom-pagination text-center margin-top-100 mobile-mt-50 tab-mt-80">
+          {%- if paginate.pages > 1 -%}
+            	{% include 'pagination', paginate: paginate %}
+            {%- endif -%}
+        </div>
+        <!-- bloom-pagination end -->
+      </div>
+      <div class="col-lg-5 col-md-12">
+        <aside class="sidebar-area sidebar-right">
+          <!-- category-widget -->
+          <div class="widget widget_nav_menu category-widget">
+            <h4 class="widget-title">Tags</h4>
+            <ul>
+              {%- for tag in blog.all_tags -%}
+                <li>
+                  <label class="checkbox-item">{{ tag }}
+                    {% assign request = request.path  | slice: 19,26 %}
+                    {% assign tag_handle = tag | handle  %}
+                    <input type="checkbox"  {% if request == tag_handle %}checked="checked"{% endif  %}   onclick="location.href='{{ blog.url }}/tagged/{{ tag | handle }}';">
+                    <span class="checkmark"></span>
+                  </label>
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+          <!-- widget_popular_post -->
+          {% section 'popular-post' %}
+        </aside>
+      </div>
+    </div>
+  </div>
+</div>
+{% endpaginate %}
